@@ -10,7 +10,7 @@ assignees: ''
 ## Estimation of work
 - TBD
 
-## Acceptance critieria
+## Acceptance criteria
 - [ ] foo
 - [ ] bar
 - [ ] etc
