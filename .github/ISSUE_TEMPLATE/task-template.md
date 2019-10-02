@@ -7,4 +7,4 @@ assignees: ''
 
 ---
 
-Related to Issue #?
+Related to User Story #?
