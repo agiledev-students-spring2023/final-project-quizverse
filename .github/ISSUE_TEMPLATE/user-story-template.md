@@ -13,5 +13,5 @@ assignees: ''
 ## Acceptance criteria
 - [ ] foo
 - [ ] bar
-- [ ] etc
+- [ ] baz
 - [ ] etc
