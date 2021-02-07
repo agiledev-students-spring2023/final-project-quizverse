@@ -1,1 +1,2 @@
-TBD - a thorough description of this project, a list of its core team members, and a link to the REQUIREMENTS.md and CONTRIBUTING.md documents will appear here
+# Project Repository
+Delete the contents of this file and replace with the contents of a proper README.md, as described in the [instructions](./instructions.md)

@@ -79,6 +79,20 @@ node_modules/
 jspm_packages/
 **/jspm_packages
 
+# Results of React build script
+build/
+**/build/
+
+# React dependencies
+.pnp
+.pnp.js
+
+# dotconfig artifacts
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
 # TypeScript v1 declaration files
 typings/
 
@@ -106,3 +120,7 @@ typings/
 
 ## Emacs artefacts ##
 *~
+
+## Jekyll artifacts
+**/.jekyll-cache
+**/_site/
