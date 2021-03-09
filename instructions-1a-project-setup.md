@@ -7,8 +7,7 @@ Every individual and group must complete the following kickoff process to have t
 Each team will decide, using whatever decision-making process they prefer, on which two members will fill the initial roles of **Scrum Master** and **Product Owner**.
 
 - all team members, including Scrum Master and Product Owner, are also **Developers** - everyone is expected to do the design and code work in every sprint.
-- these roles must shift every Sprint, so each team member should fill
-  each role at least once.
+- these roles must shift every Sprint, so each team member should fill each role at least once.
 - each team must announce which team members are **Scrum Master** and **Product Owner** at the start of each Sprint
 
 ## Set up Slack channels
@@ -46,8 +45,7 @@ Every project must have a [README.md](./README.md) that automatically renders on
 
 - a description of project, including the [Product Vision Statement](https://knowledge.kitchen/Scrum_development_framework#Product_vision_statement)
 - the core team members, including links to their GitHub accounts and any other web presence they have
-- a short history of how the project came to be and
-  information about how to contribute to the project (i.e. a link to the [CONTRIBUTING.md](./CONTRIBUTING.md) document)
+- a short history of how the project came to be and information about how to contribute to the project (i.e. a link to the [CONTRIBUTING.md](./CONTRIBUTING.md) document)
 - instructions for building and testing the project (update with that information once the project reaches that stage)
 - links to any additional Markdown documents or web pages that may be relevant reading about the project
 - anything else you think is important to communicate to people viewing the project
@@ -61,7 +59,6 @@ Details on the team's values and process:
 - the [Team Norms](https://github.com/nyu-software-engineering/scrum-framework/blob/main/team-norms.md)
 - the Git workflow that the team follows
 - a detailed description of the rules of contributing and any considerations or how and what to contribute
-
 - instructions for setting up the local development environment in order to work on this project
 - instructions for building and testing the project (update with that information once the project reaches that stage)
 
