@@ -39,6 +39,7 @@ Individuals will be graded, in part, according to...
 
 - individual code contributions, as visible through git logs - make sure you commit your own work!
 - proper adherence to the [Feature Branch git workflow](https://knowledge.kitchen/Feature_branch_version_control_workflow)
-- the quality of the work - the [proper setup of a GitHub repository](https://knowledge.kitchen/Software_engineering_project_kickoff#Configure_GitHub_repository)
+- the quality of the work
 - a well written and thorough [Product Backlog](https://knowledge.kitchen/Software_engineering_project_kickoff#Create_the_initial_product_backlog)
+- the [proper setup of a GitHub repository](https://knowledge.kitchen/Software_engineering_project_kickoff#Configure_GitHub_repository)
 - the proper setup and use of a [Sprint Task Board](https://knowledge.kitchen/GitHub_for_team_collaboration#Project_boards) to indicate the Sprint Backlog and accurate status of all of their work at all times during the Sprint

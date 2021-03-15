@@ -15,3 +15,12 @@ Include a note when submitting, if you have done any of the extra credit.
 
 - Extra credit is given to teams that have deployed to a Docker container, although a non-containerized deployment to a Droplet is fine.
 - Extra credit is given to teams that have a Continuous Deployment setup, although a manual deployment is fine.
+
+## Grading
+
+Individuals will be graded, in part, according to...
+
+- individual code contributions, as visible through [git logs](https://github.com/bloombar/git-developer-contribution-analysis) - make sure you commit your own work!
+- proper adherence to the [Feature Branch git workflow](https://knowledge.kitchen/Feature_branch_version_control_workflow)
+- the quality of the work
+- the proper setup and use of a [Sprint Task Board](https://knowledge.kitchen/GitHub_for_team_collaboration#Project_boards) to indicate the Sprint Backlog and accurate status of all of their work at all times during the Sprint
