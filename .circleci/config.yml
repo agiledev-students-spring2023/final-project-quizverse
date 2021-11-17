@@ -12,7 +12,7 @@ jobs:
         #   password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout
-      - run: echo "this is the build back-end job"
+      - run: echo "this is the build and test express.js job"
       - run: |
           cd back-end
           pwd # for debugging: show current working directory
@@ -29,7 +29,7 @@ jobs:
         #   password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout
-      - run: echo "this is the build front-end job"
+      - run: echo "this is the build react.js job"
       - run: |
           cd back-end
           pwd # for debugging: show current working directory
