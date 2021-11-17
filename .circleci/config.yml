@@ -4,7 +4,7 @@ version: 2.1
 
 # Define the jobs we want to run for this project
 jobs:
-  build-back-end:
+  build-and-test-express-js:
     docker:
       - image: cimg/node:16.13.0 # latest stable node at the time of writing
         # auth:
@@ -13,23 +13,15 @@ jobs:
     steps:
       - checkout
       - run: echo "this is the build back-end job"
-      - run: pwd # for debugging: show current working directory
-      - run: ls # for debugging: show sub-directories in here
-      - run: cd back-end && npm install # install all dependencies listed in package.json
-  test-back-end:
-    docker:
-      - image: cimg/node:16.13.0 # latest stable node at the time of writing
-        # auth:
-        #   username: mydockerhub-user
-        #   password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-    steps:
-      - checkout
-      - run: echo "this is the test back-end job"
-      - run: pwd # for debugging: show current working directory
-      - run: ls # for debugging: show sub-directories in here
-      - run: cd back-end && npm install # install all dependencies listed in package.json
-      - run: cd back-end && npm test # run all unit tests
-  build-front-end:
+      - run: |
+          cd back-end
+          pwd # for debugging: show current working directory
+          ls # for debugging: show sub-directories in here
+      - run: |
+          cd back-end
+          npm install # install all dependencies listed in package.json
+          npm test # run all unit tests
+  build-react-js:
     docker:
       - image: cimg/node:16.13.0 # latest stable node at the time of writing
         # auth:
@@ -38,15 +30,20 @@ jobs:
     steps:
       - checkout
       - run: echo "this is the build front-end job"
-      - run: cd front-end && npm install # install all dependencies listed in package.json
-      - run: cd front-end && npm install && npm run build # install all dependencies listed in package.json
+      - run: |
+          cd back-end
+          pwd # for debugging: show current working directory
+          ls # for debugging: show sub-directories in here
+      - run: |
+          cd front-end
+          npm install # install all dependencies listed in package.json
+          npm run build # have react build the stand-alone front-end code
 
 # Orchestrate our job run sequence
 workflows:
-  build-and-test-express:
+  build-and-test-back-end:
     jobs:
-      - build-back-end
-      - test-back-end
-  build-react:
+      - build-and-test-express-js
+  build-front-end:
     jobs:
-      - build-front-end
+      - build-react-js
