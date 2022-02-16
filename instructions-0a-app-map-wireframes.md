@@ -1,6 +1,6 @@
 # App Map & Wireframes
 
-Create an **app map** and a complete set of **wireframe diagrams** for the **Minimum Viable Product** (MVP) of your application.
+Create an **app map** and a complete set of **wireframe diagrams** for the [Minimum Viable Product](https://en.wikipedia.org/wiki/Minimum_viable_product) (MVP) of your application.
 
 ## Software
 
@@ -8,9 +8,14 @@ All team members must use the same software. **You are not allowed to use platfo
 
 Use any software of your choice:
 
-- [draw.io](https://draw.io) is recommended for all teams on any platform.
-- The free trial of [Figma](https://www.figma.com/) is a fantastic cross-platform web app for teams that want more commercial-quality tools.
-- Do not use any Adobe products for this.
+- [draw.io](https://draw.io) is recommended for all teams on any platform. It is always free and works wonderfully on the web or as a desktop app.
+- The free trial of [Figma](https://www.figma.com/) is a fantastic cross-platform web app or desktop app for teams that want more commercial-quality tools.
+- Do not use any Adobe products for this exercise.
+
+Both Draw.io and Figma have extensions for Visual Studio Code that, while not a replacement for either app, may be useful for some tasks:
+
+- [Draw.io VSCode Integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio)
+- [Figma x VS Code](https://marketplace.visualstudio.com/items?itemName=idered.figma)
 
 ## Wireframe requirements
 
@@ -26,7 +31,7 @@ Do not include any annotations or notes in the diagrams themselves - you will ha
 
 ### Number of diagrams
 
-Create one wireframe diagram for each type of screen, "page", or "view" that a user may encounter.
+Create one wireframe diagram for each type of "screen", "page", or "view" that a user may encounter.
 
 - one wireframe for each type of 'page' the user may encounter
 - one wireframe for any dynamic elements that are not visible when a given 'page' first loads, but appear dynamically when the user clicks, hovers over something, or performs some other action.
@@ -51,7 +56,7 @@ Keep these diagrams looking consistent and sharp, not sloppy and inconsistent.
 
 #### Example scenario
 
-Yyour app has a logo or "hamburger menu" at the top of each screen. Those elements must appear at the top of each wireframe diagram in exactly the same position.
+Your app has a logo or "hamburger menu" at the top of each screen. Those elements must appear at the top of each wireframe diagram in exactly the same position.
 
 ### Placeholder content
 
@@ -103,7 +108,7 @@ Add both the source files and the exported "flat" PNG files of the wireframe and
 
 ### UX-DESIGN.md
 
-Overwrite the contents of the `UX-DESIGN.md` in your team's assignment repository with a new version that shows the app map and each of the wireframe diagrams.
+Overwrite the contents of the `UX-DESIGN.md` document in your team's project repository with a new version that shows the app map and each of the wireframe diagrams.
 
 - The diagrams must be displayed in a logical order and in a visual size that is easy to view when posted on GitHub.com.
 - Make this document easy-to-read, with clear headings and sub-headings, and good formatting of text.
