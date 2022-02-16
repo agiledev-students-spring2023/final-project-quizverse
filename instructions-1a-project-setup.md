@@ -10,13 +10,13 @@ Each team will decide, using whatever decision-making process they prefer, on wh
 - these roles must shift every Sprint, so each team member should fill each role at least once.
 - each team must announce which team members are **Scrum Master** and **Product Owner** at the start of each Sprint
 
-## Set up Slack channels
+## Set up Discord channels
 
-Slack is each team's primary communication tool. Each member's communications and contributions within Slack are tracked and used towards grading.
+Discord is each team's primary communication tool. Each member's communications and contributions within Discord are tracked and may be used towards grading.
 
 ### Public communications channels
 
-Each team **must have at least one Slack channel** where the professor, and any course assistants, graders, and tutors are also invited to be members:
+Each team **must have at least one Discord channel** where the professor, and any course assistants, graders, and tutors are also invited to be members:
 
 - use this channel for general team communication
 - individual participation in this and other channels may be used towards each member's grade
