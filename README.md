@@ -4,6 +4,8 @@ This repository will be used for team projects.
 
 Several sets of instructions are included in this repository. They should each be treated as separate assignments with their own due dates and sets of requirements.
 
+1. See the [App Map & Wireframes](instructions-0a-app-map-wireframes.md) and [Prototyping](./instructions-0b-prototyping.md) instructions for the requirements of the initial user experience design of the app.
+
 1. Delete the contents of this file and replace with the contents of a proper README.md, as described in the [project setup instructions](./instructions-1a-project-setup.md)
 
 1. See the [Sprint Planning instructions](instructions-1b-sprint-planning.md) for the requirements of Sprint Planning for each Sprint.
