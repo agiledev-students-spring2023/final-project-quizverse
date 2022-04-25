@@ -4,8 +4,8 @@ Each team must deploy their completed software applications to a [Digital Ocean 
 
 ## Specific requirements
 
-- Each project must include a functioning Continuous Integration workflow, where **Travis CI** runs a build and test cycle every time a branch is pushed to GitHub or a new pull request is issued.
-- Credentials for logging into databases, APIs, or other remote services, must never be shared in version control, and so Travis CI will not have access to them when testing. Use Travis' [encrypted environmental variables](https://docs.travis-ci.com/user/environment-variables/#defining-encrypted-variables-in-travisyml) technique for passing such credentials safely to Travis. See [this discussion](https://stackoverflow.com/questions/9338428/using-secret-api-keys-on-travis-ci) for examples.
+- Each project must include a functioning Continuous Integration workflow, where **Circle CI** or similar hosted continuous integration server, runs a build and test cycle every time a branch is pushed to GitHub or a new pull request is issued.
+- Credentials for logging into databases, APIs, or other remote services, must never be shared in version control. They are usually stored in private settings files, such as `.env` or similar, which are not included in the version control repository. And so the continuous integration server will not have access to them when testing. Use Circle CI's or other similar server's method of setting [environmental variables](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project) for passing such credentials safely to the CI server.
 - Each project must deploy their application front-and-back-ends to a single Digital Ocean Droplet - sign up for Digital Ocean using [this referral link](https://m.do.co/c/4d1066078eb0) to receive $100 of credit (full disclosure, I would receive $25 of credit for anyone who winds up spending $25 on Digital Ocean, but there is no need for you to spend anything since the $100 credit will easily get you through the course).
 - Submit a link to your front-end code live on the web, and include that link on your README.md document.
 
