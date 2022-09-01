@@ -4,7 +4,7 @@ Create a clickable/tappable mobile prototype for the Minimum Viable Product (MVP
 
 ## Software
 
-Use the free tier of [InvisionApp Prototype](https://www.invisionapp.com/cloud/prototype) to build the prototype - pick the mobile phone prototype option of your choosing.
+Use [Figma's prototyping](https://www.figma.com/prototyping/) functionality or use the free tier of [InvisionApp Prototype](https://www.invisionapp.com/cloud/prototype) to build the prototype - pick the mobile phone prototype option of your choosing.
 
 ## Prototype requirements
 
@@ -17,7 +17,6 @@ Use the free tier of [InvisionApp Prototype](https://www.invisionapp.com/cloud/p
 
 Publish as follows:
 
-1. Publish your prototype from within Invision - this generates a web URL where anyone can view the prototype.
-1. Export your prototype from Invision and add these prototype files into your git repository in the `ux-design/prototype` folder.
-1. Update the `UX-DESIGN.md` document to include new section towards the top about the prototype, with a link to view the hosted version live on Invision.
+1. If using Invision, "publish" your prototype - this generates a web URL where anyone can view the prototype.
+1. Update the `UX-DESIGN.md` document to include new section towards the top about the prototype, with a link to view the live prototype online.
 1. Use git to add, commit, and push your repository to GitHub.com
