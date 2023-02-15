@@ -1,0 +1,49 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+# Define the jobs we want to run for this project
+jobs:
+  build-and-test-express-js:
+    docker:
+      - image: cimg/node:16.13.0 # latest stable node at the time of writing
+        # auth:
+        #   username: mydockerhub-user
+        #   password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    steps:
+      - checkout
+      - run: echo "this is the build and test express.js job"
+      - run: |
+          cd back-end
+          pwd # for debugging: show current working directory
+          ls # for debugging: show sub-directories in here
+      - run: |
+          cd back-end
+          npm install # install all dependencies listed in package.json
+          npm test # run all unit tests
+  build-react-js:
+    docker:
+      - image: cimg/node:16.13.0 # latest stable node at the time of writing
+        # auth:
+        #   username: mydockerhub-user
+        #   password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    steps:
+      - checkout
+      - run: echo "this is the build react.js job"
+      - run: |
+          cd back-end
+          pwd # for debugging: show current working directory
+          ls # for debugging: show sub-directories in here
+      - run: |
+          cd front-end
+          npm install # install all dependencies listed in package.json
+          npm run build # have react build the stand-alone front-end code
+
+# Orchestrate our job run sequence
+workflows:
+  build-and-test-back-end:
+    jobs:
+      - build-and-test-express-js
+  build-front-end:
+    jobs:
+      - build-react-js
