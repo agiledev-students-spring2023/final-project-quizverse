@@ -1,6 +1,6 @@
 # Back-End Development
 
-Each team must have completed and [demo'd](https://knowledge.kitchen/Scrum_development_framework#Demo_for_Stakeholders) the working back-end of their group project by the end of the corresponding Sprint.
+Each team must have completed and [demo'd](https://knowledge.kitchen/content/courses/agile-development-and-devops/scrum/stakeholder-demos/) the working back-end of their group project by the end of the corresponding Sprint.
 
 ## Technical requirements
 
@@ -28,6 +28,6 @@ Each team must have completed and [demo'd](https://knowledge.kitchen/Scrum_devel
 Individuals will be graded, in part, according to...
 
 - individual code contributions, as visible through git logs - make sure you commit your own work!
-- proper adherence to the [Feature Branch git workflow](https://knowledge.kitchen/Feature_branch_version_control_workflow)
+- proper adherence to the [Feature Branch git workflow](https://knowledge.kitchen/content/courses/agile-development-and-devops/slides/feature-branch-workflow/)
+- the [proper setup and maintenance of a GitHub repository](./instructions-0c-project-setup.md)
 - the quality of the work
-- the proper setup and use of a [Spring Task Board](https://knowledge.kitchen/GitHub_for_team_collaboration#Project_boards) to indicate the Sprint Backlog and accurate status of all of their work at all times during the Sprint

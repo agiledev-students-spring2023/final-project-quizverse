@@ -4,7 +4,7 @@ Scrum follows a specific process by which teams plan the work that will be done 
 
 ## Creating the Sprint Backlog
 
-Each team will hold a [Sprint Planning session](https://knowledge.kitchen/Scrum_development_framework#Sprint_planning) to decide which User Stories from the Product Backlog to include in the Sprint Backlog for the upcoming sprint. The team must follow the established procedure for holding sprint planning sessions.
+Each team will hold a [Sprint Planning session](https://knowledge.kitchen/content/courses/agile-development-and-devops/slides/scrum/#71) to decide which User Stories from the Product Backlog to include in the Sprint Backlog for the upcoming sprint. The team must follow the established procedure for holding sprint planning sessions.
 
 View a [video overview of creating the Sprint Backlog in GitHub](https://youtu.be/-MBEnpAgmug).
 
@@ -12,9 +12,9 @@ View a [video overview of creating the Sprint Backlog in GitHub](https://youtu.b
 
 Each User Story added to the Sprint Backlog must...
 
-- include [Acceptance Criteria](https://knowledge.kitchen/Scrum_development_framework#Acceptance_Criteria) included in it [as a checklist](GitHub_for_team_collaboration#Creating_a_new_issue)
+- include [Acceptance Criteria](https://knowledge.kitchen/content/courses/agile-development-and-devops/slides/scrum/#61) included in it [as a checklist](GitHub_for_team_collaboration#Creating_a_new_issue)
 - be assigned the `Sprint N` Milestone, where N is the number of the current sprint, in GitHub's Issue tracker
-- include an [Estimation of effort](https://knowledge.kitchen/Scrum_development_framework#Estimation_of_work), which teams calculate following the Planning Poker effort estimation processes
+- include an Estimation of Effort, which teams calculate following the Planning Poker effort estimation processes
 
 User Stories in the Sprint Backlog must also follow the basic requirements for User Stories
 
@@ -46,9 +46,9 @@ This initial product backlog must include 'spikes' for investigating which techn
 
 ### Planning poker cards
 
-Each team must agree on a way of estimating work. This can be any of the [work estimation methods](https://knowledge.kitchen/Scrum_development_framework#Estimation_of_work) that we have discussed.
+Each team must agree on a way of estimating work. This can be any of the work estimation methods that we have discussed.
 
-If a team chooses to go with the [Planning Poker](https://knowledge.kitchen/Scrum_development_framework#Estimation_of_work) estimation method, the team must agree upon a deck of cards that they like and will use for work estimation
+If a team chooses to go with the Planning Poker estimation method, the team must agree upon a deck of cards that they like and will use for work estimation
 
 - it's ok to design your own cards if you have visually or conceptually creative team members
 - it is not ok to use Planning Poker software in place of physical cards - doing so goes against the raison d'être of Scrum
@@ -59,7 +59,7 @@ If a team chooses to go with the [Planning Poker](https://knowledge.kitchen/Scru
 
 Each team will maintain a shared Task Board for each Sprint [using
 GitHub's Project Board functionality in the recommended
-fashion](https://knowledge.kitchen/GitHub_for_team_collaboration#Project_boards). These
+fashion](https://knowledge.kitchen/content/courses/agile-development-and-devops/scrum/github-task-boards/). These
 boards are available under the 'Projects' tab in GitHub - you will
 have to set up the Sprint task board in recommended fashion.
 

@@ -1,6 +1,6 @@
 # Front-End Development
 
-Each team must have completed and [demo'd](https://knowledge.kitchen/Scrum_development_framework#Demo_for_Stakeholders) the working front-end of their group project by the end of the corresponding Sprint.
+Each team must have completed and [demo'd](https://knowledge.kitchen/content/courses/agile-development-and-devops/slides/scrum/#91) the working front-end of their group project by the end of the corresponding Sprint.
 
 ## Technical requirements
 
@@ -31,15 +31,13 @@ The following requirements outline what must be, must not be, and may be done du
 ### May...
 
 - You may use front-end design frameworks, such as [Bootstrap for React](https://react-bootstrap.github.io/) or [Material UI](https://material-ui.com/).
-- You may use a 3rd-party module, such as [react-burger-menu](https://github.com/negomi/react-burger-menu) for a hamburger menu or other [primary navigation](https://knowledge.kitchen/Navigation_components#Global_Navigation).
+- You may use a 3rd-party module, such as [react-burger-menu](https://github.com/negomi/react-burger-menu) for a hamburger menu or other [primary navigation](https://knowledge.kitchen/mediawiki/Navigation_components#Global_Navigation).
 
 ## Grading
 
 Individuals will be graded, in part, according to...
 
 - individual code contributions, as visible through git logs - make sure you commit your own work!
-- proper adherence to the [Feature Branch git workflow](https://knowledge.kitchen/Feature_branch_version_control_workflow)
+- proper adherence to the [Feature Branch git workflow](https://knowledge.kitchen/content/courses/agile-development-and-devops/slides/feature-branch-workflow/)
+- the [proper setup and maintenance of a GitHub repository](./instructions-0c-project-setup.md)
 - the quality of the work
-- a well written and thorough [Product Backlog](https://knowledge.kitchen/Software_engineering_project_kickoff#Create_the_initial_product_backlog)
-- the [proper setup of a GitHub repository](https://knowledge.kitchen/Software_engineering_project_kickoff#Configure_GitHub_repository)
-- the proper setup and use of a [Sprint Task Board](https://knowledge.kitchen/GitHub_for_team_collaboration#Project_boards) to indicate the Sprint Backlog and accurate status of all of their work at all times during the Sprint
