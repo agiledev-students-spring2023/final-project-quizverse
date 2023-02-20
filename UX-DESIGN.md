@@ -5,6 +5,11 @@ The prototype for the app can be accessed on [Figma](https://www.figma.com/file/
 
 ## Screens
 
+## [SName]
+<img alt="SName" width="200px" src="https://github.com/agiledev-students-spring-2023/final-project-quizverse/blob/master/ux-design/SName.png">
+
+Desription
+
 ### Home
 <img alt="Home" width="200px" src="https://github.com/agiledev-students-spring-2023/final-project-quizverse/blob/master/ux-design/Home Page.png">
 
@@ -27,3 +32,4 @@ This is where users will log in.
 <img alt="Login Page" width="200px" src="https://github.com/agiledev-students-spring-2023/final-project-quizverse/blob/master/ux-design/Login Page (General Failure).png">
 
 This is what users will see if their login failed.
+
