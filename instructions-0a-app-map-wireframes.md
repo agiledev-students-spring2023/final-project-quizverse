@@ -4,6 +4,7 @@ Create an **app map** and a complete set of **wireframe diagrams** for the [Mini
 
 ## Software
 
+<<<<<<< HEAD
 All team members must use the same software. **You are not allowed to use platform-specific or proprietary software**, such as Sketch or Figma, unless all members can run the software on their own computers without a paid license.
 
 Use any software of your choice:
@@ -16,6 +17,18 @@ Both Draw.io and Figma have extensions for Visual Studio Code that, while not a 
 
 - [Draw.io VSCode Integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio)
 - [Figma x VS Code](https://marketplace.visualstudio.com/items?itemName=idered.figma)
+=======
+All team members must use the same software. Use any software of your team's choice:
+
+- The free trial of [Figma](https://www.figma.com/) is a fantastic cross-platform web app or desktop app for teams that want more commercial-quality tools.
+- [draw.io](https://draw.io) is recommended for all teams on any platform. It is always free and works wonderfully on the web or as a desktop app.
+- Do not use any Adobe products for this exercise.
+
+Both Figma and draw.io have extensions for Visual Studio Code that, while not a replacement for either app, may be useful for some tasks:
+
+- [Figma x VS Code](https://marketplace.visualstudio.com/items?itemName=idered.figma)
+- [Draw.io VSCode Integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio)
+>>>>>>> be6fd0922daa371719ccda474351e2e078eb9ed0
 
 ## Wireframe requirements
 
