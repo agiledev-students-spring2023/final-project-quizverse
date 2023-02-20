@@ -42,12 +42,7 @@ GitHub repositories have been created for each team and are in the control of th
 #### README.md
 
 Every project must have a [README.md](./README.md) that automatically renders on the project's main repository page with basic details of the project, including:
-
-<<<<<<< HEAD
-- a description of project, including the [Product Vision Statement](https://knowledge.kitchen/Scrum_development_framework#Product_vision_statement)
-=======
 - a description of project, including the [Product Vision Statement](https://knowledge.kitchen/content/courses/agile-development-and-devops/scrum/product-vision-statement/)
->>>>>>> be6fd0922daa371719ccda474351e2e078eb9ed0
 - the core team members, including links to their GitHub accounts and any other web presence they have
 - a short history of how the project came to be and information about how to contribute to the project (i.e. a link to the [CONTRIBUTING.md](./CONTRIBUTING.md) document)
 - instructions for building and testing the project (update with that information once the project reaches that stage)
@@ -106,12 +101,7 @@ What to include in each Milestone's settings:
 Once a particular sprint has begun, all issues representing tasks that have been decided to be addressed within that sprint must be assigned to the proper Milestone representing that sprint.
 
 ### GitHub task boards
-
-<<<<<<< HEAD
-Each team must create a Task Board for each of the four Sprints following [these setup instructions](https://knowledge.kitchen/GitHub_for_team_collaboration#Project_boards).
-=======
 Each team must create a Task Board for each of the four Sprints following [these setup instructions](https://knowledge.kitchen/content/courses/agile-development-and-devops/scrum/github-task-boards/).
->>>>>>> be6fd0922daa371719ccda474351e2e078eb9ed0
 
 View a [video overview of setting up a Task Board on GitHub](https://youtu.be/Qasz5fhxIqE).
 
@@ -120,19 +110,10 @@ View a [video overview of setting up a Task Board on GitHub](https://youtu.be/Qa
 Each team member must `clone` their team's GitHub repository onto their own local machine and `push` any changes they make back to GitHub at regular inteverals - at least once between Standup meetings.
 
 ## Create the initial Product Backlog
-
-<<<<<<< HEAD
-Each team must have an initial [Product Backlog](https://knowledge.kitchen/Scrum_development_framework#Product_Backlog) - a set of User Stories that together define the product requirements - based on their understanding of the project so far. This will evolve as teams work on the project, but try to think through and write User Stories for as many features as you can imagine wanting to include in the project.
-=======
 Each team must have an initial [Product Backlog](https://knowledge.kitchen/content/courses/agile-development-and-devops/slides/scrum/#46) - a set of User Stories that together define the product requirements - based on their understanding of the project so far. This will evolve as teams work on the project, but try to think through and write User Stories for as many features as you can imagine wanting to include in the project.
->>>>>>> be6fd0922daa371719ccda474351e2e078eb9ed0
 
 Each item in the Product Backlog must be added as an Issue to GitHub's Issue tracker.
 
 View a [video overview of setting up a Product Backlog on GitHub](https://youtu.be/m8ZxTHSKSKE).
 
-<<<<<<< HEAD
-Make sure you understand [how GitHub's Issue tracker works](https://knowledge.kitchen/GitHub_for_team_collaboration#Issues) and attach the `user-story` label to all Issues that represent User Stories.
-=======
 Make sure you understand [how GitHub's Issue tracker works](https://knowledge.kitchen/content/courses/agile-development-and-devops/scrum/github-issues/) and attach the `user-story` label to all Issues that represent User Stories.
->>>>>>> be6fd0922daa371719ccda474351e2e078eb9ed0
