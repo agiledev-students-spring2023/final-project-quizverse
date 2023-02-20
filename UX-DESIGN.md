@@ -1,8 +1,4 @@
 # User Experience Design
 
-This repository contains instructions and files for two assignments that together comprise the user experience design phase of a web app.
-
-Replace the contents of this file with the completed assignments, as described in:
-
-- [app map & wireframe instructions](instructions-0a-app-map-wireframes.md).
-- [prototype instructions](instructions-0b-prototyping.md)
+## QuizVerse Prototype
+The prototype for the app can be accessed on [Figma](https://www.figma.com/file/X8zAxXe8Cqsa6S7MBampSr/QuizVerse-Prototype?node-id=60%3A2&t=qclhIvsY1dBP1NDp-1)
