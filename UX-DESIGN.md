@@ -5,5 +5,5 @@ The prototype for the app can be accessed on [Figma](https://www.figma.com/file/
 
 
 ### Menu
-<img alt="Menu" width="40px" src="https://github.com/agiledev-students-spring-2023/final-project-quizverse/blob/master/ux-design/Menu.png">
+<img alt="Menu" width="100px" src="https://github.com/agiledev-students-spring-2023/final-project-quizverse/blob/master/ux-design/Menu.png">
 
