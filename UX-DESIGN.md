@@ -5,5 +5,5 @@ The prototype for the app can be accessed on [Figma](https://www.figma.com/file/
 
 
 ### Menu
-![Home](../ux-design/Menu.png "Menu")
+<img alt="Menu" width="40px" src="/ux-design/menu.png">
 
