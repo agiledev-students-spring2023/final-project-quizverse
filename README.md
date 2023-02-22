@@ -1,6 +1,6 @@
 # QuizVerse
 
-![Picture of galaxy](./media/galaxy.jpg)
+<img src="./media/QuizVerseLogo.png" alt= “logo” width="50%" height="50%">
 
 > An easy to use spaced repetition study assistant modeled after existing related software!
 
@@ -35,8 +35,14 @@ Want to see how you're doing and what you need to spend more time on? QuizVerse 
 With QuizVerse, you can also share a set of flashcards with your friends and classmates. If you're a teacher or professor, you can create a flashcard set to share with your students. Your shared flashcards can also be password protected for privacy.
 
 ---
-## Minimum Viable Product:
+## Product Vision Statement:
 At a bare minimum, QuizVerse will allow users to create their own flashcards, and use the app to study those flashcards through the process of spaced repetition.
+We will also implement a Daily Quiz feature that will quiz a user everyday, and create a rewards system to incentivize studying.
+
+## History of the Project:
+
+Here at QuizVerse, we are tired of the current flashcard app market. Too many are clunky and confusing, like ANKI, or require a steep paywall, like Quizlet. We strive to create a more accessible, more simple, and more fun tool for studying available to any student out there.
+
 ## Our core development team:
 * Matthew Dong [GitHub](https://github.com/Matt-J-Dong)
 * James Chen [GitHub](https://github.com/1019jchen)
