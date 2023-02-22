@@ -1,28 +1,53 @@
-# Project Repository
+# QuizVerse
 
-This repository will be used for team projects.
+An easy to use spaced repetition study assistant modeled after existing related software!
 
-Several sets of instructions are included in this repository. They should each be treated as separate assignments with their own due dates and sets of requirements.
+## What is QuizVerse Exactly?
 
-1. See the [App Map & Wireframes](instructions-0a-app-map-wireframes.md) and [Prototyping](./instructions-0b-prototyping.md) instructions for the requirements of the initial user experience design of the app.
+Trying to learn something new can be hard. Studying consistently can be even harder. Meet **QuizVerse**: your new study tool and accountability buddy, all in one app.
 
-1. Delete the contents of this file and replace with the contents of a proper README.md, as described in the [project setup instructions](./instructions-0c-project-setup.md)
+Spaced repetition is a proven strategy with flashcards to help memory retention in learning. In this system, a learner categorizes their flashcards by their difficulty, and they repeatedly study the flashcards they struggle with the most repeatedly over several study sessions. Not only does this increase a learner's exposure to hard topics, spaced out study sessions have also been shown to be more effective and efficient than cramming.
 
-1. See the [Sprint Planning instructions](instructions-0d-sprint-planning.md) for the requirements of Sprint Planning for each Sprint.
+All of these strategies are great, but they can be hard to implement on your own with clunky boxes of flashcards. Let QuizVerse do the heavy lifting for you.
 
-1. See the [Front-End Development instructions](./instructions-1-front-end.md) for the requirements of the initial Front-End Development.
+Whenever you have someting new to learn, just upload or type out your flashcards on QuizVerse and choose how many flashcards you want to review everyday. The app will remind you to study daily and give you points for a successful study session. Want to study beyond your scheduled daily sessions? QuizVerse also lets you freely study whenever you choose.
 
-1. See the [Back-End Development instructions](./instructions-2-back-end.md) for the requirements of the initial Back-End Development.
+Who said studying couldn't be fun *and* fast?
 
-1. See the [Database Integration instructions](./instructions-3-database.md) for the requirements of integrating a database into the back-end.
+## For whom?
 
-1. See the [Deployment instructions](./instructions-4-deployment.md) for the requirements of deploying an app.
+QuizVerse is designed with both students (like us) and teachers in mind, to help create a platform for learning through spaced repetition. For students approaching a new subject and preparing for an upcoming exam, to teachers who want to create an aggregated flashcard set to provide to their class, QuizVerse is created with all those use cases in mind. QuizVerse will work to maximize retention and activity for students through gamification, drawing from experience working with different platforms that offer services to self-study.
 
-Every project must have a README.md that automatically renders on the project's main repository page with basic details of the project, including:
+## How?
 
-a description of project, including the Product Vision Statement
-the core team members, including links to their GitHub accounts and any other web presence they have
-a short history of how the project came to be and information about how to contribute to the project (i.e. a link to the CONTRIBUTING.md document)
-instructions for building and testing the project (update with that information once the project reaches that stage)
-links to any additional Markdown documents or web pages that may be relevant reading about the project
-anything else you think is important to communicate to people viewing the project
+First, create a username and password to create an account to save your flashcards under.
+
+To add new flashcards, just enter them as text or as images. You can also categorize the flashcards by the due date and subject.
+
+In your daily study session, QuizVerse will provide you with one side of the flashcard, and you'll have to recall what's on the other side. By completing your daily study session, you will receive points and extend your study streak. Your study streak will be displayed whenever you enter the app.
+
+You can also study on demand whenever you want to get points. You can narrow down what you want to study by subject or other category.
+
+Want to see how you're doing and what you need to spend more time on? QuizVerse can you show your study statistics and tell you which concepts you are doing better with.
+
+With QuizVerse, you can also share a set of flashcards with your friends and classmates. If you're a teacher or professor, you can create a flashcard set to share with your students. Your shared flashcards can also be password protected for privacy.
+
+---
+## Minimum Viable Product:
+At a bare minimum, QuizVerse will allow users to create their own flashcards, and use the app to study those flashcards through the process of spaced repetition.
+## Our core development team:
+Matthew Dong [GitHub](https://github.com/Matt-J-Dong)
+James Chen [GitHub](https://github.com/1019jchen)
+Jonathan Zhou [GitHub](https://github.com/chiyanz)
+Rohan Khanderia [GitHub](https://github.com/RohanK6)
+
+## Contributing to QuizVerse:
+If you want to contribute to QuizVerse, here are the related guidelines: [Link](./CONTRIBUTING.md)
+
+## Build/Test QuizVerse:
+Information on how to build and test QuizVerse yourself, if you choose to do so:
+*Information will be filled here*
+
+*Link to hosted version here? QuizVerse.com*
+
+
