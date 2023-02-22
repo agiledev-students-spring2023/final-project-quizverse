@@ -1,6 +1,6 @@
 # QuizVerse
 
-![Logo](./media/QuizVerse Logo.png)
+![Logo](./media/QuizVerseLogo.png)
 
 > An easy to use spaced repetition study assistant modeled after existing related software!
 
