@@ -37,8 +37,11 @@ With QuizVerse, you can also share a set of flashcards with your friends and cla
 At a bare minimum, QuizVerse will allow users to create their own flashcards, and use the app to study those flashcards through the process of spaced repetition.
 ## Our core development team:
 Matthew Dong [GitHub](https://github.com/Matt-J-Dong)
+
 James Chen [GitHub](https://github.com/1019jchen)
+
 Jonathan Zhou [GitHub](https://github.com/chiyanz)
+
 Rohan Khanderia [GitHub](https://github.com/RohanK6)
 
 ## Contributing to QuizVerse:
