@@ -17,3 +17,12 @@ Several sets of instructions are included in this repository. They should each b
 1. See the [Database Integration instructions](./instructions-3-database.md) for the requirements of integrating a database into the back-end.
 
 1. See the [Deployment instructions](./instructions-4-deployment.md) for the requirements of deploying an app.
+
+Every project must have a README.md that automatically renders on the project's main repository page with basic details of the project, including:
+
+a description of project, including the Product Vision Statement
+the core team members, including links to their GitHub accounts and any other web presence they have
+a short history of how the project came to be and information about how to contribute to the project (i.e. a link to the CONTRIBUTING.md document)
+instructions for building and testing the project (update with that information once the project reaches that stage)
+links to any additional Markdown documents or web pages that may be relevant reading about the project
+anything else you think is important to communicate to people viewing the project
