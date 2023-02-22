@@ -1,6 +1,6 @@
 # QuizVerse
 
-![Logo](./media/QuizVerseLogo.png)
+<img src="./media/QuizVerseLogo.png" alt= “logo” width="50%" height="50%">
 
 > An easy to use spaced repetition study assistant modeled after existing related software!
 
