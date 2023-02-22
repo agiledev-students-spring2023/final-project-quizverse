@@ -12,7 +12,7 @@ Spaced repetition is a proven strategy with flashcards to help memory retention 
 
 All of these strategies are great, but they can be hard to implement on your own with clunky boxes of flashcards. Let QuizVerse do the heavy lifting for you.
 
-Whenever you have someting new to learn, just upload or type out your flashcards on QuizVerse and choose how many flashcards you want to review everyday. The app will remind you to study daily and give you points for a successful study session. Want to study beyond your scheduled daily sessions? QuizVerse also lets you freely study whenever you choose.
+Whenever you have something new to learn, just upload or type out your flashcards on QuizVerse and choose how many flashcards you want to review everyday. The app will remind you to study daily and give you points for a successful study session. Want to study beyond your scheduled daily sessions? QuizVerse also lets you freely study whenever you choose.
 
 Who said studying couldn't be fun *and* fast?
 
