@@ -25,7 +25,51 @@ Please note we have a code of conduct, please follow it in all your interactions
 * Sprint 4 Product Owner: Rohan
 * Sprint 4 Scrum Master: Mert
 
+## Team Norms
+Our team will be following the Scrum framework. Team members will be expected to work together and help each other when they are stuck or confused.
+
+The Product Owner of each sprint will be representing the business interests of the team. They will be in charge of the Product Backlog.
+
+The Scrum Master of each sprint will represent the Scrum framework.
+
+During sprint planning meetings, Developers will divide User stories into tasks and assign tasks to themselves.
+
+During Daily Scrums, all developers will answer the following:
+1. What have you done since last time?
+2. What are you doing now?
+3. Is there anything blocking your progress?
+
+At the end of a sprint, unfinished stories will be returned to the backlog, and the team prepares a demo for stakeholders.
+
+Here are the dates of the sprints:
+* Sprint 0: 2/15/2023-2/26/2023 [A sprint focused on Rapid Prototyping]
+* Sprint 1: 2/27/2023-3/21/2023 [A sprint focused on Front-End Development]
+* Sprint 2: 3/22/2023-4/9/2023 [A sprint focused on Back-End Development]
+* Sprint 3: 4/10/2023-4/23/2023 [A sprint focused on Database Integration]
+* Sprint 4: 4/24/2023-5/2/2023 [A sprint focused on Deployment]
+
+Our Daily Scrums will occur three times a week: on Mondays, Wednesdays, and Saturdays (Subject to change based on Developer consensus). This will occur in Discord calls. The summaries of each Daily Scrum will be posted in the Agile Dev and DevOps class server.
+
+## Git Workflow
+1. Create a new issue or work on an existing issue that is part of the current sprint.
+2. Switch to a branch that you want to make change to
+3. Make changes within your branch.
+4. Create a pull request.
+
+## Setting Up a Local Development Environment
+
+1. Fork the project on GitHub.
+2. Clone the project onto your own machine.
+3. Create a new branch of the project to work on.
+4. Make your changes and push them.
+5. Make a pull request to our original repository.
+
+## Methods of Building and Testing the Project
+
+TBD, will be updated once the project reaches this stage.
+
 ## Code of Conduct
+Please be respectful to all team members and keep an open mind. If any issues arise, please communicate with other team members. Please attempt to keep everything under the Scrum framework.
 
 ### Our Pledge
 
