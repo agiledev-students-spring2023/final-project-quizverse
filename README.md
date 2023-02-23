@@ -49,6 +49,23 @@ Here at QuizVerse, we are tired of the current flashcard app market. Too many ar
 * Jonathan Zhou [GitHub](https://github.com/chiyanz)
 * Rohan Khanderia [GitHub](https://github.com/RohanK6)
 
+## Roles:
+* Sprint 0 Product Owner: Mert
+* Sprint 0 Scrum Master: James
+
+* Sprint 1 Product Owner: James
+* Sprint 1 Scrum Master: Jonathan
+
+* Sprint 2 Product Owner: Jonathan
+* Sprint 2 Scrum Master: Matthew
+
+* Sprint 3 Product Owner: Matthew
+* Sprint 3 Scrum Master: Rohan
+
+* Sprint 3 Product Owner: Rohan
+* Sprint 3 Scrum Master: Mert
+
+
 ## Contributing to QuizVerse:
 If you want to contribute to QuizVerse, here are the related guidelines: [Link](./CONTRIBUTING.md)
 
