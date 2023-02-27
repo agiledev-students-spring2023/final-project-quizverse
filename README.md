@@ -48,7 +48,7 @@ Here at QuizVerse, we are tired of the current flashcard app market. Too many ar
 * James Chen [GitHub](https://github.com/1019jchen)
 * Jonathan Zhou [GitHub](https://github.com/chiyanz)
 * Rohan Khanderia [GitHub](https://github.com/RohanK6)
-* Mert Bayturk [GitHub]()
+* Mert Bayturk [GitHub](https://github.com/mertbayt)
 
 ## Roles:
 * Sprint 0 Product Owner: Mert
