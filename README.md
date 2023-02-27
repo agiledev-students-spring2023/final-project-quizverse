@@ -41,7 +41,7 @@ We will also implement a Daily Quiz feature that will quiz a user everyday, and 
 
 ## History of the Project:
 
-Here at QuizVerse, we are tired of the current flashcard app market. Too many are clunky and confusing, like ANKI, or require a steep paywall, like Quizlet. We strive to create a more accessible, more simple, and more fun tool for studying available to any student out there.
+Here at QuizVerse, we are tired of the current flashcard app market. Too many are clunky and confusing, like Anki, or require a steep paywall, like Quizlet. We strive to create a more accessible, more simple, and more fun tool for studying available to any student out there.
 
 ## Our core development team:
 * Matthew Dong [GitHub](https://github.com/Matt-J-Dong)
