@@ -1,0 +1,38 @@
+.HomeScreenContainer {
+    text-align: center;
+  }
+  
+.HomeScreenStaticSentence {
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+  
+.HomeScreenTypewriter {
+  display: inline-block;
+}
+
+.HomeScreenTypewriterWord {
+  background: #ffe4f2;
+}
+  
+.LogInButton,
+.SignUpButton {
+  display: inline-block;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  margin: 0 1rem;
+  cursor: pointer;
+  background-color: #44008b;
+  color: #fff;
+}
+  
+.LogInButton:hover,
+.SignUpButton:hover {
+  background-color: #44008b;
+}
+  
