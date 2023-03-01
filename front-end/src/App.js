@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
-import Home from './Home'
-import Layout from './Layout/Layout'
+import Home from './components/Home/Home'
+import Layout from './components/Layout/Layout'
 
 const App = props => {
   return (
