@@ -9,8 +9,8 @@ import './Home.css'
 const Home = props => {
   return (
     <>
-      <h1>Oh god</h1>
-      <p>What am I doing please help</p>
+      <h1>Home Screen!</h1>
+      <p>Welcome to QuizVerse!</p>
     </>
   )
 }

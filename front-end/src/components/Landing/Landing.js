@@ -1,15 +1,15 @@
 import React from 'react';
 import Typewriter from 'typewriter-effect';
-import styles from './HomeScreen.module.css';
+import styles from './Landing.module.css';
 
-function HomeScreen() {
+function Landing() {
   return (
-    <div className={styles.HomeScreenContainer}>
-      <div className={styles.HomeScreenHeader}>
+    <div className={styles.LandingContainer}>
+      <div className={styles.LandingHeader}>
         <h1>Welcome to QuizVerse!</h1>
-        <p className={styles.HomeScreenStaticSentence}>
+        <p className={styles.LandingStaticSentence}>
           A spaced repetition learning platform for{' '}
-          <span className={styles.HomeScreenTypewriter}>
+          <span className={styles.LandingTypewriter}>
             <Typewriter
               options={{
                 strings: [
@@ -21,13 +21,13 @@ function HomeScreen() {
                 ],
                 autoStart: true,
                 loop: true,
-                wrapperClassName: styles.HomeScreenTypewriterWord,
+                wrapperClassName: styles.LandingTypewriterWord,
               }}
             />
           </span>
         </p>
       </div>
-      <div className={styles.HomeScreenBody}>
+      <div className={styles.LandingBody}>
         <button className={styles.LogInButton}>Log In</button>
         <button className={styles.SignUpButton}>Sign Up</button>
       </div>
@@ -35,4 +35,4 @@ function HomeScreen() {
   );
 }
 
-export default HomeScreen;
+export default Landing;
