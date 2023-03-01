@@ -12,8 +12,8 @@ const App = props => {
         <Route path="/" element = {<Layout />} >
           {/* ADD YOUR ROUTES HERE */}
           <Route index element={<Landing />} />
-          <Route path="./home" element = {<Home />} />
-          <Route path="./daily-quiz" element={<DailyQuiz />}/>
+          <Route path="/home" element = {<Home />} />
+          <Route path="/daily-quiz" element={<DailyQuiz />}/>
         </ Route>
       </Routes>
     </>
