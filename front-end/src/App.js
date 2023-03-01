@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import logo from '../logo.svg';
 import './App.css';
-import Header from './Header.js'
-import Home from './Home'
+import Header from 'components/Header/Header.js'
+import Home from 'components/Home/Home.js'
 
 const App = props => {
   return (
