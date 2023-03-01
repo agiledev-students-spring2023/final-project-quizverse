@@ -9,9 +9,9 @@ const App = props => {
     <>
       <Routes>
         <Route path="/" element = {<Layout />} >
-          <Route path="home" element = {<Home />} />
           {/* ADD YOUR ROUTES HERE */}
           <Route index element={<Landing />} />
+          <Route path="home" element = {<Home />} />
         </ Route>
       </Routes>
     </>

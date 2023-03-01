@@ -12,15 +12,30 @@ const Header = props => {
     <header className="Header-header">
       <nav className="Header-navbar">
         <h1>QuizVerse! (In Progress)</h1>
-        <p>Hamburger menu, streak and coins, <Link to="/home">daily quiz link (actually just goes to home)</Link>, and my account</p>
-        <a
-          className="Sus Link"
-          href="./"
-          //target="_blank"
-          //rel="noopener noreferrer"
-        >
-          Sus link back to root
-        </a>
+        <ul className="nav-links">
+          {/*Will be a pop-up and not a link*/}
+          <li className="nav-item">
+            <Link to="/menu">Menu</Link>
+          </li>
+          {/*Coins and streak will be eventually pulled from backend*/}
+          <li className="nav-item">
+            <Link to="/store">Current Streak: 1 <br></br> 100 coins</Link>
+          </li>
+          {/*This will be set to the right eventually with css*/}
+          <li className="nav-item">
+            <Link to="/daily-quiz">Daily Quiz!</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/my-account">My Account</Link>
+          </li>
+          {/*These are filler just to be used for current navigation purposes*/}
+          <li className="nav-item">
+            <Link to="/">Landing</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/home">Home</Link>
+          </li>
+        </ul>
       </nav>
     </header>
   )
