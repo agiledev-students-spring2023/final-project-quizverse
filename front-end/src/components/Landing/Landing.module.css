@@ -1,19 +1,19 @@
-.HomeScreenContainer {
+.LandingContainer {
     text-align: center;
   }
   
-.HomeScreenStaticSentence {
+.LandingStaticSentence {
   display: inline-block;
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 1rem;
 }
   
-.HomeScreenTypewriter {
+.LandingTypewriter {
   display: inline-block;
 }
 
-.HomeScreenTypewriterWord {
+.LandingTypewriterWord {
   background: #ffe4f2;
 }
   
