@@ -9,7 +9,7 @@ import HamburgerMenu from './HamburgerMenu.svg'
  */
 const Header = props => {
   return (
-    <header className="Header-header">
+    <header className=".Header-header">
       <nav className="Header-navbar">
         <h1>QuizVerse! (In Progress)</h1>
         <ul className="nav-links">
