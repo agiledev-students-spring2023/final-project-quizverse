@@ -3,6 +3,7 @@ import './App.css'
 import Home from './components/Home/Home'
 import Landing from './components/Landing/Landing'
 import Layout from './components/Layout/Layout'
+import DailyQuiz from './components/DailyQuiz/DailyQuiz'
 
 const App = props => {
   return (
@@ -11,7 +12,8 @@ const App = props => {
         <Route path="/" element = {<Layout />} >
           {/* ADD YOUR ROUTES HERE */}
           <Route index element={<Landing />} />
-          <Route path="home" element = {<Home />} />
+          <Route path="./home" element = {<Home />} />
+          <Route path="./daily-quiz" element={<DailyQuiz />}/>
         </ Route>
       </Routes>
     </>
