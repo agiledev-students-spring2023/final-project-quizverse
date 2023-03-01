@@ -21,6 +21,9 @@ const Header = props => {
         >
           Sus link back to root
         </a>
+        <div>
+          <Link to="/daily-quiz">Daily Quiz</Link>
+        </div>
       </nav>
     </header>
   )
