@@ -4,6 +4,8 @@ import Home from './components/Home/Home'
 import Landing from './components/Landing/Landing'
 import Layout from './components/Layout/Layout'
 import DailyQuiz from './components/DailyQuiz/DailyQuiz'
+import LoginPage from './components/Landing/Login';
+import SignUpPage from './components/Landing/SignUp';
 
 const App = props => {
   return (
@@ -14,6 +16,8 @@ const App = props => {
           <Route index element={<Landing />} />
           <Route path="/home" element = {<Home />} />
           <Route path="/daily-quiz" element={<DailyQuiz />}/>
+          <Route path="login" element={<LoginPage />} />
+          <Route path="signup" element={<SignUpPage />} />
         </ Route>
       </Routes>
     </>
