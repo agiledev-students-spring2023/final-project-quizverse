@@ -1,3 +1,4 @@
+//eslint-disable-next-line
 import styles from './DailyQuiz.module.css'
 
 const DailyQuiz = props => {
