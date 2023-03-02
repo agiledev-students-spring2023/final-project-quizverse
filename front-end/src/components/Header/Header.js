@@ -3,9 +3,7 @@ import './Header.css'
 import { Link } from 'react-router-dom'
 import HamburgerMenu from './HamburgerMenu.svg'
 /**
- * A React component that is used for the header displayed at the top of every page of the site.
- * @param {*} param0 an object holding any props passed to this component from its parent component
- * @returns The contents of this component, in JSX form.
+ * Our QuizVerse Header!
  */
 const Header = props => {
   return (
