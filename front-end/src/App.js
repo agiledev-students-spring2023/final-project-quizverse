@@ -8,7 +8,9 @@ import LoginPage from './components/Landing/Login';
 import SignUpPage from './components/Landing/SignUp';
 import Shop from './components/Shop/Shop'
 import { createTheme , ThemeProvider } from '@mui/material/styles';
-
+import Items from './components/Items/Items'
+import Terms from './components/Terms/Terms'
+import Privacy from './components/Privacy/Privacy'
 
 const theme = createTheme({
   palette: {
@@ -37,6 +39,11 @@ const App = props => {
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignUpPage />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/items" element={<Items />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
         </ Route>
       </Routes>
       </ThemeProvider>
