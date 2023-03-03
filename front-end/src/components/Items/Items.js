@@ -86,7 +86,7 @@ function Items() {
                   </CardContent>
                   <CardActions>
                     <Button size="small"><Link to='/'>Landing</Link></Button>
-                    <Button size="small"><Link to='/shop/itemid'>View Item</Link></Button>
+                    <Button size="small"><Link to='/shop'>View Item</Link></Button>
                   </CardActions>
                 </Card>
               </Grid>
