@@ -1,0 +1,13 @@
+.nav-links {
+    margin-left: 0px;
+}
+.nav-item {
+    display: inline-block;
+    padding: 5px 5px;
+    font-size: small;
+}
+.Header-navbar{
+    border: 10px double black;
+    text-align: center;
+    
+}
