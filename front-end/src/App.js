@@ -36,8 +36,8 @@ const App = props => {
           <Route index element={<Landing />} />
           <Route path="/home" element = {<Home />} />
           <Route path="/daily-quiz" element={<DailyQuiz />}/>
-          <Route path="login" element={<LoginPage />} />
-          <Route path="signup" element={<SignUpPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />

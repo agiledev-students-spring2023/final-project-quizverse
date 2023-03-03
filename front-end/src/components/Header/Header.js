@@ -17,7 +17,7 @@ const Header = props => {
           </li>
           {/*Coins and streak will be eventually pulled from backend*/}
           <li className="nav-item">
-            <Link to="/store">Current Streak: 1<br></br>100 coins</Link>
+            <Link to="/shop">Current Streak: 1<br></br>100 coins</Link>
           </li>
           {/*This will be set to the right eventually with css*/}
           <li className="nav-item">
