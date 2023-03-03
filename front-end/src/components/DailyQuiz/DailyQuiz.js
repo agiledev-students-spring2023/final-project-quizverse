@@ -1,4 +1,4 @@
-import styles from './DailyQuiz.module.css'
+//import styles from './DailyQuiz.module.css'
 
 const DailyQuiz = props => {
   return (
