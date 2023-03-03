@@ -6,10 +6,28 @@ import Layout from './components/Layout/Layout'
 import DailyQuiz from './components/DailyQuiz/DailyQuiz'
 import LoginPage from './components/Landing/Login';
 import SignUpPage from './components/Landing/SignUp';
+import Shop from './components/Shop/Shop'
+import { createTheme , ThemeProvider } from '@mui/material/styles';
 
+
+const theme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#00076f',
+    },
+    secondary: {
+      main: '#9f45b0',
+    },
+    info: {
+      main: '#e54ed0',
+    },
+  },
+})
 const App = props => {
   return (
     <>
+    <ThemeProvider theme = {theme}>
       <Routes>
         <Route path="/" element = {<Layout />} >
           {/* ADD YOUR ROUTES HERE */}
@@ -18,8 +36,10 @@ const App = props => {
           <Route path="/daily-quiz" element={<DailyQuiz />}/>
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignUpPage />} />
+          <Route path="/shop" element={<Shop />} />
         </ Route>
       </Routes>
+      </ThemeProvider>
     </>
   );
 }
