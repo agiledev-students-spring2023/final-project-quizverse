@@ -11,20 +11,24 @@ function LoginPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const foundUser = userCredentials.find((user) => user.username === username && user.password === password);
+    const foundUser = userCredentials.find(
+      (user) => user.username === username && user.password === password
+    );
     if (foundUser) {
       navigate('/home');
     } else {
       alert('Invalid username or password');
     }
-  }
+  };
 
   return (
     <div className="login-page-container">
       <h1 className="login-page-title">Log In</h1>
       <form className="login-page-form" onSubmit={handleSubmit}>
         <div className="login-page-input-container">
-          <label htmlFor="username" className="login-page-label">Username:</label>
+          <label htmlFor="username" className="login-page-label">
+            Username:
+          </label>
           <input
             type="text"
             id="username"
@@ -34,7 +38,9 @@ function LoginPage() {
           />
         </div>
         <div className="login-page-input-container">
-          <label htmlFor="password" className="login-page-label">Password:</label>
+          <label htmlFor="password" className="login-page-label">
+            Password:
+          </label>
           <input
             type="password"
             id="password"
@@ -43,7 +49,9 @@ function LoginPage() {
             className="login-page-input"
           />
         </div>
-        <button type="submit" className="login-page-button">Log In</button>
+        <button type="submit" className="login-page-button">
+          Log In
+        </button>
       </form>
     </div>
   );
