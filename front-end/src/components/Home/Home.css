@@ -1,0 +1,66 @@
+/* Define the background color for the page */
+body {
+  background-color: #c4dae6;
+}
+
+/* Define the styles for the header */
+header {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Define the styles for the header icons */
+.header-container img {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+/* Define the styles for the logo */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  margin-top: 50px;
+}
+
+.logo-container img {
+  width: 200px;
+}
+
+/* Define the styles for the buttons */
+.buttons-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  margin: 50px auto 0;
+  max-width: 600px;
+  padding: 0 20px;
+  padding-bottom: 50px;
+}
+
+.big-button {
+  background-color: #0072c6;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  font-size: 24px;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.big-button:hover {
+  background-color: #005da1;
+}
