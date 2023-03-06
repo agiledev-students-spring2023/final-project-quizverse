@@ -20,7 +20,9 @@ function SignUpPage() {
       <h1 className="signup-page-title">Sign Up</h1>
       <form className="signup-page-form" onSubmit={handleSubmit}>
         <div className="signup-page-input-container">
-          <label htmlFor="username" className="signup-page-label">Username:</label>
+          <label htmlFor="username" className="signup-page-label">
+            Username:
+          </label>
           <input
             type="text"
             id="username"
@@ -30,7 +32,9 @@ function SignUpPage() {
           />
         </div>
         <div className="signup-page-input-container">
-          <label htmlFor="password" className="signup-page-label">Password:</label>
+          <label htmlFor="password" className="signup-page-label">
+            Password:
+          </label>
           <input
             type="password"
             id="password"
@@ -39,7 +43,9 @@ function SignUpPage() {
             className="signup-page-input"
           />
         </div>
-        <button type="submit" className="signup-page-button">Sign Up</button>
+        <button type="submit" className="signup-page-button">
+          Sign Up
+        </button>
       </form>
     </div>
   );

@@ -1,6 +1,6 @@
-import "./Header.css";
+import './Header.css';
 //import logo from './logo.svg'
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 // import HamburgerMenu from "./HamburgerMenu.svg";
 /**
  * Our QuizVerse Header!
