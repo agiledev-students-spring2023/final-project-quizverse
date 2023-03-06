@@ -1,14 +1,14 @@
 .LandingContainer {
-    text-align: center;
-  }
-  
+  text-align: center;
+}
+
 .LandingStaticSentence {
   display: inline-block;
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 1rem;
 }
-  
+
 .LandingTypewriter {
   display: inline-block;
 }
@@ -16,7 +16,7 @@
 .LandingTypewriterWord {
   background: #ffe4f2;
 }
-  
+
 .LogInButton,
 .SignUpButton {
   display: inline-block;
@@ -29,10 +29,10 @@
   cursor: pointer;
   background-color: #44008b;
   color: #fff;
+  margin-bottom: 1rem;
 }
-  
+
 .LogInButton:hover,
 .SignUpButton:hover {
   background-color: #44008b;
 }
-  

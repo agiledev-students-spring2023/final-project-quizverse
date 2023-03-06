@@ -1,13 +1,51 @@
+/* Define the styles for the navigation links */
 .nav-links {
-    margin-left: 0px;
+  margin: 0 auto;
+  text-align: center;
 }
+
 .nav-item {
-    display: inline-block;
-    padding: 5px 5px;
-    font-size: small;
+  display: inline-block;
+  padding: 5px;
+  font-size: small;
+  margin: 0 10px; /* add some horizontal margin to center the elements */
 }
-.Header-navbar{
-    border: 10px double black;
-    text-align: center;
-    background-color: skyblue;
+
+/* Define the styles for the header navbar */
+.Header-navbar {
+  border: 2px solid black;
+  text-align: center;
+  background-color: skyblue;
+  height: 60px;
+  display: flex;
+  justify-content: space-between; /* align items on left and right side */
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0 20px; /* add some padding to the left and right side */
+}
+
+/* Define the styles for the header logo */
+.Header-logo {
+  width: 100px; /* set a fixed width for the logo */
+  margin-right: auto; /* push the logo to the left side */
+}
+
+.Header-logo img {
+  width: 100%;
+  height: auto;
+}
+
+/* Define the styles for the header icons */
+.Header-icons {
+  margin-left: auto; /* push the icons to the right side */
+}
+
+.Header-icons img {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  margin-left: 20px;
 }
