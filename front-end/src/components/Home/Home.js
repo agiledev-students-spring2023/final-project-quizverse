@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./Home.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Home.css';
 
 /**
  * A React component that represents the Home page of the app.
@@ -12,10 +12,7 @@ const Home = (props) => {
     <>
       <main>
         <div className="logo-container">
-          <img
-            src={process.env.PUBLIC_URL + "/QuizVerseLogo.png"}
-            alt="QuizVerse"
-          />
+          <img src={process.env.PUBLIC_URL + '/QuizVerseLogo.png'} alt="QuizVerse" />
         </div>
 
         <div className="buttons-container">
