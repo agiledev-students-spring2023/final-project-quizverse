@@ -1,33 +1,29 @@
-import { TextField, FormControl, Box, Stack } from "@mui/material"
+import { TextField, FormControl, Box, Stack, IconButton, Button, Container } from "@mui/material"
 import { useState, useEffect } from "react"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' 
+import {faCirclePlus} from '@fortawesome/free-solid-svg-icons'
 
 const CreateSet = (props) => {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
-  // const [terms, setTerms] = useState({}) 
-  // use a react state object to track each term-def combo
 
-  useEffect(() => {
-    console.log(title)
-  }, [title])
 
   return (
-    <div>
+    <Container 
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: 'auto',
+        overflow: "hidden",
+        overflowY: "scroll",
+      }}>
       <FormControl sx={{ m: 1, width: '30ch'}} variant="outlined">
         <TextField 
-          // InputLabelProps={{
-          //   style: {
-          //     height,
-          //   },
-          // }}
-          
           margin="dense"
           id="filled-basic" label="Subject, chapter, unit, etc" variant="filled" size="small" value={title} helperText="TITLE" onChange={(evt) => {
-            console.log(evt.target.value)
             setTitle(evt.target.value)
         }}/>
         <TextField id="filled-basic" label="Enter a description" helperText="DESCRIPTION" variant="filled" multiline rows={3} value={description} onChange={(evt) => {
-          console.log(evt.target.value)
           setDescription(evt.target.value)
         }}/>
       </FormControl>
@@ -37,25 +33,28 @@ const CreateSet = (props) => {
         height: "auto",
         margin: "auto",
         borderRadius: 1,
-        // backgroundColor: '#44008b',
       }}>
-    
         <Stack spacing={1}>
           <TextField id="filled-basic"  variant="standard" size="small"  helperText="TERM" onChange={(evt) => {
-                console.log(evt.target.value)
                 
           }}/>
           <TextField id="filled-basic"  variant="standard" size="small"  helperText="DEFINITION" onChange={(evt) => {
-                console.log(evt.target.value)
                 
           }}/>
+          <TextField id="filled-basic"  variant="standard" size="small"  helperText="TERM" onChange={(evt) => {
+                
+              }}/>
+              <TextField id="filled-basic"  variant="standard" size="small"  helperText="DEFINITION" onChange={(evt) => {
+                    
+              }}/>
         </Stack>
-
+        
       </Box>
-
-      
-      
-    </div>
+      <Button variant="outlined" startIcon={<FontAwesomeIcon icon={faCirclePlus} />}>
+        Add
+      </Button>
+      <Button variant="outlined">Create</Button>
+    </Container>
   )
 }
 
