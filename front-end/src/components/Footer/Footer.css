@@ -1,10 +1,20 @@
-.footer{
-    border: 10px double black;
-    text-align: center;
-    background-color: skyblue
+.footer {
+  border: 2px solid black;
+  text-align: center;
+  background-color: skyblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
+
 .item {
-    display: inline-block;
-    padding: 5px 5px;
-    font-size: small;
+  display: inline-block;
+  padding: 2px;
+  font-size: 12px;
+  margin: 0 10px;
 }
