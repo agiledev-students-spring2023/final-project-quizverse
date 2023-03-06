@@ -1,6 +1,4 @@
 import React from "react";
-import styles from "./Shop.css";
-import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
