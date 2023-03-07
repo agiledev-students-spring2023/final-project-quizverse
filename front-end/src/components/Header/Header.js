@@ -9,14 +9,13 @@ const Header = (props) => {
   return (
     <header className=".Header-header">
       <nav className="Header-navbar">
-        <h1>QuizVerse</h1>
+        <h3>QuizVerse</h3>
         <ul className="nav-links">
           {/*Coins and streak will be eventually pulled from backend*/}
           <li className="nav-item">
-            <Link to="/shop">Current Streak: 3</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/shop">Coins: 100</Link>
+            <Link to="/shop">
+              Current Streak: 3<br></br>Coins: 100
+            </Link>
           </li>
           {/*This will be set to the right eventually with css*/}
           <li className="nav-item">
@@ -27,15 +26,6 @@ const Header = (props) => {
           </li>
         </ul>
         {/*These are filler just to be used for current navigation purposes*/}
-        <li className="nav-item">
-          <Link to="/">Landing</Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/home">Home</Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/items">Items</Link>
-        </li>
       </nav>
     </header>
   );

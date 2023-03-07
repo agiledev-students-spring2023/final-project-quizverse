@@ -7,8 +7,8 @@
 .nav-item {
   display: inline-block;
   padding: 5px;
-  font-size: small;
-  margin: 0 10px; /* add some horizontal margin to center the elements */
+  font-size: x-small;
+  margin: 0px; /* add some horizontal margin to center the elements */
 }
 
 /* Define the styles for the header navbar */
