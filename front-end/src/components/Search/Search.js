@@ -1,15 +1,14 @@
 import React from "react";
 import styles from "./Search.module.css";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 function Search() {
-    const theme = createTheme();
 
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={useTheme()}>
             <Grid className={styles.gridContainer} container>
                 <Grid item xs={1} />
                 <Grid item xs={8}>
