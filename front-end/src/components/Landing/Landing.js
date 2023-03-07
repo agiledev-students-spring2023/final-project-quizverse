@@ -1,7 +1,7 @@
-import React from "react";
-import Typewriter from "typewriter-effect";
-import styles from "./Landing.module.css";
-import { Link } from 'react-router-dom'
+import React from 'react';
+import Typewriter from 'typewriter-effect';
+import styles from './Landing.module.css';
+import { Link } from 'react-router-dom';
 
 function Landing() {
   return (
@@ -9,20 +9,14 @@ function Landing() {
       <div className={styles.LandingHeader}>
         <h1>Welcome to QuizVerse!</h1>
         <p className={styles.LandingStaticSentence}>
-          A spaced repetition learning platform for{" "}
+          A spaced repetition learning platform for{' '}
           <span className={styles.LandingTypewriter}>
             <Typewriter
               options={{
-                strings: [
-                  "students",
-                  "teachers",
-                  "learners",
-                  "educators",
-                  "everyone",
-                ],
+                strings: ['students', 'teachers', 'learners', 'educators', 'everyone'],
                 autoStart: true,
                 loop: true,
-                wrapperClassName: styles.LandingTypewriterWord,
+                wrapperClassName: styles.LandingTypewriterWord
               }}
             />
           </span>
@@ -31,10 +25,10 @@ function Landing() {
       <div className={styles.LandingBody}>
         <Link to="/login">
           <button className={styles.LogInButton}>Log In</button>
-        </Link>{" "}
+        </Link>{' '}
         <Link to="/SignUp">
           <button className={styles.LogInButton}>Sign Up</button>
-        </Link>{" "}
+        </Link>{' '}
       </div>
     </div>
   );
