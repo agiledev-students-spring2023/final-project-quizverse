@@ -1,0 +1,6 @@
+.page {
+  position: absolute;
+  text-align: center;
+  overflow: auto;
+  height: 100%;
+}
