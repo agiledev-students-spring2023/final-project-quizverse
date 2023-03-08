@@ -1,10 +1,7 @@
 import './Footer.css';
-//import logo from './logo.svg'
 import { Link } from 'react-router-dom';
 import { Typography } from '@mui/material';
-/**
- * Our QuizVerse Footer!
- */
+
 function Copyright() {
   return (
     <Typography variant="body2" color="primary" align="center">
@@ -37,5 +34,4 @@ const Footer = (props) => {
   );
 };
 
-// make this component available to be imported into any other file
 export default Footer;
