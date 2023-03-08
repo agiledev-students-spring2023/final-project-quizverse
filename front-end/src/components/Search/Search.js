@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useCallback } from 'react';
 import styles from './Search.module.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
@@ -7,6 +8,11 @@ import Button from '@mui/material/Button';
 
 function Search() {
   const theme = createTheme();
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const onSearch = useCallback(() => {
+    console.log(searchTerm);
+  }, [searchTerm]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -19,11 +25,17 @@ function Search() {
             type="search"
             variant="outlined"
             className={styles.searchTextField}
+            onChange={(e) => setSearchTerm(e.target.value)}
             fullWidth
           />
         </Grid>
         <Grid item xs={2}>
-          <Button variant="contained" color="primary" className={styles.searchButton} fullWidth>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={onSearch}
+            className={styles.searchButton}
+            fullWidth>
             Search
           </Button>
         </Grid>
