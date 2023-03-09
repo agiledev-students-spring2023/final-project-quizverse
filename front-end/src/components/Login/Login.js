@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
-import { UserContext } from './UserContext';
+import { UserContext } from '../Landing/UserContext';
 
 function LoginPage() {
   const [username, setUsername] = useState('');

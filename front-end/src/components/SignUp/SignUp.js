@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from './UserContext';
+import { UserContext } from '../Landing/UserContext';
 import './SignUp.css';
 
 function SignUpPage() {

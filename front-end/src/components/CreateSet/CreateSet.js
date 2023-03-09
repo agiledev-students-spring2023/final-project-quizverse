@@ -1,12 +1,11 @@
-import { TextField, FormControl, Box, Stack, IconButton, Button, Container } from "@mui/material"
-import { useState, useEffect } from "react"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' 
-import {faCirclePlus} from '@fortawesome/free-solid-svg-icons'
+import { TextField, FormControl, Box, Stack, IconButton, Button, Container } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 const CreateSet = (props) => {
-  const [title, setTitle] = useState("")
-  const [description, setDescription] = useState("")
-
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
 
   return (
     <div>
@@ -123,6 +122,6 @@ const CreateSet = (props) => {
       </Container>
     </div>
   );
-}
+};
 
-export default CreateSet
+export default CreateSet;
