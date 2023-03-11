@@ -56,7 +56,7 @@ const CreateSet = (props) => {
   });
 
   return (
-    <div>
+    <div className={styles.SetContainer}>
       <Container
         style={{
           display: 'flex',
@@ -84,6 +84,7 @@ const CreateSet = (props) => {
                 name="term1"
               />
               <TextField
+                sx={{ padding: '5px' }}
                 id="filled-basic"
                 variant="standard"
                 size="small"
@@ -92,23 +93,74 @@ const CreateSet = (props) => {
               />
             </Stack>
           </form>
+        </Box>
 
-          <form>
+        <Box
+          sx={{
+            width: '80vw',
+            height: 'auto',
+            margin: 'auto',
+            borderRadius: 1,
+            backgroundColor: 'rgba(0, 7, 111, 0.4)',
+            padding: '10px',
+            margin: '7px'
+          }}>
+          <form onChange={handleChange}>
             <Stack spacing={1}>
-              <TextField id="filled-basic" variant="standard" size="small" helperText="TERM" />
               <TextField
                 id="filled-basic"
                 variant="standard"
                 size="small"
+                helperText="TERM"
+                name="term1"
+              />
+              <TextField
+                sx={{ padding: '5px' }}
+                id="filled-basic"
+                variant="standard"
+                size="small"
                 helperText="DEFINITION"
+                name="def1"
               />
             </Stack>
           </form>
         </Box>
-        <Button variant="outlined" startIcon={<FontAwesomeIcon icon={faCirclePlus} />}>
-          Add Card
-        </Button>
-        <Button variant="outlined">Create Set</Button>
+
+        <Box
+          sx={{
+            width: '80vw',
+            height: 'auto',
+            margin: 'auto',
+            borderRadius: 1,
+            backgroundColor: 'rgba(0, 7, 111, 0.4)',
+            padding: '10px'
+          }}>
+          <form onChange={handleChange}>
+            <Stack spacing={1}>
+              <TextField
+                id="filled-basic"
+                variant="standard"
+                size="small"
+                helperText="TERM"
+                name="term1"
+              />
+              <TextField
+                sx={{ padding: '5px' }}
+                id="filled-basic"
+                variant="standard"
+                size="small"
+                helperText="DEFINITION"
+                name="def1"
+              />
+            </Stack>
+          </form>
+        </Box>
+        <div className={styles['form-actions']}>
+          <Button variant="outlined" startIcon={<FontAwesomeIcon icon={faCirclePlus} />}>
+            Add Card
+          </Button>
+          <Button variant="outlined">Create Set</Button>
+        </div>
       </Container>
     </div>
   );
