@@ -11,6 +11,7 @@ import Items from './components/Items/Items';
 import Terms from './components/Terms/Terms';
 import Privacy from './components/Privacy/Privacy';
 import CreateSet from './components/CreateSet/CreateSet';
+import FlashcardSets from './components/FlashcardSets/FlashcardSets';
 
 const theme = createTheme({
   palette: {
@@ -45,6 +46,7 @@ const App = (props) => {
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/create-set" element={<CreateSet />} />
+            <Route path="/flashcards" element={<FlashcardSets />} />
           </Route>
         </Routes>
       </ThemeProvider>
