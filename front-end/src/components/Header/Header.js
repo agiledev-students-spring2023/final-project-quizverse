@@ -5,7 +5,29 @@ import { Link } from 'react-router-dom';
 /**
  * Our QuizVerse Header!
  */
+import React, { useState, useEffect } from "react"
+import { Navigate, useSearchParams } from "react-router-dom"
+import axios from "axios"
 const Header = (props) => {
+
+    try {
+      // create an object with the data we want to send to the server
+      const requestData = {
+        username: e.target.username.value, // gets the value of the field in the submitted form with name='username'
+        password: e.target.password.value, // gets the value of the field in the submitted form with name='password',
+      }
+      // send the request to the server api to authenticate
+      const response = await axios.post(
+        "https://my.api.mockaroo.com/users.json?key=6b3bc3e0",
+        requestData
+      )
+      // store the response data into the data state variable
+      console.log(response.data)
+    } catch (err) {
+      // throw an error
+      throw new Error(err)
+    }
+  
   return (
     <div className="header-container">
       <nav className="Header-navbar">
