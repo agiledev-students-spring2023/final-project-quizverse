@@ -6,10 +6,11 @@ import { Link } from 'react-router-dom';
  * Our QuizVerse Header!
  */
 import React, { useState, useEffect } from "react"
-import { Navigate, useSearchParams } from "react-router-dom"
 import axios from "axios"
 const Header = (props) => {
   const [data, setData] = useState([])
+  const [streak, setStreak] = useState(0)
+  const [coins, setCoins] = useState(0)
 
   // the following side-effect will be called once upon initial render
   useEffect(() => {
@@ -19,6 +20,8 @@ const Header = (props) => {
       .then(response => {
         // extract the data from the server response
         setData(response.data)
+        setStreak(response.data[0].streak)
+        setCoins(response.data[0].coins)
       })
       .catch(err => {
         // Mockaroo, which we're using for our Mock API, only allows 200 requests per day on the free plan
@@ -26,30 +29,13 @@ const Header = (props) => {
         console.error(err) // the server returned an error... probably too many requests... until we pay!
 
         // make some backup fake data
-        const backupData = [
-          {
-            id: 1,
-            title: "Paddy heron (unidentified)",
-            country: "Brazil",
-            price: "$10.51",
-            description:
-              "Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.",
-          },
-          {
-            id: 2,
-            title: "Numbat",
-            country: "Russia",
-            price: "$2.37",
-            description:
-              "Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.",
-          },
-        ]
+        const backupData =[{"username":"udottrell0","first_name":"Ulrich","last_name":"Dottrell","email":"udottrell0@newyorker.com","coins":34,"streak":14},{"username":"fgrandin1","first_name":"Fannie","last_name":"Grandin","email":"fgrandin1@360.cn","coins":59,"streak":71},{"username":"tbraundt2","first_name":"Thorin","last_name":"Braundt","email":"tbraundt2@ucoz.ru","coins":42,"streak":17},{"username":"drahl3","first_name":"Dun","last_name":"Rahl","email":"drahl3@joomla.org","coins":89,"streak":47},{"username":"gwimlett4","first_name":"Gothart","last_name":"Wimlett","email":"gwimlett4@ning.com","coins":68,"streak":48},{"username":"nlacroux5","first_name":"Nester","last_name":"Lacroux","email":"nlacroux5@github.io","coins":51,"streak":29},{"username":"gwasselin6","first_name":"Gwendolen","last_name":"Wasselin","email":"gwasselin6@photobucket.com","coins":96,"streak":66},{"username":"hscrymgeour7","first_name":"Hollie","last_name":"Scrymgeour","email":"hscrymgeour7@biblegateway.com","coins":60,"streak":91},{"username":"sgoldsworthy8","first_name":"Sandra","last_name":"Goldsworthy","email":"sgoldsworthy8@timesonline.co.uk","coins":88,"streak":4},{"username":"fkondratenko9","first_name":"Frants","last_name":"Kondratenko","email":"fkondratenko9@ebay.co.uk","coins":86,"streak":33}]
 
         setData(backupData)
+        console.log(data)
       })
-  }, []) // only run it once!
-  console.log(data[0].coins)
-  
+  }, []) 
+
   return (
     <div className="header-container">
       <nav className="Header-navbar">
@@ -57,10 +43,10 @@ const Header = (props) => {
         <ul className="nav-links">
           {/*Coins and streak will be eventually pulled from backend*/}
           <li className="nav-item">
-            <Link to="/shop">Current Streak: {data[0].streak} </Link>
+            <Link to="/shop">Current Streak: {streak} </Link>
           </li>
           <li className="nav-item">
-            <Link to="/shop">Coins: {data[0].coins}</Link>
+            <Link to="/shop">Coins: {coins}</Link>
           </li>
           {/*This will be set to the right eventually with css*/}
           <li className="nav-item">
