@@ -1,0 +1,21 @@
+.flashcardSetCard {
+    min-width: 275px;
+    margin-bottom: 15px;
+}
+
+.flashcardSetTypeTypography {
+    font-size: 14;
+}
+
+.flashcardSetTitle {
+    font-weight: 400;
+}
+
+
+.flashcardSetCardCount {
+    margin-bottom: 1.5;
+}
+
+.flashcardSetDescription {
+    font-style: italic;
+}

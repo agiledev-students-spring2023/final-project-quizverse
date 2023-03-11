@@ -4,6 +4,13 @@
   text-align: center;
 }
 
+/* bring header container to the front of the stack*/
+.header-container {
+  z-index: 999;
+  position: absolute;
+  top: 0;
+}
+
 .nav-item {
   display: inline-block;
   padding: 5px;

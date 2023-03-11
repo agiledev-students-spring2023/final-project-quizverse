@@ -1,0 +1,11 @@
+.searchContainer {
+    padding: 10px;
+}
+
+.flashcardSetContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
