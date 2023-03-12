@@ -5,11 +5,15 @@ import axios from "axios"
 import Flashcard from '../Flashcard/Flashcard'
 
 const DailyQuiz = (props) => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState([{
+    "term":"",
+    "definition":""
+  }])
   const [answer, setAnswer] = useState('');
   const [term, setTerm] = useState('');
   const [definition, setDefinition] = useState('')
-  const [arrLength, setArrLength] = useState('')
+  const [arrLength, setArrLength] = useState(0)
+  const [arrIndex, setArrIndex] = useState(0)
   const handleSubmit = (event) => {
     event.preventDefault();
     const foundUser = answer;
@@ -42,16 +46,40 @@ const DailyQuiz = (props) => {
         setData(backupData)
         setTerm(backupData[0].term)
         setDefinition(backupData[0].definition)
-        setArrLength(response.data.length)
+        setArrLength(backupData.length)
       })
   }, []) 
+
+;useEffect(()=>{
+  setTerm(data[arrIndex].term)
+  setDefinition(data[arrIndex].definition)
+},[arrIndex])
+
+
+  ;const Prev = () => {
+    if (arrIndex - 1< 0){
+      return
+    }
+    else{
+      setArrIndex(arrIndex-1)
+    }
+  }
+
+  ;const Next = () => {
+    if (arrIndex + 1>= arrLength){
+      return
+    }
+    else{
+      setArrIndex(arrIndex+1)
+    }
+  }
 
   return (
     <>
       <h1>Daily Quiz</h1>
       <h2>Current flashcard:</h2>
       <div class = "flashcard">
-      <Flashcard class = "card" term = {term} definition = {definition}/>
+      <Flashcard class = "card" term = {term} definition = {definition} handleNext = {Next} handlePrev = {Prev}/>
       </div>
       
       
