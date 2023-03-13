@@ -11,11 +11,11 @@ function Flashcard(props) {
         <div>
         <Card  variant = "outlined" class = "card" >
         <CardContent>
-          <Typography variant='h3'  gutterBottom>
-          {props.term}
-          </Typography>
-          <Typography variant="body1">
-            {props.definition}
+            <Typography variant='h3'  gutterBottom>
+            {props.displayTerm===true?props.term:null}
+            </Typography>
+            <Typography variant="body1">
+            {props.displayDefinition===true?props.definition:null}
           </Typography>
         </CardContent>
         <CardActions>
