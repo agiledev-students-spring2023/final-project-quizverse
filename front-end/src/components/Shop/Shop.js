@@ -82,8 +82,7 @@ export default function Shop() {
                   <Typography>Double your coins when studying. Cost: 50 coins.</Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small">View</Button>
-                  <Button size="small">Edit</Button>
+                  <Button size="small">Buy</Button>
                 </CardActions>
               </Card>
             </Grid>
@@ -108,8 +107,7 @@ export default function Shop() {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small">View</Button>
-                  <Button size="small">Edit</Button>
+                  <Button size="small">Buy</Button>
                 </CardActions>
               </Card>
             </Grid>
@@ -134,8 +132,7 @@ export default function Shop() {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small">View</Button>
-                  <Button size="small">Edit</Button>
+                  <Button size="small">Buy</Button>
                 </CardActions>
               </Card>
             </Grid>

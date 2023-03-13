@@ -14,6 +14,8 @@ const DailyQuiz = (props) => {
   const [definition, setDefinition] = useState('')
   const [arrLength, setArrLength] = useState(0)
   const [arrIndex, setArrIndex] = useState(0)
+  const [displayTerm, setDisplayTerm] = useState(true)
+  const [displayDefinition, setDisplayDefinition] = useState(false)
   const handleSubmit = (event) => {
     event.preventDefault();
     const foundUser = answer;
@@ -57,6 +59,7 @@ const DailyQuiz = (props) => {
 
 
   ;const Prev = () => {
+    setDisplayDefinition(false)
     if (arrIndex - 1< 0){
       return
     }
@@ -66,6 +69,7 @@ const DailyQuiz = (props) => {
   }
 
   ;const Next = () => {
+    setDisplayDefinition(false)
     if (arrIndex + 1>= arrLength){
       return
     }
@@ -74,12 +78,16 @@ const DailyQuiz = (props) => {
     }
   }
 
+  ;const showAnswer = () => {
+    setDisplayDefinition(true)
+  }
+
   return (
     <>
       <h1>Daily Quiz</h1>
       <h2>Current flashcard:</h2>
       <div class = "flashcard">
-      <Flashcard class = "card" term = {term} definition = {definition} handleNext = {Next} handlePrev = {Prev}/>
+      <Flashcard class = "card" term = {term} definition = {definition} handleNext = {Next} handlePrev = {Prev} displayTerm = {displayTerm} displayDefinition = {displayDefinition}/>
       </div>
       
       
@@ -99,6 +107,11 @@ const DailyQuiz = (props) => {
         <button type="submit" className="answer-button">
           Submit
         </button>
+        <div>
+        <button type="see_answer" className = "show-answer-button" onClick={showAnswer}>
+          Show answer
+        </button>
+        </div>
       </form>
       <div>
         <h2>Topics You Got Right:</h2>
