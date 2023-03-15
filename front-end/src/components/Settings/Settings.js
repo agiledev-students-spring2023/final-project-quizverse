@@ -9,13 +9,20 @@ import './Settings.css';
  */
 const Settings = (props) => {
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const changeEmail = (event) => {
     event.preventDefault();
     //let input = document.getElementById('email').value;
     //setEmail(input);
     alert('Email changed! Your email is now set to ' + email + '!');
-    console.log({ email });
+    //console.log({ email });
+  };
+  const changePassword = (event) => {
+    event.preventDefault();
+    //let input = document.getElementById('email').value;
+    //setEmail(input);
+    alert('Password changed! Your new password is now set.');
   };
   const deleteAccountWarning = (event) => {
     let input = prompt(
@@ -37,11 +44,17 @@ const Settings = (props) => {
         <div className="logo-container">
           <img src={process.env.PUBLIC_URL + '/QuizVerseLogo.png'} alt="QuizVerse" />
         </div>
+        <div>
+          <h1>Settings</h1>
+        </div>
         <div className="settings-buttons-container">
-          <form className="login-page-form" onSubmit={changeEmail}>
-            <div className="email-input-container">
-              <label htmlFor="username" className="login-page-label">
-                Email:
+          <form className="settings-form" onSubmit={changeEmail}>
+            <div className="settings-input-container">
+              <label
+                htmlFor="username"
+                className="login-page-label"
+                placeholder="example@mail-service.com">
+                Set Email:
               </label>
               <input
                 type="text"
@@ -52,9 +65,23 @@ const Settings = (props) => {
               />
             </div>
           </form>
-          <Link to="/password" className="settings-button">
-            Change Password
-          </Link>
+          <form className="settings-form" onSubmit={changePassword}>
+            <div className="settings-input-container">
+              <label
+                htmlFor="username"
+                className="login-page-label"
+                placeholder="example@mail-service.com">
+                Set Password:
+              </label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                className="password-input"
+              />
+            </div>
+          </form>
           <Link to="/items" className="settings-button">
             View Items
           </Link>
