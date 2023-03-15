@@ -14,7 +14,7 @@ const Settings = (props) => {
     event.preventDefault();
     //let input = document.getElementById('email').value;
     //setEmail(input);
-    alert('Email changed! Your email is now set to ' + { email });
+    alert('Email changed! Your email is now set to ' + email + '!');
     console.log({ email });
   };
   const deleteAccountWarning = (event) => {
