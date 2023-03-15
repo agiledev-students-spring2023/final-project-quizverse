@@ -1,5 +1,5 @@
 /* Define the styles for the buttons */
-.buttons-container {
+.settings-buttons-container {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(2, 1fr);
@@ -8,23 +8,23 @@
     max-width: 600px;
     padding: 0 20px;
     padding-bottom: 50px;
-  }
+}
   
-  .big-button {
-    background-color: #0072c6;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 150px;
-    font-size: 24px;
-    text-align: center;
-    text-decoration: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  .big-button:hover {
-    background-color: #005da1;
-  }
+.settings-button {
+background-color: #0072c6;
+color: #fff;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 150px;
+font-size: 24px;
+text-align: center;
+text-decoration: none;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+border-radius: 8px;
+transition: background-color 0.2s ease-in-out;
+}
+
+.settings-button:hover {
+background-color: #005da1;
+}

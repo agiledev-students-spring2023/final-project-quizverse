@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Settings.css';
 
 /**
@@ -9,9 +9,27 @@ import './Settings.css';
  */
 const Settings = (props) => {
   const [email, setEmail] = useState('');
+  const navigate = useNavigate();
   const changeEmail = (event) => {
     event.preventDefault();
-    alert('Email changed! Your email is now set to ${email}');
+    //let input = document.getElementById('email').value;
+    //setEmail(input);
+    alert('Email changed! Your email is now set to ' + { email });
+    console.log({ email });
+  };
+  const deleteAccountWarning = (event) => {
+    let input = prompt(
+      "THIS WILL DELETE YOUR ACCOUNT PERMANENTLY. TYPE 'ok' in this box to confirm deletion of your account."
+    );
+    if (input === 'ok') {
+      alert('Your account has been deleted!');
+      navigate('/');
+    } else {
+      alert('Incorrect input!');
+    }
+  };
+  const logoutWarning = (event) => {
+    alert('Thanks for using QuizVerse! See you again soon!');
   };
   return (
     <>
@@ -19,39 +37,37 @@ const Settings = (props) => {
         <div className="logo-container">
           <img src={process.env.PUBLIC_URL + '/QuizVerseLogo.png'} alt="QuizVerse" />
         </div>
-
-        <div className="buttons-container">
-          <div className="login-page-input-container">
-            <label htmlFor="email" className="email-box">
-              Email:
-            </label>
-            <input
-              type="text"
-              id="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              className="email-input"
-            />
-          </div>
-          <button type="submit" className="answer-button" onClick={changeEmail}>
-            Submit
-          </button>
-          <Link to="/password" className="big-button">
+        <div className="settings-buttons-container">
+          <form className="login-page-form" onSubmit={changeEmail}>
+            <div className="email-input-container">
+              <label htmlFor="username" className="login-page-label">
+                Email:
+              </label>
+              <input
+                type="text"
+                id="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                className="email-input"
+              />
+            </div>
+          </form>
+          <Link to="/password" className="settings-button">
             Change Password
           </Link>
-          <Link to="/items" className="big-button">
+          <Link to="/items" className="settings-button">
             View Items
           </Link>
-          <Link to="/study-statistics" className="big-button">
+          <Link to="/study-statistics" className="settings-button">
             Study Statistics
           </Link>
-          <Link to="/daily-quiz-settings" className="big-button">
+          <Link to="/daily-quiz-settings" className="settings-button">
             Daily Quiz Settings
           </Link>
-          <Link to="/delete-account" className="big-button">
+          <button className="settings-button" onClick={deleteAccountWarning}>
             DELETE ACCOUNT
-          </Link>
-          <Link to="/landing" className="button">
+          </button>
+          <Link to="/" className="button" onClick={logoutWarning}>
             Logout
           </Link>
         </div>
