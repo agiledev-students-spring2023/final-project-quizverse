@@ -1,31 +1,96 @@
 //eslint-disable-next-line
 import styles from './DailyQuiz.module.css';
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
+import React, { useState, useEffect } from "react"
+import axios from "axios"
+import Flashcard from '../Flashcard/Flashcard'
 
 const DailyQuiz = (props) => {
-  const words = ['monkey', 'birch', 'virus'];
-  //const definitions = ['animal','plant','not alive']
-  //const [flashcard, setFlashcard] = useState('');
+  const [data, setData] = useState([{
+    "term":"",
+    "definition":""
+  }])
   const [answer, setAnswer] = useState('');
-  let word = words[0];
+  const [term, setTerm] = useState('');
+  const [definition, setDefinition] = useState('')
+  const [arrLength, setArrLength] = useState(0)
+  const [arrIndex, setArrIndex] = useState(0)
+  const [displayTerm, setDisplayTerm] = useState(true)
+  const [displayDefinition, setDisplayDefinition] = useState(false)
   const handleSubmit = (event) => {
     event.preventDefault();
     const foundUser = answer;
     if (foundUser) {
-      word = words[1];
       alert('Correct!');
     } else {
       alert('Incorrect!');
     }
   };
+  // the following side-effect will be called once upon initial render
+  useEffect(() => {
+    // fetch some mock flashcards
+    console.log("fetching 10 random flashcards...")
+    axios("https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0")
+      .then(response => {
+        // extract the data from the server response
+        setData(response.data)
+        setTerm(response.data[0].term)
+        setDefinition(response.data[0].definition)
+        setArrLength(response.data.length)
+      })
+      .catch(err => {
+        // Mockaroo, which we're using for our Mock API, only allows 200 requests per day on the free plan
+        console.log(`Sorry, buster.  No more requests allowed today!`)
+        console.error(err) // the server returned an error... probably too many requests... until we pay!
+
+        // make some backup fake data
+        const backupData = [{"term":"encryption","definition":"adipiscing elit proin risus praesent lectus vestibulum quam sapien varius ut blandit"},{"term":"instruction set","definition":"convallis nunc proin at turpis a pede posuere nonummy integer non velit donec diam"},{"term":"contingency","definition":"elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue"},{"term":"Sharable","definition":"vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa"},{"term":"User-friendly","definition":"praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget tempus"},{"term":"executive","definition":"sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc nisl"},{"term":"model","definition":"elit proin interdum mauris non ligula pellentesque ultrices phasellus id"},{"term":"Ergonomic","definition":"massa quis augue luctus tincidunt nulla mollis molestie lorem quisque ut erat curabitur gravida nisi"},{"term":"intangible","definition":"porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis"},{"term":"challenge","definition":"luctus rutrum nulla tellus in sagittis dui vel nisl duis ac"}]
+
+        setData(backupData)
+        setTerm(backupData[0].term)
+        setDefinition(backupData[0].definition)
+        setArrLength(backupData.length)
+      })
+  }, []) 
+
+;useEffect(()=>{
+  setTerm(data[arrIndex].term)
+  setDefinition(data[arrIndex].definition)
+},[arrIndex])
+
+
+  ;const Prev = () => {
+    setDisplayDefinition(false)
+    if (arrIndex - 1< 0){
+      return
+    }
+    else{
+      setArrIndex(arrIndex-1)
+    }
+  }
+
+  ;const Next = () => {
+    setDisplayDefinition(false)
+    if (arrIndex + 1>= arrLength){
+      return
+    }
+    else{
+      setArrIndex(arrIndex+1)
+    }
+  }
+
+  ;const showAnswer = () => {
+    setDisplayDefinition(true)
+  }
+
   return (
     <>
-      <h1>THIS IS THE DAILY QUIZ SCREEN</h1>
-      <p>Current flashcard:</p>
-      <Box sx={{ p: 2, border: '5px dashed grey' }}>
-        <h2>{word}</h2>
-      </Box>
+      <h1>Daily Quiz</h1>
+      <h2>Current flashcard:</h2>
+      <div class = "flashcard">
+      <Flashcard class = "card" term = {term} definition = {definition} handleNext = {Next} handlePrev = {Prev} displayTerm = {displayTerm} displayDefinition = {displayDefinition}/>
+      </div>
+      
+      
       <form className="login-page-form" onSubmit={handleSubmit}>
         <div className="login-page-input-container">
           <label htmlFor="password" className="login-page-label">
@@ -42,6 +107,11 @@ const DailyQuiz = (props) => {
         <button type="submit" className="answer-button">
           Submit
         </button>
+        <div>
+        <button type="see_answer" className = "show-answer-button" onClick={showAnswer}>
+          Show answer
+        </button>
+        </div>
       </form>
       <div>
         <h2>Topics You Got Right:</h2>

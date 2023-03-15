@@ -8,9 +8,9 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styles from './FlashcardSet.module.css';
 
-function FlashcardSet() {
+function FlashcardSet(props) {
   const theme = createTheme();
-
+  
   return (
     <ThemeProvider theme={theme}>
       <Card className={styles.flashcardSetCard}>
@@ -22,14 +22,13 @@ function FlashcardSet() {
             Flashcard Set
           </Typography>
           <Typography className={styles.flashcardSetTitle} variant="h5" component="div">
-            Marine Biology
+            {props.title}
           </Typography>
           <Typography className={styles.flashcardSetCardCount} color="text.secondary">
-            3 cards
+            {props.numCards} cards
           </Typography>
           <Typography className={styles.flashcardSetDescription} variant="body2">
-            These flashcards should cover everything the professor talked about since the last exam
-            up until this newest unit
+            {props.description}
           </Typography>
         </CardContent>
         <CardActions>
