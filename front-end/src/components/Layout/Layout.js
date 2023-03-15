@@ -1,4 +1,4 @@
-import './Layout.module.css';
+import './Layout.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { Outlet } from 'react-router-dom';
@@ -9,8 +9,8 @@ const Layout = () => {
       <Header />
       <div className="page">
         <Outlet />
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 };
