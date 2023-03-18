@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styles from './FlashcardSet.module.css';
+import { Link } from 'react-router-dom';
 
 function FlashcardSet(props) {
   const theme = createTheme();
@@ -32,7 +33,9 @@ function FlashcardSet(props) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">View Set</Button>
+          <Link to="/flashcard-set/123456">
+            <Button size="small">View Set</Button>
+          </Link>
         </CardActions>
       </Card>
     </ThemeProvider>

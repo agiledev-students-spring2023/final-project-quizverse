@@ -1,0 +1,14 @@
+.cardsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    width: 500px;
+    margin-bottom: 15px;
+}
+
+.card:hover {
+    cursor: pointer;
+}
