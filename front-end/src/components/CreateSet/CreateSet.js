@@ -1,7 +1,7 @@
 import { TextField, FormControl, Box, Stack, IconButton, Button, Container } from "@mui/material"
 import { useState, useEffect } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' 
-import {faCirclePlus} from '@fortawesome/free-solid-svg-icons'
+import { faCirclePlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import styles from './CreateSet.module.css';
 import EditCard from './EditCard';
 
@@ -32,6 +32,10 @@ const CreateSet = (props) => {
     console.log(cards);
   }
 
+  function handleDelete(index) {
+    setCards(cards.slice(0, index).concat(cards.slice(index + 1)));
+  }
+
   function addNew() {
     setCards(cards.concat({ term: '', definition: '' }));
   }
@@ -39,7 +43,12 @@ const CreateSet = (props) => {
   const cardElements = cards.map((info, i) => {
     return (
       <>
-        <EditCard handleChange={handleChange} index={i} term={info.term} def={info.def}></EditCard>
+        <EditCard
+          handleChange={handleChange}
+          handleDelete={handleDelete}
+          index={i}
+          term={info.term}
+          def={info.def}></EditCard>
       </>
     );
   });

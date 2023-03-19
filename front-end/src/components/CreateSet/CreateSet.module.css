@@ -8,3 +8,8 @@
 .form-actions {
   margin-top: 10px;
 }
+
+.delete-card {
+  padding: 3px;
+  float: right;
+}
