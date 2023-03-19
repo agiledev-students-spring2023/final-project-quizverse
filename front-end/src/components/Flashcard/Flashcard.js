@@ -7,40 +7,6 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { useTheme, ThemeProvider } from '@mui/material/styles';
 
-/*
-* This is the Flashcard class.
-*/
-/*
-* This is not a screen, but is used in other screens.
-*/
-/*
-* The following props are used in the Flashcards class:
-*/
-/*
-* displayTerm
-*/
-/*
-* displayTerm should be a boolean (true or false) to show whether the term is displayed
-*/
-/*
-* term
-*/
-/*
-* term should contain the term that we want on the flashcard
-*/
-/*
-* displayDefinition should be a boolean (true or false) to show whether the definition is displayed
-*/
-/*
-* definition should contain the word's definition
-*/
-/*
-* handlePrev should be a function for the "Previous Card" button
-*/
-/*
-* handleNext should be a function for the "Next Card" button
-*/
-
 function Flashcard(props) {
     return (
       <ThemeProvider theme={useTheme()}>
