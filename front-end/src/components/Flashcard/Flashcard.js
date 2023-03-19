@@ -5,11 +5,13 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { useTheme, ThemeProvider } from '@mui/material/styles';
 
 function Flashcard(props) {
     return (
+      <ThemeProvider theme={useTheme()}>
         <div>
-        <Card  variant = "outlined" class = "card" >
+        <Card class = {styles.default_card} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
         <CardContent>
             <Typography variant='h3'  gutterBottom>
             {props.displayTerm===true?props.term:null}
@@ -26,6 +28,7 @@ function Flashcard(props) {
         </CardActions>
         </Card>
         </div>
+        </ThemeProvider>
     );
   }
   

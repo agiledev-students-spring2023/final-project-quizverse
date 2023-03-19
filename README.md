@@ -76,7 +76,13 @@ If you want to contribute to QuizVerse, here are the related guidelines: [Link](
 
 ## Build/Test QuizVerse:
 Information on how to build and test QuizVerse yourself, if you choose to do so:
-*Information will be filled here*
+1. Download this repository onto your local machine.
+2. Navigate into front-end
+3. Run npm install
+4. Run npm start
+
+## App Map:
+<img src="./ux-design/app-map.png" alt= “map” width="75%" height="75%">
 
 *Link to hosted version here? QuizVerse.com*
 
