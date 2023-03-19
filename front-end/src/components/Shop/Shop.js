@@ -8,7 +8,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
+//import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
@@ -28,14 +28,14 @@ function Copyright() {
   );
 }
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+//const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Shop() {
   return (
     <ThemeProvider theme={useTheme()}>
       <CssBaseline />
-
       <main>
+        <div className='shop-background'>
         {/* Hero unit */}
         <Box
           sx={{
@@ -138,6 +138,7 @@ export default function Shop() {
             </Grid>
           </Grid>
         </Container>
+        </div>
       </main>
       {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">

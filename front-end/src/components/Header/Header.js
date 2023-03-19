@@ -63,9 +63,6 @@ const Header = (props) => {
         <li className="nav-item">
           <Link to="/home">Home</Link>
         </li>
-        <li className="nav-item">
-          <Link to="/items">Items</Link>
-        </li>
       </nav>
     </div>
   );
