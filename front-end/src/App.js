@@ -12,6 +12,8 @@ import Terms from './components/Terms/Terms';
 import Privacy from './components/Privacy/Privacy';
 import CreateSet from './components/CreateSet/CreateSet';
 import FlashcardSets from './components/FlashcardSets/FlashcardSets';
+import Settings from './components/Settings/Settings';
+import FullScreenFlashcardSet from './components/FullScreenFlashcardSet/FullScreenFlashcardSet';
 
 const theme = createTheme({
   palette: {
@@ -47,6 +49,8 @@ const App = (props) => {
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/create-set" element={<CreateSet />} />
             <Route path="/flashcards" element={<FlashcardSets />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/flashcard-set/:id" element={<FullScreenFlashcardSet />} />
           </Route>
         </Routes>
       </ThemeProvider>
