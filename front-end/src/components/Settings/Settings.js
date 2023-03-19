@@ -85,11 +85,8 @@ const Settings = (props) => {
           <Link to="/items" className="settings-button">
             View Items
           </Link>
-          <Link to="/study-statistics" className="settings-button">
+          <Link to="/study-stats" className="settings-button">
             Study Statistics
-          </Link>
-          <Link to="/daily-quiz-settings" className="settings-button">
-            Daily Quiz Settings
           </Link>
           <button className="settings-button" onClick={deleteAccountWarning}>
             DELETE ACCOUNT
