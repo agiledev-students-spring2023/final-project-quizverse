@@ -39,7 +39,7 @@ const Header = (props) => {
   return (
     <div className="header-container">
       <nav className="Header-navbar">
-        <h1>QuizVerse</h1>
+        <h3>QuizVerse</h3>
         <ul className="nav-links">
           {/*Coins and streak will be eventually pulled from backend*/}
           <li className="nav-item">
