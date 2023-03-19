@@ -4,7 +4,9 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import Flashcard from '../Flashcard/Flashcard'
 
+
 const DailyQuiz = (props) => {
+  
   const [data, setData] = useState([{
     "term":"",
     "definition":""
@@ -16,13 +18,16 @@ const DailyQuiz = (props) => {
   const [arrIndex, setArrIndex] = useState(0)
   const [displayTerm, setDisplayTerm] = useState(true)
   const [displayDefinition, setDisplayDefinition] = useState(false)
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const [correct, setCorrect] = useState([]);
+  const [incorrect, setIncorrect] = useState([]);
+  const submitButton = () => {
     const foundUser = answer;
-    if (foundUser) {
+    if (foundUser==definition) {
       alert('Correct!');
+      setCorrect([...correct, term])
     } else {
       alert('Incorrect!');
+      setIncorrect([...incorrect, term])
     }
   };
   // the following side-effect will be called once upon initial render
@@ -83,15 +88,17 @@ const DailyQuiz = (props) => {
   }
 
   return (
+    
     <>
       <h1>Daily Quiz</h1>
       <h2>Current flashcard:</h2>
       <div class = "flashcard">
-      <Flashcard class = "card" term = {term} definition = {definition} handleNext = {Next} handlePrev = {Prev} displayTerm = {displayTerm} displayDefinition = {displayDefinition}/>
+      <Flashcard term = {term} definition = {definition} handleNext = {Next} handlePrev = {Prev} displayTerm = {displayTerm} displayDefinition = {displayDefinition}/>
+
       </div>
       
       
-      <form className="login-page-form" onSubmit={handleSubmit}>
+      <form className="login-page-form">
         <div className="login-page-input-container">
           <label htmlFor="password" className="login-page-label">
             Answer:
@@ -104,23 +111,28 @@ const DailyQuiz = (props) => {
             className="answer-input"
           />
         </div>
-        <button type="submit" className="answer-button">
+        <button type="button" className="answer-button" onClick = {submitButton}>
           Submit
         </button>
         <div>
-        <button type="see_answer" className = "show-answer-button" onClick={showAnswer}>
+        <button type="button" className = "show-answer-button" onClick={showAnswer}>
           Show answer
         </button>
         </div>
       </form>
       <div>
         <h2>Topics You Got Right:</h2>
+        {correct.map((word) =>(
+          <p>{word}</p>
+        )
+        )}
       </div>
       <div>
         <h2>Topics You Got Wrong:</h2>
-      </div>
-      <div>
-        <h2>Graph of Current Statistics:</h2>
+        {incorrect.map((word) =>(
+          <p>{word}</p>
+        )
+        )}
       </div>
     </>
   );
