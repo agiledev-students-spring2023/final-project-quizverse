@@ -1,0 +1,15 @@
+.SetContainer {
+  text-align: center;
+  margin: auto;
+  min-height: 100%;
+  height: auto;
+}
+
+.form-actions {
+  margin-top: 10px;
+}
+
+.delete-card {
+  padding: 3px;
+  float: right;
+}

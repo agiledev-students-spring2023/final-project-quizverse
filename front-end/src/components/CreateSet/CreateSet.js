@@ -1,14 +1,60 @@
-import { TextField, FormControl, Box, Stack, IconButton, Button, Container } from '@mui/material';
-import { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { TextField, FormControl, Box, Stack, IconButton, Button, Container } from "@mui/material"
+import { useState, useEffect } from "react"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' 
+import { faCirclePlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import styles from './CreateSet.module.css';
+import EditCard from './EditCard';
 
 const CreateSet = (props) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [cards, setCards] = useState([
+    {
+      term: '',
+      definiion: ''
+    }
+  ]);
+
+  function handleChange(evt) {
+    const value = evt.target.value;
+    const id = evt.target.name;
+    const field = id.slice(0, -1);
+    const index = id.slice(id.length - 1);
+    console.log(`Field ${id} was changed to ${value} at index ${index}`);
+    const newCard = cards[index];
+    newCard[field] = value;
+    setCards(
+      cards
+        .slice(0, index)
+        .concat(newCard)
+        .concat(cards.slice(index + 1))
+    );
+    console.log(cards);
+  }
+
+  function handleDelete(index) {
+    setCards(cards.slice(0, index).concat(cards.slice(index + 1)));
+  }
+
+  function addNew() {
+    setCards(cards.concat({ term: '', definition: '' }));
+  }
+
+  const cardElements = cards.map((info, i) => {
+    return (
+      <>
+        <EditCard
+          handleChange={handleChange}
+          handleDelete={handleDelete}
+          index={i}
+          term={info.term}
+          def={info.def}></EditCard>
+      </>
+    );
+  });
 
   return (
-    <div>
+    <div className={styles.SetContainer}>
       <Container
         style={{
           display: 'flex',
@@ -44,84 +90,20 @@ const CreateSet = (props) => {
           />
         </FormControl>
 
-        <Box
-          sx={{
-            width: '80vw',
-            height: 'auto',
-            margin: 'auto',
-            borderRadius: 1,
-            backgroundColor: 'rgba(0, 7, 111, 0.4)',
-            padding: '10px'
-          }}>
-          <Stack spacing={1}>
-            <TextField
-              id="filled-basic"
-              variant="standard"
-              size="small"
-              helperText="TERM"
-              onChange={(evt) => {}}
-            />
-            <TextField
-              id="filled-basic"
-              variant="standard"
-              size="small"
-              helperText="DEFINITION"
-              onChange={(evt) => {}}
-            />
-            <TextField
-              id="filled-basic"
-              variant="standard"
-              size="small"
-              helperText="TERM"
-              onChange={(evt) => {}}
-            />
-            <TextField
-              id="filled-basic"
-              variant="standard"
-              size="small"
-              helperText="DEFINITION"
-              onChange={(evt) => {}}
-            />
-          </Stack>
+        {cardElements}
 
-          <Stack spacing={1}>
-            <TextField
-              id="filled-basic"
-              variant="standard"
-              size="small"
-              helperText="TERM"
-              onChange={(evt) => {}}
-            />
-            <TextField
-              id="filled-basic"
-              variant="standard"
-              size="small"
-              helperText="DEFINITION"
-              onChange={(evt) => {}}
-            />
-            <TextField
-              id="filled-basic"
-              variant="standard"
-              size="small"
-              helperText="TERM"
-              onChange={(evt) => {}}
-            />
-            <TextField
-              id="filled-basic"
-              variant="standard"
-              size="small"
-              helperText="DEFINITION"
-              onChange={(evt) => {}}
-            />
-          </Stack>
-        </Box>
-        <Button variant="outlined" startIcon={<FontAwesomeIcon icon={faCirclePlus} />}>
-          Add
-        </Button>
-        <Button variant="outlined">Create</Button>
+        <div className={styles['form-actions']}>
+          <Button
+            variant="outlined"
+            onClick={addNew}
+            startIcon={<FontAwesomeIcon icon={faCirclePlus} />}>
+            Add Card
+          </Button>
+          <Button variant="outlined">Create Set</Button>
+        </div>
       </Container>
     </div>
   );
 };
 
-export default CreateSet;
+export default CreateSet
