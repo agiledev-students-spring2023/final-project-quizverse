@@ -1,3 +1,8 @@
+.shareSetButton {
+    left: 35%;
+    width: 30%;
+}
+
 .cardsContainer {
     display: flex;
     flex-direction: column;
