@@ -6,6 +6,12 @@ const Privacy = (props) => {
       <p>We here at QuizVerse take security very seriously.</p>
       <p>Your data will surely be safe in our hands!</p>
       <p>It's not going anywhere outside this website anyways.</p>
+      <p></p>
+      <p></p>
+      <p></p>
+      <p></p>
+      <p></p>
+      <p></p>
     </>
   );
 };

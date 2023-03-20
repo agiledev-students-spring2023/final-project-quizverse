@@ -89,17 +89,21 @@ const DailyQuiz = (props) => {
   }
 
   return (
-    
     <>
       <h1>Daily Quiz</h1>
       <h2>Current flashcard:</h2>
-      <div class = "flashcard">
-      <Flashcard term = {term} definition = {definition} handleNext = {Next} handlePrev = {Prev} displayTerm = {displayTerm} displayDefinition = {displayDefinition}/>
-
+      <div class="flashcard">
+        <Flashcard
+          term={term}
+          definition={definition}
+          handleNext={Next}
+          handlePrev={Prev}
+          displayTerm={displayTerm}
+          displayDefinition={displayDefinition}
+        />
       </div>
-      
-      
-      <form className="login-page-form" onSubmit ={submitButton}>
+      <p></p>
+      <form className="login-page-form" onSubmit={submitButton}>
         <div className="login-page-input-container">
           <label htmlFor="password" className="login-page-label">
             Answer:
@@ -112,28 +116,26 @@ const DailyQuiz = (props) => {
             className="answer-input"
           />
         </div>
-        <button type="button" className="answer-button" onClick = {submitButton}>
+        <button type="button" className="answer-button" onClick={submitButton}>
           Submit
         </button>
         <div>
-        <button type="button" className = "show-answer-button" onClick={showAnswer}>
-          Show answer
-        </button>
+          <button type="button" className="show-answer-button" onClick={showAnswer}>
+            Show answer
+          </button>
         </div>
       </form>
       <div>
         <h2>Topics You Got Right:</h2>
-        {correct.map((word) =>(
+        {correct.map((word) => (
           <p>{word}</p>
-        )
-        )}
+        ))}
       </div>
       <div>
         <h2>Topics You Got Wrong:</h2>
-        {incorrect.map((word) =>(
+        {incorrect.map((word) => (
           <p>{word}</p>
-        )
-        )}
+        ))}
       </div>
     </>
   );
