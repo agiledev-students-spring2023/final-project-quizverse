@@ -20,7 +20,8 @@ const DailyQuiz = (props) => {
   const [displayDefinition, setDisplayDefinition] = useState(false)
   const [correct, setCorrect] = useState([]);
   const [incorrect, setIncorrect] = useState([]);
-  const submitButton = () => {
+  const submitButton = (e) => {
+    e.preventDefault()
     const foundUser = answer;
     if (foundUser==definition) {
       alert('Correct!');
@@ -98,7 +99,7 @@ const DailyQuiz = (props) => {
       </div>
       
       
-      <form className="login-page-form">
+      <form className="login-page-form" onSubmit ={submitButton}>
         <div className="login-page-input-container">
           <label htmlFor="password" className="login-page-label">
             Answer:
