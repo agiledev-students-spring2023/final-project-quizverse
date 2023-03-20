@@ -1,23 +1,7 @@
-.nav-links {
-  float: right;
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
 .header-container {
   z-index: 999;
   position: absolute;
   top: 0;
-}
-
-.nav-item {
-  display: inline-block;
-  padding: 5px;
-  font-size: small;
-  margin: 0 10px; /* add some horizontal margin to center the elements */
 }
 
 .header-navbar {
@@ -42,13 +26,21 @@
   width: 2em;
 }
 
-.header-icons {
-  margin-left: auto;
+.nav-links {
+  float: right;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
-.header-icons img {
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-  margin-left: 20px;
+
+.nav-item {
+  display: inline-block;
+  padding: 5px;
+  font-size: small;
+  margin: 0 10px;
 }
+
+
