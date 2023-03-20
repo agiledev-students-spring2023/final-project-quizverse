@@ -1,0 +1,46 @@
+.header-container {
+  z-index: 999;
+  position: absolute;
+  top: 0;
+}
+
+.header-navbar {
+  border: 2px solid black;
+  text-align: center;
+  background-color: skyblue;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 7%;
+  padding: 0 10px;
+}
+
+.header-logo {
+  flex-grow: 1;
+  float: left;
+  width: 2em;
+}
+
+.nav-links {
+  float: right;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+
+.nav-item {
+  display: inline-block;
+  padding: 5px;
+  font-size: small;
+  margin: 0 10px;
+}
+
+
