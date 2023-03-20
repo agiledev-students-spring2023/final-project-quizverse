@@ -91,7 +91,7 @@ const Settings = (props) => {
           <button className="settings-button" onClick={deleteAccountWarning}>
             DELETE ACCOUNT
           </button>
-          <Link to="/" className="button" onClick={logoutWarning}>
+          <Link to="/" className="settings-button" onClick={logoutWarning}>
             Logout
           </Link>
         </div>
