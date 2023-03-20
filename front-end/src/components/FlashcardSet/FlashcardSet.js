@@ -14,7 +14,7 @@ function FlashcardSet(props) {
   
   return (
     <ThemeProvider theme={theme}>
-      <Card className={styles.flashcardSetCard}>
+      <Card className={styles.flashcardSetCard} sx={{ width: 1 }}>
         <CardContent>
           <Typography
             className={styles.flashcardSetTypeTypography}
