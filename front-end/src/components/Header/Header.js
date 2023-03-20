@@ -9,7 +9,13 @@ import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faCalendar, faHome, faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBars,
+  faCalendar,
+  faCirclePlus,
+  faHome,
+  faUser
+} from '@fortawesome/free-solid-svg-icons';
 const Header = (props) => {
   const [data, setData] = useState([]);
   const [streak, setStreak] = useState(0);
@@ -143,7 +149,13 @@ const Header = (props) => {
           <li className={styles['nav-item']}>
             <Link to="/daily-quiz">
               <FontAwesomeIcon icon={faCalendar} />
-              Daily Quiz
+              Quiz
+            </Link>
+          </li>
+          <li className={styles['nav-item']}>
+            <Link to="/create-set">
+              <FontAwesomeIcon icon={faCirclePlus} />
+              Create
             </Link>
           </li>
           <li className={styles['nav-item']}>
@@ -158,5 +170,4 @@ const Header = (props) => {
   );
 };
 
-// make this component available to be imported into any other file
 export default Header;

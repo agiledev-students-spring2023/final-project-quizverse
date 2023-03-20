@@ -23,7 +23,8 @@
 .header-logo {
   flex-grow: 1;
   float: left;
-  width: 2em;
+  max-width: 100px;
+  height: auto;
 }
 
 .nav-links {
