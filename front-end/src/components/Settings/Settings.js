@@ -31,7 +31,7 @@ const Settings = (props) => {
     if (input === 'ok') {
       alert('Your account has been deleted!');
       navigate('/');
-    } else {
+    } else if (!input === '') {
       alert('Incorrect input!');
     }
   };
