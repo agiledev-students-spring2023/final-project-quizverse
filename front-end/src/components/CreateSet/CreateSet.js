@@ -2,10 +2,12 @@ import { TextField, FormControl, Box, Stack, IconButton, Button, Container } fro
 import { useState, useEffect } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' 
 import { faCirclePlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 import styles from './CreateSet.module.css';
 import EditCard from './EditCard';
 
 const CreateSet = (props) => {
+  const nagivate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [cards, setCards] = useState([
@@ -38,6 +40,11 @@ const CreateSet = (props) => {
 
   function addNew() {
     setCards(cards.concat({ term: '', definition: '' }));
+  }
+
+  function handleSubmit(evt) {
+    alert('Your set has been saved!');
+    nagivate('/flashcards');
   }
 
   const cardElements = cards.map((info, i) => {
@@ -99,7 +106,9 @@ const CreateSet = (props) => {
             startIcon={<FontAwesomeIcon icon={faCirclePlus} />}>
             Add Card
           </Button>
-          <Button variant="outlined">Create Set</Button>
+          <Button onClick={handleSubmit} variant="outlined">
+            Create Set
+          </Button>
         </div>
       </Container>
     </div>
