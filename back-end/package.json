@@ -1,0 +1,21 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "Back end of QuizVerse",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "QuizVerse"
+  },
+  "author": "Matt-J-Dong",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
