@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import { useState, useEffect, useMemo } from 'react';
 import styles from './FullScreenFlashcardSet.module.css';
+import Button from '@mui/material/Button';
 
 function FullScreenFlashcardSet() {
   const theme = createTheme();
@@ -36,6 +37,13 @@ function FullScreenFlashcardSet() {
     }
   }, [cards]);
 
+  const shareSet = () => {
+    const setURL = window.location.href;
+    navigator.clipboard.writeText(setURL).then(() => {
+      alert(`Link to flashcard set "${name}" has copied to clipboard!`);
+    });
+  };
+
   const displayCards = cards.map((card) => {
     return (
       <div>
@@ -51,6 +59,9 @@ function FullScreenFlashcardSet() {
     <ThemeProvider theme={theme}>
       <h1 className={styles.setTitle}>{name}</h1>
       <p className={styles.setDescription}>{description}</p>
+      <Button className={styles.shareSetButton} onClick={shareSet}>
+        Share
+      </Button>
       <div className={styles.cardsContainer}>{displayCards}</div>
     </ThemeProvider>
   );
