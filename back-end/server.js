@@ -1,8 +1,13 @@
-#!/usr/bin/env node
+const express = require('express')
+const mongoose = require('mongoose')
+const session = require('express-session')
+const bodyParser = require('body-parser')
 
-const server = require('./app'); // load up the web server
+// import the routes for authentication (login / register)
+const authRouter = require('./routes/auth')
 
-const port = 3000; // the port to listen to for incoming requests
+const app = express(); // instantiate an Express object
+const port = 3001; // the port to listen to for incoming requests
 
 server.get('/', (req, res) => {
   res.send('Hello!');
@@ -26,5 +31,3 @@ const close = () => {
 module.exports = {
   close: close
 };
-
-//abcdefg
