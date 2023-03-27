@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+//import { Link, useNavigate } from 'react-router-dom';
 import './StudyStats.css';
 
 /**
@@ -7,9 +7,11 @@ import './StudyStats.css';
  * @param {*} param0 an object holding any props passed to this component from its parent component
  * @returns The contents of this component, in JSX form.
  */
+
 const StudyStats = (props) => {
-  const [data1, setData1] = useState('banana');
-  const [data2, setData2] = useState('apostrophe');
+  // eslint-disable-next-line
+  const [data1, setData1] = useState('banana'); // eslint-disable-next-line
+  const [data2, setData2] = useState('apostrophe'); // eslint-disable-next-line
   const [data3, setData3] = useState('darkest depths of the ocean');
   return (
     <>

@@ -34,7 +34,7 @@ function FullScreenFlashcardSet() {
     setDescription('Covers the main definitions for the upcoming exam');
     for (let i = 0; i < 3; i++) {
       cards.push(flashCardInfos[i]);
-    }
+    } // eslint-disable-next-line
   }, [cards]);
 
   const shareSet = () => {

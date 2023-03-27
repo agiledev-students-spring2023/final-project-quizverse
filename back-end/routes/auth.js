@@ -1,5 +1,5 @@
 // router responsible for both login and register logic
-const express = require('express') 
+const express = require('express');
 
 const router = express.Router()
 

@@ -17,8 +17,8 @@ import {
   faUser
 } from '@fortawesome/free-solid-svg-icons';
 const Header = (props) => {
-  const [data, setData] = useState([]);
-  const [streak, setStreak] = useState(0);
+  const [data, setData] = useState([]); // eslint-disable-next-line
+  const [streak, setStreak] = useState(0); // eslint-disable-next-line
   const [coins, setCoins] = useState(0);
 
   // the following side-effect will be called once upon initial render
@@ -123,7 +123,7 @@ const Header = (props) => {
 
         setData(backupData);
         console.log(data);
-      });
+      }); // eslint-disable-next-line
   }, []);
 
   return (
