@@ -1,19 +1,18 @@
 // router responsible for both login and register logic
 const express = require('express') 
 
-const authRouter = express.Router()
+const router = express.Router()
 
-authRouter.post('/login', (req, res, next) => {
-
+router.post('/login', (req, res) => {
+  res.send('Login')
 })
 
-authRouter.post('/register', (req, res, next) => {
-
+router.post('/register', (req, res) => {
+  res.send('Register')
 })
 
-authRouter.post('/logout', (req, res, next) => {
-  
+router.post('/logout', (req, res) => {
+  res.send('Logout')
 })
 
-
-module.exports = authRouter
+module.exports = router

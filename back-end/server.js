@@ -9,17 +9,24 @@ const authRouter = require('./routes/auth')
 const app = express(); // instantiate an Express object
 const port = 3001; // the port to listen to for incoming requests
 
-server.get('/', (req, res) => {
+app.use(express.json())
+
+app.get('/', (req, res) => {
   res.send('Hello!');
 });
-server.get('/test', (req, res) => {
+
+app.get('/test', (req, res) => {
   res.send({
     monkey: 'goose',
     canada: 'maple leaf'
   });
 });
+
+app.use(authRouter)
+
+
 // call express's listen function to start listening to the port
-const listener = server.listen(port, function () {
+const listener = app.listen(port, function () {
   console.log(`Server running on port: ${port}`);
 });
 
