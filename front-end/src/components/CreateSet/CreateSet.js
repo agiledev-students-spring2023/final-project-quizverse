@@ -1,11 +1,11 @@
-import { TextField, FormControl, Box, Stack, IconButton, Button, Container } from "@mui/material"
-import { useState, useEffect } from "react"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' 
-import { faCirclePlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { TextField, FormControl, Button, Container } from '@mui/material';
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import styles from './CreateSet.module.css';
 import EditCard from './EditCard';
-import axios from "axios";
+import axios from 'axios';
 
 const CreateSet = (props) => {
   const navigate = useNavigate();
@@ -44,18 +44,19 @@ const CreateSet = (props) => {
   }
 
   function handleSubmit(evt) {
-    
     const upload = {
-      title: {title},
-      description: {description},
-      cards: {cards},
+      title: { title },
+      description: { description },
+      cards: { cards },
       number_of_cards: cards.length
-    }
-    axios.post("https://my.api.mockaroo.com/set.json?key=6b3bc3e0&__method=POST", upload).then((response) => {
-      console.log("Data successfully sent!");
-      alert('Your set has been saved!');
-      navigate('/flashcards');
-    });
+    };
+    axios
+      .post('https://my.api.mockaroo.com/set.json?key=6b3bc3e0&__method=POST', upload)
+      .then((response) => {
+        console.log('Data successfully sent!');
+        alert('Your set has been saved!');
+        navigate('/flashcards');
+      });
   }
 
   const cardElements = cards.map((info, i) => {
@@ -126,4 +127,4 @@ const CreateSet = (props) => {
   );
 };
 
-export default CreateSet
+export default CreateSet;

@@ -8,13 +8,13 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
+//import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 //import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 //import Link from '@mui/material/Link';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import logo from './QuizVerseLogo.png';
 import { useState, useEffect } from "react"
@@ -28,9 +28,10 @@ function Items() {
     "term":"",
     "definition":""
   }])
-  const [term, setTerm] = useState('');
-  const [definition, setDefinition] = useState('')
-  const [arrLength, setArrLength] = useState(0)
+  // eslint-disable-next-line
+  const [term, setTerm] = useState(''); // eslint-disable-next-line
+  const [definition, setDefinition] = useState('') // eslint-disable-next-line
+  const [arrLength, setArrLength] = useState(0) // eslint-disable-next-line
   const [arrIndex, setArrIndex] = useState(0)
   useEffect(() => {
     // fetch some mock flashcards
