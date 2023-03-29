@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const session = require('express-session')
 const bodyParser = require('body-parser')
+const axios = require("axios")
 
 // import the routes for authentication (login / register)
 const authRouter = require('./routes/auth')
@@ -23,6 +24,16 @@ app.get('/test', (req, res) => {
     canada: 'maple leaf'
   });
 });
+
+app.get("/daily-quiz", (req, res, next) => {
+  // use axios to make a request to an API for flashcard data in the daily quiz
+  axios
+    .get("https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0")
+    .then(apiResponse => res.json(apiResponse.data)) // pass data along directly to client
+    .catch(err => next(err)) // pass any errors to express
+})
+
+app.post()
 
 app.use(authRouter);
 app.use(settingsRouter);
