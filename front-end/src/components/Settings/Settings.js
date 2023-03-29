@@ -14,8 +14,6 @@ const Settings = (props) => {
   const navigate = useNavigate();
   const changeEmail = (event) => {
     event.preventDefault();
-    //let input = document.getElementById('email').value;
-    //setEmail(input);
     alert('Email changed! Your email is now set to ' + email + '!');
     axios
       // post new message to server
@@ -30,32 +28,18 @@ const Settings = (props) => {
       });
     //console.log({ email });
   };
-  // try{
-  //   async func(){
-  //     const response = await axios.post('/foo',{
-  //       foo: 'bar',
-  //       boo: 'baz'
-  //     })
-  //     //success
-  //   }
-  //axios.get(`/foo?foo=${foo}&baz=${baz}`)
-  //req.param req.params
-  //axios.get{
-  //
-  //}
-  // }
-  // catch (err){
-  //   return 'oh noes'
-  // }
   const changePassword = (event) => {
     event.preventDefault();
-    //let input = document.getElementById('email').value;
-    //setEmail(input);
     alert('Password changed! Your new password is now set.');
     axios
       // post new message to server
       .post('http://localhost:3001/settings-password', { password: password })
+      .then((response) => {
+        console.log('yay!');
+        return 'yay!';
+      })
       .catch((err) => {
+        console.log('Oh noes big error!');
         return 'Oh noes big error!';
       });
     //post('http://localhost:3001/login');
