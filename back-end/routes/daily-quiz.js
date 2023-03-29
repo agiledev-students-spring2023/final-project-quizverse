@@ -5,6 +5,8 @@ const router = express.Router()
 
 router.get("/daily-quiz", async (req, res, next) => {
     // use axios to make a request to an API for flashcard data in the daily quiz
+    user = req.params.user
+    //Do something with a database lookup with user. For now, this is still just calling Mockaroo.
     axios
       .get("https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0")
       .then(apiResponse => res.json(apiResponse.data)) // pass data along directly to client
