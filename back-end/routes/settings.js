@@ -3,9 +3,13 @@ const express = require('express');
 
 const router = express.Router();
 
-router.post('/settings', (req, res) => {
-  res.send('Settings!');
-  //email and password updates at this same route or different route?
+router.post('/settings-email', (req, res) => {
+  res.send('Email Updated!');
+  const email = req.body.email;
+});
+router.post('/settings-password', (req, res) => {
+  res.send('Password Updated!');
+  const password = req.body.password;
 });
 router.get('/items', (req, res) => {
   res.send('Here are your items:');

@@ -11,7 +11,8 @@ const footerRouter = require('./routes/footer');
 const app = express(); // instantiate an Express object
 const port = 3001; // the port to listen to for incoming requests
 
-app.use(express.json());
+app.use(express.json()) // decode JSON-formatted incoming POST data
+app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
 
 app.get('/', (req, res) => {
   res.send('Hello!');
