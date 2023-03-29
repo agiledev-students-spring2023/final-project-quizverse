@@ -7,6 +7,9 @@ import './Settings.css';
  * A React component that represents the Settings page of the app.
  * @param {*} param0 an object holding any props passed to this component from its parent component
  * @returns The contents of this component, in JSX form.
+ * This settings page handles a lot of things
+ * This includes changing email, password, and other information
+ * You can also delete your account here
  */
 const Settings = (props) => {
   const [email, setEmail] = useState('');
@@ -54,27 +57,27 @@ const Settings = (props) => {
    * @param {string} [method=post] the method to use on the form
    */
 
-  function post(path, params, method = 'post') {
-    // The rest of this code assumes you are not using a library.
-    // It can be made less verbose if you use one.
-    const form = document.createElement('form');
-    form.method = method;
-    form.action = path;
+  // function post(path, params, method = 'post') {
+  //   // The rest of this code assumes you are not using a library.
+  //   // It can be made less verbose if you use one.
+  //   const form = document.createElement('form');
+  //   form.method = method;
+  //   form.action = path;
 
-    for (const key in params) {
-      if (params.hasOwnProperty(key)) {
-        const hiddenField = document.createElement('input');
-        hiddenField.type = 'hidden';
-        hiddenField.name = key;
-        hiddenField.value = params[key];
+  //   for (const key in params) {
+  //     if (params.hasOwnProperty(key)) {
+  //       const hiddenField = document.createElement('input');
+  //       hiddenField.type = 'hidden';
+  //       hiddenField.name = key;
+  //       hiddenField.value = params[key];
 
-        form.appendChild(hiddenField);
-      }
-    }
+  //       form.appendChild(hiddenField);
+  //     }
+  //   }
 
-    document.body.appendChild(form);
-    form.submit();
-  }
+  //   document.body.appendChild(form);
+  //   form.submit();
+  // }
   return (
     <>
       <main>
@@ -85,7 +88,11 @@ const Settings = (props) => {
           <h1>Settings</h1>
         </div>
         <div className="settings-buttons-container">
-          <form className="settings-form" onSubmit={changeEmail} action='http://localhost:3000/login' method='post'>
+          <form
+            className="settings-form"
+            onSubmit={changeEmail}
+            action="http://localhost:3000/login"
+            method="post">
             <div className="settings-input-container">
               <label
                 htmlFor="username"
