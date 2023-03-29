@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-//import axios from 'axios';
+import axios from 'axios';
 import './Settings.css';
 
 /**
@@ -14,22 +14,34 @@ const Settings = (props) => {
   const navigate = useNavigate();
   const changeEmail = (event) => {
     event.preventDefault();
-    //let input = document.getElementById('email').value;
-    //setEmail(input);
     alert('Email changed! Your email is now set to ' + email + '!');
+    axios
+      // post new message to server
+      .post('http://localhost:3001/settings-email', { email: email })
+      .then((response) => {
+        console.log('yay!');
+        return 'yay!';
+      })
+      .catch((err) => {
+        console.log('Oh noes big error!');
+        return 'Oh noes big error!';
+      });
     //console.log({ email });
   };
   const changePassword = (event) => {
     event.preventDefault();
-    //let input = document.getElementById('email').value;
-    //setEmail(input);
     alert('Password changed! Your new password is now set.');
-    // axios
-    //   // post new message to server
-    //   .post('http://localhost:3001/login', 'Password changed!')
-    //   .catch((err) => {
-    //     return 'Oh noes big error!';
-    //   });
+    axios
+      // post new message to server
+      .post('http://localhost:3001/settings-password', { password: password })
+      .then((response) => {
+        console.log('yay!');
+        return 'yay!';
+      })
+      .catch((err) => {
+        console.log('Oh noes big error!');
+        return 'Oh noes big error!';
+      });
     //post('http://localhost:3001/login');
     //navigate('./');
   };
@@ -88,7 +100,7 @@ const Settings = (props) => {
           <form
             className="settings-form"
             onSubmit={changeEmail}
-            action="http://localhost:3000/login"
+            action="http://localhost:3001/settings-email"
             method="post">
             <div className="settings-input-container">
               <label
@@ -111,7 +123,9 @@ const Settings = (props) => {
               <label
                 htmlFor="username"
                 className="login-page-label"
-                placeholder="example@mail-service.com">
+                placeholder="example@mail-service.com"
+                action="http://localhost:3001/settings-password"
+                method="post">
                 Set Password:
               </label>
               <input
