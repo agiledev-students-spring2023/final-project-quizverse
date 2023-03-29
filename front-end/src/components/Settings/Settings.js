@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+//import axios from 'axios';
 import './Settings.css';
 
 /**
@@ -23,6 +24,14 @@ const Settings = (props) => {
     //let input = document.getElementById('email').value;
     //setEmail(input);
     alert('Password changed! Your new password is now set.');
+    // axios
+    //   // post new message to server
+    //   .post('http://localhost:3001/login', 'Password changed!')
+    //   .catch((err) => {
+    //     return 'Oh noes big error!';
+    //   });
+    //post('http://localhost:3001/login');
+    //navigate('./');
   };
   const deleteAccountWarning = (event) => {
     let input = prompt(
@@ -38,6 +47,34 @@ const Settings = (props) => {
   const logoutWarning = (event) => {
     alert('Thanks for using QuizVerse! See you again soon!');
   };
+  /**
+   * sends a request to the specified url from a form. this will change the window location.
+   * @param {string} path the path to send the post request to
+   * @param {object} params the parameters to add to the url
+   * @param {string} [method=post] the method to use on the form
+   */
+
+  // function post(path, params, method = 'post') {
+  //   // The rest of this code assumes you are not using a library.
+  //   // It can be made less verbose if you use one.
+  //   const form = document.createElement('form');
+  //   form.method = method;
+  //   form.action = path;
+
+  //   for (const key in params) {
+  //     if (params.hasOwnProperty(key)) {
+  //       const hiddenField = document.createElement('input');
+  //       hiddenField.type = 'hidden';
+  //       hiddenField.name = key;
+  //       hiddenField.value = params[key];
+
+  //       form.appendChild(hiddenField);
+  //     }
+  //   }
+
+  //   document.body.appendChild(form);
+  //   form.submit();
+  // }
   return (
     <>
       <main>
@@ -48,7 +85,11 @@ const Settings = (props) => {
           <h1>Settings</h1>
         </div>
         <div className="settings-buttons-container">
-          <form className="settings-form" onSubmit={changeEmail}>
+          <form
+            className="settings-form"
+            onSubmit={changeEmail}
+            action="http://localhost:3000/login"
+            method="post">
             <div className="settings-input-container">
               <label
                 htmlFor="username"
