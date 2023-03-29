@@ -2,19 +2,24 @@ const express = require('express')
 const mongoose = require('mongoose')
 const session = require('express-session')
 const bodyParser = require('body-parser')
-const axios = require("axios")
+const cors = require('cors');
 
 // import the routes for authentication (login / register)
-const authRouter = require('./routes/auth')
+const authRouter = require('./routes/auth');
 const settingsRouter = require('./routes/settings');
 const footerRouter = require('./routes/footer');
 const dailyQuizRouter = require('./routes/daily-quiz')
 
 const app = express(); // instantiate an Express object
 const port = 3001; // the port to listen to for incoming requests
+const corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200
+};
 
-app.use(express.json()) // decode JSON-formatted incoming POST data
-app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
+app.use(express.json()); // decode JSON-formatted incoming POST data
+app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming POST data
+app.use(cors(corsOptions));
 
 app.get('/', (req, res) => {
   res.send('Hello!');
