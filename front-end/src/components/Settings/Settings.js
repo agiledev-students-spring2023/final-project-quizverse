@@ -7,9 +7,6 @@ import './Settings.css';
  * A React component that represents the Settings page of the app.
  * @param {*} param0 an object holding any props passed to this component from its parent component
  * @returns The contents of this component, in JSX form.
- * This settings page handles a lot of things
- * This includes changing email, password, and other information
- * You can also delete your account here
  */
 const Settings = (props) => {
   const [email, setEmail] = useState('');
