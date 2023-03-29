@@ -8,6 +8,7 @@ const axios = require("axios")
 const authRouter = require('./routes/auth')
 const settingsRouter = require('./routes/settings');
 const footerRouter = require('./routes/footer');
+const dailyQuizRouter = require('./routes/daily-quiz')
 
 const app = express(); // instantiate an Express object
 const port = 3001; // the port to listen to for incoming requests
@@ -26,21 +27,11 @@ app.get('/test', (req, res) => {
   });
 });
 
-app.get("/daily-quiz", async (req, res, next) => {
-  // use axios to make a request to an API for flashcard data in the daily quiz
-  const response = await axios
-    .get("https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0")
-    .then(apiResponse => res.json(apiResponse.data)) // pass data along directly to client
-    .catch(err => next(err)) // pass any errors to express
-  res.send(response)
-})
-
-app.post()
 
 app.use(authRouter);
 app.use(settingsRouter);
 app.use(footerRouter);
-
+app.use(dailyQuizRouter)
 
 // call express's listen function to start listening to the port
 const listener = app.listen(port, function () {

@@ -1,0 +1,253 @@
+{
+    "info": {
+      "_postman_id": "1fd26170-ada1-4dcc-b030-8957d21f999d",
+      "name": "express-js-starter-app",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Get root",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:3000",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000"
+          },
+          "description": "The server's root route returns the plain text, 'Hello!'"
+        },
+        "response": []
+      },
+      {
+        "name": "Get HTML document",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:3000/html-example",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["html-example"]
+          },
+          "description": "The server's /html-example route returns an HTML document from a static file."
+        },
+        "response": []
+      },
+      {
+        "name": "Get a static file",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:3000/static/css/main.css",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["static", "css", "main.css"]
+          },
+          "description": "All files stored in the server's public/ directory are accessible under the /static route"
+        },
+        "response": []
+      },
+      {
+        "name": "Get JSON document",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:3000/json-example",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["json-example"]
+          },
+          "description": "The server's /json-example route returns a simple JSON object.  Presumably a web browser's Javascript code would receive this JSON and use it to update the web page in some way."
+        },
+        "response": []
+      },
+      {
+        "name": "Middleware experiment",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:3000/middleware-example",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["middleware-example"]
+          },
+          "description": "The server has two middleware functions set up to show how middleware works.  If the server responds with a message that it has run the middleware functions, we prove that the middleware functions are working."
+        },
+        "response": []
+      },
+      {
+        "name": "Simple POST example",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "enctype",
+              "value": "multipart/form-data",
+              "type": "text"
+            },
+            {
+              "key": "",
+              "value": "",
+              "type": "text",
+              "disabled": true
+            }
+          ],
+          "body": {
+            "mode": "urlencoded",
+            "urlencoded": [
+              {
+                "key": "your_name",
+                "value": "Foo Barstein",
+                "type": "text"
+              },
+              {
+                "key": "your_email",
+                "value": "fb1258@nyu.edu",
+                "type": "text"
+              },
+              {
+                "key": "agree",
+                "value": "true",
+                "type": "text"
+              }
+            ]
+          },
+          "url": {
+            "raw": "http://localhost:3000/post-example",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["post-example"]
+          },
+          "description": "Check out the data that is being passed to the server by clicking the 'Body' tab below.  This data is sent to the server via HTTP POST."
+        },
+        "response": []
+      },
+      {
+        "name": "Upload one file",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "enctype",
+              "value": "multipart/form-data",
+              "type": "text"
+            }
+          ],
+          "body": {
+            "mode": "formdata",
+            "formdata": [
+              {
+                "key": "my_files",
+                "type": "file",
+                "src": "/Users/amos/Desktop/software_design/exports/animal-default.png"
+              }
+            ]
+          },
+          "url": {
+            "raw": "http://localhost:3000/upload-example",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["upload-example"]
+          },
+          "description": "Here we use HTTP POST to upload a single file to the server.  Click the 'Body' tab below and select a file to upload.  The server's multer module saves that file for us."
+        },
+        "response": []
+      },
+      {
+        "name": "Upload three files",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "enctype",
+              "type": "text",
+              "value": "multipart/form-data"
+            }
+          ],
+          "body": {
+            "mode": "formdata",
+            "formdata": [
+              {
+                "key": "my_files",
+                "type": "file",
+                "src": [
+                  "/Users/amos/Desktop/software_design/exports/animal-confirmation.png",
+                  "/Users/amos/Desktop/software_design/exports/animal-default.png",
+                  "/Users/amos/Desktop/software_design/exports/animal-message-sent.png"
+                ]
+              }
+            ]
+          },
+          "url": {
+            "raw": "http://localhost:3000/upload-example",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["upload-example"]
+          },
+          "description": "Here we use HTTP POST to upload three files to the server.  Click the 'Body' tab below and select the file to upload.  The server's multer module saves those files for us."
+        },
+        "response": []
+      },
+      {
+        "name": "API proxy request",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:3000/proxy-example",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["proxy-example"]
+          },
+          "description": "Here, the /proxy-example route triggers express to make a call to an API for a bunch of data about animals.  This data is then returned to us here as an array of JSON objects.  This is a very common format for receiving data from a server or API."
+        },
+        "response": []
+      },
+      {
+        "name": "API proxy request using environmental variables",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:3000/dotenv-example",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["dotenv-example"]
+          },
+          "description": "Here, the /dotenv-example route triggers express to make a call to an API for a bunch of data about animals.  This data is then returned to us here as an array of JSON objects.  This is a very common format for receiving data from a server or API.  The difference between this example and the 'API proxy request' example, is that the server code in this route uses the dotenv module to keep the API login credentials secret and not hard-coded or stored in version control."
+        },
+        "response": []
+      },
+      {
+        "name": "Parameter example",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:3000/parameter-example/22",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["parameter-example", "22"]
+          },
+          "description": "Here we pass a parameter to a route.  The number 22 is a parameter - you can change it.  Imagine this number is the unique ID of some data in a database or from an API that we want the server to send to us.  This is a common way of requesting specific data from a server."
+        },
+        "response": []
+      }
+    ],
+    "protocolProfileBehavior": {}
+  }
