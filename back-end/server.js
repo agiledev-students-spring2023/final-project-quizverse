@@ -8,6 +8,7 @@ const cors = require('cors');
 const authRouter = require('./routes/auth');
 const settingsRouter = require('./routes/settings');
 const footerRouter = require('./routes/footer');
+const dailyQuizRouter = require('./routes/daily-quiz')
 
 const app = express(); // instantiate an Express object
 const port = 3001; // the port to listen to for incoming requests
@@ -31,10 +32,11 @@ app.get('/test', (req, res) => {
   });
 });
 
+
 app.use(authRouter);
 app.use(settingsRouter);
 app.use(footerRouter);
-
+app.use(dailyQuizRouter)
 
 // call express's listen function to start listening to the port
 const listener = app.listen(port, function () {
