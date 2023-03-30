@@ -23,7 +23,6 @@ const CreateSet = (props) => {
     const id = evt.target.name;
     const field = id.slice(0, -1);
     const index = id.slice(id.length - 1);
-    console.log(`Field ${id} was changed to ${value} at index ${index}`);
     const newCard = cards[index];
     newCard[field] = value;
     setCards(
