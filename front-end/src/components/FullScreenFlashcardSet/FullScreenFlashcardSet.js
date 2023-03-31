@@ -7,6 +7,7 @@ import styles from './FullScreenFlashcardSet.module.css';
 import Button from '@mui/material/Button';
 
 function FullScreenFlashcardSet() {
+  //this one needs to pull flashcard data
   const theme = createTheme();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
