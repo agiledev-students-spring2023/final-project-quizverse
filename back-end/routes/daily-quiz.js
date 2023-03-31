@@ -1,6 +1,7 @@
 //Routing for all of Daily Quiz Things
-const express = require('express');
 const axios = require('axios');
+const express = require('express');
+//const axios = require('axios');
 const router = express.Router();
 
 router.get('/daily-quiz', (req, res, next) => {
