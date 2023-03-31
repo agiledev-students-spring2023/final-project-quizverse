@@ -39,6 +39,8 @@ app.use(authRouter);
 app.use(settingsRouter);
 app.use(footerRouter);
 app.use(dailyQuizRouter);
+app.use(flashcardRouter);
+app.use(createSetRouter);
 
 // call express's listen function to start listening to the port
 const listener = app.listen(port, function () {
