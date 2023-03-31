@@ -41,6 +41,7 @@ router.get('/flashcard-sets', (req, res) => {
 router.get('/flashcard-set/:id', (req, res) => {
   // Ideally, this will be replaced later with flashcard sets (via the backend), as opposed to just
   // the flashcards themselves.
+  //This is each individual flashcard set (FullFlashCardSet)
   axios
     .get(`https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0`)
     .then((apiResponse) => {
@@ -55,6 +56,7 @@ router.get('/flashcard-set/:id', (req, res) => {
 router.get('/flashcards', (req, res) => {
   // Ideally, this will be replaced later with flashcard sets (via the backend), as opposed to just
   // the flashcards themselves.
+  //This should be the view of all the flashcards
   axios
     .get(`https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0`)
     .then((apiResponse) => {
