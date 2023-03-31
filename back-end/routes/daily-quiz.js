@@ -1,6 +1,6 @@
 //Routing for all of Daily Quiz Things
 const express = require('express');
-//const axios = require('axios');
+const axios = require('axios');
 const router = express.Router();
 
 router.get('/daily-quiz', (req, res, next) => {
@@ -14,21 +14,21 @@ router.get('/daily-quiz', (req, res, next) => {
 });
 
 // Creating a POST request for daily quiz
-router.post('/daily-quiz', (req, res) => {
+router.post('/study-stats', (req, res) => {
   axios
-    .post('https://my.api.mockaroo.com/generic_post.json?key=6b3bc3e0&__method=POST')
+    .post('https://my.api.mockaroo.com/generic_post.json?key=6b3bc3e0&__method=POST', req.body)
     .then(console.log('Succesfully sent to database'))
     .catch((err) => next(err));
   const data = {
     status: 'Amazing success!',
     message: 'Congratulations on sending us this data!',
-    your_data: {}
+    your_data: req.body
   };
   // ... then send a response of some kind to client
   res.json(data);
 });
 
-router.get('/study-stats', (req, res, next) => {
+router.get('/daily-quiz', (req, res, next) => {
   // use axios to make a request to an API for flashcard data in the daily quiz
   user = req.params.user;
   //Do something with a database lookup with user. For now, this is still just calling Mockaroo.

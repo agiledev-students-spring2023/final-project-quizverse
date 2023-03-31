@@ -16,16 +16,17 @@ const DailyQuiz = (props) => {
   const [definition, setDefinition] = useState('')
   const [arrLength, setArrLength] = useState(0)
   const [arrIndex, setArrIndex] = useState(0); // eslint-disable-next-line
-  const [displayTerm, setDisplayTerm] = useState(true);
-  const [displayDefinition, setDisplayDefinition] = useState(false);
+  const [displayTerm, setDisplayTerm] = useState(false); // eslint-disable-next-line
+  const [displayDefinition, setDisplayDefinition] = useState(true);
   const [correct, setCorrect] = useState([]);
   const [incorrect, setIncorrect] = useState([]);
   const submitButton = (e) => {
     e.preventDefault();
     const foundUser = answer;
-    if (foundUser === definition) {
+    if (foundUser === term) {
       alert('Correct!');
       setCorrect([...correct, term]);
+      Next()
     } else {
       alert('Incorrect!');
       setIncorrect([...incorrect, term]);
@@ -35,7 +36,7 @@ const DailyQuiz = (props) => {
   useEffect(() => {
     // fetch some mock flashcards
     console.log('fetching 10 random flashcards...');
-    axios('https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0')
+    axios('http://localhost:3001/daily-quiz')
       .then((response) => {
         // extract the data from the server response
         setData(response.data);
@@ -109,7 +110,7 @@ const DailyQuiz = (props) => {
     setTerm(data[arrIndex].term);
     setDefinition(data[arrIndex].definition); // eslint-disable-next-line
   }, [arrIndex]);const Prev = () => {
-    setDisplayDefinition(false)
+    setDisplayTerm(false)
     if (arrIndex - 1< 0){
       return
     }
@@ -119,7 +120,7 @@ const DailyQuiz = (props) => {
   }
 
   ;const Next = () => {
-    setDisplayDefinition(false)
+    setDisplayTerm(false)
     if (arrIndex + 1>= arrLength){
       return
     }
@@ -129,7 +130,7 @@ const DailyQuiz = (props) => {
   }
 
   ;const showAnswer = () => {
-    setDisplayDefinition(true)
+    setDisplayTerm(true)
   }
 
   return (
