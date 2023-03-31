@@ -6,10 +6,12 @@ const router = express.Router();
 router.post('/settings-email', (req, res) => {
   res.send('Email Updated!');
   const email = req.body.email;
+  res.send(email);
 });
 router.post('/settings-password', (req, res) => {
   res.send('Password Updated!');
   const password = req.body.password;
+  res.send(password);
 });
 router.get('/items', (req, res) => {
   res.send('Here are your items:');

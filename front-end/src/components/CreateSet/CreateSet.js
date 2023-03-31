@@ -17,13 +17,13 @@ const CreateSet = (props) => {
       definiion: ''
     }
   ]);
+  const [file, setFile] = useState(null);
 
   function handleChange(evt) {
     const value = evt.target.value;
     const id = evt.target.name;
     const field = id.slice(0, -1);
     const index = id.slice(id.length - 1);
-    console.log(`Field ${id} was changed to ${value} at index ${index}`);
     const newCard = cards[index];
     newCard[field] = value;
     setCards(
@@ -44,20 +44,74 @@ const CreateSet = (props) => {
   }
 
   function handleSubmit(evt) {
-    const upload = {
+    const info = {
       title: { title },
       description: { description },
       cards: { cards },
       number_of_cards: cards.length
     };
-    axios
-      .post('https://my.api.mockaroo.com/set.json?key=6b3bc3e0&__method=POST', upload)
-      .then((response) => {
-        console.log('Data successfully sent!');
-        alert('Your set has been saved!');
-        navigate('/flashcards');
-      });
+
+    axios({
+      method: 'POST',
+      data: {
+        info
+      },
+      withCredentials: true,
+      url: 'http://localhost:3001/create-set'
+    }).then((response) => {
+      console.log('Data successfully sent!');
+      alert('Your set has been saved!');
+      navigate('/flashcards');
+    });
   }
+
+  // var state = {
+  //   // Initially, no file is selected
+  //   selectedFile: null
+  // };
+
+  var changeFile = (event) => {
+    setFile(event.target.files[0]);
+  };
+  // On file upload (click the upload button)
+  var uploadFile = () => {
+    // Create an object of formData
+    const formData = new FormData();
+
+    // Update the formData object
+    formData.append('myFile', file, file.name);
+
+    // Details of the uploaded file
+    console.log(file);
+
+    // Request made to the backend api
+    // Send formData object
+    axios.post('http://localhost:3001/image-upload', formData);
+  };
+
+  // File content to be displayed after
+  // file upload is complete
+  var fileData = () => {
+    if (file) {
+      return (
+        <div>
+          <h2>File Details:</h2>
+          <p>File Name: {file.name}</p>
+
+          <p>File Type: {file.type}</p>
+
+          <p>Last Modified: {file.lastModifiedDate.toDateString()}</p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <br />
+          <h4>Choose before Pressing the Upload button</h4>
+        </div>
+      );
+    }
+  };
 
   const cardElements = cards.map((info, i) => {
     return (
@@ -121,6 +175,11 @@ const CreateSet = (props) => {
           <Button onClick={handleSubmit} variant="outlined">
             Create Set
           </Button>
+          <input type="file" name="file" onChange={changeFile}></input>
+          <Button onClick={uploadFile} variant="outlined">
+            Upload Image
+          </Button>
+          {fileData}
         </div>
       </Container>
     </div>

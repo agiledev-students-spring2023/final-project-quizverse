@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // route for HTTP POST requests
-app.post('/image-upload', upload.array('my_files', 3), (req, res, next) => {
+router.post('/image-upload', upload.array('my_files', 3), (req, res, next) => {
   // check whether anything was uploaded
   if (req.files) {
     // success! send data back to the client, e.g. some JSON data
@@ -27,18 +27,6 @@ app.post('/image-upload', upload.array('my_files', 3), (req, res, next) => {
     };
     res.json(data); // send respose
   }
-});
-
-router.post('/login', (req, res) => {
-  res.send('Login');
-});
-
-router.post('/register', (req, res) => {
-  res.send('Register');
-});
-
-router.post('/logout', (req, res) => {
-  res.send('Logout');
 });
 
 module.exports = router;

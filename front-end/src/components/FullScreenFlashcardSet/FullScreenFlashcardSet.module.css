@@ -10,7 +10,7 @@
 }
 
 .card {
-    width: 500px;
+    min-width: 100%;
     margin-bottom: 15px;
 }
 
