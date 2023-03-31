@@ -24,7 +24,6 @@ const CreateSet = (props) => {
     const id = evt.target.name;
     const field = id.slice(0, -1);
     const index = id.slice(id.length - 1);
-    console.log(`Field ${id} was changed to ${value} at index ${index}`);
     const newCard = cards[index];
     newCard[field] = value;
     setCards(
@@ -45,19 +44,25 @@ const CreateSet = (props) => {
   }
 
   function handleSubmit(evt) {
-    const upload = {
+    const info = {
       title: { title },
       description: { description },
       cards: { cards },
       number_of_cards: cards.length
     };
-    axios
-      .post('https://my.api.mockaroo.com/set.json?key=6b3bc3e0&__method=POST', upload)
-      .then((response) => {
-        console.log('Data successfully sent!');
-        alert('Your set has been saved!');
-        navigate('/flashcards');
-      });
+
+    axios({
+      method: 'POST',
+      data: {
+        info
+      },
+      withCredentials: true,
+      url: 'http://localhost:3001/create-set'
+    }).then((response) => {
+      console.log('Data successfully sent!');
+      alert('Your set has been saved!');
+      navigate('/flashcards');
+    });
   }
 
   // var state = {

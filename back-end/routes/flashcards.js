@@ -29,16 +29,4 @@ router.post('/image-upload', upload.array('my_files', 3), (req, res, next) => {
   }
 });
 
-router.post('/login', (req, res) => {
-  res.send('Login');
-});
-
-router.post('/register', (req, res) => {
-  res.send('Register');
-});
-
-router.post('/logout', (req, res) => {
-  res.send('Logout');
-});
-
 module.exports = router;
