@@ -22,4 +22,20 @@ router.get('/search/:searchTerm', (req, res) => {
     .catch((err) => next(err));
 });
 
+// This route will handle the actualy flashcard sets. So here, we want to
+// get all of the flashcard sets from the backend, and then send them to the
+// front end. These will be unfiltered for now (i.e. no search should have had been
+// made yet).
+router.get('/flashcard-sets', (req, res) => {
+    // This is still just calling Mockaroo, but ideally, this will be replaced
+    // with a call to the backend to get all of the flashcard sets.
+    axios
+        .get(`https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0`)
+        .then((apiResponse) => {
+            const data = apiResponse.data;
+            res.json(data);
+        })
+        .catch((err) => next(err));
+});
+
 module.exports = router;
