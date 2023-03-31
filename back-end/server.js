@@ -1,7 +1,7 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const session = require('express-session')
-const bodyParser = require('body-parser')
+const express = require('express');
+const mongoose = require('mongoose');
+const session = require('express-session');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 
 // import the routes for authentication (login / register)
@@ -10,6 +10,7 @@ const settingsRouter = require('./routes/settings');
 const footerRouter = require('./routes/footer');
 const dailyQuizRouter = require('./routes/daily-quiz');
 const createSetRouter = require('./routes/create-set');
+const flashcardRouter = require('./routes/flashcards');
 
 const app = express(); // instantiate an Express object
 const port = 3001; // the port to listen to for incoming requests
@@ -38,8 +39,6 @@ app.use(authRouter);
 app.use(settingsRouter);
 app.use(footerRouter);
 app.use(dailyQuizRouter);
-app.use(createSetRouter);
-
 
 // call express's listen function to start listening to the port
 const listener = app.listen(port, function () {

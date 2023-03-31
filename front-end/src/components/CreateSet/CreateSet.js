@@ -17,6 +17,7 @@ const CreateSet = (props) => {
       definiion: ''
     }
   ]);
+  const [file, setFile] = useState(null);
 
   function handleChange(evt) {
     const value = evt.target.value;
@@ -63,6 +64,54 @@ const CreateSet = (props) => {
       navigate('/flashcards');
     });
   }
+
+  // var state = {
+  //   // Initially, no file is selected
+  //   selectedFile: null
+  // };
+
+  var changeFile = (event) => {
+    setFile(event.target.files[0]);
+  };
+  // On file upload (click the upload button)
+  var uploadFile = () => {
+    // Create an object of formData
+    const formData = new FormData();
+
+    // Update the formData object
+    formData.append('myFile', file, file.name);
+
+    // Details of the uploaded file
+    console.log(file);
+
+    // Request made to the backend api
+    // Send formData object
+    axios.post('http://localhost:3001/image-upload', formData);
+  };
+
+  // File content to be displayed after
+  // file upload is complete
+  var fileData = () => {
+    if (file) {
+      return (
+        <div>
+          <h2>File Details:</h2>
+          <p>File Name: {file.name}</p>
+
+          <p>File Type: {file.type}</p>
+
+          <p>Last Modified: {file.lastModifiedDate.toDateString()}</p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <br />
+          <h4>Choose before Pressing the Upload button</h4>
+        </div>
+      );
+    }
+  };
 
   const cardElements = cards.map((info, i) => {
     return (
@@ -126,6 +175,11 @@ const CreateSet = (props) => {
           <Button onClick={handleSubmit} variant="outlined">
             Create Set
           </Button>
+          <input type="file" name="file" onChange={changeFile}></input>
+          <Button onClick={uploadFile} variant="outlined">
+            Upload Image
+          </Button>
+          {fileData}
         </div>
       </Container>
     </div>
