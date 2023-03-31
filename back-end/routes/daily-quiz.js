@@ -15,12 +15,14 @@ router.get('/daily-quiz', (req, res, next) => {
   
   // Creating a POST request for daily quiz
   router.post('/daily-quiz', (req, res) => {
+    axios
+      .post("https://my.api.mockaroo.com/generic_post.json?key=6b3bc3e0&__method=POST")
+      .then(console.log("Succesfully sent to database"))
+      .catch(err => next(err))
     const data = {
       status: "Amazing success!",
       message: "Congratulations on sending us this data!",
       your_data: {
-        hello: req.body.hello,
-        among: req.body.among,
       },
     }
     // ... then send a response of some kind to client
