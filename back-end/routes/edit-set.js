@@ -19,4 +19,10 @@ router.get('/edit-set', (req, res) => {
   res.send(mockSetObj);
 });
 
+router.post('/edit-set', (req, res) => {
+  const id = req.params.id;
+  // a mongoDB update takes place here
+  res.status(200).send('Successfully updated set!');
+});
+
 module.exports = router;
