@@ -4,7 +4,9 @@ const axios = require('axios');
 const router = express.Router();
 
 router.get('/edit-set', (req, res) => {
+
   const id = req.query.id;
+  console.log('Id received is: ', id);
   const mockSetObj = {
     id,
     title: 'Set Title',
