@@ -122,6 +122,10 @@ const DailyQuiz = (props) => {
   ;const Next = () => {
     setDisplayTerm(false)
     if (arrIndex + 1>= arrLength){
+      alert(`Congratulations on finishing your Quiz! Score: ${correct.length} out of ${arrLength}`)
+      axios.post("http://localhost:3001/study-stats", {correct: correct, incorrect: incorrect})
+        .then(console.log("Success!"))
+        .catch((err) => console.log(err))
       return
     }
     else{
