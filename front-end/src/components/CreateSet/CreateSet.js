@@ -121,7 +121,7 @@ const CreateSet = (props) => {
           handleDelete={handleDelete}
           index={i}
           term={info.term}
-          def={info.def}></EditCard>
+          def={info.definition}></EditCard>
       </>
     );
   });
