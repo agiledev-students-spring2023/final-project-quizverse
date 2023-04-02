@@ -1,6 +1,10 @@
 // use mocha's built-in assertion library
 const assert = require('assert');
 const auth = require('../../routes/auth');
+var chai = require('chai');
+var chaiHttp = require('chai-http');
+
+chai.use(chaiHttp);
 
 // a set of tests of array functions
 describe('Auth', function () {
@@ -8,8 +12,22 @@ describe('Auth', function () {
   describe('someMethod()', function () {
     // assert what should be returned
     it('sussy', function () {
+      var host = 'http://localhost:3001';
+      var path = '/login';
       // test that assertion
-      assert.equal(-1, [1, 2, 3].indexOf(4));
+      chai
+        .request(host)
+        .post(path)
+        // .field('myparam' , 'test')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send({ myparam: 'test' })
+        .end(function (error, response, body) {
+          if (error) {
+            console.log('BIG ERROR');
+          } else {
+            console.log('YAHOO');
+          }
+        });
     });
   });
 });
