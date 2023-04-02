@@ -8,10 +8,12 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styles from './FlashcardSet.module.css';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function FlashcardSet(props) {
   const theme = createTheme();
-  
+  const navigate = useNavigate();
+
   return (
     <ThemeProvider theme={theme}>
       <Card className={styles.flashcardSetCard} sx={{ width: 1 }}>
