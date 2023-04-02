@@ -149,7 +149,7 @@ const Header = (props) => {
           <li className={styles['nav-item']}>
             <Link to="/daily-quiz">
               <FontAwesomeIcon icon={faCalendar} />
-              Quiz
+                Quiz
             </Link>
           </li>
           <li className={styles['nav-item']}>
