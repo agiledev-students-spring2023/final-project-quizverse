@@ -11,6 +11,7 @@ const footerRouter = require('./routes/footer');
 const dailyQuizRouter = require('./routes/daily-quiz');
 const createSetRouter = require('./routes/create-set');
 const flashcardRouter = require('./routes/flashcards');
+const editSetRouter = require('./routes/edit-set');
 
 const app = express(); // instantiate an Express object
 const port = 3001; // the port to listen to for incoming requests
@@ -41,6 +42,7 @@ app.use(footerRouter);
 app.use(dailyQuizRouter);
 app.use(flashcardRouter);
 app.use(createSetRouter);
+app.use(editSetRouter);
 
 // call express's listen function to start listening to the port
 const listener = app.listen(port, function () {

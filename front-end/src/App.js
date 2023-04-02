@@ -15,6 +15,7 @@ import FlashcardSets from './components/FlashcardSets/FlashcardSets';
 import Settings from './components/Settings/Settings';
 import FullScreenFlashcardSet from './components/FullScreenFlashcardSet/FullScreenFlashcardSet';
 import StudyStats from './components/StudyStats/StudyStats';
+import EditSet from './components/EditSet/EditSet';
 
 const theme = createTheme({
   palette: {
@@ -53,6 +54,7 @@ const App = (props) => {
             <Route path="/settings" element={<Settings />} />
             <Route path="/flashcard-set/:id" element={<FullScreenFlashcardSet />} />
             <Route path="/study-stats" element={<StudyStats />} />
+            <Route path="/edit-set/:id" element={<EditSet />} />
           </Route>
         </Routes>
       </ThemeProvider>
