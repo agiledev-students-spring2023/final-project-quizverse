@@ -9,7 +9,7 @@ router.get('/edit-set', (req, res) => {
   console.log('Id received is: ', id);
   const mockSetObj = {
     id,
-    title: 'Set Title',
+    title: 'Agile Quiz',
     description:
       'This set is a mock quiz set that will be used to test dynamic study set editting. The id of the set will be the id passed in via the query params',
     cards: [
