@@ -17,3 +17,7 @@
 .card:hover {
     cursor: pointer;
 }
+
+.form-actions {
+    margin-top: 10px;
+  }

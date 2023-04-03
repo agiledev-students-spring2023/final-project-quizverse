@@ -2,7 +2,7 @@
 import styles from './DailyQuiz.module.css';
 import React, { useState, useEffect } from "react"
 import axios from "axios"
-import Flashcard from '../Flashcard/Flashcard'
+import Flashcard from './Flashcard/Flashcard';
 
 
 const DailyQuiz = (props) => {
