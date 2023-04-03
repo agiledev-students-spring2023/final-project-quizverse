@@ -117,6 +117,7 @@ const Home = (props) => {
         setData(backupData);
         console.log(data);
         //set coins and streak to backup values if necessary
+        setUser(data[0]['first_name']);
         setCoins(data[0]['coins']);
         setStreak(data[0]['streak']);
       });
