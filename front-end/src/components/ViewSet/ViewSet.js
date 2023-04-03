@@ -1,9 +1,8 @@
 import React from 'react';
-
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import { useState, useEffect, useMemo } from 'react';
-import styles from './FullScreenFlashcardSet.module.css';
+import styles from './ViewSet.module.css';
 import Button from '@mui/material/Button';
 
 function FullScreenFlashcardSet() {
