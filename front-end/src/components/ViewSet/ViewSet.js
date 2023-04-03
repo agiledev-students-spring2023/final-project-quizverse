@@ -1,68 +1,113 @@
 import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
 import Card from '@mui/material/Card';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import styles from './ViewSet.module.css';
 import Button from '@mui/material/Button';
+import EditCard from '../CreateSet/EditCard';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 function FullScreenFlashcardSet() {
   //this one needs to pull flashcard data
   const theme = createTheme();
-  const [name, setName] = useState('');
+  const location = useLocation();
+  const [id, setId] = useState(location.pathname.substring(location.pathname.lastIndexOf('/') + 1));
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const cards = useMemo(() => [], []);
-  const flashCardInfos = [
+  const [cards, setCards] = useState([
     {
-      title: 'Abyss',
-      description:
-        'The great depths of the oceans, usually considered to be depths of 2000 to 6000 m, a region of low temperatures, high pressure and an absence of sunlight.'
-    },
-    {
-      title: 'Adaptation',
-      description:
-        'A process by which species evolve, and by which individuals adapt, their growth and/or behaviour to better survive and grow in a particular environment.'
-    },
-    {
-      title: 'Bedform',
-      description:
-        'Sedimentary features of the seabed oriented transverse to flow direction; ripples, dunes and sand waves'
+      term: '',
+      definiion: ''
     }
-  ];
+  ]);
 
   useEffect(() => {
-    setName('Marine Biology');
-    setDescription('Covers the main definitions for the upcoming exam');
-    for (let i = 0; i < 3; i++) {
-      cards.push(flashCardInfos[i]);
-    } // eslint-disable-next-line
-  }, [cards]);
+    axios.get(`http://localhost:3001/edit-set?id=${id}`).then((response) => {
+      const data = response.data;
+      setTitle(data.title);
+      setDescription(data.description);
+      setCards(data.cards);
+    });
+    console.log(id);
+  }, []);
+
+  function handleChange(evt) {
+    const value = evt.target.value;
+    const id = evt.target.name;
+    const field = id.slice(0, -1);
+    const index = id.slice(id.length - 1);
+    const newCard = cards[index];
+    newCard[field] = value;
+    setCards(
+      cards
+        .slice(0, index)
+        .concat(newCard)
+        .concat(cards.slice(index + 1))
+    );
+    console.log(cards);
+  }
+
+  function handleDelete(index) {
+    setCards(cards.slice(0, index).concat(cards.slice(index + 1)));
+  }
+
+  function addNew() {
+    setCards(cards.concat({ term: '', definition: '' }));
+  }
+
+  function handleSubmit(evt) {
+    const info = {
+      title: { title },
+      description: { description },
+      cards: { cards }
+    };
+    axios
+      .post(`http://localhost:3001/edit-set?id=${id}`)
+      .then((response) => alert(`Saved changes to set ${title}`));
+  }
+
+  const cardElements = cards.map((info, i) => {
+    return (
+      <>
+        <EditCard
+          handleChange={handleChange}
+          handleDelete={handleDelete}
+          index={i}
+          term={info.term}
+          def={info.definition}></EditCard>
+      </>
+    );
+  });
 
   const shareSet = () => {
     const setURL = window.location.href;
     navigator.clipboard.writeText(setURL).then(() => {
-      alert(`Link to flashcard set "${name}" has copied to clipboard!`);
+      alert(`Link to flashcard set "${title}" has copied to clipboard!`);
     });
   };
 
-  const displayCards = cards.map((card) => {
-    return (
-      <div>
-        <Card className={styles.card}>
-          <h2 className={styles.cardTitles}>{card.title}</h2>
-          <div className={styles.cardDescription}>{card.description}</div>
-        </Card>
-      </div>
-    );
-  });
-
   return (
     <ThemeProvider theme={theme}>
-      <h1 className={styles.setTitle}>{name}</h1>
+      <h1 className={styles.setTitle}>{title}</h1>
       <p className={styles.setDescription}>{description}</p>
       <Button className={styles.shareSetButton} onClick={shareSet}>
         Share
       </Button>
-      <div className={styles.cardsContainer}>{displayCards}</div>
+      <div className={styles.cardsContainer}>{cardElements}</div>
+      <div className={styles['form-actions']}>
+        <Button
+          variant="outlined"
+          onClick={addNew}
+          startIcon={<FontAwesomeIcon icon={faCirclePlus} />}>
+          Add Card
+        </Button>
+        <Button onClick={handleSubmit} variant="outlined">
+          Save
+        </Button>
+      </div>
     </ThemeProvider>
   );
 }
