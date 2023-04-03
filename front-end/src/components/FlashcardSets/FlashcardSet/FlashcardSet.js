@@ -16,7 +16,12 @@ function FlashcardSet(props) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Card className={styles.flashcardSetCard} sx={{ width: 1 }}>
+      <Card
+        className={styles.flashcardSetCard}
+        sx={{ width: 1 }}
+        onClick={() => {
+          navigate(`/view/${props.id}`);
+        }}>
         <CardContent>
           <Typography
             className={styles.flashcardSetTypeTypography}
@@ -34,11 +39,6 @@ function FlashcardSet(props) {
             {props.description}
           </Typography>
         </CardContent>
-        <CardActions>
-          <Link to="/flashcard-set/123456">
-            <Button size="small">View Set</Button>
-          </Link>
-        </CardActions>
       </Card>
     </ThemeProvider>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import Search from '../Search/Search';
-import FlashcardSet from '../FlashcardSet/FlashcardSet';
+import FlashcardSet from './FlashcardSet/FlashcardSet';
 import styles from './FlashcardSets.module.css';
 import { useState, useEffect } from "react"
 import axios from "axios"
