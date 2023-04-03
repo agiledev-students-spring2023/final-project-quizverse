@@ -99,9 +99,13 @@ function FlashcardSets() {
       </div>
       <div className={styles.flashcardSetContainer}>
         {data.map((set) => (
-          <FlashcardSet title = {set.title} description = {set.description} numCards = {set.numCards}/>
-        )
-        )}
+          <FlashcardSet
+            id={Math.floor(1000 + Math.random() * 9000)} // generate random set id that will be replaced by db id later
+            title={set.title}
+            description={set.description}
+            numCards={set.numCards}
+          />
+        ))}
       </div>
     </>
   );
