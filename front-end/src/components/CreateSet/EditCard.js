@@ -1,7 +1,7 @@
 import { Stack, Box } from '@mui/system';
 import { TextField } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faXmark } from '@fortawesome/free-solid-svg-icons';
 import styles from './CreateSet.module.css';
 
 const EditCard = ({ handleChange, handleDelete, index, term, def }) => {
@@ -16,7 +16,7 @@ const EditCard = ({ handleChange, handleDelete, index, term, def }) => {
         padding: '10px'
       }}>
       <FontAwesomeIcon
-        className={styles['delete-card']}
+        className={styles['card-options']}
         icon={faXmark}
         onClick={() => handleDelete(index)}
       />
