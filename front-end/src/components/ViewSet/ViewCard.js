@@ -8,7 +8,7 @@ const ViewCard = ({ index, term, def }) => {
         height: 'auto',
         margin: '6px',
         borderRadius: 1,
-        backgroundColor: 'rgba(0, 7, 111, 0.4)',
+        backgroundColor: '#9AABBD',
         textAlign: 'left'
       }}>
       <CardContent>

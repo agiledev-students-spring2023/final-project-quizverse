@@ -12,7 +12,7 @@ const EditCard = ({ handleChange, handleDelete, index, term, def }) => {
         height: 'auto',
         margin: '8px',
         borderRadius: 1,
-        backgroundColor: 'rgba(0, 7, 111, 0.4)',
+        backgroundColor: '#9AABBD',
         padding: '10px'
       }}>
       <FontAwesomeIcon

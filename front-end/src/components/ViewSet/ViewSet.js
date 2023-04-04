@@ -95,7 +95,9 @@ function FullScreenFlashcardSet() {
       <div className={styles['set-buttons']}>
         <Button
           startIcon={<FontAwesomeIcon icon={faArrowLeft} />}
-          onClick={() => navigate('/flashcards')}></Button>
+          onClick={() => navigate('/flashcards')}>
+          My Sets
+        </Button>
         <Button
           startIcon={<FontAwesomeIcon icon={faPen} />}
           onClick={() => navigate(`/edit/${id}`)}></Button>
