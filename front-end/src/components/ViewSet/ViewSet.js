@@ -1,7 +1,7 @@
 import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
-import Card from '@mui/material/Card';
+//import Card from '@mui/material/Card';
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './ViewSet.module.css';

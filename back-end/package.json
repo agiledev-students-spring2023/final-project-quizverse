@@ -4,7 +4,7 @@
   "description": "Back end of QuizVerse",
   "main": "server.js",
   "scripts": {
-    "test": "mocha \"./src/test\" --timeout=3000"
+    "test": "nyc mocha \"./src/test\" --timeout=3000"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,8 @@
     "istanbul": "^0.4.5",
     "mocha": "^10.2.0",
     "mongoose": "^7.0.3",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "nyc": "^15.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
