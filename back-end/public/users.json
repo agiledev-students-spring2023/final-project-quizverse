@@ -11,5 +11,9 @@
     "username": "test1",
     "password": "test1"
   },
-  {}
+  {},
+  {
+    "username": "",
+    "password": ""
+  }
 ]
