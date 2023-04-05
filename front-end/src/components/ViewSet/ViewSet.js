@@ -6,9 +6,9 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './ViewSet.module.css';
 import Button from '@mui/material/Button';
-import EditCard from '../CreateSet/EditCard';
+import ViewCard from './ViewCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faCirclePlus, faPen } from '@fortawesome/free-solid-svg-icons';
 
 function FullScreenFlashcardSet() {
   //this one needs to pull flashcard data
@@ -73,12 +73,12 @@ function FullScreenFlashcardSet() {
   const cardElements = cards.map((info, i) => {
     return (
       <>
-        <EditCard
+        <ViewCard
           handleChange={handleChange}
           handleDelete={handleDelete}
           index={i}
           term={info.term}
-          def={info.definition}></EditCard>
+          def={info.definition}></ViewCard>
       </>
     );
   });
@@ -92,27 +92,22 @@ function FullScreenFlashcardSet() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Button
-        className=""
-        startIcon={<FontAwesomeIcon icon={faArrowLeft} />}
-        onClick={() => navigate('/flashcards')}></Button>
+      <div className={styles['set-buttons']}>
+        <Button
+          startIcon={<FontAwesomeIcon icon={faArrowLeft} />}
+          onClick={() => navigate('/flashcards')}>
+          My Sets
+        </Button>
+        <Button
+          startIcon={<FontAwesomeIcon icon={faPen} />}
+          onClick={() => navigate(`/edit/${id}`)}></Button>
+      </div>
       <h1 className={styles.setTitle}>{title}</h1>
       <p className={styles.setDescription}>{description}</p>
       <Button className={styles.shareSetButton} onClick={shareSet}>
         Share
       </Button>
       <div className={styles.cardsContainer}>{cardElements}</div>
-      <div className={styles['form-actions']}>
-        <Button
-          variant="outlined"
-          onClick={addNew}
-          startIcon={<FontAwesomeIcon icon={faCirclePlus} />}>
-          Add Card
-        </Button>
-        <Button onClick={handleSubmit} variant="outlined">
-          Save
-        </Button>
-      </div>
     </ThemeProvider>
   );
 }
