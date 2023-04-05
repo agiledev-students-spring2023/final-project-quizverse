@@ -3,6 +3,8 @@ import { ReactComponent as ReactLogo } from './qv_logo.svg';
 //import logo from './logo.svg'
 import { Link } from 'react-router-dom';
 // import HamburgerMenu from "./HamburgerMenu.svg";
+import Burger  from './Burger.js';
+import Menu from './Menu.js'
 /**
  * Our QuizVerse Header!
  */
@@ -20,6 +22,7 @@ const Header = (props) => {
   const [data, setData] = useState([]); // eslint-disable-next-line
   const [streak, setStreak] = useState(0); // eslint-disable-next-line
   const [coins, setCoins] = useState(0);
+  const [open, setOpen] = useState(false);
 
   // the following side-effect will be called once upon initial render
   useEffect(() => {
@@ -129,6 +132,8 @@ const Header = (props) => {
   return (
     <div className={styles['header-container']}>
       <nav className={styles['header-navbar']}>
+      <Burger open={open} setOpen={setOpen} />
+        <Menu open={open} setOpen={setOpen}/>
         <FontAwesomeIcon icon={faBars} />
         <ReactLogo className={styles['header-logo']} />
         <div className={styles['nav-links']}>
