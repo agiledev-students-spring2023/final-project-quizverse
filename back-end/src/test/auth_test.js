@@ -11,7 +11,7 @@ describe('Auth', function () {
   // one particular unit test
   describe('Login Route', function () {
     // assert what should be returned
-    it('Login', function () {
+    it('Login', function (done) {
       var host = 'http://localhost:3001';
       var path = '/login';
       // test that assertion
@@ -24,6 +24,7 @@ describe('Auth', function () {
         .end(function (error, response, body) {
           if (error) {
             console.log('BIG ERROR');
+            done(new Error('oh noes'));
           } else {
             console.log('YAHOO');
           }
@@ -32,7 +33,7 @@ describe('Auth', function () {
   });
   describe('Register Route', function () {
     // assert what should be returned
-    it('Register', function () {
+    it('Register', function (done) {
       var host = 'http://localhost:3001';
       var path = '/register';
       // test that assertion
@@ -45,6 +46,7 @@ describe('Auth', function () {
         .end(function (error, response, body) {
           if (error) {
             console.log('BIG ERROR');
+            done(new Error('oh noes'));
           } else {
             console.log('YAHOO');
           }
@@ -53,7 +55,7 @@ describe('Auth', function () {
   });
   describe('Logout Route', function () {
     // assert what should be returned
-    it('Logout', function () {
+    it('Logout', function (done) {
       var host = 'http://localhost:3001';
       var path = '/logout';
       // test that assertion
@@ -66,6 +68,7 @@ describe('Auth', function () {
         .end(function (error, response, body) {
           if (error) {
             console.log('BIG ERROR');
+            done(new Error('oh noes'));
           } else {
             console.log('YAHOO');
           }

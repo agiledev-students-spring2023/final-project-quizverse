@@ -11,7 +11,7 @@ describe('Footer', function () {
   // one particular unit test
   describe('Terms of Service Route', function () {
     // assert what should be returned
-    it('Terms of Service', function () {
+    it('Terms of Service', function (done) {
       var host = 'http://localhost:3001';
       var path = '/terms';
       // test that assertion
@@ -24,6 +24,7 @@ describe('Footer', function () {
         .end(function (error, response, body) {
           if (error) {
             console.log('BIG ERROR');
+            done(new Error('oh noes'));
           } else {
             console.log('YAHOO');
           }
@@ -32,7 +33,7 @@ describe('Footer', function () {
   });
   describe('Privacy Route', function () {
     // assert what should be returned
-    it('Privacy Policy', function () {
+    it('Privacy Policy', function (done) {
       var host = 'http://localhost:3001';
       var path = '/privacy';
       // test that assertion
@@ -45,6 +46,7 @@ describe('Footer', function () {
         .end(function (error, response, body) {
           if (error) {
             console.log('BIG ERROR');
+            done(new Error('oh noes'));
           } else {
             console.log('YAHOO');
           }
