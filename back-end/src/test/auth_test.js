@@ -27,6 +27,7 @@ describe('Auth', function () {
             done(new Error('oh noes'));
           } else {
             console.log('YAHOO');
+            done();
           }
         });
     });
@@ -49,6 +50,7 @@ describe('Auth', function () {
             done(new Error('oh noes'));
           } else {
             console.log('YAHOO');
+            done();
           }
         });
     });
@@ -71,6 +73,7 @@ describe('Auth', function () {
             done(new Error('oh noes'));
           } else {
             console.log('YAHOO');
+            done();
           }
         });
     });

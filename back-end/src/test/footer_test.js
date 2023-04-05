@@ -27,6 +27,7 @@ describe('Footer', function () {
             done(new Error('oh noes'));
           } else {
             console.log('YAHOO');
+            done();
           }
         });
     });
@@ -49,6 +50,7 @@ describe('Footer', function () {
             done(new Error('oh noes'));
           } else {
             console.log('YAHOO');
+            done();
           }
         });
     });
