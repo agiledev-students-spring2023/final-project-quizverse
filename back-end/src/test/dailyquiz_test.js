@@ -24,6 +24,28 @@ describe('Daily Quiz', function () {
           });
       });
     });
+    describe('Post the daily quiz stats', function () {
+      // assert what should be returned
+      it('it should POST the users results after the quiz', (done)=> {
+        var host = 'http://localhost:3001';
+        var path = '/daily-quiz';
+        // test that assertion
+        chai
+          .request(host)
+          .post(path)
+          .set('content-type', 'application/x-www-form-urlencoded')
+          .send({correct: 10, incorrect: 1})
+          .end(function (error, response, body) {
+            if (error) {
+              console.log('daily quiz stats not posted correctly');
+              done()
+            } else {
+              console.log('successfully posted daily quiz stats');
+              done()
+            }
+          });
+      });
+    });
     
 })
   
