@@ -37,19 +37,24 @@ describe('Footer', function () {
     it('Privacy Policy', function (done) {
       var host = 'http://localhost:3001';
       var path = '/privacy';
+      var func = footer.privacy();
+      console.log(func);
       // test that assertion
       chai
         .request(host)
-        .post(path)
+        .get(path)
         // .field('myparam' , 'test')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send({ myparam: 'test' })
-        .end(function (error, response, body) {
+        .end(function (error, res, body) {
           if (error) {
             console.log('BIG ERROR');
             done(new Error('oh noes'));
           } else {
             console.log('YAHOO');
+            expect(res.statusCode).to.equal(200);
+            expect(res).to.have.property('text');
+            expect(res.text).to.equal('Privacy Policy!');
             done();
           }
         });
