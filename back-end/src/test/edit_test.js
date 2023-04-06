@@ -3,13 +3,13 @@ var chai = require('chai');
 const expect = chai.expect;
 
 // a set of tests of array functions
-describe('Create Set Route', function () {
+describe('Edit Set Route', function () {
   // one particular unit test
 
   // assert what should be returned
-  it('Create a set', function (done) {
+  it('Updating a set', function (done) {
     var host = 'http://localhost:3001';
-    var path = '/create-set';
+    var path = '/edit-set/1234';
     // test that assertion
     chai
       .request(host)
