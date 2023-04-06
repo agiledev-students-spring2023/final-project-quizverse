@@ -2,12 +2,8 @@ import styles from './Header.module.css';
 import { ReactComponent as ReactLogo } from './qv_logo.svg';
 //import logo from './logo.svg'
 import { Link } from 'react-router-dom';
-// import HamburgerMenu from "./HamburgerMenu.svg";
-import Burger  from './Burger.js';
-import Menu from './Menu.js'
-/**
- * Our QuizVerse Header!
- */
+import Burger from './Burger.js';
+import Menu from './Menu.js';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,6 +14,7 @@ import {
   faHome,
   faUser
 } from '@fortawesome/free-solid-svg-icons';
+
 const Header = (props) => {
   const [data, setData] = useState([]); // eslint-disable-next-line
   const [streak, setStreak] = useState(0); // eslint-disable-next-line
@@ -132,9 +129,8 @@ const Header = (props) => {
   return (
     <div className={styles['header-container']}>
       <nav className={styles['header-navbar']}>
-      <Burger open={open} setOpen={setOpen} />
-        <Menu open={open} setOpen={setOpen}/>
-        <FontAwesomeIcon icon={faBars} />
+        <Burger open={open} setOpen={setOpen} />
+        <Menu open={open} setOpen={setOpen} />
         <ReactLogo className={styles['header-logo']} />
         <div className={styles['nav-links']}>
           {/*Coins and streak will be eventually pulled from backend*/}
@@ -154,7 +150,7 @@ const Header = (props) => {
           <li className={styles['nav-item']}>
             <Link to="/daily-quiz">
               <FontAwesomeIcon icon={faCalendar} />
-                Quiz
+              Quiz
             </Link>
           </li>
           <li className={styles['nav-item']}>
