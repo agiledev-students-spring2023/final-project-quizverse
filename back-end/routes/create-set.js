@@ -10,7 +10,7 @@ router.post('/create-set', (req, res) => {
     .then((response) => {
       const resdata = response;
       console.log(resdata);
-      res.status(200).send('Success');
+      res.status(200).send({ message: 'success' });
     });
 });
 
