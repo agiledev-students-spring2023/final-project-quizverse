@@ -1,7 +1,6 @@
 const assert = require('assert');
 var chai = require('chai');
 const expect = chai.expect;
-var chaiHttp = require('chai-http');
 
 // a set of tests of array functions
 describe('Create Set Route', function () {

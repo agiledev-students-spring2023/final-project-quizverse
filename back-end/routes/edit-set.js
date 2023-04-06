@@ -3,6 +3,8 @@ const axios = require('axios');
 
 const router = express.Router();
 
+// Migrated to flashcard-set route!!
+
 // router.get('/edit-set', (req, res) => {
 
 //   const id = req.query.id;
@@ -24,10 +26,10 @@ const router = express.Router();
 //   res.send(mockSetObj);
 // });
 
-router.post('/edit-set', (req, res) => {
+router.post('/edit-set/:id', (req, res) => {
   const id = req.params.id;
   // a mongoDB update takes place here
-  res.status(200).send('Successfully updated set!');
+  res.status(200).send({ message: 'success' });
 });
 
 module.exports = router;

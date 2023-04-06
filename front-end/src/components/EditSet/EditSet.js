@@ -23,7 +23,7 @@ const EditSet = (props) => {
   const [file, setFile] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/edit-set?id=${id}`).then((response) => {
+    axios.get(`http://localhost:3001/flashcard-set/${id}`).then((response) => {
       const data = response.data;
       setTitle(data.title);
       setDescription(data.description);
