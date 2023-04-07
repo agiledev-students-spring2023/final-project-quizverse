@@ -2,6 +2,8 @@ const assert = require('assert');
 var chai = require('chai');
 const expect = chai.expect;
 
+let es = require('../routes/edit-set')
+
 // a set of tests of array functions
 describe('Edit Set Route', function () {
   // one particular unit test

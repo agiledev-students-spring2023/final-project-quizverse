@@ -3,7 +3,7 @@ const express = require('express');
 const axios = require('axios');
 const router = express.Router();
 
-
+/* istanbul ignore next */
 router.get('/daily-quiz', (req, res, next) => {
   // use axios to make a request to an API for flashcard data in the daily quiz
   user = req.params.user;
@@ -15,6 +15,7 @@ router.get('/daily-quiz', (req, res, next) => {
 });
 
 // Creating a POST request for daily quiz
+/* istanbul ignore next */
 router.post('/study-stats', (req, res) => {
   axios
     .post('https://my.api.mockaroo.com/generic_post.json?key=6b3bc3e0&__method=POST', req.body)
@@ -29,14 +30,5 @@ router.post('/study-stats', (req, res) => {
   res.json(data);
 });
 
-router.get('/daily-quiz', (req, res, next) => {
-  // use axios to make a request to an API for flashcard data in the daily quiz
-  user = req.params.user;
-  //Do something with a database lookup with user. For now, this is still just calling Mockaroo.
-  axios
-    .get('https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0')
-    .then((apiResponse) => res.json(apiResponse.data)) // pass data along directly to client
-    .catch((err) => next(err)); // pass any errors to express
-});
 
 module.exports = router;

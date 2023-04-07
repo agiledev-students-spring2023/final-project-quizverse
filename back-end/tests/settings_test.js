@@ -1,6 +1,7 @@
 // use mocha's built-in assertion library
 const assert = require('assert');
-const settings = require('./footer');
+const settings = require('../routes/settings');
+
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 
