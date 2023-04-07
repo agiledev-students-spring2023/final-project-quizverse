@@ -5,6 +5,9 @@ var chaiHttp = require('chai-http');
 let should = chai.should();
 chai.use(chaiHttp);
 
+let dq = require('../routes/daily-quiz')
+
+
 describe('Daily Quiz', function () {
     // one particular unit test
     describe('Get the Daily Quiz flashcards', function () {
