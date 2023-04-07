@@ -4,7 +4,7 @@
   "description": "Back end of QuizVerse",
   "main": "server.js",
   "scripts": {
-    "test": "nyc mocha \"./src/test\" --timeout=3000"
+    "test": "nyc mocha tests--timeout=3000"
   },
   "repository": {
     "type": "git",

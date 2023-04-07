@@ -1,13 +1,12 @@
 // use mocha's built-in assertion library
 const assert = require('assert');
-const settings = require('../../routes/footer');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 
 // a set of tests of array functions
-describe('Settings', function () {
+describe('Footer', function () {
   // one particular unit test
   describe('Terms of Service Route', function () {
     // assert what should be returned

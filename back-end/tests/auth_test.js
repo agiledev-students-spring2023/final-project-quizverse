@@ -1,23 +1,23 @@
 // use mocha's built-in assertion library
 const assert = require('assert');
-const footer = require('../../routes/footer');
+const auth = require('../routes/auth');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 
 // a set of tests of array functions
-describe('Footer', function () {
+describe('Auth', function () {
   // one particular unit test
-  describe('Terms of Service Route', function () {
+  describe('Login Route', function () {
     // assert what should be returned
-    it('Terms of Service', function () {
+    it('Login', function () {
       var host = 'http://localhost:3001';
-      var path = '/terms';
+      var path = '/login';
       // test that assertion
       chai
         .request(host)
-        .get(path)
+        .post(path)
         // .field('myparam' , 'test')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send({ myparam: 'test' })
@@ -30,11 +30,32 @@ describe('Footer', function () {
         });
     });
   });
-  describe('Privacy Route', function () {
+  describe('Register Route', function () {
     // assert what should be returned
-    it('Privacy Policy', function () {
+    it('Register', function () {
       var host = 'http://localhost:3001';
-      var path = '/privacy';
+      var path = '/register';
+      // test that assertion
+      chai
+        .request(host)
+        .post(path)
+        // .field('myparam' , 'test')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send({ myparam: 'test' })
+        .end(function (error, response, body) {
+          if (error) {
+            console.log('BIG ERROR');
+          } else {
+            console.log('YAHOO');
+          }
+        });
+    });
+  });
+  describe('Logout Route', function () {
+    // assert what should be returned
+    it('Logout', function () {
+      var host = 'http://localhost:3001';
+      var path = '/logout';
       // test that assertion
       chai
         .request(host)
