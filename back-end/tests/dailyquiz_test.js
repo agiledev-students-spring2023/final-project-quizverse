@@ -1,6 +1,5 @@
 // use mocha's built-in assertion library
 const assert = require('assert');
-const auth = require('../../routes/auth');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 let should = chai.should();
@@ -28,7 +27,7 @@ describe('Daily Quiz', function () {
       // assert what should be returned
       it('it should POST the users results after the quiz', (done)=> {
         var host = 'http://localhost:3001';
-        var path = '/daily-quiz';
+        var path = '/study-stats';
         // test that assertion
         chai
           .request(host)
@@ -46,6 +45,7 @@ describe('Daily Quiz', function () {
           });
       });
     });
+    
     
 })
   
