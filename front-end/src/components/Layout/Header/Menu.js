@@ -1,21 +1,28 @@
 import React from 'react';
 import { bool } from 'prop-types';
 import { StyledMenu } from './Menu.styled';
-const Menu = ({ open }) => {
+import { Link } from 'react-router-dom';
+const Menu = ({ open, setOpen }) => {
   return (
     <StyledMenu open={open}>
-      <a href="/">
+      <Link to="/" onClick={() => setOpen(!open)}>
         Home
-      </a>
-      <a href="/">
+      </Link>
+      <Link to="/daily-quiz" onClick={() => setOpen(!open)}>
         Daily Quiz
-        </a>
-      <a href="/">
-        Create Set
-        </a>
+      </Link>
+      <Link to="/settings" onClick={() => setOpen(!open)}>
+        Settings
+      </Link>
+      <Link to="/shop" onClick={() => setOpen(!open)}>
+        Shop
+      </Link>
+      <Link to="/study-stats" onClick={() => setOpen(!open)}>
+        My Stats
+      </Link>
     </StyledMenu>
-  )
-}
+  );
+};
 Menu.propTypes = {
   open: bool.isRequired,
 }
