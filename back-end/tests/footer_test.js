@@ -1,7 +1,12 @@
 // use mocha's built-in assertion library
+const app = require('../server');
 const assert = require('assert');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
+const footer = require('../routes/footer');
+const request = require('supertest');
+
+
 
 chai.use(chaiHttp);
 

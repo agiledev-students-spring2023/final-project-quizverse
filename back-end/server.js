@@ -56,6 +56,4 @@ const close = () => {
   listener.close();
 };
 
-module.exports = {
-  close: close
-};
+module.exports = app;

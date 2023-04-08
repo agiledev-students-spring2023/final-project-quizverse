@@ -1,6 +1,9 @@
+const app = require('../server');
 const assert = require('assert');
 var chai = require('chai');
 const expect = chai.expect;
+const edit = require('../routes/edit-set');
+const request = require('supertest');
 
 // a set of tests of array functions
 describe('Edit Set Route', function () {
@@ -11,11 +14,8 @@ describe('Edit Set Route', function () {
     var host = 'http://localhost:3001';
     var path = '/edit-set/1234';
     // test that assertion
-    chai
-      .request(host)
+    request(app)
       .post(path)
-      // .field('myparam' , 'test')
-      .set('content-type', 'application/x-www-form-urlencoded')
       .send({ myparam: 'test' })
       .end(function (error, res) {
         expect(res.status).to.be.equal(200, 'status code should be 200');

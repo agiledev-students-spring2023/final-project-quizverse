@@ -4,7 +4,8 @@
   "description": "Back end of QuizVerse",
   "main": "server.js",
   "scripts": {
-    "test": "nyc mocha tests--timeout=3000"
+    "test": "npx nyc --all mocha ./tests/ --recursive",
+    "coverage": "nyc --reporter=text npm test"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "nyc": "^15.1.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "supertest": "^6.3.3"
   }
 }

@@ -9,7 +9,6 @@ router.post('/create-set', (req, res) => {
     .post('https://my.api.mockaroo.com/set.json?key=6b3bc3e0&__method=POST', data)
     .then((response) => {
       const resdata = response;
-      console.log(resdata);
       res.status(200).send({ message: 'success' });
     });
 });
