@@ -4,6 +4,8 @@ const auth = require('../routes/auth');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 
+
+
 chai.use(chaiHttp);
 
 // a set of tests of array functions

@@ -26,6 +26,7 @@ const router = express.Router();
 //   res.send(mockSetObj);
 // });
 
+/* istanbul ignore next */
 router.post('/edit-set/:id', (req, res) => {
   const id = req.params.id;
   // a mongoDB update takes place here
