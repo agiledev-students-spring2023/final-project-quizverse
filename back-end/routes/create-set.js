@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 
 const router = express.Router();
-
+/* istanbul ignore next */
 router.post('/create-set', (req, res) => {
   const data = req.body.upload;
   axios

@@ -9,6 +9,9 @@ const request = require('supertest');
 
 chai.use(chaiHttp);
 
+let dq = require('../routes/daily-quiz')
+
+
 describe('Daily Quiz', function () {
   // one particular unit test
   describe('Get the Daily Quiz flashcards', function () {
