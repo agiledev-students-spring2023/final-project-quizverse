@@ -1,6 +1,6 @@
 // use mocha's built-in assertion library
 const assert = require('assert');
-const settings = require('./footer');
+const settings = require('../routes/settings');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var expect = require('chai').expect;
@@ -16,7 +16,7 @@ describe('Settings', function () {
       var path = '/settings-email';
       // test that assertion
       chai
-        .request(host)
+        .request(settings)
         .post(path)
         // .field('myparam' , 'test')
         .set('content-type', 'application/x-www-form-urlencoded')
@@ -44,7 +44,7 @@ describe('Settings', function () {
       //var help = footer.test;
       // test that assertion
       chai
-        .request(host)
+        .request(settings)
         .get(path)
         //.field('myparam', 'test')
         .set('content-type', 'application/x-www-form-urlencoded')
