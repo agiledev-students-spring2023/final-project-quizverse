@@ -5,8 +5,7 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 const footer = require('../routes/footer');
 const request = require('supertest');
-
-
+const expect = chai.expect;
 
 chai.use(chaiHttp);
 
@@ -15,43 +14,29 @@ describe('Footer', function () {
   // one particular unit test
   describe('Terms of Service Route', function () {
     // assert what should be returned
-    it('Terms of Service', function () {
+    it('Terms of Service', function (done) {
       var host = 'http://localhost:3001';
       var path = '/terms';
       // test that assertion
-      chai
-        .request(host)
+      request(app)
         .get(path)
-        // .field('myparam' , 'test')
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .send({ myparam: 'test' })
-        .end(function (error, response, body) {
-          if (error) {
-            console.log('BIG ERROR');
-          } else {
-            console.log('YAHOO');
-          }
+        .end(function (err, res, body) {
+          expect(res.status).to.be.equal(200, 'status code should be 200');
+          done(err);
         });
     });
   });
   describe('Privacy Route', function () {
     // assert what should be returned
-    it('Privacy Policy', function () {
+    it('Privacy Policy', function (done) {
       var host = 'http://localhost:3001';
       var path = '/privacy';
       // test that assertion
-      chai
-        .request(host)
-        .post(path)
-        // .field('myparam' , 'test')
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .send({ myparam: 'test' })
-        .end(function (error, response, body) {
-          if (error) {
-            console.log('BIG ERROR');
-          } else {
-            console.log('YAHOO');
-          }
+      request(app)
+        .get(path)
+        .end(function (err, res, body) {
+          expect(res.status).to.be.equal(200, 'status code should be 200');
+          done(err);
         });
     });
   });

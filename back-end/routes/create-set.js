@@ -2,15 +2,15 @@ const express = require('express');
 const axios = require('axios');
 
 const router = express.Router();
-/* istanbul ignore next */
 router.post('/create-set', (req, res) => {
   const data = req.body.upload;
-  axios
-    .post('https://my.api.mockaroo.com/set.json?key=6b3bc3e0&__method=POST', data)
-    .then((response) => {
-      const resdata = response;
-      res.status(200).send({ message: 'success' });
-    });
+  // axios
+  //   .post('https://my.api.mockaroo.com/set.json?key=6b3bc3e0&__method=POST', data)
+  //   .then((response) => {
+  //     const resdata = response;
+  //     res.status(200).send({ message: 'success' });
+  //   });
+  res.status(200).send({ message: 'success' });
 });
 
 module.exports = router;

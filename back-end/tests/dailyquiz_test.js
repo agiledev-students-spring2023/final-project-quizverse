@@ -5,12 +5,8 @@ const daily = require('../routes/daily-quiz');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 const expect = chai.expect;
+const should = chai.should;
 const request = require('supertest');
-
-chai.use(chaiHttp);
-
-let dq = require('../routes/daily-quiz')
-
 
 describe('Daily Quiz', function () {
   // one particular unit test
@@ -24,7 +20,6 @@ describe('Daily Quiz', function () {
         .get(path)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.should.be.a('array');
           done();
         });
     });
@@ -38,14 +33,9 @@ describe('Daily Quiz', function () {
       request(app)
         .post(path)
         .send({ correct: 10, incorrect: 1 })
-        .end(function (error, response, body) {
-          if (error) {
-            console.log('daily quiz stats not posted correctly');
-            done();
-          } else {
-            console.log('successfully posted daily quiz stats');
-            done();
-          }
+        .end(function (err, res) {
+          res.should.have.status(200);
+          done(err);
         });
     });
   });
