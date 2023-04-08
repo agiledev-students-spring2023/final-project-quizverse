@@ -3,7 +3,7 @@ const assert = require('assert');
 const footer = require('../../routes/footer');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-
+var expect = require('chai').expect;
 chai.use(chaiHttp);
 
 // a set of tests of array functions
@@ -37,8 +37,8 @@ describe('Footer', function () {
     it('Privacy Policy', function (done) {
       var host = 'http://localhost:3001';
       var path = '/privacy';
-      var func = footer.privacy();
-      console.log(func);
+      // var func = footer.privacy();
+      // console.log(func);
       // test that assertion
       chai
         .request(host)

@@ -9,24 +9,28 @@ chai.use(chaiHttp);
 // a set of tests of array functions
 describe('Settings', function () {
   // one particular unit test
-  describe('Terms of Service Route', function () {
+  describe('Email Route', function () {
     // assert what should be returned
-    it('Terms of Service', function (done) {
+    it('Change Email', function (done) {
       var host = 'http://localhost:3001';
-      var path = '/terms';
+      var path = '/settings-email';
       // test that assertion
       chai
         .request(host)
-        .get(path)
+        .post(path)
         // .field('myparam' , 'test')
         .set('content-type', 'application/x-www-form-urlencoded')
-        .send({ myparam: 'test' })
-        .end(function (error, response, body) {
+        .send({ email: 'bob@gmail.com' })
+        .end(function (error, res, body) {
           if (error) {
             console.log('BIG ERROR');
             done(new Error('oh noes'));
           } else {
             console.log('YAHOO');
+            expect(res.statusCode).to.equal(200);
+            console.log(res.text);
+            console.log(res.body);
+            //console.log(req._data);
             done();
           }
         });
