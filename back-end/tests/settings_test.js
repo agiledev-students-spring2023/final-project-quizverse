@@ -1,6 +1,6 @@
 // use mocha's built-in assertion library
 const assert = require('assert');
-const settings = require('../../routes/settings');
+const settings = require('../routes/settings');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var expect = require('chai').expect;
@@ -46,7 +46,7 @@ describe('Settings', function () {
       chai
         .request(host)
         .get(path)
-        // .field('myparam' , 'test')
+        //.field('myparam', 'test')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send({ myparam: 'test' })
         .end(function (error, res, body) {
@@ -55,7 +55,7 @@ describe('Settings', function () {
             done(new Error('oh noes'));
           } else {
             console.log('YAHOO');
-            // expect(res.statusCode).to.equal(200);
+            expect(res.statusCode).to.equal(200);
             // expect(res).to.have.property('text');
             // expect(res.text).to.equal('Privacy Policy!');
             //console.log(res);
