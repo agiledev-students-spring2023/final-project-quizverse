@@ -26,16 +26,16 @@ app.use(express.json()); // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming POST data
 app.use(cors(corsOptions));
 
-app.get('/', (req, res) => {
-  res.send('Hello!');
-});
+// app.get('/', (req, res) => {
+//   res.send('Hello!');
+// });
 
-app.get('/test', (req, res) => {
-  res.send({
-    monkey: 'goose',
-    canada: 'maple leaf'
-  });
-});
+// app.get('/test', (req, res) => {
+//   res.send({
+//     monkey: 'goose',
+//     canada: 'maple leaf'
+//   });
+// });
 
 app.use(authRouter);
 app.use(settingsRouter);
