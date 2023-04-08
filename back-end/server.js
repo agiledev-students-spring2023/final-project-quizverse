@@ -53,9 +53,8 @@ const listener = app.listen(port, function () {
 
 // a function to stop listening to the port
 const close = () => {
+  console.log('server is closed');
   listener.close();
 };
 
-module.exports = {
-  close: close
-};
+module.exports = app;

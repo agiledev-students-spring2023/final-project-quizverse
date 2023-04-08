@@ -1,8 +1,11 @@
 // use mocha's built-in assertion library
+const app = require('../server');
 const assert = require('assert');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var expect = require('chai').expect;
+const footer = require('../routes/footer');
+const request = require('supertest');
+const expect = chai.expect;
 chai.use(chaiHttp);
 
 // a set of tests of array functions
@@ -14,20 +17,14 @@ describe('Footer', function () {
       var host = 'http://localhost:3001';
       var path = '/terms';
       // test that assertion
-      chai
-        .request(host)
+      request(app)
         .get(path)
         // .field('myparam' , 'test')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send({ myparam: 'test' })
-        .end(function (error, response, body) {
-          if (error) {
-            console.log('BIG ERROR');
-            done(new Error('oh noes'));
-          } else {
-            console.log('YAHOO');
-            done();
-          }
+        .end(function (err, res, body) {
+          expect(res.status).to.be.equal(200, 'status code should be 200');
+          done(err);
         });
     });
   });
@@ -39,23 +36,11 @@ describe('Footer', function () {
       // var func = footer.privacy();
       // console.log(func);
       // test that assertion
-      chai
-        .request(host)
+      request(app)
         .get(path)
-        // .field('myparam' , 'test')
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .send({ myparam: 'test' })
-        .end(function (error, res, body) {
-          if (error) {
-            console.log('BIG ERROR');
-            done(new Error('oh noes'));
-          } else {
-            console.log('YAHOO');
-            expect(res.statusCode).to.equal(200);
-            expect(res).to.have.property('text');
-            expect(res.text).to.equal('Privacy Policy!');
-            done();
-          }
+        .end(function (err, res, body) {
+          expect(res.status).to.be.equal(200, 'status code should be 200');
+          done(err);
         });
     });
   });

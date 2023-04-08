@@ -15,7 +15,6 @@ router.get('/daily-quiz', (req, res, next) => {
 });
 
 // Creating a POST request for daily quiz
-/* istanbul ignore next */
 router.post('/study-stats', (req, res) => {
   axios
     .post('https://my.api.mockaroo.com/generic_post.json?key=6b3bc3e0&__method=POST', req.body)

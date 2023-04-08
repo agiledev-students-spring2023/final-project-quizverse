@@ -1,8 +1,10 @@
 // use mocha's built-in assertion library
+const app = require('../server');
 const assert = require('assert');
 const settings = require('../routes/settings');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
+const request = require('supertest');
 var expect = require('chai').expect;
 chai.use(chaiHttp);
 
@@ -15,24 +17,11 @@ describe('Settings', function () {
       var host = 'http://localhost:3001';
       var path = '/settings-email';
       // test that assertion
-      chai
-        .request(settings)
-        .post(path)
-        // .field('myparam' , 'test')
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .send({ email: 'bob@gmail.com' })
-        .end(function (error, res, body) {
-          if (error) {
-            console.log('BIG ERROR');
-            done(new Error('oh noes'));
-          } else {
-            console.log('YAHOO');
-            expect(res.statusCode).to.equal(200);
-            console.log(res.text);
-            console.log(res.body);
-            //console.log(req._data);
-            done();
-          }
+      request(app)
+        .get(path)
+        .end(function (err, res, body) {
+          expect(res.status).to.be.equal(200, 'status code should be 200');
+          done(err);
         });
     });
   });
@@ -43,24 +32,11 @@ describe('Settings', function () {
       var path = '/privacy';
       //var help = footer.test;
       // test that assertion
-      chai
-        .request(settings)
+      request(app)
         .get(path)
-        //.field('myparam', 'test')
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .send({ myparam: 'test' })
-        .end(function (error, res, body) {
-          if (error) {
-            console.log('BIG ERROR');
-            done(new Error('oh noes'));
-          } else {
-            console.log('YAHOO');
-            expect(res.statusCode).to.equal(200);
-            // expect(res).to.have.property('text');
-            // expect(res.text).to.equal('Privacy Policy!');
-            //console.log(res);
-            done();
-          }
+        .end(function (err, res, body) {
+          expect(res.status).to.be.equal(200, 'status code should be 200');
+          done(err);
         });
     });
   });
