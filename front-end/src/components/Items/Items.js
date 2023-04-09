@@ -34,8 +34,8 @@ function Items() {
   const [arrLength, setArrLength] = useState(0) // eslint-disable-next-line
   const [arrIndex, setArrIndex] = useState(0)
   useEffect(() => {
-    // fetch some mock flashcards
-    console.log("fetching 10 random flashcards...")
+    // fetch some items
+    console.log("fetching 10 items...")
     axios("https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0")
       .then(response => {
         // extract the data from the server response

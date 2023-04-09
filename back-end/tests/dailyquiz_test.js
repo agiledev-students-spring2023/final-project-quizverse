@@ -3,6 +3,7 @@ const app = require('../server');
 const assert = require('assert');
 const daily = require('../routes/daily-quiz');
 var chai = require('chai');
+chai.use(require('chai-json'));
 var chaiHttp = require('chai-http');
 const expect = chai.expect;
 const should = chai.should;
@@ -36,7 +37,7 @@ describe('Daily Quiz', function () {
         .post(path)
         .send({ correct: 10, incorrect: 1 })
         .end(function (err, res) {
-          expect(res).to.be.a.jsonFile();
+          expect(res.body).to.be.an('object');
           done();
         });
     });

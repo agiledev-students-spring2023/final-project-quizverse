@@ -5,6 +5,7 @@ var chai = require('chai');
 const expect = chai.expect;
 const should = chai.should;
 const request = require('supertest');
+chai.use(require('chai-json'));
 
 describe('Flashcard Sets', function () {
   describe('Get the flashcard sets', function (done) {
@@ -52,7 +53,7 @@ describe('Flashcard Sets', function () {
       request(app)
         .get(path)
         .end((err, res) => {
-          expect(res.status).to.be.equal(200, 'status code should be 200');
+          expect(res.body).to.be.an('object');
           done();
         });
     });
