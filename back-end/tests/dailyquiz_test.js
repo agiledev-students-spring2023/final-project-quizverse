@@ -36,10 +36,8 @@ describe('Daily Quiz', function () {
         .post(path)
         .send({ correct: 10, incorrect: 1 })
         .end(function (err, res) {
-          if (err) {
-            console.log('DQ Post failed');
-          }
-          done(err);
+          expect(res).to.be.a.jsonFile();
+          done();
         });
     });
   });

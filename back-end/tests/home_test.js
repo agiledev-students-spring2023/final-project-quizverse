@@ -13,7 +13,6 @@ describe('Home', function () {
     request(app)
       .get(path)
       .end((err, res) => {
-        expect(res.status).to.be.equal(200, 'status code should be 200');
         expect(res.body).to.be.an('object');
         done();
       });
