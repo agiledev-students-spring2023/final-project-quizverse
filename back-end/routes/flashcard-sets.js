@@ -14,7 +14,32 @@ router.get('/search/:searchTerm', (req, res) => {
       });
       res.json(filteredData);
     })
-    .catch((err) => next(err));
+    .catch((err) => {
+      const backupData = [
+        {
+          numCards: 71,
+          title: 'Progressive fault-tolerant portal',
+          description:
+            'Quisque ut erat. Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum.'
+        },
+        {
+          numCards: 3,
+          title: 'Business-focused content-based Graphical User Interface',
+          description:
+            'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat. Nulla nisl. Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa.'
+        },
+        {
+          numCards: 17,
+          title: 'Crash course on Agile development',
+          description:
+            'Donec quis orci eget orci vehicula condimentum. Curabitur in libero ut massa volutpat convallis.'
+        }
+      ];
+      const filteredBackupData = backupData.filter((item) => {
+        return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+      });
+      res.json(filteredBackupData);
+    });
 });
 
 router.get('/flashcard-sets', (req, res) => {
