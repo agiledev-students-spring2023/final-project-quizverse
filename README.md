@@ -85,15 +85,18 @@ Information on how to build and test QuizVerse yourself, if you choose to do so:
     * Run `npm start` to start running the code
     * The front end will be running at http://localhost:3000, assuming port 3000 was not previously in use.
 3. Build and run the back end code:
+    * Create a new terminal so the front end and back end can run simultaneously
     * Navigate into the back end directory `cd ../back-end` (or `cd back-end` if you have already navigated back to the root directory)
     * Run `npm install` to install all necessary dependencies
-    * Run `npm start` to start running the code
+    * Run `npx nodemon server.js` to start running the code
+    * The back end will be running at http://localhost:3001, assuming port 3001 was not previously in use.
 
 **The application should now be fully functional! Navigate to http://localhost:3000 and enjoy using QuizVerse!**
 
 4. If you wish to test the code:
-    * Navigate into the back end directory
-    * Make sure the back end is running on port 3001
+    * Create a new terminal so the back end code can be currently running while performing tests
+    * Navigate into the back end directory (`./final-project-quizverse/back-end` should be your current directory)
+    * Make sure the back end is running on port 3001 (Run `npx nodemon server.js` if you are unsure)
     * Run `npm test`
 
 ## App Map:
