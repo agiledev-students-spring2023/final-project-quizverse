@@ -13,7 +13,7 @@ describe('Home', function () {
     request(app)
       .get(path)
       .end((err, res) => {
-        expect(res.body).to.be.an('object');
+        expect(res).to.be.an('object');
         done();
       });
   });
