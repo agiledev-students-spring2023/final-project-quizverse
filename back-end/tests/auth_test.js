@@ -18,7 +18,7 @@ describe('Auth', function () {
       var path = '/login';
       // test that assertion
       chai
-        .request(host)
+        .request(app)
         .post(path)
         // .field('myparam' , 'test')
         .set('content-type', 'application/x-www-form-urlencoded')
@@ -41,7 +41,7 @@ describe('Auth', function () {
       var path = '/register';
       // test that assertion
       chai
-        .request(host)
+        .request(app)
         .post(path)
         // .field('myparam' , 'test')
         .set('content-type', 'application/x-www-form-urlencoded')
@@ -64,17 +64,17 @@ describe('Auth', function () {
       var path = '/logout';
       // test that assertion
       chai
-        .request(host)
+        .request(app)
         .post(path)
-        // .field('myparam' , 'test')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send({ myparam: 'test' })
-        .end(function (error, response, body) {
+        .end(function (err, res, body) {
           if (error) {
-            console.log('BIG ERROR');
-            done(new Error('oh noes'));
+            //console.log('BIG ERROR');
+            done(err);
           } else {
-            console.log('YAHOO');
+            //console.log('YAHOO');
+            expect(res.body).to.be.an('object');
             done();
           }
         });
