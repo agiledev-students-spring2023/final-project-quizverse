@@ -1,14 +1,11 @@
 import styles from './Header.module.css';
-import { ReactComponent as ReactLogo } from './qv_logo.svg';
-//import logo from './logo.svg'
+//import { ReactComponent as ReactLogo } from './qv_logo.svg';
 import { Link } from 'react-router-dom';
 import Burger from './Burger.js';
 import Menu from './Menu.js';
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faBars,
   faCalendar,
   faCirclePlus,
   faHome,
@@ -23,13 +20,16 @@ const Header = (props) => {
 
   // the following side-effect will be called once upon initial render
 
-
   return (
     <div className={styles['header-container']}>
       <nav className={styles['header-navbar']}>
         <Burger open={open} setOpen={setOpen} />
         <Menu open={open} setOpen={setOpen} />
-        <ReactLogo className={styles['header-logo']} />
+        <img
+          src="http://localhost:3001/static/images/MiniQuizVerseLogo.svg"
+          alt="QuizVerse Mini Logo"
+          className={styles['header-logo']}
+        />
         <div className={styles['nav-links']}>
           {/*Coins and streak will be eventually pulled from backend*/}
           {/* <li className={styles['nav-item']}>
