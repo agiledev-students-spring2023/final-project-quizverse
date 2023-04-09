@@ -8,16 +8,19 @@ const usersFilePath = path.join(__dirname, '../public/users.json');
 /* istanbul ignore next */
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
+
   fs.readFile(usersFilePath, 'utf8', (err, data) => {
     if (err) {
       console.error(err);
       res.status(500).send('Internal server error');
       return;
     }
+
     const users = JSON.parse(data);
     const foundUser = users.find(
       (user) => user.username === username && user.password === password
     );
+
     if (foundUser) {
       res.send({ status: 'success', message: 'Logged in successfully' });
     } else {
@@ -29,6 +32,7 @@ router.post('/login', (req, res) => {
 /* istanbul ignore next */
 router.post('/register', (req, res) => {
   const { username, password } = req.body;
+
   fs.readFile(usersFilePath, 'utf8', (err, data) => {
     if (err) {
       console.error(err);

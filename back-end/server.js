@@ -13,6 +13,7 @@ const createSetRouter = require('./routes/create-set');
 const flashcardRouter = require('./routes/flashcards');
 const flashcardSetsRouter = require('./routes/flashcard-sets');
 const editSetRouter = require('./routes/edit-set');
+const homeRouter = require('./routes/home');
 
 const app = express(); // instantiate an Express object
 const port = 3001; // the port to listen to for incoming requests
@@ -45,6 +46,7 @@ app.use(flashcardRouter);
 app.use(createSetRouter);
 app.use(editSetRouter);
 app.use(flashcardSetsRouter);
+app.use(homeRouter);
 
 // call express's listen function to start listening to the port
 const listener = app.listen(port, function () {
