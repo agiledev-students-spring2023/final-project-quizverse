@@ -6,7 +6,6 @@ var chaiHttp = require('chai-http');
 const footer = require('../routes/footer');
 const request = require('supertest');
 const expect = chai.expect;
-
 chai.use(chaiHttp);
 
 // a set of tests of array functions
@@ -20,6 +19,9 @@ describe('Footer', function () {
       // test that assertion
       request(app)
         .get(path)
+        // .field('myparam' , 'test')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send({ myparam: 'test' })
         .end(function (err, res, body) {
           expect(res.status).to.be.equal(200, 'status code should be 200');
           done(err);
@@ -31,6 +33,8 @@ describe('Footer', function () {
     it('Privacy Policy', function (done) {
       var host = 'http://localhost:3001';
       var path = '/privacy';
+      // var func = footer.privacy();
+      // console.log(func);
       // test that assertion
       request(app)
         .get(path)

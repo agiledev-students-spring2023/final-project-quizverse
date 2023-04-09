@@ -1,22 +1,21 @@
 // use mocha's built-in assertion library
 const app = require('../server');
 const assert = require('assert');
+const settings = require('../routes/settings');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-const footer = require('../routes/footer');
 const request = require('supertest');
-const expect = chai.expect;
-
+var expect = require('chai').expect;
 chai.use(chaiHttp);
 
 // a set of tests of array functions
 describe('Settings', function () {
   // one particular unit test
-  describe('Terms of Service Route', function () {
+  describe('Email Route', function () {
     // assert what should be returned
-    it('Terms of Service', function (done) {
+    it('Change Email', function (done) {
       var host = 'http://localhost:3001';
-      var path = '/terms';
+      var path = '/settings-email';
       // test that assertion
       request(app)
         .get(path)
@@ -31,6 +30,7 @@ describe('Settings', function () {
     it('Privacy Policy', function (done) {
       var host = 'http://localhost:3001';
       var path = '/privacy';
+      //var help = footer.test;
       // test that assertion
       request(app)
         .get(path)
