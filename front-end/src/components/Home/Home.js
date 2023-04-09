@@ -37,7 +37,7 @@ const Home = (props) => {
       <main>
         <h1>Welcome, {user}!</h1>
         <div className="logo-container">
-          <img src={process.env.PUBLIC_URL + '/QuizVerseLogo.png'} alt="QuizVerse" />
+          <img src="http://localhost:3001/static/images/QuizVerseLogo.png" alt="QuizVerse Logo" />
         </div>
 
         <div className="buttons-container">
