@@ -1,1 +1,1 @@
-let s = require("../server.js")
+let s = require('../server.js');

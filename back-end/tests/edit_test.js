@@ -5,7 +5,7 @@ const expect = chai.expect;
 const edit = require('../routes/edit-set');
 const request = require('supertest');
 
-let es = require('../routes/edit-set')
+let es = require('../routes/edit-set');
 
 // a set of tests of array functions
 describe('Edit Set Route', function () {

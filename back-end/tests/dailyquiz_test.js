@@ -19,10 +19,10 @@ describe('Daily Quiz', function () {
       request(app)
         .get(path)
         .end((err, res) => {
-          if(err){
-            console.log("Failed to get DQ")
+          if (err) {
+            console.log('Failed to get DQ');
           }
-          done()
+          done();
         });
     });
   });
@@ -36,12 +36,11 @@ describe('Daily Quiz', function () {
         .post(path)
         .send({ correct: 10, incorrect: 1 })
         .end(function (err, res) {
-          if (err){
-            console.log("DQ Post failed")
+          if (err) {
+            console.log('DQ Post failed');
           }
           done(err);
         });
     });
   });
 });
-  
