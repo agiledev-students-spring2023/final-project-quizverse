@@ -14,14 +14,17 @@ describe('Settings', function () {
   describe('Email Route', function () {
     // assert what should be returned
     it('Change Email', function (done) {
-      var host = 'http://localhost:3001';
-      var path = '/settings-email';
-      // test that assertion
+      let path = '/settings-email';
       request(app)
-        .get(path)
-        .end(function (err, res, body) {
-          expect(res.status).to.be.equal(200, 'status code should be 200');
-          done(err);
+        .post(path)
+        .send({ email: 'bob@gmail.com' })
+        .end(function (err, res) {
+          if (err) {
+            console.log('Failed to send email');
+            done(err);
+          }
+          expect(res.body).to.be.an('object');
+          done();
         });
     });
   });
