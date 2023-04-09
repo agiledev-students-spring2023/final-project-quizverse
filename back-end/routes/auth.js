@@ -5,7 +5,6 @@ const path = require('path');
 const router = express.Router();
 
 const usersFilePath = path.join(__dirname, '../public/users.json');
-
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
 
@@ -28,7 +27,6 @@ router.post('/login', (req, res) => {
     }
   });
 });
-
 
 router.post('/register', (req, res) => {
   const { username, password } = req.body;
@@ -60,9 +58,8 @@ router.post('/register', (req, res) => {
     });
   });
 });
-
 router.post('/logout', (req, res) => {
-  res.send('Logout');
+  res.send({ message: 'Logged out!' });
 });
 
 module.exports = router;
