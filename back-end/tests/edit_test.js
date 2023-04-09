@@ -1,11 +1,11 @@
 const app = require('../server');
 const assert = require('assert');
-var chai = require('chai');
+const chai = require('chai');
 const expect = chai.expect;
 const edit = require('../routes/edit-set');
 const request = require('supertest');
 
-let es = require('../routes/edit-set');
+const es = require('../routes/edit-set');
 
 // a set of tests of array functions
 describe('Edit Set Route', function () {
@@ -13,8 +13,8 @@ describe('Edit Set Route', function () {
 
   // assert what should be returned
   it('Updating a set', function (done) {
-    var host = 'http://localhost:3001';
-    var path = '/edit-set/1234';
+    const host = 'http://localhost:3001';
+    const path = '/edit-set/1234';
     // test that assertion
     request(app)
       .post(path)

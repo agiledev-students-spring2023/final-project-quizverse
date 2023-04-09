@@ -2,16 +2,16 @@
 const app = require('../server');
 const assert = require('assert');
 const flashcards = require('../routes/flashcards');
-var chai = require('chai');
+const chai = require('chai');
 const expect = chai.expect;
 const should = chai.should;
 const request = require('supertest');
 
 describe('Flashcards', function () {
   it('it should POST images to the server', function (done) {
-    var host = 'http://localhost:3001';
-    var path = '/image-upload';
-    var my_files = ['file_1', 'file_2', 'file_3'];
+    const host = 'http://localhost:3001';
+    const path = '/image-upload';
+    const my_files = ['file_1', 'file_2', 'file_3'];
 
     request(app)
       .post(path)
@@ -19,7 +19,7 @@ describe('Flashcards', function () {
       .end(function (err, res) {
         expect(res.body.status).to.equal('all good');
         expect(res.body.message).to.equal('yup, the files were uploaded!!!');
-        for (var i = 0; i < my_files.length; i++) {
+        for (let i = 0; i < my_files.length; i++) {
           expect(res.body.files[i]).to.equal(my_files[i]);
         }
 

@@ -2,10 +2,10 @@
 const app = require('../server');
 const assert = require('assert');
 const settings = require('../routes/settings');
-var chai = require('chai');
-var chaiHttp = require('chai-http');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
 const request = require('supertest');
-var expect = require('chai').expect;
+const expect = require('chai').expect;
 chai.use(chaiHttp);
 
 // a set of tests of array functions
