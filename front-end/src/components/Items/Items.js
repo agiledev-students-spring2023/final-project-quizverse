@@ -36,7 +36,7 @@ function Items() {
   useEffect(() => {
     // fetch some items
     console.log("fetching 10 items...")
-    axios("https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0")
+    axios("http://localhost:3001/your-items")
       .then(response => {
         // extract the data from the server response
         setData(response.data)
@@ -45,17 +45,9 @@ function Items() {
         setArrLength(response.data.length)
       })
       .catch(err => {
-        // Mockaroo, which we're using for our Mock API, only allows 200 requests per day on the free plan
-        console.log(`Sorry, buster.  No more requests allowed today!`)
+        
         console.error(err) // the server returned an error... probably too many requests... until we pay!
 
-        // make some backup fake data
-        const backupData = [{"term":"encryption","definition":"adipiscing elit proin risus praesent lectus vestibulum quam sapien varius ut blandit"},{"term":"instruction set","definition":"convallis nunc proin at turpis a pede posuere nonummy integer non velit donec diam"},{"term":"contingency","definition":"elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue"},{"term":"Sharable","definition":"vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa"},{"term":"User-friendly","definition":"praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget tempus"},{"term":"executive","definition":"sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc nisl"},{"term":"model","definition":"elit proin interdum mauris non ligula pellentesque ultrices phasellus id"},{"term":"Ergonomic","definition":"massa quis augue luctus tincidunt nulla mollis molestie lorem quisque ut erat curabitur gravida nisi"},{"term":"intangible","definition":"porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis"},{"term":"challenge","definition":"luctus rutrum nulla tellus in sagittis dui vel nisl duis ac"}]
-
-        setData(backupData)
-        setTerm(backupData[0].term)
-        setDefinition(backupData[0].definition)
-        setArrLength(backupData.length)
       })
   }, []);
   return (
