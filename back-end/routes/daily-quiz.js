@@ -11,7 +11,7 @@ router.get('/daily-quiz', (req, res, next) => {
     .get('https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0')
     .then((apiResponse) => res.json(apiResponse.data)) // pass data along directly to client
     .catch((err) => {
-      console.error(err); // the server returned an error... probably too many requests... until we pay!
+       // the server returned an error... probably too many requests... until we pay!
 
       // make some backup fake data
       const backupData = [
