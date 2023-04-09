@@ -1,6 +1,6 @@
 // router responsible for the footer
 const express = require('express');
-
+const axios = require('axios');
 const router = express.Router();
 
 router.post('/shop', (req, res) => {

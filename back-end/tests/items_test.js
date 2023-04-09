@@ -1,7 +1,7 @@
 // use mocha's built-in assertion library
 const app = require('../server');
 const assert = require('assert');
-const daily = require('../routes/daily-quiz');
+const i = require('../routes/items');
 var chai = require('chai');
 chai.use(require('chai-json'));
 var chaiHttp = require('chai-http');

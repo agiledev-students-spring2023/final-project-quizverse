@@ -15,6 +15,7 @@ const flashcardSetsRouter = require('./routes/flashcard-sets');
 const editSetRouter = require('./routes/edit-set');
 const homeRouter = require('./routes/home');
 const itemsRouter = require('./routes/items')
+const shopRouter = require('./routes/shop')
 
 const app = express(); // instantiate an Express object
 const port = 3001; // the port to listen to for incoming requests
@@ -49,6 +50,7 @@ app.use(editSetRouter);
 app.use(flashcardSetsRouter);
 app.use(homeRouter);
 app.use(itemsRouter);
+app.use(shopRouter);
 
 // call express's listen function to start listening to the port
 const listener = app.listen(port, function () {
