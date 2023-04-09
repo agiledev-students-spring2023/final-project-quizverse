@@ -18,12 +18,12 @@ const upload = multer({ storage: storage });
 // route for HTTP POST requests
 router.post('/image-upload', upload.array('my_files', 3), (req, res, next) => {
   // check whether anything was uploaded
-  if (req.files) {
+  if (req.body.files) {
     // success! send data back to the client, e.g. some JSON data
     const data = {
       status: 'all good',
       message: 'yup, the files were uploaded!!!',
-      files: req.files
+      files: req.body.files
     };
     res.json(data); // send respose
   }
