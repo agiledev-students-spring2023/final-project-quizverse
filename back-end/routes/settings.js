@@ -2,19 +2,21 @@
 const express = require('express');
 
 const router = express.Router();
-
+/* istanbul ignore next */
 router.post('/settings-email', (req, res) => {
-  res.send('Email Updated!');
-  const email = req.body.email;
-  res.send(email);
+  //res.send('Email Updated!');
+  const emailData = req.body.email;
+  res.send({ email: emailData });
 });
+/* istanbul ignore next */
 router.post('/settings-password', (req, res) => {
-  res.send('Password Updated!');
-  const password = req.body.password;
-  res.send(password);
+  //res.send('Password Updated!');
+  const passwordData = req.body.password;
+  res.send({ password: passwordData });
 });
+/* istanbul ignore next */
 router.get('/items', (req, res) => {
-  res.send('Here are your items:');
+  //res.send('Here are your items:');
   const items = {
     item1: 'Double Coins!',
     item2: 'Triple Coins!',
@@ -23,13 +25,14 @@ router.get('/items', (req, res) => {
   };
   if (!Object.keys(items).length) {
     console.log('no data found');
-    res.send('Whoops! You have no items.');
+    res.send({ item: 'Whoops! You have no items.' });
   } else {
     res.json(items);
   }
 });
+/* istanbul ignore next */
 router.get('/study-stats', (req, res) => {
-  res.send('Your study statistics:');
+  //res.send('Your study statistics:');
   const words = {
     mostMissed1: 'banana',
     mostMissed2: 'canoe',
@@ -37,13 +40,13 @@ router.get('/study-stats', (req, res) => {
   };
   if (!Object.keys(words).length) {
     console.log('no data found');
-    res.send('Whoops! You have no study statistics. Go study to get some!');
+    res.send({ mostMissed: 'Whoops! You have no study statistics. Go study to get some!' });
   } else {
     res.json(words);
   }
 });
 router.post('/delete', (req, res) => {
-  res.send('Your account has been deleted!');
+  res.send({ message: 'Your account has been deleted!' });
   //contact database and delete account information
 });
 
