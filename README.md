@@ -76,10 +76,23 @@ If you want to contribute to QuizVerse, here are the related guidelines: [Link](
 
 ## Build/Test QuizVerse:
 Information on how to build and test QuizVerse yourself, if you choose to do so:
-1. Download this repository onto your local machine.
-2. Navigate into front-end
-3. Run npm install
-4. Run npm start
+1. Obtaining the code for this repository:
+    * Clone the code for the repository onto your local machine.
+    * Navigate into the project directory `./final-project-quizverse`
+2. Build and run the front end code
+    * Navigate into the front end directory `cd front-end`
+    * Run `npm install` to install all necessary dependencies
+    * Run `npm start` to start running the code
+    * The front end will be running at http://localhost:3000, assuming port 3000 was not previously in use.
+3. Build and run the back end code:
+    * Navigate into the back end directory `cd ../back-end` (or `cd back-end` if you have already navigated back to the root directory)
+    * Run `npm install` to install all necessary dependencies
+    * Run `npm start` to start running the code
+The application should now be fully functional! Navigate to http://localhost:3000 and enjoy using QuizVerse!
+4. If you wish to test the code:
+    * Navigate into the back end directory
+    * Make sure the back end is running on port 3001
+    * Run `npm test`
 
 ## App Map:
 <img src="./ux-design/app-map.png" alt= “map” width="75%" height="75%">
