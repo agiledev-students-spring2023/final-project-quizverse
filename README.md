@@ -96,9 +96,9 @@ Information on how to build and test QuizVerse yourself, if you choose to do so:
 4. If you wish to test the code:
     * Create a new terminal for your testing results
     * Navigate into the back end directory (`./final-project-quizverse/back-end` should be your current directory)
-    * Make sure the back end is ***not*** running, the test script generates its own version of the backend, having both running will create a conflict for the port.
+    * **Important!** Make sure the back end is ***not running***, the test script generates its own version of the backend, having both running will create a conflict for the port.
     * Run `npm test`
-    * Press **Ctrl+C** to close out the current testing run
+    * Press **Ctrl+C** to close out the current testing run, and see the code coverage results.
 
 ## App Map:
 <img src="./ux-design/app-map.png" alt= “map” width="75%" height="75%">

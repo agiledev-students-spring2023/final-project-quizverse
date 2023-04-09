@@ -28,18 +28,69 @@ describe('Settings', function () {
         });
     });
   });
-  describe('Privacy Route', function () {
+  describe('Password Route', function () {
     // assert what should be returned
-    it('Privacy Policy', function (done) {
-      var host = 'http://localhost:3001';
-      var path = '/privacy';
-      //var help = footer.test;
-      // test that assertion
+    it('Change Password', function (done) {
+      let path = '/settings-password';
+      request(app)
+        .post(path)
+        .send({ password: 'Testp@ssword!1!1' })
+        .end(function (err, res) {
+          if (err) {
+            console.log('Failed to send password');
+            done(err);
+          }
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+  });
+  describe('Items Route', function () {
+    // assert what should be returned
+    it('Check Items', function (done) {
+      let path = '/items';
       request(app)
         .get(path)
-        .end(function (err, res, body) {
-          expect(res.status).to.be.equal(200, 'status code should be 200');
-          done(err);
+        .end(function (err, res) {
+          if (err) {
+            console.log('Failed to get items');
+            done(err);
+          }
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+  });
+  describe('Study Stats Route', function () {
+    // assert what should be returned
+    it('Study Statistics', function (done) {
+      let path = '/study-stats';
+      request(app)
+        .get(path)
+        .end(function (err, res) {
+          if (err) {
+            console.log('Failed to get study stats');
+            done(err);
+          }
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+  });
+  describe('Delete Route', function () {
+    // assert what should be returned
+    it('Delete Account', function (done) {
+      let path = '/delete';
+      request(app)
+        .post(path)
+        .send({ filler: 'filler text! :)' })
+        .end(function (err, res) {
+          if (err) {
+            console.log('Failed to delete account');
+            done(err);
+          }
+          expect(res.body).to.be.an('object');
+          done();
         });
     });
   });
