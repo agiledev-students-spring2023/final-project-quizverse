@@ -89,7 +89,7 @@ Information on how to build and test QuizVerse yourself, if you choose to do so:
     * Run `npm install` to install all necessary dependencies
     * Run `npm start` to start running the code
 
-The application should now be fully functional! Navigate to http://localhost:3000 and enjoy using QuizVerse!
+**The application should now be fully functional! Navigate to http://localhost:3000 and enjoy using QuizVerse!**
 
 4. If you wish to test the code:
     * Navigate into the back end directory
