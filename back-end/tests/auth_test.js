@@ -5,6 +5,7 @@ const auth = require('../routes/auth');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 const request = require('supertest');
+const expect = require('chai').expect;
 
 chai.use(chaiHttp);
 
@@ -69,7 +70,7 @@ describe('Auth', function () {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send({ myparam: 'test' })
         .end(function (err, res, body) {
-          if (error) {
+          if (err) {
             //console.log('BIG ERROR');
             done(err);
           } else {
