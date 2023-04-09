@@ -19,7 +19,7 @@ router.get('/search/:searchTerm', (req, res) => {
 
 router.get('/flashcard-sets', (req, res) => {
   axios
-    .get(`https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0`)
+    .get(`https://my.api.mockaroo.com/sets.json?key=6b3bc3e0`)
     .then((apiResponse) => {
       const data = apiResponse.data;
       res.json(data);
