@@ -9,6 +9,7 @@ import axios from 'axios';
  * @returns The contents of this component, in JSX form.
  */
 const Home = (props) => {
+  //eslint-disable-next-line
   const [data, setData] = useState([]); // eslint-disable-next-line
   const [streak, setStreak] = useState(0); // eslint-disable-next-line
   const [coins, setCoins] = useState(0);
@@ -27,29 +28,27 @@ const Home = (props) => {
         setUser(response.data[0].first_name);
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
       });
     // eslint-disable-next-line
   }, []);
   return (
     <>
       <main>
-        <h1>
-          Welcome, {user}!
-        </h1>
+        <h1>Welcome, {user}!</h1>
         <div className="logo-container">
           <img src={process.env.PUBLIC_URL + '/QuizVerseLogo.png'} alt="QuizVerse" />
         </div>
 
         <div className="buttons-container">
-        <Link to="/daily-quiz" className="big-button">
+          <Link to="/daily-quiz" className="big-button">
             Daily Quiz (Streak: {streak} &#128293;)
           </Link>
           <Link to="/items" className="big-button">
             My Items
           </Link>
           <Link to="/shop" className="big-button">
-            Item Shop (Coins: {coins} &#x1FA99;) 
+            Item Shop (Coins: {coins} &#x1FA99;)
           </Link>
           <Link to="/flashcards" className="big-button">
             My Flashcard Sets

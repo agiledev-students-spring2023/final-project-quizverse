@@ -13,7 +13,7 @@ router.get('/home', (req, res, next) => {
     .catch((err) => {
       // Mockaroo, which we're using for our Mock API, only allows 200 requests per day on the free plan
       console.log(`Sorry, buster.  No more requests allowed today!`);
-      console.error(err); // the server returned an error... probably too many requests... until we pay!
+      //console.error(err); // the server returned an error... probably too many requests... until we pay!
 
       // make some backup fake data
       const backupData = [
