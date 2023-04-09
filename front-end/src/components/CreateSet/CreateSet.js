@@ -65,16 +65,16 @@ const CreateSet = (props) => {
     });
   }
 
-  // var state = {
+  // const state = {
   //   // Initially, no file is selected
   //   selectedFile: null
   // };
 
-  var changeFile = (event) => {
+  const changeFile = (event) => {
     setFile(event.target.files[0]);
   };
   // On file upload (click the upload button)
-  var uploadFile = () => {
+  const uploadFile = () => {
     // Create an object of formData
     const formData = new FormData();
 
@@ -91,7 +91,7 @@ const CreateSet = (props) => {
 
   // File content to be displayed after
   // file upload is complete
-  var fileData = () => {
+  const fileData = () => {
     if (file) {
       return (
         <div>

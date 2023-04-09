@@ -2,8 +2,8 @@
 const app = require('../server');
 const assert = require('assert');
 const auth = require('../routes/auth');
-var chai = require('chai');
-var chaiHttp = require('chai-http');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
 const request = require('supertest');
 const expect = require('chai').expect;
 
@@ -15,8 +15,8 @@ describe('Auth', function () {
   describe('Login Route', function () {
     // assert what should be returned
     it('Login', function (done) {
-      var host = 'http://localhost:3001';
-      var path = '/login';
+      const host = 'http://localhost:3001';
+      const path = '/login';
       // test that assertion
       chai
         .request(app)
@@ -38,8 +38,8 @@ describe('Auth', function () {
   describe('Register Route', function () {
     // assert what should be returned
     it('Register', function (done) {
-      var host = 'http://localhost:3001';
-      var path = '/register';
+      const host = 'http://localhost:3001';
+      const path = '/register';
       // test that assertion
       chai
         .request(app)
@@ -61,8 +61,8 @@ describe('Auth', function () {
   describe('Logout Route', function () {
     // assert what should be returned
     it('Logout', function (done) {
-      var host = 'http://localhost:3001';
-      var path = '/logout';
+      const host = 'http://localhost:3001';
+      const path = '/logout';
       // test that assertion
       chai
         .request(app)

@@ -1,6 +1,6 @@
 const app = require('../server');
 const assert = require('assert');
-var chai = require('chai');
+const chai = require('chai');
 const create = require('../routes/create-set');
 const expect = chai.expect;
 const request = require('supertest');
@@ -11,8 +11,8 @@ describe('Create Set Route', function () {
 
   // assert what should be returned
   it('Create a set', function (done) {
-    var host = 'http://localhost:3001';
-    var path = '/create-set';
+    const host = 'http://localhost:3001';
+    const path = '/create-set';
     const sampleItem = { myparam: 'test' };
     // test that assertion
     request(app)
