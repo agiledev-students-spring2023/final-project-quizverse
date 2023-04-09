@@ -2,19 +2,16 @@
 const express = require('express');
 
 const router = express.Router();
-/* istanbul ignore next */
 router.post('/settings-email', (req, res) => {
   //res.send('Email Updated!');
   const emailData = req.body.email;
   res.send({ email: emailData });
 });
-/* istanbul ignore next */
 router.post('/settings-password', (req, res) => {
   //res.send('Password Updated!');
   const passwordData = req.body.password;
   res.send({ password: passwordData });
 });
-/* istanbul ignore next */
 router.get('/items', (req, res) => {
   //res.send('Here are your items:');
   const items = {
@@ -30,7 +27,6 @@ router.get('/items', (req, res) => {
     res.json(items);
   }
 });
-/* istanbul ignore next */
 router.get('/study-stats', (req, res) => {
   //res.send('Your study statistics:');
   const words = {
