@@ -23,6 +23,7 @@ describe('Daily Quiz', function () {
           if (err) {
             console.log('Failed to get DQ');
           }
+          expect(res).to.be.an('object');
           done();
         });
     });
