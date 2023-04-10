@@ -28,6 +28,7 @@ const corsOptions = {
 app.use(express.json()); // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming POST data
 app.use(cors(corsOptions));
+app.use('/static', express.static('public'));
 
 // app.get('/', (req, res) => {
 //   res.send('Hello!');

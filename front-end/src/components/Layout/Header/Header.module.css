@@ -22,7 +22,7 @@
 
 .header-logo {
   flex-grow: 1;
-  float: left;
+  float: center;
   max-width: 100px;
   height: auto;
 }
