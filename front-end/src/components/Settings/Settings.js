@@ -91,7 +91,7 @@ const Settings = (props) => {
     <>
       <main>
         <div className="logo-container">
-          <img src={process.env.PUBLIC_URL + '/QuizVerseLogo.png'} alt="QuizVerse" />
+          <img src="http://localhost:3001/static/images/QuizVerseLogo.png" alt="QuizVerse" />
         </div>
         <div>
           <h1>Settings</h1>
