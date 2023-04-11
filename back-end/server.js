@@ -24,7 +24,16 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200
 };
-
+//db 
+mongoose.connect(
+  'mongodb+srv://QuizVerseUser:QuizVerse@quizverse.zkgvem0.mongodb.net/?retryWrites=true&w=majority'
+)
+.then(() => console.log('Connected to MongoDB!'))
+.catch(err => console.log(err))
+ 
+mongoose.connection.on('error', err => {
+  console.log(`DB connection error: ${err.message}`)
+});
 app.use(express.json()); // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming POST data
 app.use(cors(corsOptions));
@@ -63,5 +72,4 @@ const close = () => {
   console.log('server is closed');
   listener.close();
 };
-
 module.exports = app;

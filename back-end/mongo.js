@@ -1,5 +1,6 @@
 // getting-started.js
 const mongoose = require('mongoose');
+const User = require('./schemas');
 
 main().catch((err) => console.log(err));
 // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
@@ -26,4 +27,17 @@ async function main() {
   const kittens = await Kitten.find();
   console.log(kittens);
   await Kitten.find({ name: /^fluff/ });
+  const user1 = new User({ name: 'Bob', age: 123 });
+  await user1.save();
+  try {
+    const user2 = await User.create({
+      name: 'Sally',
+      age: 27,
+      hobbies: ['basketball', 'jump rope'],
+      address: { city: 'New York' }
+    });
+    console.log(user2);
+  } catch (e) {
+    console.log(e.message);
+  }
 }
