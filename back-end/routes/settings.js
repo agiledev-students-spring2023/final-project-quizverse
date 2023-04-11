@@ -1,10 +1,27 @@
 // router responsible for settings
 const express = require('express');
-
+const User = require('../schemas');
 const router = express.Router();
 router.post('/settings-email', (req, res) => {
   //res.send('Email Updated!');
   const emailData = req.body.email;
+  try {
+    const user = User.create({
+      name: 'Anna',
+      age: 10,
+      hobbies: ['merchandise', 'capitalism'],
+      email: emailData
+    })
+      .then((email) => {
+        console.log(`saved ${email}`);
+      })
+      .catch((err) => {
+        console.log(`Failure: ${err}`);
+      });
+    console.log(user);
+  } catch (e) {
+    console.log(e.message);
+  }
   res.send({ email: emailData });
 });
 router.post('/settings-password', (req, res) => {
