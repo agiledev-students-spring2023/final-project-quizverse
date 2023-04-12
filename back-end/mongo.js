@@ -1,12 +1,16 @@
-// getting-started.js
 const mongoose = require('mongoose');
-const User = require('./schemas');
+const User = require('./schemas/user-schema');
+
+// TODO put this in a .env file
+const mongoUser = 'QuizVerseUser';
+const mongoPassword = 'QuizVerse';
+const mongoDB = 'quizverse';
 
 main().catch((err) => console.log(err));
 // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 async function main() {
   await mongoose.connect(
-    'mongodb+srv://QuizVerseUser:QuizVerse@quizverse.zkgvem0.mongodb.net/?retryWrites=true&w=majority'
+    `mongodb+srv://${mongoUser}:${mongoPassword}@${mongoDB}.zkgvem0.mongodb.net/?retryWrites=true&w=majority`
   );
   console.log('YOYLECAKE');
   const kittySchema = new mongoose.Schema({
@@ -27,14 +31,12 @@ async function main() {
   const kittens = await Kitten.find();
   console.log(kittens);
   await Kitten.find({ name: /^fluff/ });
-  const user1 = new User({ name: 'Bob', age: 123 });
+  const user1 = new User({ username: 'Bob', password: 'default!password' });
   await user1.save();
   try {
     const user2 = await User.create({
-      name: 'Sally',
-      age: 27,
-      hobbies: ['basketball', 'jump rope'],
-      address: { city: 'New York' }
+      username: 'Sally',
+      password: 'quizVerse!'
     });
     console.log(user2);
   } catch (e) {
