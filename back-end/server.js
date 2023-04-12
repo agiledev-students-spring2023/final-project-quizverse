@@ -1,8 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
+dotenv.config();
+
+const MONGO_USER = process.env.MONGO_USER;
+const MONGO_PASSWORD = process.env.MONGO_PASSWORD;
+const MONGO_DB = process.env.MONGO_DB;
 
 // import the routes for authentication (login / register)
 const authRouter = require('./routes/auth');
@@ -14,8 +21,8 @@ const flashcardRouter = require('./routes/flashcards');
 const flashcardSetsRouter = require('./routes/flashcard-sets');
 const editSetRouter = require('./routes/edit-set');
 const homeRouter = require('./routes/home');
-const itemsRouter = require('./routes/items')
-const shopRouter = require('./routes/shop')
+const itemsRouter = require('./routes/items');
+const shopRouter = require('./routes/shop');
 
 const app = express(); // instantiate an Express object
 const port = 3001; // the port to listen to for incoming requests
@@ -24,31 +31,21 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200
 };
-//db 
-mongoose.connect(
-  'mongodb+srv://QuizVerseUser:QuizVerse@quizverse.zkgvem0.mongodb.net/?retryWrites=true&w=majority'
-)
-.then(() => console.log('Connected to MongoDB!'))
-.catch(err => console.log(err))
- 
-mongoose.connection.on('error', err => {
-  console.log(`DB connection error: ${err.message}`)
+//db
+mongoose
+  .connect(
+    `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_DB}.zkgvem0.mongodb.net/?retryWrites=true&w=majority`
+  )
+  .then(() => console.log('Connected to MongoDB!'))
+  .catch((err) => console.log(err));
+
+mongoose.connection.on('error', (err) => {
+  console.log(`DB connection error: ${err.message}`);
 });
 app.use(express.json()); // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming POST data
 app.use(cors(corsOptions));
 app.use('/static', express.static('public'));
-
-// app.get('/', (req, res) => {
-//   res.send('Hello!');
-// });
-
-// app.get('/test', (req, res) => {
-//   res.send({
-//     monkey: 'goose',
-//     canada: 'maple leaf'
-//   });
-// });
 
 app.use(authRouter);
 app.use(settingsRouter);

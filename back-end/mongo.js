@@ -15,23 +15,30 @@ async function main() {
   );
   const primaryUser = new User({
     username: 'primary',
+    email: 'primaryuser@gmail.com',
     password: 'primary!@#'
   });
-  await primaryUser.save();
 
   const secondaryUser = new User({
     username: 'secondary',
+    email: 'secondaryuser@gmail.com',
     password: 'secondary!@#'
   });
-  await secondaryUser.save();
 
   console.log('All Users: ', await User.find({}));
+
+  if (!(await User.findOne({ username: 'primary' }))) {
+    await primaryUser.save();
+  }
+
+  if (!(await User.findOne({ username: 'secondary' }))) {
+    await secondaryUser.save();
+  }
 
   console.log(
     "Finding a user with username 'primary': ",
     await User.findOne({ username: 'primary' })
   );
-
 }
 
 main();
