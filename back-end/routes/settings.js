@@ -1,6 +1,6 @@
 // router responsible for settings
 const express = require('express');
-const User = require('../schemas');
+const User = require('../schemas/user-schema');
 const router = express.Router();
 router.post('/settings-email', (req, res) => {
   //res.send('Email Updated!');
@@ -8,9 +8,8 @@ router.post('/settings-email', (req, res) => {
   try {
     const user = User.create({
       name: 'Anna',
-      age: 10,
-      hobbies: ['merchandise', 'capitalism'],
-      email: emailData
+      email: emailData,
+      password: 'password'
     })
       .then((email) => {
         console.log(`saved ${email}`);
