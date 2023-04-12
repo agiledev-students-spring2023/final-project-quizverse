@@ -1,16 +1,18 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const User = require('./schemas/user-schema');
 
-// TODO put this in a .env file
-const mongoUser = 'QuizVerseUser';
-const mongoPassword = 'QuizVerse';
-const mongoDB = 'quizverse';
+dotenv.config();
+
+const MONGO_USER = process.env.MONGO_USER;
+const MONGO_PASSWORD = process.env.MONGO_PASSWORD;
+const MONGO_DB = process.env.MONGO_DB;
 
 main().catch((err) => console.log(err));
 // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 async function main() {
   await mongoose.connect(
-    `mongodb+srv://${mongoUser}:${mongoPassword}@${mongoDB}.zkgvem0.mongodb.net/?retryWrites=true&w=majority`
+    `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_DB}.zkgvem0.mongodb.net/?retryWrites=true&w=majority`
   );
   console.log('YOYLECAKE');
   const kittySchema = new mongoose.Schema({
