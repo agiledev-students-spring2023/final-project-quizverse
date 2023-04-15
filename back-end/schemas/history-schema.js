@@ -1,17 +1,25 @@
-const { Int32 } = require('mongodb');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const answerSchema = new Schema({
   term: String,
-  right: Int32,
-  wrong: Int32
+  right: Number,
+  wrong: Number,
+  precent_correct: Double,
+  set_id: { type: mongoose.Schema.Types.ObjectId, ref: 'FlashcardSet' }
 });
 
-// for each set, store a document containing a user's answer history
+// for team debate:
+/* 
+  master history that has each answer ever, identified by their set_id field
+  OR
+  have a list of history documents that are each specific to a set
+
+  results in easier statistics or easier set studying
+*/
+
 const historySchema = new Schema({
-  set: { type: mongoose.Schema.Types.ObjectId, ref: 'FlashcardSet' },
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   answers: [answerSchema]
 });
 
