@@ -1,10 +1,29 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const jwt = require('jsonwebtoken');
 
 const router = express.Router();
+const jwtSecret = '4j92$ds#Dsd*&2dSscS0!29^fS0s8y&2e9@';
 
 const usersFilePath = path.join(__dirname, '../public/users.json');
+
+function authenticateJWT(req, res, next) {
+  const token = req.header('Authorization');
+
+  if (!token) {
+    return res.status(401).send({ status: 'error', message: 'Access denied. No token provided.' });
+  }
+
+  jwt.verify(token, jwtSecret, (err, decoded) => {
+    if (err) {
+      return res.status(401).send({ status: 'error', message: 'Invalid token.' });
+    }
+    req.user = decoded;
+    next();
+  });
+}
+
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
 
@@ -21,7 +40,8 @@ router.post('/login', (req, res) => {
     );
 
     if (foundUser) {
-      res.send({ status: 'success', message: 'Logged in successfully' });
+      const token = jwt.sign({ username: foundUser.username }, jwtSecret, { expiresIn: '1h' });
+      res.send({ status: 'success', message: 'Logged in successfully', token });
     } else {
       res.status(401).send({ status: 'error', message: 'Invalid username or password' });
     }
@@ -31,7 +51,7 @@ router.post('/login', (req, res) => {
 router.post('/register', (req, res) => {
   const { username, password } = req.body;
 
-  fs.readFile(usersFilePath, 'utf8', (err, data) => {
+  fs.readFile ( usersFilePath, 'utf8', (err, data) => {
     if (err) {
       console.error(err);
       res.status(500).send('Internal server error');
@@ -58,8 +78,10 @@ router.post('/register', (req, res) => {
     });
   });
 });
-router.post('/logout', (req, res) => {
+
+router.post('/logout', authenticateJWT, (req, res) => {
   res.send({ message: 'Logged out!' });
 });
 
 module.exports = router;
+
