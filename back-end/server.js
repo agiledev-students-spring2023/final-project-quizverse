@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const passport = require('passport');
+
 
 dotenv.config();
 
@@ -58,6 +60,11 @@ app.use(flashcardSetsRouter);
 app.use(homeRouter);
 app.use(itemsRouter);
 app.use(shopRouter);
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport Config
+require('./routes/passport')(passport);
 
 // call express's listen function to start listening to the port
 const listener = app.listen(port, function () {
