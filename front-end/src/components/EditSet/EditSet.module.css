@@ -3,3 +3,12 @@
   justify-content: space-between;
   width: 95%;
 }
+.file-upload-button {
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+  background-color: #3D405B;
+  color: white;
+  width: 5rem;
+  padding: 0.5rem;
+}
