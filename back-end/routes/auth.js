@@ -2,15 +2,19 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+require('dotenv').config()
 
 const router = express.Router();
-const jwtSecret = '4j92$ds#Dsd*&2dSscS0!29^fS0s8y&2e9@';
+const jwtSecret = process.env.JWT_SECRET;
 
 const usersFilePath = path.join(__dirname, '../public/users.json');
 
 function authenticateJWT(req, res, next) {
-  const token = req.header('Authorization');
-
+  //console.log(`${JSON.stringify(req.cookies, null, 0)}`)
+  // const token = req.cookies.token;
+  // console.log("Here's the token")
+  // console.log(token)
   if (!token) {
     return res.status(401).send({ status: 'error', message: 'Access denied. No token provided.' });
   }
@@ -41,7 +45,8 @@ router.post('/login', (req, res) => {
 
     if (foundUser) {
       const token = jwt.sign({ username: foundUser.username }, jwtSecret, { expiresIn: '1h' });
-      res.send({ status: 'success', message: 'Logged in successfully', token });
+      console.log(token)
+      res.cookie('token', 'bar', { httpOnly: true }).send({ status: 'success', message: 'Logged in successfully', token });
     } else {
       res.status(401).send({ status: 'error', message: 'Invalid username or password' });
     }

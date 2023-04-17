@@ -1,8 +1,11 @@
 import React, {useState, useContext} from 'react';
+import {useEffect } from "react"
 import {useNavigate} from 'react-router-dom';
 import './Login.css';
 import {UserContext} from '../Landing/UserContext';
 import axios from 'axios';
+
+
 
 function LoginPage() {
     const [username,
@@ -11,6 +14,8 @@ function LoginPage() {
         setPassword] = useState('');
     const navigate = useNavigate();
     const {userCredentials} = useContext(UserContext);
+    
+    const [cookieData, setCookieData] = useState({})
 
     const handleSubmit = async(event) => {
         event.preventDefault();
