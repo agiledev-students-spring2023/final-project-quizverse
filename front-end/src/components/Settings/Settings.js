@@ -58,6 +58,17 @@ const Settings = (props) => {
   };
   const logoutWarning = (event) => {
     alert('Thanks for using QuizVerse! See you again soon!');
+    axios
+      // post new message to server
+      .post('http://localhost:3001/logout', {})
+      .then((response) => {
+        console.log('Logout Successful!');
+        return 'Logout Successful!';
+      })
+      .catch((err) => {
+        console.log('Oh noes big error!');
+        return 'Oh noes big error!';
+      });
   };
   /**
    * sends a request to the specified url from a form. this will change the window location.

@@ -1,5 +1,5 @@
 import { TextField, FormControl, Button, Container } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -10,6 +10,7 @@ import axios from 'axios';
 const EditSet = (props) => {
   const location = useLocation();
   const id = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);
+  const fileInputRef = useRef(null);
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -201,7 +202,7 @@ const EditSet = (props) => {
           <Button onClick={handleSubmit} variant="outlined">
             Create Set
           </Button>
-          <input type="file" name="file" onChange={changeFile}></input>
+          <input type="file" id="file-upload-button" ref={fileInputRef} onChange={changeFile} />
           <Button onClick={uploadFile} variant="outlined">
             Upload Image
           </Button>
