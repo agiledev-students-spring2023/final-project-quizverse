@@ -1,5 +1,5 @@
 import { TextField, FormControl, Button, Container } from '@mui/material';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -10,7 +10,6 @@ import axios from 'axios';
 const EditSet = (props) => {
   const location = useLocation();
   const id = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);
-  const fileInputRef = useRef(null);
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -21,7 +20,6 @@ const EditSet = (props) => {
       definiion: ''
     }
   ]);
-  const [file, setFile] = useState(null);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/flashcard-set/${id}`).then((response) => {
@@ -46,7 +44,6 @@ const EditSet = (props) => {
         .concat(newCard)
         .concat(cards.slice(index + 1))
     );
-    console.log(cards);
   }
 
   function handleDelete(index) {
@@ -60,10 +57,9 @@ const EditSet = (props) => {
   function handleSubmit(evt) {
     setEditted(false);
     const info = {
-      title: { title },
-      description: { description },
-      cards: { cards },
-      number_of_cards: cards.length
+      title,
+      description,
+      cards
     };
 
     axios({
@@ -79,54 +75,6 @@ const EditSet = (props) => {
       navigate(`/view/${id}`);
     });
   }
-
-  // const state = {
-  //   // Initially, no file is selected
-  //   selectedFile: null
-  // };
-
-  const changeFile = (event) => {
-    setFile(event.target.files[0]);
-  };
-  // On file upload (click the upload button)
-  const uploadFile = () => {
-    // Create an object of formData
-    const formData = new FormData();
-
-    // Update the formData object
-    formData.append('myFile', file, file.name);
-
-    // Details of the uploaded file
-    console.log(file);
-
-    // Request made to the backend api
-    // Send formData object
-    axios.post('http://localhost:3001/image-upload', formData);
-  };
-
-  // File content to be displayed after
-  // file upload is complete
-  const fileData = () => {
-    if (file) {
-      return (
-        <div>
-          <h2>File Details:</h2>
-          <p>File Name: {file.name}</p>
-
-          <p>File Type: {file.type}</p>
-
-          <p>Last Modified: {file.lastModifiedDate.toDateString()}</p>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <br />
-          <h4>Choose before Pressing the Upload button</h4>
-        </div>
-      );
-    }
-  };
 
   const cardElements = cards.map((info, i) => {
     return (
@@ -199,14 +147,6 @@ const EditSet = (props) => {
             startIcon={<FontAwesomeIcon icon={faCirclePlus} />}>
             Add Card
           </Button>
-          <Button onClick={handleSubmit} variant="outlined">
-            Create Set
-          </Button>
-          <input type="file" id="file-upload-button" ref={fileInputRef} onChange={changeFile} />
-          <Button onClick={uploadFile} variant="outlined">
-            Upload Image
-          </Button>
-          {fileData}
         </div>
       </Container>
     </div>

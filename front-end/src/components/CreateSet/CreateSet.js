@@ -1,7 +1,7 @@
 import { TextField, FormControl, Button, Container } from '@mui/material';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { faCirclePlus, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import styles from './CreateSet.module.css';
 import EditCard from './EditCard';
@@ -17,8 +17,6 @@ const CreateSet = (props) => {
       definiion: ''
     }
   ]);
-  const [file, setFile] = useState(null);
-
   function handleChange(evt) {
     const value = evt.target.value;
     const id = evt.target.name;
@@ -32,7 +30,6 @@ const CreateSet = (props) => {
         .concat(newCard)
         .concat(cards.slice(index + 1))
     );
-    console.log(cards);
   }
 
   function handleDelete(index) {
@@ -45,10 +42,9 @@ const CreateSet = (props) => {
 
   function handleSubmit(evt) {
     const info = {
-      title: { title },
-      description: { description },
-      cards: { cards },
-      number_of_cards: cards.length
+      title,
+      description,
+      cards
     };
 
     axios({
@@ -64,54 +60,6 @@ const CreateSet = (props) => {
       navigate('/flashcards');
     });
   }
-
-  // const state = {
-  //   // Initially, no file is selected
-  //   selectedFile: null
-  // };
-
-  const changeFile = (event) => {
-    setFile(event.target.files[0]);
-  };
-  // On file upload (click the upload button)
-  const uploadFile = () => {
-    // Create an object of formData
-    const formData = new FormData();
-
-    // Update the formData object
-    formData.append('myFile', file, file.name);
-
-    // Details of the uploaded file
-    console.log(file);
-
-    // Request made to the backend api
-    // Send formData object
-    axios.post('http://localhost:3001/image-upload', formData);
-  };
-
-  // File content to be displayed after
-  // file upload is complete
-  const fileData = () => {
-    if (file) {
-      return (
-        <div>
-          <h2>File Details:</h2>
-          <p>File Name: {file.name}</p>
-
-          <p>File Type: {file.type}</p>
-
-          <p>Last Modified: {file.lastModifiedDate.toDateString()}</p>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <br />
-          <h4>Choose before Pressing the Upload button</h4>
-        </div>
-      );
-    }
-  };
 
   const cardElements = cards.map((info, i) => {
     return (
@@ -136,6 +84,12 @@ const CreateSet = (props) => {
           overflow: 'auto',
           overflowY: 'scroll'
         }}>
+        <Button
+          className={styles.backBtn}
+          startIcon={<FontAwesomeIcon icon={faArrowLeft} />}
+          onClick={() => navigate(`/home`)}>
+          Back to home
+        </Button>
         <FormControl sx={{ m: 1, width: '86vw' }} variant="outlined">
           <TextField
             margin="dense"
@@ -175,11 +129,6 @@ const CreateSet = (props) => {
           <Button onClick={handleSubmit} variant="outlined">
             Create Set
           </Button>
-          <input type="file" name="file" onChange={changeFile}></input>
-          <Button onClick={uploadFile} variant="outlined">
-            Upload Image
-          </Button>
-          {fileData}
         </div>
       </Container>
     </div>

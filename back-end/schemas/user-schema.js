@@ -15,7 +15,7 @@ const userSchema = new Schema({
   createdAt: { type: Date, default: () => Date.now(), immutable: true },
   streak: { type: Number, default: 0 },
   coins: { type: Number, default: 0 },
-  items: inventorySchema,
+  items: [inventorySchema],
   sets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FlashcardSet' }],
   history: [{ type: mongoose.Schema.Types.ObjectId, ref: 'History' }],
   dailyquizHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: 'DailyQuizHistory' }]
