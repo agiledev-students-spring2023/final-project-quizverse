@@ -5,6 +5,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
+const cookieParser = require('cookie-parser');
 
 
 dotenv.config();
@@ -63,6 +64,7 @@ app.use(flashcardSetsRouter);
 app.use(homeRouter);
 app.use(itemsRouter);
 app.use(shopRouter);
+app.use(cookieParser());
 // Passport middleware
 app.use(passport.initialize());
 
