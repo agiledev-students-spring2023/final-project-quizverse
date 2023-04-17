@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const inventorySchema = new Schema({
   item_id: Number,
-  expiration_date: Date
+  number_owned: Number,
+  expiration_date: { type: Date, default: () => Date.now() }
   // note: potentially need more trackers
 });
 
@@ -14,11 +15,10 @@ const userSchema = new Schema({
   createdAt: { type: Date, default: () => Date.now(), immutable: true },
   streak: { type: Number, default: 0 },
   coins: { type: Number, default: 0 },
-  items: { type: Array, default: [] },
+  items: inventorySchema,
   sets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FlashcardSet' }],
   history: [{ type: mongoose.Schema.Types.ObjectId, ref: 'History' }],
-  dailyquizHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: 'DailyQuizHistory' }],
-  inventorySchema: [inventorySchema]
+  dailyquizHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: 'DailyQuizHistory' }]
 });
 
 module.exports = mongoose.model('User', userSchema);

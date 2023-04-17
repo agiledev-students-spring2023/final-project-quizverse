@@ -19,12 +19,12 @@ const Settings = (props) => {
       // post new message to server
       .post('http://localhost:3001/settings-email', { email: email })
       .then((response) => {
-        console.log('yay!');
-        return 'yay!';
+        console.log('Email updated!');
+        return 'Email updated!';
       })
       .catch((err) => {
-        console.log('Oh noes big error!');
-        return 'Oh noes big error!';
+        console.log('Email update failure!');
+        return 'Email update failure!';
       });
     //console.log({ email });
   };
@@ -35,12 +35,12 @@ const Settings = (props) => {
       // post new message to server
       .post('http://localhost:3001/settings-password', { password: password })
       .then((response) => {
-        console.log('yay!');
-        return 'yay!';
+        console.log('Password updated!');
+        return 'Password updated!';
       })
       .catch((err) => {
-        console.log('Oh noes big error!');
-        return 'Oh noes big error!';
+        console.log('Password update error!');
+        return 'Password update error!';
       });
     //post('http://localhost:3001/login');
     //navigate('./');
@@ -51,9 +51,21 @@ const Settings = (props) => {
     );
     if (input === 'ok') {
       alert('Your account has been deleted!');
+      axios
+        // post new message to server
+        .post('http://localhost:3001/delete', {})
+        .then((response) => {
+          console.log('Deletion Successful!');
+          return 'Deletion Successful!';
+        })
+        .catch((err) => {
+          console.log('Oh noes big error!');
+          return 'Oh noes big error!';
+        });
       navigate('/');
-    } else if (!input === '') {
+    } else {
       alert('Incorrect input!');
+      console.log('Incorrect input!');
     }
   };
   const logoutWarning = (event) => {
