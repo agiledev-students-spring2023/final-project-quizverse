@@ -63,8 +63,8 @@ app.use(shopRouter);
 // Passport middleware
 app.use(passport.initialize());
 
-// Passport Config
-require('./routes/passport')(passport);
+// // Passport Config
+// require('./routes/passport')(passport);
 
 // call express's listen function to start listening to the port
 const listener = app.listen(port, function () {
