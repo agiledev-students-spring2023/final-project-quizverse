@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-import { User } from './user-schema';
+// import { User } from './user-schema';
 const Schema = mongoose.Schema;
 
 const flashcardSchema = mongoose.Schema({
@@ -7,6 +7,7 @@ const flashcardSchema = mongoose.Schema({
   definition: { type: String, required: true }
 });
 
+// TODO: Need to make createdBy a reference to the User schema
 const flashcardSetSchema = new Schema({
   title: { type: String, required: true, unique: true, trim: true, minlength: 3, maxlength: 20 },
   description: {
@@ -17,7 +18,7 @@ const flashcardSetSchema = new Schema({
     minlength: 5,
     maxlength: 50
   },
-  createdBy: { type: User, required: true },
+  createdBy: { type: String, required: true },
   createdAt: { type: Date, default: () => Date.now(), immutable: true },
   editedAt: { type: Date, default: () => Date.now() },
   flashcards: flashcardSchema
