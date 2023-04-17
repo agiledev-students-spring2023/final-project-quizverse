@@ -2,9 +2,10 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
+const passport = require("passport")
 
 ///foo?foo=${foo}&baz=${baz}
-router.get('/home', (req, res, next) => {
+router.get('/home', passport.authenticate("jwt", { session: false }), (req, res, next) => {
   // use axios to make a request to an API for flashcard data in the daily quiz
   user = req.query.user;
   console.log(user);

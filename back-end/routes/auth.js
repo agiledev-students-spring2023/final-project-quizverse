@@ -45,8 +45,8 @@ router.post('/login', (req, res) => {
 
     if (foundUser) {
       const token = jwt.sign({ username: foundUser.username }, jwtSecret, { expiresIn: '1h' });
-      console.log(token)
-      res.cookie('token', 'bar', { httpOnly: true }).send({ status: 'success', message: 'Logged in successfully', token });
+      //console.log(token)
+      res.cookie('token', 'bar', { httpOnly: true }).send({ status: 'success', message: 'Logged in successfully', token: token });
     } else {
       res.status(401).send({ status: 'error', message: 'Invalid username or password' });
     }
