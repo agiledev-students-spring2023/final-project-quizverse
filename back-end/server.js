@@ -37,7 +37,10 @@ mongoose
     `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_DB}.zkgvem0.mongodb.net/?retryWrites=true&w=majority`
   )
   .then(() => console.log('Connected to MongoDB!'))
-  .catch((err) => console.log(err));
+  .catch((err) => {
+    console.log(err);
+    console.log('Have you set up your .env file?');
+  });
 
 mongoose.connection.on('error', (err) => {
   console.log(`DB connection error: ${err.message}`);

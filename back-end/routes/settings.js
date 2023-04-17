@@ -7,7 +7,7 @@ router.post('/settings-email', (req, res) => {
   const emailData = req.body.email;
   try {
     const user = User.create({
-      name: 'Anna',
+      username: 'Anna',
       email: emailData,
       password: 'password'
     })
@@ -26,6 +26,14 @@ router.post('/settings-email', (req, res) => {
 router.post('/settings-password', (req, res) => {
   //res.send('Password Updated!');
   const passwordData = req.body.password;
+  const user = User.find({ name: 'Anna' })
+    .limit(1)
+    .then((passwordData) => {
+      console.log(`saved ${passwordData}`);
+    })
+    .catch((err) => {
+      console.log(`Failure: ${err}`);
+    });
   res.send({ password: passwordData });
 });
 router.get('/items', (req, res) => {
