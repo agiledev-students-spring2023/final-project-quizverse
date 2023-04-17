@@ -38,7 +38,7 @@ router.post('/login', async (req, res) => {
     const foundUser = await User.findOne({ username, password });
 
     if (foundUser) {
-      const token = jwt.sign({ username: foundUser.username }, jwtSecret, { expiresIn: '1h' });
+      const token = foundUser.generateJWT()
       console.log(token);
       res.cookie('token', 'bar', { httpOnly: true }).send({ status: 'success', message: 'Logged in successfully', token });
     } else {
