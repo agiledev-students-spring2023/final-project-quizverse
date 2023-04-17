@@ -43,6 +43,7 @@
     "chai": "^4.3.7",
     "chai-http": "^4.3.0",
     "chai-json": "^1.0.0",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "coverage-node": "^8.0.0",
     "dotenv": "^16.0.3",

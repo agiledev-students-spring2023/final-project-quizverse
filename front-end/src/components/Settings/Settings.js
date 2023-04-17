@@ -23,8 +23,8 @@ const Settings = (props) => {
         return 'yay!';
       })
       .catch((err) => {
-        console.log('Oh noes big error!');
-        return 'Oh noes big error!';
+        console.log('Email change error!');
+        return 'Email change error!';
       });
     //console.log({ email });
   };
@@ -39,8 +39,8 @@ const Settings = (props) => {
         return 'yay!';
       })
       .catch((err) => {
-        console.log('Oh noes big error!');
-        return 'Oh noes big error!';
+        console.log('Password change error!');
+        return 'Password change error!';
       });
     //post('http://localhost:3001/login');
     //navigate('./');
@@ -66,8 +66,8 @@ const Settings = (props) => {
         return 'Logout Successful!';
       })
       .catch((err) => {
-        console.log('Oh noes big error!');
-        return 'Oh noes big error!';
+        console.log('Logout error!');
+        return 'Logout error!';
       });
   };
   /**
