@@ -1,18 +1,21 @@
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-require('dotenv').config()
+const mongoose = require('mongoose');
+require('dotenv').config();
 
 const router = express.Router();
 const jwtSecret = process.env.JWT_SECRET;
 
-const usersFilePath = path.join(__dirname, '../public/users.json');
+// Connect to MongoDB
+//mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// User schema
+const User = require('../schemas/user-schema.js'); // Import User model from user-schema.js
 
 function authenticateJWT(req, res, next) {
   //console.log(`${JSON.stringify(req.cookies, null, 0)}`)
-  // const token = req.cookies.token;
+  const token = req.cookies.token;
   // console.log("Here's the token")
   // console.log(token)
   if (!token) {
@@ -28,60 +31,65 @@ function authenticateJWT(req, res, next) {
   });
 }
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
-  fs.readFile(usersFilePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Internal server error');
-      return;
-    }
-
-    const users = JSON.parse(data);
-    const foundUser = users.find(
-      (user) => user.username === username && user.password === password
-    );
+  try {
+    const foundUser = await User.findOne({ username, password });
 
     if (foundUser) {
       const token = jwt.sign({ username: foundUser.username }, jwtSecret, { expiresIn: '1h' });
-      //console.log(token)
-      res.cookie('token', 'bar', { httpOnly: true }).send({ status: 'success', message: 'Logged in successfully', token: token });
+      console.log(token);
+      res.cookie('token', 'bar', { httpOnly: true }).send({ status: 'success', message: 'Logged in successfully', token });
     } else {
       res.status(401).send({ status: 'error', message: 'Invalid username or password' });
     }
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal server error');
+  }
 });
 
-router.post('/register', (req, res) => {
-  const { username, password } = req.body;
+router.post('/register', async (req, res) => {
+  console.log('Register route called');
+  const { username, email, password } = req.body; // Add email to the destructuring
+  console.log('Request body:', req.body);
 
-  fs.readFile ( usersFilePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Internal server error');
-      return;
-    }
-
-    const users = JSON.parse(data);
-    const existingUser = users.find((user) => user.username === username);
+  try {
+    const existingUser = await User.findOne({ username });
 
     if (existingUser) {
+      console.log('Username already exists');
       res.status(400).send({ status: 'error', message: 'Username already exists' });
       return;
     }
 
-    users.push({ username, password });
-    fs.writeFile(usersFilePath, JSON.stringify(users, null, 2), (err) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send('Internal server error');
-        return;
-      }
+    const newUser = {
+      username,
+      email: username, // Assuming the email is the same as the username
+      password,
+      streak: 0,
+      coins: 0,
+      items: {
+        item_id: 0,
+        number_owned: 0,
+        expiration_date: Date.now(),
+      },
+      sets: [],
+      history: [],
+      dailyquizHistory: [],
+    };
 
-      res.send({ status: 'success', message: 'User registered successfully' });
-    });
-  });
+    console.log('New user object:', newUser);
+
+    const createdUser = await User.create(newUser);
+    console.log('User created:', createdUser);
+    res.send({ status: 'success', message: 'User registered successfully' });
+
+  } catch (err) {
+    console.error('Error caught in catch block:', err);
+    res.status(500).send('Internal server error');
+  }
 });
 
 router.post('/logout', authenticateJWT, (req, res) => {
