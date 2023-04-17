@@ -2,15 +2,15 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 const router = express.Router();
-const jwtSecret = '4j92$ds#Dsd*&2dSscS0!29^fS0s8y&2e9@';
+const jwtSecret = process.env.JWT_SECRET;
 
 const usersFilePath = path.join(__dirname, '../public/users.json');
 
 function authenticateJWT(req, res, next) {
   const token = req.header('Authorization');
-
   if (!token) {
     return res.status(401).send({ status: 'error', message: 'Access denied. No token provided.' });
   }
