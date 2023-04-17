@@ -4,15 +4,16 @@ const User = require('../schemas/user-schema');
 const router = express.Router();
 router.post('/settings-email', (req, res) => {
   //res.send('Email Updated!');
+  //for tester purposes this post request also generates a new anna
   const emailData = req.body.email;
   try {
     const user = User.create({
       username: 'Anna',
-      email: emailData,
-      password: 'password'
+      email: 'anna@money.com',
+      password: 'make a killing'
     })
-      .then((email) => {
-        console.log(`saved ${email}`);
+      .then((username) => {
+        console.log(`Generated new ${username}`);
       })
       .catch((err) => {
         console.log(`Failure: ${err}`);
@@ -21,15 +22,35 @@ router.post('/settings-email', (req, res) => {
   } catch (e) {
     console.log(e.message);
   }
+  try {
+    const filter = { username: 'Anna' };
+    const update = { email: emailData };
+    const user = User.findOneAndUpdate(filter, update, {
+      new: true
+    })
+      .then((emailData) => {
+        console.log(`saved ${emailData}`); //printing the user object
+        console.log(`saved ${user.email}`); //printing undefined
+      })
+      .catch((err) => {
+        console.log(`Failure: ${err}`);
+      });
+  } catch (e) {
+    console.log(e.message);
+  }
   res.send({ email: emailData });
 });
 router.post('/settings-password', (req, res) => {
   //res.send('Password Updated!');
   const passwordData = req.body.password;
-  const user = User.find({ name: 'Anna' })
-    .limit(1)
+  const filter = { username: 'Anna' };
+  const update = { password: passwordData };
+  const user = User.findOneAndUpdate(filter, update, {
+    new: true
+  })
     .then((passwordData) => {
-      console.log(`saved ${passwordData}`);
+      console.log(`saved ${passwordData}`); //printing the user object
+      console.log(`saved ${user.passwordData}`); //printing undefined
     })
     .catch((err) => {
       console.log(`Failure: ${err}`);
@@ -66,6 +87,14 @@ router.get('/study-stats', (req, res) => {
   }
 });
 router.post('/delete', (req, res) => {
+  const filter = { username: 'Anna' };
+  const user = User.findOneAndDelete(filter)
+    .then(() => {
+      console.log(`Deleted account under username ${filter.username}`); //printing the user object
+    })
+    .catch((err) => {
+      console.log(`Failure: ${err}`);
+    });
   res.send({ message: 'Your account has been deleted!' });
   //contact database and delete account information
 });

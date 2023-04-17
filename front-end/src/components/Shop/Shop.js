@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { useTheme, ThemeProvider } from '@mui/material/styles';
-import logo from './QuizVerseLogo.png';
+import axios from 'axios';
 
 function Copyright() {
   return (
@@ -38,6 +38,19 @@ export default function Shop() {
   }
   function linkStudy() {
     navigate('/daily-quiz');
+  }
+  function purchase(itemName) {
+    axios
+      // post new message to server
+      .post('http://localhost:3001/shop', {})
+      .then((response) => {
+        console.log(`${itemName} purchased!`);
+        return 'Logout Successful!';
+      })
+      .catch((err) => {
+        console.log('Purchase fail!');
+        return 'Oh noes big error!';
+      });
   }
   return (
     <ThemeProvider theme={useTheme()}>
@@ -84,7 +97,7 @@ export default function Shop() {
                       // 16:9
                       pt: '20%'
                     }}
-                    image={logo}
+                    src="http://localhost:3001/static/images/QuizVerseLogo.png"
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
@@ -107,7 +120,7 @@ export default function Shop() {
                       // 16:9
                       pt: '20%'
                     }}
-                    image={logo}
+                    src="http://localhost:3001/static/images/QuizVerseLogo.png"
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
@@ -132,7 +145,7 @@ export default function Shop() {
                       // 16:9
                       pt: '20%'
                     }}
-                    image={logo}
+                    src="http://localhost:3001/static/images/QuizVerseLogo.png"
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
@@ -144,7 +157,9 @@ export default function Shop() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">Buy</Button>
+                    <Button size="small" onClick={() => purchase('Streak Freeze')}>
+                      Buy
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>
