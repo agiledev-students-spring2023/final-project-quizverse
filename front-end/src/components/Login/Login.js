@@ -6,7 +6,6 @@ import {UserContext} from '../Landing/UserContext';
 import axios from 'axios';
 
 
-const [cookieData, setCookieData] = useState({})
 
 function LoginPage() {
     const [username,
@@ -15,6 +14,8 @@ function LoginPage() {
         setPassword] = useState('');
     const navigate = useNavigate();
     const {userCredentials} = useContext(UserContext);
+    
+    const [cookieData, setCookieData] = useState({})
 
     const handleSubmit = async(event) => {
         event.preventDefault();
