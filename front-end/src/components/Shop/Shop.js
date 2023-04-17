@@ -14,7 +14,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { useTheme, ThemeProvider } from '@mui/material/styles';
-import logo from './QuizVerseLogo.png';
 
 function Copyright() {
   return (
@@ -84,7 +83,7 @@ export default function Shop() {
                       // 16:9
                       pt: '20%'
                     }}
-                    image={logo}
+                    src="http://localhost:3001/static/images/QuizVerseLogo.png"
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
@@ -107,7 +106,7 @@ export default function Shop() {
                       // 16:9
                       pt: '20%'
                     }}
-                    image={logo}
+                    src="http://localhost:3001/static/images/QuizVerseLogo.png"
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
@@ -132,7 +131,7 @@ export default function Shop() {
                       // 16:9
                       pt: '20%'
                     }}
-                    image={logo}
+                    src="http://localhost:3001/static/images/QuizVerseLogo.png"
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>

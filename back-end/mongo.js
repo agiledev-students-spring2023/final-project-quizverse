@@ -1,3 +1,4 @@
+//THIS IS TESTER CODE, NOT ACTUALLY PART OF QUIZVERSE
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const User = require('./schemas/user-schema');
