@@ -57,9 +57,9 @@ const EditSet = (props) => {
   function handleSubmit(evt) {
     setEditted(false);
     const info = {
-      title: { title },
-      description: { description },
-      cards: { cards }
+      title,
+      description,
+      cards
     };
 
     axios({

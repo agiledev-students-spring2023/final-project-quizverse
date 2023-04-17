@@ -21,7 +21,7 @@ const flashcardSetSchema = new Schema({
   createdBy: { type: String, required: true },
   createdAt: { type: Date, default: () => Date.now(), immutable: true },
   editedAt: { type: Date, default: () => Date.now() },
-  flashcards: flashcardSchema
+  flashcards: [flashcardSchema]
 });
 
 module.exports = mongoose.model('FlashcardSet', flashcardSetSchema);
