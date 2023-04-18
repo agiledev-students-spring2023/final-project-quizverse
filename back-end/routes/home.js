@@ -2,12 +2,13 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
+const passport = require("passport")
 
 ///foo?foo=${foo}&baz=${baz}
-router.get('/home', (req, res, next) => {
+router.get('/home', 
+passport.authenticate("jwt", { session: false }), 
+(req, res, next) => {
   // use axios to make a request to an API for flashcard data in the daily quiz
-  user = req.query.user;
-  console.log(user);
   axios('https://my.api.mockaroo.com/users.json?key=6b3bc3e0')
     .then((apiResponse) => res.json(apiResponse.data))
     .catch((err) => {

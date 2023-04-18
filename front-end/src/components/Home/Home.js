@@ -14,18 +14,22 @@ const Home = (props) => {
   const [streak, setStreak] = useState(0); // eslint-disable-next-line
   const [coins, setCoins] = useState(0);
   const [user, setUser] = useState('');
-
+  const jwtToken = localStorage.getItem("token")
+  
   // the following side-effect will be called once upon initial render
   useEffect(() => {
     // fetch some mock data about animals for sale
-    console.log('fetching 10 random users...');
-    axios('http://localhost:3001/home')
+    console.log(`token ${jwtToken}`)
+    axios('http://localhost:3001/home',{
+      headers: { Authorization: `JWT ${jwtToken}` }, // pass the token, if any, to the server
+    })
       .then((response) => {
         // extract the data from the server response
+        console.log("yay successful get")
         setData(response.data);
-        setStreak(response.data[0].streak);
-        setCoins(response.data[0].coins);
-        setUser(response.data[0].first_name);
+        // setStreak(response.data[0].streak);
+        // setCoins(response.data[0].coins);
+        setUser(response.user.username);
       })
       .catch((err) => {
         console.log(err);
