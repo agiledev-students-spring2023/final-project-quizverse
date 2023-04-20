@@ -3,8 +3,7 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
-const jwtStrategy = require("../routes/jwt-config.js") // import setup options for using JWT in passport
+const jwt = require('jsonwebtoken');
 
 const inventorySchema = new Schema({
   item_id: Number,

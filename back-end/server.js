@@ -4,7 +4,6 @@ const dotenv = require('dotenv');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const jwt = require("jsonwebtoken")
 

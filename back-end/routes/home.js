@@ -2,7 +2,6 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const passport = require("passport")
 const jwt_auth = require('./jwt');
 
 ///foo?foo=${foo}&baz=${baz}

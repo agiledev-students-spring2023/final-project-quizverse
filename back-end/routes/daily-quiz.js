@@ -2,9 +2,6 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const passport = require("passport")
-// require('./passport')(passport)
-//const jwt = require('jwt-simple');
 const jwt_auth = require('./jwt');
 
 router.get('/daily-quiz', jwt_auth, (req, res, next) => {
