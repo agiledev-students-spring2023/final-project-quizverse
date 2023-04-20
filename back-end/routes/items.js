@@ -2,9 +2,9 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const shenanigans = require('./jwt');
+const jwt_auth = require('./jwt');
 
-router.get('/your-items', shenanigans, (req, res, next) => {
+router.get('/your-items', jwt_auth, (req, res, next) => {
   // use axios to make a request to an API for flashcard data in the daily quiz
   user = req.query.user;
   //Do something with a database lookup with user. For now, this is still just calling Mockaroo.
