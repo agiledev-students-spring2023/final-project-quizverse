@@ -14,9 +14,6 @@ const Home = (props) => {
   const [streak, setStreak] = useState(0); // eslint-disable-next-line
   const [coins, setCoins] = useState(0);
   const [user, setUser] = useState('');
-
-  // the following side-effect will be called once upon initial render
-  useEffect(() => {}, []);
   return (
     <>
       <main>
