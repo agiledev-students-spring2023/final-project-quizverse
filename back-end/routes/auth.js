@@ -14,7 +14,22 @@ const User = require('../schemas/user-schema.js'); // Import User model from use
 
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
-  const token = jwt.sign(User);
+  try {
+    const foundUser = User.findOne({ username, password }).then(() => console.log('lol'));
+
+    if (foundUser) {
+      console.log('We are in bois');
+      const token = jwt.sign({ foundUser }, process.env.JWT_SECRET);
+      console.log(token);
+      res.cookie('Anna!', token, { httpOnly: true });
+      //res.send({ status: 'success', message: 'Logged in successfully' });
+    } else {
+      res.status(401).send({ status: 'error', message: 'Invalid username or password' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal server error');
+  }
 });
 
 router.post('/register', async (req, res) => {

@@ -17,21 +17,21 @@ function LoginPage() {
     
     const [cookieData, setCookieData] = useState({})
 
-    const handleSubmit = async(event) => {
-        event.preventDefault();
-
-        try {
-            const response = await axios.post('http://localhost:3001/login', {
-              username,
-              password
-            });
-            alert(response.data.message);
-            navigate('/home');
-        } catch (error) {
-            alert(error.response
-                ?.data
-                    ?.message || 'An error occurred');
-        }
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      try {
+        axios
+          .post('http://localhost:3001/login', {
+            username,
+            password
+          })
+          .then(() => console.log('Argle Bargle'));
+        //alert(response.data.message);
+        navigate('/home');
+      } catch (error) {
+        console.log(error);
+        alert(error.response?.data?.message || 'Frontend error occured');
+      }
     };
 
     return (
