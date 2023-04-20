@@ -4,8 +4,31 @@ const dotenv = require('dotenv');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const morgan = require("morgan") // middleware for nice logging of incoming HTTP requests
+const cookieParser = require("cookie-parser") // middleware useful for parsing cookies in requests
+const app = express(); // instantiate an Express object
 dotenv.config();
+
+// the following are used for authentication with JSON Web Tokens
+const jwt = require("jsonwebtoken")
+const passport = require("passport")
+
+// use this JWT strategy within passport for authentication handling
+const jwtStrategy = require("./config/jwt-config.js") // import setup options for using JWT in passport
+passport.use(jwtStrategy)
+
+// tell express to use passport middleware
+app.use(passport.initialize())
+
+// mongoose models for MongoDB data manipulation
+const User = require("./schemas/user-schema.js")
+
+// set up some useful middleware
+app.use(morgan("dev", { skip: (req, res) => process.env.NODE_ENV === "test" })) // log all incoming requests, except when in unit test mode.  morgan has a few logging default styles - dev is a nice concise color-coded style
+// use express's builtin body-parser middleware to parse any data included in a request
+app.use(express.json()) // decode JSON-formatted incoming POST data
+app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
+app.use(cookieParser()) // useful middleware for dealing with cookies
 
 const MONGO_USER = process.env.MONGO_USER;
 const MONGO_PASSWORD = process.env.MONGO_PASSWORD;
@@ -24,7 +47,6 @@ const homeRouter = require('./routes/home');
 const itemsRouter = require('./routes/items');
 const shopRouter = require('./routes/shop');
 
-const app = express(); // instantiate an Express object
 const port = 3001; // the port to listen to for incoming requests
 const corsOptions = {
   origin: 'http://localhost:3000',

@@ -1,8 +1,8 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-
 const router = express.Router();
+const User = require('../schemas/user-schema.js');
 
 const usersFilePath = path.join(__dirname, '../public/users.json');
 router.post('/login', (req, res) => {
@@ -15,13 +15,22 @@ router.post('/login', (req, res) => {
       return;
     }
 
-    const users = JSON.parse(data);
-    const foundUser = users.find(
-      (user) => user.username === username && user.password === password
-    );
+    //const users = JSON.parse(data);
+    //const user = users.find((user) => user.username === username && user.password === password);
+    const user = User.findOne({ username: username }).exec();
 
-    if (foundUser) {
-      res.send({ status: 'success', message: 'Logged in successfully' });
+    if (user) {
+      // user found and password is correct... send a success response
+      console.log('User logged in successfully.');
+      console.log(user);
+      const token = user.generateJWT(); // generate a signed token
+      res.json({
+        success: true,
+        message: 'User logged in successfully.',
+        token: token,
+        username: user.username
+      }); // send the token to the client to store
+      //res.send({ status: 'success', message: 'Logged in successfully' });
     } else {
       res.status(401).send({ status: 'error', message: 'Invalid username or password' });
     }
