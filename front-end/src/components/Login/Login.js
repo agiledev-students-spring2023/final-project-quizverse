@@ -21,14 +21,10 @@ function LoginPage() {
         event.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:3001/login', {username, password});
-            if (response.data && response.data.token){
-                alert(response.data.token);
-                localStorage.setItem("token", response.data.token);
-                //future requests should have
-                //.get(`/url`, {headers:{Authorization `JWT ${jwtToken}}})
-                //require jwt-config.js and then passport.use()
-            }
+            const response = await axios.post('http://localhost:3001/login', {
+              username,
+              password
+            });
             alert(response.data.message);
             navigate('/home');
         } catch (error) {

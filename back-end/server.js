@@ -4,10 +4,7 @@ const dotenv = require('dotenv');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const passport = require('passport');
 const cookieParser = require('cookie-parser');
-const jwt = require("jsonwebtoken")
-
 
 dotenv.config();
 
@@ -66,12 +63,6 @@ app.use(homeRouter);
 app.use(itemsRouter);
 app.use(shopRouter);
 app.use(cookieParser());
-// Passport middleware
-
-
-const jwtStrategy = require("./routes/jwt-config.js") // import setup options for using JWT in passport
-passport.use(jwtStrategy)
-app.use(passport.initialize());
 
 // call express's listen function to start listening to the port
 const listener = app.listen(port, function () {
