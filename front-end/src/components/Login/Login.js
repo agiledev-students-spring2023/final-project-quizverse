@@ -17,10 +17,10 @@ function LoginPage() {
     
     const [cookieData, setCookieData] = useState({})
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
       event.preventDefault();
       try {
-        axios
+        await axios
           .post('http://localhost:3001/login', {
             username,
             password
