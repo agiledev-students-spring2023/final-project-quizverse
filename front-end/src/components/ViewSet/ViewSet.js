@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 //import Card from '@mui/material/Card';
-import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './ViewSet.module.css';
 import Button from '@mui/material/Button';
@@ -11,8 +10,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faCirclePlus, faPen } from '@fortawesome/free-solid-svg-icons';
 
 function FullScreenFlashcardSet() {
-  //this one needs to pull flashcard data
   const navigate = useNavigate();
+  let token = 'Zappy!';
+  useEffect(() => {
+    try {
+      token = JSON.parse(localStorage.getItem('info')).token;
+    } catch {
+      console.log('Oh noes!');
+      navigate('/');
+    }
+  });
+  //this one needs to pull flashcard data
   const theme = createTheme();
   const location = useLocation();
   const [id, setId] = useState(location.pathname.substring(location.pathname.lastIndexOf('/') + 1));

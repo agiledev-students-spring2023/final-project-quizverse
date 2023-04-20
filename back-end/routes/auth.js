@@ -24,11 +24,16 @@ router.post('/login', async (req, res) => {
       const token = jwt.sign({ user_id: foundUser._id, username }, process.env.JWT_SECRET, {
         expiresIn: '2h'
       });
-
-      // save user token
-      foundUser.token = token;
-      // user
-      res.status(200).json(foundUser);
+      const info = {
+        username: username,
+        token: token
+      };
+      // Save token within the user object
+      //foundUser.token = token;
+      // Sending the entire user object
+      //res.status(200).json(foundUser);
+      //Send just the token (and username for reference)
+      res.status(200).json(info);
       // res
       //   .cookie('meeple', 'beeple', { httpOnly: true }) //this doesn't send
       //   .send({ status: 'success', message: 'Logged in successfully' });
@@ -73,17 +78,19 @@ router.post('/register', async (req, res) => {
 
     //console.log('New user object:', newUser);
 
-    const createdUser = await User.create(newUser);
+    //const createdUser = await User.create(newUser);
     //console.log('User created:', createdUser);
-    // Create token
-    const token = jwt.sign({ user_id: createdUser._id, email }, process.env.JWT_SECRET);
-    // save user token
-    createdUser.token = token;
-    await createdUser.save();
-    // return new user
-    res.status(201).json(createdUser);
+    // // Create token
+    // const token = jwt.sign({ user_id: createdUser._id, email }, process.env.JWT_SECRET);
+    // // save user token
+    // createdUser.token = token;
+    // await createdUser.save();
+    // // return new user
+    // res.status(201).json(createdUser);
+    // //Send just the token :o
+    //res.status(200).json(token);
     //console.log(createdUser);
-    //res.send({ status: 'success', message: 'User registered successfully' });
+    res.send({ status: 'success', message: 'User registered successfully' });
   } catch (err) {
     console.error('Error caught in catch block:', err);
     res.status(500).send('Internal server error');

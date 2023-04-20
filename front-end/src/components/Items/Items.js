@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 //import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 //import CameraIcon from '@mui/icons-material/PhotoCamera';
@@ -16,14 +16,21 @@ import Container from '@mui/material/Container';
 //import Link from '@mui/material/Link';
 //import { Link } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import logo from './QuizVerseLogo.png';
-import { useState, useEffect } from "react"
-import axios from "axios"
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 
 function Items() {
+  let token = 'Zappy!';
+  useEffect(() => {
+    try {
+      token = JSON.parse(localStorage.getItem('info')).token;
+    } catch {
+      console.log('Oh noes!');
+      navigate('/');
+    }
+  });
   const navigate = useNavigate();
   const [data, setData] = useState([
     {
@@ -39,7 +46,10 @@ function Items() {
   useEffect(() => {
     // fetch some items
     console.log('fetching 10 items...');
-    axios('http://localhost:3001/your-items')
+    axios
+      .get('http://localhost:3001/your-items', {
+        headers: { 'jwt-token': token } // pass the token, if any, to the server
+      })
       .then((response) => {
         // extract the data from the server response
         setData(response.data);
@@ -49,7 +59,7 @@ function Items() {
       })
       .catch((err) => {
         console.error(err); // the server returned an error... probably too many requests... until we pay!
-        navigate('/');
+        navigate('/'); //kick back to landing
       });
   }, []);
   return (
@@ -90,8 +100,8 @@ function Items() {
                       // 16:9
                       pt: '20%'
                     }}
-                    image={logo}
-                    alt="random"
+                    src="http://localhost:3001/static/images/QuizVerseLogo.png"
+                    alt="QuizVerse Logo"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">

@@ -3,9 +3,10 @@ const express = require('express');
 const axios = require('axios');
 const router = express.Router();
 const passport = require("passport")
+const jwt_auth = require('./jwt');
 
 ///foo?foo=${foo}&baz=${baz}
-router.get('/home', (req, res, next) => {
+router.get('/home', jwt_auth, (req, res, next) => {
   // use axios to make a request to an API for flashcard data in the daily quiz
   axios('https://my.api.mockaroo.com/users.json?key=6b3bc3e0')
     .then((apiResponse) => res.json(apiResponse.data))

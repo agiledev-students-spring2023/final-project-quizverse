@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 //import { Link, useNavigate } from 'react-router-dom';
 import './StudyStats.css';
-
+import { useNavigate } from 'react-router-dom';
 /**
  * A React component that represents the StudyStats page of the app.
  * @param {*} param0 an object holding any props passed to this component from its parent component
@@ -9,6 +9,16 @@ import './StudyStats.css';
  */
 
 const StudyStats = (props) => {
+  const navigate = useNavigate();
+  let token = 'Zappy!';
+  useEffect(() => {
+    try {
+      token = JSON.parse(localStorage.getItem('info')).token;
+    } catch {
+      console.log('Oh noes!');
+      navigate('/');
+    }
+  });
   // eslint-disable-next-line
   const [data1, setData1] = useState('banana'); // eslint-disable-next-line
   const [data2, setData2] = useState('apostrophe'); // eslint-disable-next-line

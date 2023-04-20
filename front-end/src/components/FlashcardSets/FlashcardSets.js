@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Search from '../Search/Search';
 import FlashcardSet from './FlashcardSet/FlashcardSet';
 import styles from './FlashcardSets.module.css';
-import { useState, useEffect } from "react"
-import axios from "axios"
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function FlashcardSets() {
-  const [data, setData] = useState([{
-    "title":"",
-    "description":"",
-    "numCards":0
-  }]
-
-  )
+  const navigate = useNavigate();
+  let token = 'Zappy!';
+  useEffect(() => {
+    try {
+      token = JSON.parse(localStorage.getItem('info')).token;
+    } catch {
+      console.log('Oh noes!');
+      navigate('/');
+    }
+  });
+  const [data, setData] = useState([
+    {
+      title: '',
+      description: '',
+      numCards: 0
+    }
+  ]);
   useEffect(() => {
     // fetch some mock sets
     // make this a backend request!
@@ -24,7 +34,6 @@ function FlashcardSets() {
       })
       .catch((err) => {
         console.error(err); // the server returned an error... probably too many requests... until we pay!
-
       });
   }, []);
   return (

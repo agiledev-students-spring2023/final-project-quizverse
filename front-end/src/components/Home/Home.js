@@ -2,13 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 /**
  * A React component that represents the Home page of the app.
  * @param {*} param0 an object holding any props passed to this component from its parent component
  * @returns The contents of this component, in JSX form.
  */
 const Home = (props) => {
+  const navigate = useNavigate();
+  let token = 'Zappy!';
+  useEffect(() => {
+    try {
+      token = JSON.parse(localStorage.getItem('info')).token;
+    } catch {
+      console.log('Oh noes!');
+      navigate('/');
+    }
+  });
   //eslint-disable-next-line
   const [data, setData] = useState([]); // eslint-disable-next-line
   const [streak, setStreak] = useState(0); // eslint-disable-next-line
@@ -18,7 +28,10 @@ const Home = (props) => {
   // the following side-effect will be called once upon initial render
   useEffect(() => {
     // fetch some mock data about animals for sale
-    axios('http://localhost:3001/home')
+    axios
+      .get('http://localhost:3001/home', {
+        headers: { 'jwt-token': token } // pass the token, if any, to the server
+      })
       .then((response) => {
         // extract the data from the server response
         console.log('yay successful get');
@@ -26,10 +39,12 @@ const Home = (props) => {
         setStreak(response.data[0].streak);
         setCoins(response.data[0].coins);
         setUser(response.data[0].first_name);
+        console.log(token);
         //setUser(response.user.username);
       })
       .catch((err) => {
         console.log(err);
+        navigate('/');
       });
     // eslint-disable-next-line
   }, []);

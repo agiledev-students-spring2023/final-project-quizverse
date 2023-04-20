@@ -1,12 +1,12 @@
 // router responsible for the footer
 const express = require('express');
-
 const router = express.Router();
+const jwt_auth = require('./jwt');
 
-router.get('/terms', (req, res) => {
+router.get('/terms', jwt_auth, (req, res) => {
   res.send({ data: 'Terms of Service!' });
 });
-router.get('/privacy', (req, res) => {
+router.get('/privacy', jwt_auth, (req, res) => {
   res.send({ data: 'Privacy Policy!' });
 });
 

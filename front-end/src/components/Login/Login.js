@@ -25,7 +25,22 @@ function LoginPage() {
       //   //localStorage.setItem("token", response.data.token);
       //   //future requests should have
       // }
-      alert(response.data.message);
+      //alert(response.data.message);
+      // console.log(response.data.token);
+      // const monkey = {
+      //   ooo_ooo: 'aaa_aaa',
+      //   sus: 'Zappy!',
+      //   token: response.data.token
+      // };
+      // const serializedObj = JSON.stringify(monkey, null, 0); // a JSON string representation of the object
+      // localStorage.setItem('Yunaka', serializedObj); // store it with the key, foo
+      alert(`${response.data.username} is now logged in!`);
+      console.log(response.data);
+      const info = {
+        username: response.data.username,
+        token: response.data.token
+      };
+      localStorage.setItem('info', JSON.stringify(info, null, 0));
       navigate('/home');
     } catch (error) {
       alert(error.response?.data?.message || 'An error occurred on login');

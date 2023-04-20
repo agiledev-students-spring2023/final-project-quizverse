@@ -8,9 +8,18 @@ import EditCard from '../CreateSet/EditCard';
 import axios from 'axios';
 
 const EditSet = (props) => {
+  const navigate = useNavigate();
+  let token = 'Zappy!';
+  useEffect(() => {
+    try {
+      token = JSON.parse(localStorage.getItem('info')).token;
+    } catch {
+      console.log('Oh noes!');
+      navigate('/');
+    }
+  });
   const location = useLocation();
   const id = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);
-  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [editted, setEditted] = useState(false);
