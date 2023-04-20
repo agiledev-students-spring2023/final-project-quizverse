@@ -47,30 +47,6 @@ userSchema.methods.validPassword = function (password) {
   return bcrypt.compareSync(password, this.password)
 }
 
-// return a JWT token for the user
-userSchema.methods.generateJWT = function () {
-  const today = new Date()
-  const exp = new Date(today)
-  exp.setDate(today.getDate() + process.env.JWT_EXP_DAYS) // assuming an environment variable with num days in it
-
-  return jwt.sign(
-    {
-      id: this._id,
-      username: this.username,
-      exp: parseInt(exp.getTime() / 1000),
-    },
-    process.env.JWT_SECRET
-  )
-}
-
-// return the user information without sensitive data
-userSchema.methods.toAuthJSON = function () {
-  return {
-    username: this.username,
-    token: this.generateJWT(),
-  }
-}
-
 // create a model from this schema
 const User = mongoose.model("User", userSchema)
 
