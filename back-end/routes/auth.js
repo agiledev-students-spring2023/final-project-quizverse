@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const router = express.Router();
@@ -13,6 +14,7 @@ const User = require('../schemas/user-schema.js'); // Import User model from use
 
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
+  const token = jwt.sign(User);
 });
 
 router.post('/register', async (req, res) => {
