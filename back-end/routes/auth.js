@@ -18,11 +18,20 @@ router.post('/login', async (req, res) => {
 
   try {
     const foundUser = await User.findOne({ username, password });
-
+    // Validate if user exist in our database
     if (foundUser) {
-      res
-        .cookie('meeple', 'beeple', { httpOnly: true }) //this doesn't send
-        .send({ status: 'success', message: 'Logged in successfully' });
+      // Create token
+      const token = jwt.sign({ user_id: foundUser._id, username }, process.env.JWT_SECRET, {
+        expiresIn: '2h'
+      });
+
+      // save user token
+      foundUser.token = token;
+      // user
+      res.status(200).json(foundUser);
+      // res
+      //   .cookie('meeple', 'beeple', { httpOnly: true }) //this doesn't send
+      //   .send({ status: 'success', message: 'Logged in successfully' });
     } else {
       res.status(401).send({ status: 'error', message: 'Invalid username or password' });
     }
@@ -62,11 +71,19 @@ router.post('/register', async (req, res) => {
       dailyquizHistory: []
     };
 
-    console.log('New user object:', newUser);
+    //console.log('New user object:', newUser);
 
     const createdUser = await User.create(newUser);
-    console.log('User created:', createdUser);
-    res.send({ status: 'success', message: 'User registered successfully' });
+    //console.log('User created:', createdUser);
+    // Create token
+    const token = jwt.sign({ user_id: createdUser._id, email }, process.env.JWT_SECRET);
+    // save user token
+    createdUser.token = token;
+    await createdUser.save();
+    // return new user
+    res.status(201).json(createdUser);
+    //console.log(createdUser);
+    //res.send({ status: 'success', message: 'User registered successfully' });
   } catch (err) {
     console.error('Error caught in catch block:', err);
     res.status(500).send('Internal server error');

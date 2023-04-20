@@ -23,7 +23,8 @@ const userSchema = new Schema({
   items: [inventorySchema],
   sets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FlashcardSet' }],
   history: [{ type: mongoose.Schema.Types.ObjectId, ref: 'History' }],
-  dailyquizHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: 'DailyQuizHistory' }]
+  dailyquizHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: 'DailyQuizHistory' }],
+  token: String
 });
 
 // hash the password before the user is saved
