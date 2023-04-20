@@ -22,7 +22,7 @@ router.post('/login', async (req, res) => {
     if (foundUser) {
       res
         .cookie('meeple', 'beeple', { httpOnly: true }) //this doesn't send
-        .send({ status: 'success', message: 'Logged in successfully', token });
+        .send({ status: 'success', message: 'Logged in successfully' });
     } else {
       res.status(401).send({ status: 'error', message: 'Invalid username or password' });
     }

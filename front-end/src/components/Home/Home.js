@@ -23,9 +23,10 @@ const Home = (props) => {
         // extract the data from the server response
         console.log('yay successful get');
         setData(response.data);
-        // setStreak(response.data[0].streak);
-        // setCoins(response.data[0].coins);
-        setUser(response.user.username);
+        setStreak(response.data[0].streak);
+        setCoins(response.data[0].coins);
+        setUser(response.data[0].first_name);
+        //setUser(response.user.username);
       })
       .catch((err) => {
         console.log(err);

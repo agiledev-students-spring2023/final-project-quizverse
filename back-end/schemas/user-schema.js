@@ -28,24 +28,24 @@ const userSchema = new Schema({
 
 // hash the password before the user is saved
 // mongoose provides hooks that allow us to run code before or after specific events
-userSchema.pre("save", function (next) {
-  const user = this
-  // if the password has not changed, no need to hash it
-  if (!user.isModified("password")) return next()
-  // otherwise, the password is being modified, so hash it
-  bcrypt.hash(user.password, 10, (err, hash) => {
-    if (err) return next(err)
-    user.password = hash // update the password to the hashed version
-    next()
-  })
-})
+// userSchema.pre("save", function (next) {
+//   const user = this
+//   // if the password has not changed, no need to hash it
+//   if (!user.isModified("password")) return next()
+//   // otherwise, the password is being modified, so hash it
+//   bcrypt.hash(user.password, 10, (err, hash) => {
+//     if (err) return next(err)
+//     user.password = hash // update the password to the hashed version
+//     next()
+//   })
+// })
 
 // mongoose allows us to attach methods to a model...
 
 // compare a given password with the database hash
-userSchema.methods.validPassword = function (password) {
-  return bcrypt.compareSync(password, this.password)
-}
+// userSchema.methods.validPassword = function (password) {
+//   return bcrypt.compareSync(password, this.password)
+// }
 
 // create a model from this schema
 const User = mongoose.model("User", userSchema)
