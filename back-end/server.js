@@ -8,7 +8,7 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const jwt = require("jsonwebtoken")
 
-
+const app = express(); // instantiate an Express object
 dotenv.config();
 
 const MONGO_USER = process.env.MONGO_USER;
@@ -28,7 +28,6 @@ const homeRouter = require('./routes/home');
 const itemsRouter = require('./routes/items');
 const shopRouter = require('./routes/shop');
 
-const app = express(); // instantiate an Express object
 const port = 3001; // the port to listen to for incoming requests
 const corsOptions = {
   origin: 'http://localhost:3000',
@@ -66,12 +65,6 @@ app.use(homeRouter);
 app.use(itemsRouter);
 app.use(shopRouter);
 app.use(cookieParser());
-// Passport middleware
-
-
-const jwtStrategy = require("./routes/jwt-config.js") // import setup options for using JWT in passport
-passport.use(jwtStrategy)
-app.use(passport.initialize());
 
 // call express's listen function to start listening to the port
 const listener = app.listen(port, function () {
