@@ -11,9 +11,13 @@ import { useNavigate } from 'react-router-dom';
 const Home = (props) => {
   const navigate = useNavigate();
   let token = 'Zappy!';
+  let parsed = "";
+  const [user, setUser] = useState('');
   useEffect(() => {
     try {
-      token = JSON.parse(localStorage.getItem('info')).token;
+      parsed = JSON.parse(localStorage.getItem('info'))
+      token = parsed.token;
+
     } catch {
       console.log('Oh noes!');
       navigate('/');
@@ -23,14 +27,14 @@ const Home = (props) => {
   const [data, setData] = useState([]); // eslint-disable-next-line
   const [streak, setStreak] = useState(0); // eslint-disable-next-line
   const [coins, setCoins] = useState(0);
-  const [user, setUser] = useState('');
+  
 
   // the following side-effect will be called once upon initial render
   useEffect(() => {
     // fetch some mock data about animals for sale
     axios
       .get('http://localhost:3001/home', {
-        headers: { 'jwt-token': token } // pass the token, if any, to the server
+        headers: { 'jwt-token': token, username: parsed.username} // pass the token, if any, to the server
       })
       .then((response) => {
         // extract the data from the server response
