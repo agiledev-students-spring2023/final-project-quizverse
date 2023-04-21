@@ -13,34 +13,30 @@ const jwtSecret = process.env.JWT_SECRET;
 // User schema
 const User = require('../schemas/user-schema.js'); // Import User model from user-schema.js
 
-function authenticateJWT(req, res, next) {
-  //console.log(`${JSON.stringify(req.cookies, null, 0)}`)
-  const token = req.cookies.token;
-  // console.log("Here's the token")
-  // console.log(token)
-  if (!token) {
-    return res.status(401).send({ status: 'error', message: 'Access denied. No token provided.' });
-  }
-
-  jwt.verify(token, jwtSecret, (err, decoded) => {
-    if (err) {
-      return res.status(401).send({ status: 'error', message: 'Invalid token.' });
-    }
-    req.user = decoded;
-    next();
-  });
-}
-
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
     const foundUser = await User.findOne({ username, password });
-
+    // Validate if user exist in our database
     if (foundUser) {
-      const token = foundUser.generateJWT()
-      console.log(token);
-      res.cookie('token', 'bar', { httpOnly: true }).send({ status: 'success', message: 'Logged in successfully', token });
+      // Create token
+      const token = jwt.sign({ user_id: foundUser._id, username }, process.env.JWT_SECRET, {
+        expiresIn: '2h'
+      });
+      const info = {
+        username: username,
+        token: token
+      };
+      // Save token within the user object
+      //foundUser.token = token;
+      // Sending the entire user object
+      //res.status(200).json(foundUser);
+      //Send just the token (and username for reference)
+      res.status(200).json(info);
+      // res
+      //   .cookie('meeple', 'beeple', { httpOnly: true }) //this doesn't send
+      //   .send({ status: 'success', message: 'Logged in successfully' });
     } else {
       res.status(401).send({ status: 'error', message: 'Invalid username or password' });
     }
@@ -73,26 +69,35 @@ router.post('/register', async (req, res) => {
       items: {
         item_id: 0,
         number_owned: 0,
-        expiration_date: Date.now(),
+        expiration_date: Date.now()
       },
       sets: [],
       history: [],
-      dailyquizHistory: [],
+      dailyquizHistory: []
     };
 
-    console.log('New user object:', newUser);
+    //console.log('New user object:', newUser);
 
-    const createdUser = await User.create(newUser);
-    console.log('User created:', createdUser);
+    //const createdUser = await User.create(newUser);
+    //console.log('User created:', createdUser);
+    // // Create token
+    // const token = jwt.sign({ user_id: createdUser._id, email }, process.env.JWT_SECRET);
+    // // save user token
+    // createdUser.token = token;
+    // await createdUser.save();
+    // // return new user
+    // res.status(201).json(createdUser);
+    // //Send just the token :o
+    //res.status(200).json(token);
+    //console.log(createdUser);
     res.send({ status: 'success', message: 'User registered successfully' });
-
   } catch (err) {
     console.error('Error caught in catch block:', err);
     res.status(500).send('Internal server error');
   }
 });
 
-router.post('/logout', authenticateJWT, (req, res) => {
+router.post('/logout', (req, res) => {
   res.send({ message: 'Logged out!' });
 });
 

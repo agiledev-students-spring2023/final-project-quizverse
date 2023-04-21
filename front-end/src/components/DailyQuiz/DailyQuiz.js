@@ -3,18 +3,29 @@ import styles from './DailyQuiz.module.css';
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 import Flashcard from './Flashcard/Flashcard';
-
+import { useNavigate } from 'react-router-dom';
 
 const DailyQuiz = (props) => {
-  
-  const [data, setData] = useState([{
-    "term":"",
-    "definition":""
-  }])
+  const navigate = useNavigate();
+  let token = 'Zappy!';
+  useEffect(() => {
+    try {
+      token = JSON.parse(localStorage.getItem('info')).token;
+    } catch {
+      console.log('Oh noes!');
+      navigate('/');
+    }
+  });
+  const [data, setData] = useState([
+    {
+      term: '',
+      definition: ''
+    }
+  ]);
   const [answer, setAnswer] = useState('');
   const [term, setTerm] = useState('');
-  const [definition, setDefinition] = useState('')
-  const [arrLength, setArrLength] = useState(0)
+  const [definition, setDefinition] = useState('');
+  const [arrLength, setArrLength] = useState(0);
   const [arrIndex, setArrIndex] = useState(0); // eslint-disable-next-line
   const [displayTerm, setDisplayTerm] = useState(false); // eslint-disable-next-line
   const [displayDefinition, setDisplayDefinition] = useState(true);
@@ -26,7 +37,7 @@ const DailyQuiz = (props) => {
     if (foundUser === term) {
       alert('Correct!');
       setCorrect([...correct, term]);
-      Next()
+      Next();
     } else {
       alert('Incorrect!');
       setIncorrect([...incorrect, term]);
@@ -36,7 +47,10 @@ const DailyQuiz = (props) => {
   useEffect(() => {
     // fetch some mock flashcards
     console.log('fetching 10 random flashcards...');
-    axios('http://localhost:3001/daily-quiz')
+    axios
+      .get('http://localhost:3001/daily-quiz', {
+        headers: { 'jwt-token': token } // pass the token, if any, to the server
+      })
       .then((response) => {
         // extract the data from the server response
         setData(response.data);
@@ -45,39 +59,40 @@ const DailyQuiz = (props) => {
         setArrLength(response.data.length);
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
+        navigate('/'); //kick back to landing
       });
   }, []);
   useEffect(() => {
     setTerm(data[arrIndex].term);
     setDefinition(data[arrIndex].definition); // eslint-disable-next-line
-  }, [arrIndex]);const Prev = () => {
-    setDisplayTerm(false)
-    if (arrIndex - 1< 0){
-      return
+  }, [arrIndex]);
+  const Prev = () => {
+    setDisplayTerm(false);
+    if (arrIndex - 1 < 0) {
+      return;
+    } else {
+      setArrIndex(arrIndex - 1);
     }
-    else{
-      setArrIndex(arrIndex-1)
-    }
-  }
+  };
 
-  ;const Next = () => {
-    setDisplayTerm(false)
-    if (arrIndex + 1>= arrLength){
-      alert(`Congratulations on finishing your Quiz! Score: ${correct.length} out of ${arrLength}`)
-      axios.post("http://localhost:3001/study-stats", {correct: correct, incorrect: incorrect})
-        .then(console.log("Success!"))
-        .catch((err) => console.log(err))
-      return
+  const Next = () => {
+    setDisplayTerm(false);
+    if (arrIndex + 1 >= arrLength) {
+      alert(`Congratulations on finishing your Quiz! Score: ${correct.length} out of ${arrLength}`);
+      axios
+        .post('http://localhost:3001/study-stats', { correct: correct, incorrect: incorrect })
+        .then(console.log('Success!'))
+        .catch((err) => console.log(err));
+      return;
+    } else {
+      setArrIndex(arrIndex + 1);
     }
-    else{
-      setArrIndex(arrIndex+1)
-    }
-  }
+  };
 
-  ;const showAnswer = () => {
-    setDisplayTerm(true)
-  }
+  const showAnswer = () => {
+    setDisplayTerm(true);
+  };
 
   return (
     <>
