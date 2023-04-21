@@ -2,12 +2,9 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const passport = require("passport")
-// require('./passport')(passport)
-const jwt = require('jwt-simple');
+const jwt_auth = require('./jwt');
 
-
-router.get('/daily-quiz', passport.authenticate("jwt", { session: false }), (req, res, next) => {
+router.get('/daily-quiz', jwt_auth, (req, res, next) => {
   // use axios to make a request to an API for flashcard data in the daily quiz
   user = req.query.user;
   //Do something with a database lookup with user. For now, this is still just calling Mockaroo.
@@ -15,7 +12,7 @@ router.get('/daily-quiz', passport.authenticate("jwt", { session: false }), (req
     .get('https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0')
     .then((apiResponse) => res.json(apiResponse.data)) // pass data along directly to client
     .catch((err) => {
-       // the server returned an error... probably too many requests... until we pay!
+      // the server returned an error... probably too many requests... until we pay!
 
       // make some backup fake data
       const backupData = [

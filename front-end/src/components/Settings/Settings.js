@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Settings.css';
@@ -9,9 +9,18 @@ import './Settings.css';
  * @returns The contents of this component, in JSX form.
  */
 const Settings = (props) => {
+  const navigate = useNavigate();
+  let token = 'Zappy!';
+  useEffect(() => {
+    try {
+      token = JSON.parse(localStorage.getItem('info')).token;
+    } catch {
+      console.log('Oh noes!');
+      navigate('/');
+    }
+  });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
   const changeEmail = (event) => {
     event.preventDefault();
     alert('Email changed! Your email is now set to ' + email + '!');
@@ -74,6 +83,7 @@ const Settings = (props) => {
       // post new message to server
       .post('http://localhost:3001/logout', {})
       .then((response) => {
+        localStorage.removeItem('info');
         console.log('Logout Successful!');
         return 'Logout Successful!';
       })

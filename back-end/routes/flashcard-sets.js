@@ -3,8 +3,9 @@ const express = require('express');
 const axios = require('axios');
 const FlashcardSet = require('../schemas/flashcard-set-schema');
 const router = express.Router();
+const jwt_auth = require('./jwt');
 
-router.get('/search/:searchTerm', (req, res) => {
+router.get('/search/:searchTerm', jwt_auth, (req, res) => {
   const searchTerm = req.params.searchTerm;
   axios
     .get(`https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0`)
@@ -43,7 +44,7 @@ router.get('/search/:searchTerm', (req, res) => {
     });
 });
 
-router.get('/flashcard-sets', (req, res) => {
+router.get('/flashcard-sets', jwt_auth, (req, res) => {
   FlashcardSet.find({})
     .then((setsFromMongo) => {
       const flashcardSets = [];
@@ -61,7 +62,7 @@ router.get('/flashcard-sets', (req, res) => {
     });
 });
 
-router.get('/flashcard-set/:id', (req, res) => {
+router.get('/flashcard-set/:id', jwt_auth, (req, res) => {
   const id = req.params.id;
   if (!id) {
     res.status(400).send({ message: 'missing set id' });
@@ -77,7 +78,7 @@ router.get('/flashcard-set/:id', (req, res) => {
       console.error(err);
     });
 });
-router.get('/flashcards', (req, res) => {
+router.get('/flashcards', jwt_auth, (req, res) => {
   axios
     .get(`https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0`)
     .then((apiResponse) => {

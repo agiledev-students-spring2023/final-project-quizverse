@@ -2,19 +2,17 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const passport = require("passport")
+const jwt_auth = require('./jwt');
 
 ///foo?foo=${foo}&baz=${baz}
-router.get('/home', 
-passport.authenticate("jwt", { session: false }), 
-(req, res, next) => {
+router.get('/home', jwt_auth, (req, res, next) => {
   // use axios to make a request to an API for flashcard data in the daily quiz
   axios('https://my.api.mockaroo.com/users.json?key=6b3bc3e0')
     .then((apiResponse) => res.json(apiResponse.data))
     .catch((err) => {
       // Mockaroo, which we're using for our Mock API, only allows 200 requests per day on the free plan
-      console.log(`Sorry, buster.  No more requests allowed today!`);
-     // the server returned an error... probably too many requests... until we pay!
+      //console.log(`Sorry, buster.  No more requests allowed today!`);
+      // the server returned an error... probably too many requests... until we pay!
 
       // make some backup fake data
       const backupData = [

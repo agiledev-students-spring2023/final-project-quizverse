@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -33,6 +33,15 @@ function Copyright() {
 
 export default function Shop() {
   const navigate = useNavigate();
+  let token = 'Zappy!';
+  useEffect(() => {
+    try {
+      token = JSON.parse(localStorage.getItem('info')).token;
+    } catch {
+      console.log('Oh noes!');
+      navigate('/');
+    }
+  });
   function linkItems() {
     navigate('/items');
   }

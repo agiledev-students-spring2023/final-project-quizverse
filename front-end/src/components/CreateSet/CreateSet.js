@@ -1,5 +1,5 @@
 import { TextField, FormControl, Button, Container } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,15 @@ import axios from 'axios';
 
 const CreateSet = (props) => {
   const navigate = useNavigate();
+  let token = 'Zappy!';
+  useEffect(() => {
+    try {
+      token = JSON.parse(localStorage.getItem('info')).token;
+    } catch {
+      console.log('Oh noes!');
+      navigate('/');
+    }
+  });
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [cards, setCards] = useState([
