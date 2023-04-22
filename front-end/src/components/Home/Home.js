@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './Home.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { responsiveFontSizes } from '@mui/material';
 /**
  * A React component that represents the Home page of the app.
  * @param {*} param0 an object holding any props passed to this component from its parent component
@@ -19,7 +20,8 @@ const Home = (props) => {
       token = parsed.token;
 
     } catch {
-      console.log('Oh noes!');
+      alert("Please log in.")
+      console.log('Not logged in.');
       navigate('/');
     }
   });
@@ -38,16 +40,21 @@ const Home = (props) => {
       })
       .then((response) => {
         // extract the data from the server response
-        console.log('yay successful get');
+        if (response.data === null || response.data.streak===null || response.data.coins === null || response.data.username === null){
+          alert("Incorrect credentials. Returning to login screen.")
+          navigate('/');
+        }
+        
         setData(response.data);
-        setStreak(response.data[0].streak);
-        setCoins(response.data[0].coins);
-        setUser(response.data[0].first_name);
+        setStreak(response.data.streak);
+        setCoins(response.data.coins);
+        setUser(response.data.username);
         console.log(token);
-        //setUser(response.user.username);
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.status);
+        alert("Incorrect credentials. Returning to login screen.")
         navigate('/');
       });
     // eslint-disable-next-line
