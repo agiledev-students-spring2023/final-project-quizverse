@@ -23,9 +23,14 @@ const theme = createTheme();
 
 function Items() {
   let token = 'Zappy!';
+  let parsed = "";
+  const [user, setUser] = useState('');
+  let username = "";
   useEffect(() => {
     try {
-      token = JSON.parse(localStorage.getItem('info')).token;
+      parsed = JSON.parse(localStorage.getItem('info'))
+      token = parsed.token;
+      username = parsed.username
     } catch {
       alert("Please log in.")
       console.log('Not logged in.');
@@ -49,7 +54,7 @@ function Items() {
     console.log('fetching 10 items...');
     axios
       .get('http://localhost:3001/your-items', {
-        headers: { 'jwt-token': token } // pass the token, if any, to the server
+        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
       })
       .then((response) => {
         // extract the data from the server response

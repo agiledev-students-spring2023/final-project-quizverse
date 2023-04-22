@@ -1,25 +1,29 @@
 const express = require('express');
 const axios = require('axios');
-const FlashcardSet = require('../schemas/flashcard-set-schema');
+const {FlashcardSet, Flashcard} = require('../schemas/flashcard-set-schema');
 const User = require('../schemas/user-schema');
 
 const router = express.Router();
 router.post('/create-set', (req, res) => {
   const { title, description, cards } = req.body.info;
   // const user_id = req.body.user;
+  const newFlashcard = new Flashcard({
+    term: "term",
+    definition: "definition"
+  })
   const newSet = new FlashcardSet({
-    title,
-    description,
+    title: "title2",
+    description: "descr2",
     createdBy: 'John',
-    flashcards: cards,
+    flashcards: newFlashcard,
     createdAt: new Date(),
     editedAt: new Date()
   });
 
-  console.log(newSet);
+  // console.log(newSet);
 
   newSet.save().then((err, set) => {
-    if (err) {
+    if (!err===null) {
       console.log(err);
       res.status(500).send({ message: 'error' });
     } else {
