@@ -15,7 +15,7 @@ const flashcardSetSchema = new Schema({
     required: true,
     unique: false,
     trim: true,
-    minlength: 5,
+    minlength: 0,
     maxlength: 50
   },
   createdBy: { type: String, required: true },

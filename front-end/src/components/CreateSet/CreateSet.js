@@ -29,7 +29,7 @@ const CreateSet = (props) => {
   const [cards, setCards] = useState([
     {
       term: '',
-      definiion: ''
+      definition: ''
     }
   ]);
   function handleChange(evt) {
@@ -76,7 +76,8 @@ const CreateSet = (props) => {
     ).then((response) => {
       console.log('Data successfully sent!');
       alert('Your set has been saved!');
-      navigate('/flashcards');
+      //navigate('/flashcards');
+      /*TEMPORARILY COMMENTED OUT, PLEASE ADD BACK LATER*/
     });
   }
 
