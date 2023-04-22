@@ -21,9 +21,7 @@ router.post('/login', async (req, res) => {
     // Validate if user exist in our database
     if (foundUser) {
       // Create token
-      const token = jwt.sign({ user_id: foundUser._id, username }, process.env.JWT_SECRET, {
-        expiresIn: '2h'
-      });
+      const token = jwt.sign({ user_id: foundUser._id, username }, process.env.JWT_SECRET);
       const info = {
         username: username,
         token: token
