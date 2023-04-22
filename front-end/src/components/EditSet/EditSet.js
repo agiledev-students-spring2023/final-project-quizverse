@@ -10,9 +10,14 @@ import axios from 'axios';
 const EditSet = (props) => {
   const navigate = useNavigate();
   let token = 'Zappy!';
+  let parsed = "";
+  const [user, setUser] = useState('');
+  let username = "";
   useEffect(() => {
     try {
-      token = JSON.parse(localStorage.getItem('info')).token;
+      parsed = JSON.parse(localStorage.getItem('info'))
+      token = parsed.token;
+      username = parsed.username
     } catch {
       alert("Please log in.")
       console.log('Not logged in.');
@@ -32,7 +37,9 @@ const EditSet = (props) => {
   ]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/flashcard-set/${id}`).then((response) => {
+    axios.get(`http://localhost:3001/flashcard-set/${id}`, {
+      headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+    }).then((response) => {
       const data = response.data;
       setTitle(data.title);
       setDescription(data.description);

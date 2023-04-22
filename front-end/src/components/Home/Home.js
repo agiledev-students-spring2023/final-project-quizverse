@@ -14,11 +14,12 @@ const Home = (props) => {
   let token = 'Zappy!';
   let parsed = "";
   const [user, setUser] = useState('');
+  let username = "";
   useEffect(() => {
     try {
       parsed = JSON.parse(localStorage.getItem('info'))
       token = parsed.token;
-
+      username = parsed.username
     } catch {
       alert("Please log in.")
       console.log('Not logged in.');
@@ -36,7 +37,7 @@ const Home = (props) => {
     // fetch some mock data about animals for sale
     axios
       .get('http://localhost:3001/home', {
-        headers: { 'jwt-token': token, username: parsed.username} // pass the token, if any, to the server
+        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
       })
       .then((response) => {
         // extract the data from the server response

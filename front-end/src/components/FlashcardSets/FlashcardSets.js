@@ -8,9 +8,14 @@ import { useNavigate } from 'react-router-dom';
 function FlashcardSets() {
   const navigate = useNavigate();
   let token = 'Zappy!';
+  let parsed = "";
+  const [user, setUser] = useState('');
+  let username = "";
   useEffect(() => {
     try {
-      token = JSON.parse(localStorage.getItem('info')).token;
+      parsed = JSON.parse(localStorage.getItem('info'))
+      token = parsed.token;
+      username = parsed.username
     } catch {
       alert("Please log in.")
       console.log('Not logged in.');
@@ -28,7 +33,9 @@ function FlashcardSets() {
     // fetch some mock sets
     // make this a backend request!
     //set name and description
-    axios('http://localhost:3001/flashcard-sets')
+    axios('http://localhost:3001/flashcard-sets', {
+      headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+    })
       .then((response) => {
         // extract the data from the server response
         setData(response.data);
