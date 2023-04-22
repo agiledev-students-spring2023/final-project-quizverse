@@ -40,7 +40,7 @@ const Home = (props) => {
       })
       .then((response) => {
         // extract the data from the server response
-        if (response.data === null || response.data.streak===null || response.data.coins === null || response.data.username === null){
+        if (response.data === null || response.data.streak==null || response.data.coins == null || response.data.username == null){
           alert("Incorrect credentials. Returning to login screen.")
           navigate('/');
         }
