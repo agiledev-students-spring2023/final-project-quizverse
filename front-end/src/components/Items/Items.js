@@ -27,7 +27,8 @@ function Items() {
     try {
       token = JSON.parse(localStorage.getItem('info')).token;
     } catch {
-      console.log('Oh noes!');
+      alert("Please log in.")
+      console.log('Not logged in.');
       navigate('/');
     }
   });
