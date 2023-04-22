@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -34,9 +34,14 @@ function Copyright() {
 export default function Shop() {
   const navigate = useNavigate();
   let token = 'Zappy!';
+  let parsed = "";
+  const [user, setUser] = useState('');
+  let username = "";
   useEffect(() => {
     try {
-      token = JSON.parse(localStorage.getItem('info')).token;
+      parsed = JSON.parse(localStorage.getItem('info'))
+      token = parsed.token;
+      username = parsed.username
     } catch {
       alert("Please log in.")
       console.log('Not logged in.');
@@ -52,7 +57,9 @@ export default function Shop() {
   function purchase(itemName) {
     axios
       // post new message to server
-      .post('http://localhost:3001/shop', {})
+      .post('http://localhost:3001/shop', {
+        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+      }, {})
       .then((response) => {
         console.log(`${itemName} purchased!`);
         return 'Logout Successful!';

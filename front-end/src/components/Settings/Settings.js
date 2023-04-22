@@ -11,9 +11,14 @@ import './Settings.css';
 const Settings = (props) => {
   const navigate = useNavigate();
   let token = 'Zappy!';
+  let parsed = "";
+  const [user, setUser] = useState('');
+  let username = "";
   useEffect(() => {
     try {
-      token = JSON.parse(localStorage.getItem('info')).token;
+      parsed = JSON.parse(localStorage.getItem('info'))
+      token = parsed.token;
+      username = parsed.username
     } catch {
       alert("Please log in.")
       console.log('Not logged in.');
@@ -27,7 +32,9 @@ const Settings = (props) => {
     alert('Email changed! Your email is now set to ' + email + '!');
     axios
       // post new message to server
-      .post('http://localhost:3001/settings-email', { email: email })
+      .post('http://localhost:3001/settings-email', {
+        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+      }, { email: email })
       .then((response) => {
         console.log('Email updated!');
         return 'Email updated!';
@@ -43,7 +50,9 @@ const Settings = (props) => {
     alert('Password changed! Your new password is now set.');
     axios
       // post new message to server
-      .post('http://localhost:3001/settings-password', { password: password })
+      .post('http://localhost:3001/settings-password', {
+        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+      }, { password: password })
       .then((response) => {
         console.log('Password updated!');
         return 'Password updated!';
@@ -63,7 +72,9 @@ const Settings = (props) => {
       alert('Your account has been deleted!');
       axios
         // post new message to server
-        .post('http://localhost:3001/delete', {})
+        .post('http://localhost:3001/delete', {
+          headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+        }, {})
         .then((response) => {
           console.log('Deletion Successful!');
           return 'Deletion Successful!';
@@ -82,7 +93,9 @@ const Settings = (props) => {
     alert('Thanks for using QuizVerse! See you again soon!');
     axios
       // post new message to server
-      .post('http://localhost:3001/logout', {})
+      .post('http://localhost:3001/logout', {
+        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+      }, {})
       .then((response) => {
         localStorage.removeItem('info');
         console.log('Logout Successful!');

@@ -8,9 +8,14 @@ import { useNavigate } from 'react-router-dom';
 const DailyQuiz = (props) => {
   const navigate = useNavigate();
   let token = 'Zappy!';
+  let parsed = "";
+  const [user, setUser] = useState('');
+  let username = "";
   useEffect(() => {
     try {
-      token = JSON.parse(localStorage.getItem('info')).token;
+      parsed = JSON.parse(localStorage.getItem('info'))
+      token = parsed.token;
+      username = parsed.username
     } catch {
       alert("Please log in.")
       console.log('Not logged in.');
@@ -50,7 +55,7 @@ const DailyQuiz = (props) => {
     console.log('fetching 10 random flashcards...');
     axios
       .get('http://localhost:3001/daily-quiz', {
-        headers: { 'jwt-token': token } // pass the token, if any, to the server
+        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
       })
       .then((response) => {
         // extract the data from the server response
@@ -82,7 +87,9 @@ const DailyQuiz = (props) => {
     if (arrIndex + 1 >= arrLength) {
       alert(`Congratulations on finishing your Quiz! Score: ${correct.length} out of ${arrLength}`);
       axios
-        .post('http://localhost:3001/study-stats', { correct: correct, incorrect: incorrect })
+        .post('http://localhost:3001/study-stats', {
+          headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+        },  { correct: correct, incorrect: incorrect })
         .then(console.log('Success!'))
         .catch((err) => console.log(err));
       return;

@@ -14,7 +14,7 @@ const inventorySchema = new Schema({
 
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true, trim: true },
-  email: { type: String, required: true, unique: true, trim: true },
+  email: { type: String, required: true, unique: false, trim: true },
   password: { type: String, required: true },
   createdAt: { type: Date, default: () => Date.now(), immutable: true },
   streak: { type: Number, default: 0 },

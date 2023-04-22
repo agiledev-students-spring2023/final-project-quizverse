@@ -9,13 +9,13 @@ const flashcardSchema = mongoose.Schema({
 
 // TODO: Need to make createdBy a reference to the User schema
 const flashcardSetSchema = new Schema({
-  title: { type: String, required: true, unique: true, trim: true, minlength: 3, maxlength: 20 },
+  title: { type: String, required: true, unique: false, trim: true, minlength: 3, maxlength: 20 },
   description: {
     type: String,
     required: true,
-    unique: true,
+    unique: false,
     trim: true,
-    minlength: 5,
+    minlength: 0,
     maxlength: 50
   },
   createdBy: { type: String, required: true },
@@ -24,4 +24,10 @@ const flashcardSetSchema = new Schema({
   flashcards: [flashcardSchema]
 });
 
-module.exports = mongoose.model('FlashcardSet', flashcardSetSchema);
+const FlashcardSet = mongoose.model('FlashcardSet', flashcardSetSchema)
+const Flashcard = mongoose.model('Flashcard', flashcardSchema)
+
+module.exports = {
+  FlashcardSet: FlashcardSet,
+  Flashcard: Flashcard
+};
