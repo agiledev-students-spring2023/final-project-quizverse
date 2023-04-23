@@ -15,7 +15,8 @@ router.post('/create-set', async (req, res) => {
     flashcards: cards.map((card) => {
       return new Flashcard({
         term: card.term,
-        definition: card.definition
+        definition: card.definition,
+        lastTouched: Date.now()
       });
     }),
     createdAt: new Date(),

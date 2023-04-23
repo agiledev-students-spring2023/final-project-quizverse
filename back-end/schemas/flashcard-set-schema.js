@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 const flashcardSchema = mongoose.Schema({
   term: { type: String, required: true },
-  definition: { type: String, required: true }
+  definition: { type: String, required: true },
+  lastTouched: {type: Date, default: () => Date.now()}
 });
 
 // TODO: Need to make createdBy a reference to the User schema
