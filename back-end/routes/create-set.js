@@ -40,6 +40,7 @@ router.post('/create-set', async (req, res) => {
       ).then((u) => {
         console.log('updated user', u);
       });
+      res.status(200).send({ message: 'success' });
     });
   } catch (err) {}
   
