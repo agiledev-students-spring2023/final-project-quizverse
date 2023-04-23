@@ -1,13 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const answerSchema = new Schema({
-  term: String,
-  right: Number,
-  wrong: Number,
-  percent_correct: Number,
-  set_id: { type: mongoose.Schema.Types.ObjectId, ref: 'FlashcardSet' }
-});
+
+/*
+* @1019jchen: I consolidated the answerSchema and history schemas to be the same thing.
+*/
+// const answerSchema = new Schema({
+//   term: String,
+//   right: Number,
+//   wrong: Number,
+//   percent_correct: Number,
+//   set_id: { type: mongoose.Schema.Types.ObjectId, ref: 'FlashcardSet' }
+// });
 
 // for team debate:
 /* 
@@ -19,8 +23,13 @@ const answerSchema = new Schema({
 */
 
 const historySchema = new Schema({
-  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  answers: [answerSchema]
+  // user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  // answers: [answerSchema]
+  term: String,
+  right: Number,
+  wrong: Number,
+  percent_correct: Number,
+  set_id: { type: mongoose.Schema.Types.ObjectId, ref: 'FlashcardSet' }
 });
 
 module.exports = mongoose.model('History', historySchema);

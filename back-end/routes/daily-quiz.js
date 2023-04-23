@@ -6,6 +6,7 @@ const jwt_auth = require('./jwt');
 const {FlashcardSet, Flashcard} = require('../schemas/flashcard-set-schema');
 const User = require('../schemas/user-schema');
 const DailyQuizHistory = require('../schemas/dailyquizHistory-schema');
+const History = require('../schemas/history-schema');
 const _ = require('underscore');
 
 router.get('/daily-quiz', jwt_auth, async (req, res, next) => {
@@ -134,6 +135,76 @@ router.post('/study-stats', async (req, res) => {
         console.log(`updated user: ${u}`);
       })
   })
+  /*
+  * Now dealing with history schema. THIS DOES NOT WORK. Not sure how to fix this.
+  */
+  User.findOne({username: req.headers.username}).then((u)=>{
+    let history = u.history
+    let found = false
+    answers.map((answer)=>{
+    //   for (i=0; i<history.length; i++){
+    //     if (history[i].term === answer.term){
+    //       //Case where the term is already in the history, and we got it correct
+    //       if (answer.correctness){
+    //         let newHistory = history
+    //         newHistory[i] = {
+    //           term: history[i].term,
+    //           right: history[i].right + 1,
+    //           wrong: history[i].wrong,
+    //           percent_correct: (history[i].right+1)/(history[i].right+history[i].wrong+1),
+    //           set_id: history[i].set_id
+    //         }
+    //         User.findOneAndUpdate({username:req.headers.username},
+    //           {history: newHistory},
+    //           {new:true}).then((us)=>{
+    //             console.log(us)
+    //           })
+    //         found = true
+    //       }
+    //       //Case where the term is already in the history, and we got it incorrect
+    //       else{
+    //         let newHistory = history
+    //         newHistory[i] = {
+    //           term: history[i].term,
+    //           right: history[i].right,
+    //           wrong: history[i].wrong+1,
+    //           percent_correct: history[i].right/(history[i].right+history[i].wrong+1),
+    //           set_id: history[i].set_id
+    //         }
+    //         User.findOneAndUpdate({username:req.headers.username},
+    //           {history: newHistory},
+    //           {new:true}).then((us)=>{
+    //             console.log(us)
+    //           })
+    //         found = true
+    //       }
+    //       break
+    //     }
+    //   }
+      //Case where this word needs to be added to the history
+      // if (!found){
+      //   let newHistory = []
+      //   // if (newHistory == undefined){
+      //   //   newHistory = []
+      //   // }
+      //   newHistory = [...newHistory, {
+      //     term: answer.term,
+      //     right: (answer.correctness ? 1 : 0),
+      //     wrong: (answer.correctness ? 0 : 1),
+      //     percent_correct: (answer.correctness? 1: 0),
+      //     set_id: answer.set_id
+      //   }]
+      //   User.findOneAndUpdate({username:req.headers.username},
+      //     {history: newHistory},
+      //     {new:true}).then((us)=>{
+      //       // console.log(us)
+      //   })
+
+      // }
+
+    })
+  })
+
 
   /*
   * Dealing with the dailyquizHistory-schema first
