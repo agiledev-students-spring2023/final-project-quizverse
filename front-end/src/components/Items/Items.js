@@ -51,16 +51,14 @@ function Items() {
   const [arrIndex, setArrIndex] = useState(0);
   useEffect(() => {
     // fetch some items
-    console.log('fetching 10 items...');
     axios
       .get('http://localhost:3001/your-items', {
         headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
       })
       .then((response) => {
         // extract the data from the server response
+        console.log(response.data)
         setData(response.data);
-        setTerm(response.data[0].term);
-        setDefinition(response.data[0].definition);
         setArrLength(response.data.length);
       })
       .catch((err) => {
@@ -111,9 +109,9 @@ function Items() {
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      {card.term}
+                      {card.item}
                     </Typography>
-                    <Typography>{card.definition} Cost: 50 coins.</Typography>
+                    <Typography>{card.desc}</Typography>
                   </CardContent>
                   <CardActions>
                     <Button size="small">Use</Button>
