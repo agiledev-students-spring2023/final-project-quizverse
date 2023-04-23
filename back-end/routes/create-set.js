@@ -22,20 +22,27 @@ router.post('/create-set', async (req, res) => {
     editedAt: new Date()
   });
   console.log(newSet); //debugging purposes
-  newSet.save().then((err, set) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send({ message: 'error' });
-    } else {
-      try {
-        User.updateOne({ username }, { $push: { flashcards: set._id } });
-        res.status(200).send({ message: 'success' });
-      } catch (err) {
-        console.log('error when updating user set list' + err);
-        res.status(500).send({ message: 'error' });
-      }
-    }
-  });
+  try {
+    newSet.save();
+  } catch (err) {
+    console.log('error when saving new set' + err);
+    res.status(500).send({ message: 'error' });
+  }
+
+  try {
+    User.findOne({ username: req.headers.username }).then((u) => {
+      existingSets = u.sets;
+      existingSetsPlusNew = [...existingSets, newSet];
+      User.findOneAndUpdate(
+        { username: req.headers.username },
+        { sets: existingSetsPlusNew },
+        { new: true }
+      ).then((u) => {
+        console.log('updated user', u);
+      });
+    });
+  } catch (err) {}
+  
 });
 
 module.exports = router;

@@ -9,16 +9,13 @@ const flashcardSchema = mongoose.Schema({
 
 // TODO: Need to make createdBy a reference to the User schema
 const flashcardSetSchema = new Schema({
-  title: { type: String, required: true, unique: false, trim: true, minlength: 3, maxlength: 20 },
+  title: { type: String, required: true, unique: false },
   description: {
     type: String,
     required: true,
-    unique: false,
-    trim: true,
-    minlength: 0,
-    maxlength: 50
+    unique: false
   },
-  createdBy: { type: String, required: true },
+  createdBy: { type: String, required: true }, // username of the author
   createdAt: { type: Date, default: () => Date.now(), immutable: true },
   editedAt: { type: Date, default: () => Date.now() },
   flashcards: [flashcardSchema]
