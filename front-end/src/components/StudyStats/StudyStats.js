@@ -32,11 +32,11 @@ const StudyStats = (props) => {
   return (
     <>
       <main>
-        <div className="logo-container">
-          <img src={process.env.PUBLIC_URL + '/QuizVerseLogo.png'} alt="QuizVerse" />
+      <div className="logo-container">
+          <img src="http://localhost:3001/static/images/QuizVerseLogo.png" alt="QuizVerse" />
         </div>
         <div>
-          <h1>StudyStats</h1>
+          <h1>Study Stats</h1>
         </div>
         <div className="settings-buttons-container">
           <button className="study-stats-button">Most Commonly Missed 1: {data1}</button>
