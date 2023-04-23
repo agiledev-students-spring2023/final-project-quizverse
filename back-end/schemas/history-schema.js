@@ -19,7 +19,7 @@ const answerSchema = new Schema({
 */
 
 const historySchema = new Schema({
-  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  username: { type: String, required: true },
   answers: [answerSchema]
 });
 
