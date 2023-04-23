@@ -14,25 +14,49 @@ router.post('/shop', (req, res) => {
   //   message: 'Congratulations on buying this item!',
   //   your_data: {}
   // };
-  try {
-    const filter = { username: 'Anna' };
-    const update = { items: { item_id: 1, number_owned: 1 } };
-    // //prettier-ignore
-    // const update = { items: { item_id: 1, $inc: { 'number_owned': 1 } } };
-    const user = User.findOneAndUpdate(filter, update, {
-      new: true
-    })
-      .then((user) => {
-        console.log(`saved ${user}`); //printing the user object
+//   try {
+//     const filter = { username: 'Anna' };
+//     const update = { items: { item_id: 1, number_owned: 1 } };
+//     // //prettier-ignore
+//     // const update = { items: { item_id: 1, $inc: { 'number_owned': 1 } } };
+//     const user = User.findOneAndUpdate(filter, update, {
+//       new: true
+//     })
+//       .then((user) => {
+//         console.log(`saved ${user}`); //printing the user object
+//       })
+//       .catch((err) => {
+//         console.log(`Failure: ${err}`);
+//       });
+//   } catch (e) {
+//     console.log(e.message);
+//   }
+//   // ... then send a response of some kind to client
+//   res.status(200);
+  const username = req.headers.username;
+  const item_id = req.headers.item;
+  User.findOne({ username: req.headers.username }).then((u) => {
+    if('items' in u && u.items.includes(item_id)){
+      res.status(201).send({ message: 'Already owned' });
+    }
+    else{
+      let newItems = []
+      if ('items' in u){
+        newItems = [...u.items, item_id]
+      }
+      else{
+        newItems = [item_id]
+      }
+      
+      User.findOneAndUpdate({username:req.headers.username},
+        {items: newItems},
+        { new: true }).
+        then((u)=>{
+        console.log(u);
+        res.status(200).send({ message: 'success' });
       })
-      .catch((err) => {
-        console.log(`Failure: ${err}`);
-      });
-  } catch (e) {
-    console.log(e.message);
-  }
-  // ... then send a response of some kind to client
-  res.json({ item: 'monkey' });
+    }
+  })
 });
 
 module.exports = router;

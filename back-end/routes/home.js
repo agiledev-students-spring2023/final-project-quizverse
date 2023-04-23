@@ -14,9 +14,6 @@ router.get('/home', jwt_auth, async (req, res, next) => {
   then(
     u => {              
       // if (!u.username ==null&& !u.streak==null && !u.coins==null){
-    console.log(u.username);
-    console.log(u.streak);
-    console.log(u.coins);
     const data = {
       username: u.username,
       streak: u.streak,

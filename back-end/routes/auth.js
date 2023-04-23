@@ -64,11 +64,7 @@ router.post('/register', async (req, res) => {
       password,
       streak: 0,
       coins: 0,
-      items: {
-        item_id: 0,
-        number_owned: 0,
-        expiration_date: Date.now()
-      },
+      items: [],
       sets: [],
       history: [],
       dailyquizHistory: []
@@ -76,18 +72,17 @@ router.post('/register', async (req, res) => {
 
     //console.log('New user object:', newUser);
 
-    //const createdUser = await User.create(newUser);
-    //console.log('User created:', createdUser);
-    // // Create token
-    // const token = jwt.sign({ user_id: createdUser._id, email }, process.env.JWT_SECRET);
-    // // save user token
-    // createdUser.token = token;
-    // await createdUser.save();
-    // // return new user
-    // res.status(201).json(createdUser);
-    // //Send just the token :o
-    //res.status(200).json(token);
-    //console.log(createdUser);
+    const createdUser = await User.create(newUser);
+    console.log('User created:', createdUser);
+    // Create token
+    const token = jwt.sign({ user_id: createdUser._id, email }, process.env.JWT_SECRET);
+    // save user token
+    createdUser.token = token;
+    await createdUser.save();
+    // return new user
+    //Send just the token :o
+    res.status(200).json(token);
+    console.log(createdUser);
     res.send({ status: 'success', message: 'User registered successfully' });
   } catch (err) {
     console.error('Error caught in catch block:', err);

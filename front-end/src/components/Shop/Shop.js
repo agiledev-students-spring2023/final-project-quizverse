@@ -29,7 +29,6 @@ function Copyright() {
   );
 }
 
-//const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Shop() {
   const navigate = useNavigate();
@@ -54,19 +53,25 @@ export default function Shop() {
   function linkStudy() {
     navigate('/daily-quiz');
   }
-  function purchase(itemName) {
-    axios
-      // post new message to server
-      .post('http://localhost:3001/shop', {
-        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
-      }, {})
+  function purchase(itemNum) {
+    axios({
+      method: 'POST',
+      withCredentials: true,
+      headers: { 'jwt-token': token, username: parsed.username, item:itemNum},
+      url: 'http://localhost:3001/shop'
+    }
+    )
       .then((response) => {
-        console.log(`${itemName} purchased!`);
-        return 'Logout Successful!';
+        console.log(response)
+        if (response.status===200){
+          alert(`Item purchased!`);
+        }
+        if (response.status===201){
+          alert('You already own this item');
+        }
       })
       .catch((err) => {
         console.log('Purchase fail!');
-        return 'Oh noes big error!';
       });
   }
   return (
@@ -124,7 +129,7 @@ export default function Shop() {
                     <Typography>Double your coins when studying. Cost: 50 coins.</Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">Buy</Button>
+                    <Button size="small" onClick={() => purchase(1)}>Buy</Button>
                   </CardActions>
                 </Card>
               </Grid>
@@ -149,7 +154,7 @@ export default function Shop() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">Buy</Button>
+                    <Button size="small" onClick={() => purchase(2)}>Buy</Button>
                   </CardActions>
                 </Card>
               </Grid>
@@ -174,7 +179,7 @@ export default function Shop() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" onClick={() => purchase('Streak Freeze')}>
+                    <Button size="small" onClick={() => purchase(3)}>
                       Buy
                     </Button>
                   </CardActions>
