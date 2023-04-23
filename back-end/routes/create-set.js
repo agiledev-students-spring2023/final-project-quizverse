@@ -38,18 +38,13 @@ router.post('/create-set', async (req, res) => {
     });
   })
 
-  res.status(200).send({message: 'success'});
   //console.log(newSet); //debugging purposes
 
-  // newSet.save().then((err, set) => {
-  //   if (!err===null) {
-  //     console.log(err);
-  //     res.status(500).send({ message: 'error' });
-  //   } else {
-  //     res.status(200).send({ message: 'success' });
-  //   }
-  //   // add the new set to the list of sets the user created
-  // });
+  newSet.save().then((set) => {
+      console.log(set);
+      res.status(200).send({ message: 'success' });
+    // add the new set to the list of sets the user created
+  });
 });
 
 
