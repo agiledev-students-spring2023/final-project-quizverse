@@ -21,10 +21,10 @@ function Flashcard(props) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick = {props.handlePrev}>Previous Card</Button>
+          <Button size="small" onClick = {props.handlePrev}>Return to Previous Term</Button>
         </CardActions>
         <CardActions>
-          <Button size="small" onClick = {props.handleNext}>Next Card</Button>
+          <Button size="small" onClick = {props.handleNext}>Skip this Term</Button>
         </CardActions>
         </Card>
         </div>

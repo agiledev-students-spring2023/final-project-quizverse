@@ -5,6 +5,7 @@ const router = express.Router();
 const jwt_auth = require('./jwt');
 const {FlashcardSet, Flashcard} = require('../schemas/flashcard-set-schema');
 const User = require('../schemas/user-schema');
+const DailyQuizHistory = require('../schemas/dailyquizHistory-schema');
 const _ = require('underscore');
 
 router.get('/daily-quiz', jwt_auth, async (req, res, next) => {
@@ -80,7 +81,6 @@ router.get('/daily-quiz', jwt_auth, async (req, res, next) => {
         })
       })
     })
-    console.log(all_flashcards)
     //NOTE: Cut our flashcards down to 10 for the daily quiz. We could try and customize this later.
     if (all_flashcards.length > 10){
       all_flashcards = _.sample(all_flashcards, 10)
@@ -94,9 +94,51 @@ router.get('/daily-quiz', jwt_auth, async (req, res, next) => {
 });
 // Creating a POST request for daily quiz
 router.post('/study-stats', async (req, res) => {
-  let your_data = req.body
+  let correct = req.body.correct
+  let incorrect = req.body.incorrect
   const username = req.headers.username
-  
+  let answers = []
+  correct.map((o)=>{
+    answers.push({
+      term: o.term,
+      set_id: o.set_id,
+      correctness: true
+    })
+  })
+  incorrect.map((o)=>{
+    answers.push({
+      term: o.term,
+      set_id: o.set_id,
+      correctness: false
+    })
+  })
+
+  let todays_stats = new DailyQuizHistory({
+    dayOfQuiz: new Date(),
+    percentageCorrect: correct.length/(Math.max(correct.length+incorrect.length,10)),
+    answers: answers
+  })
+
+  try {
+    todays_stats.save();
+  } catch (err) {
+    console.log('error when saving new set' + err);
+    res.status(500).send({ message: 'error' });
+  }
+  User.findOne({username: req.headers.username}).then((u)=>{
+    let combinedHistory = [...u.dailyquizHistory, todays_stats]
+    User.findOneAndUpdate({username:req.headers.username},
+      {dailyquizHistory:combinedHistory},
+      {new: true}
+      ).then((u)=>{
+        console.log(`updated user: ${u}`);
+      })
+  })
+
+  /*
+  * Dealing with the dailyquizHistory-schema first
+  */
+
   // axios
   //   .post('https://my.api.mockaroo.com/generic_post.json?key=6b3bc3e0&__method=POST', req.body)
   //   .then(console.log('Succesfully sent to database'))
@@ -104,7 +146,7 @@ router.post('/study-stats', async (req, res) => {
   const data = {
     status: 'Amazing success!',
     message: 'Congratulations on sending us this data!',
-    your_data: your_data
+    your_data: req.body
   };
   // ... then send a response of some kind to client
   res.json(data);
