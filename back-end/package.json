@@ -59,7 +59,8 @@
     "mongoose": "^7.0.4",
     "multer": "^1.4.5-lts.1",
     "nyc": "^15.1.0",
-    "travis-cov": "^0.2.5"
+    "travis-cov": "^0.2.5",
+    "underscore": "^1.13.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.22",
