@@ -5,12 +5,13 @@ const Schema = mongoose.Schema
 const bcrypt = require("bcryptjs")
 const jwt = require('jsonwebtoken');
 
-const inventorySchema = new Schema({
-  item_id: Number,
-  number_owned: Number,
-  expiration_date: { type: Date, default: () => Date.now() }
-  // note: potentially need more trackers
-});
+
+//Simplifying the inventory to exclusively hold numbers tracking whether you have an item or not.
+// const inventorySchema = new Schema({
+//   item_id: Number,
+//   expiration_date: { type: Date, default: () => Date.now() }
+//   // note: potentially need more trackers
+// });
 
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true, trim: true },
@@ -19,7 +20,7 @@ const userSchema = new Schema({
   createdAt: { type: Date, default: () => Date.now(), immutable: true },
   streak: { type: Number, default: 0 },
   coins: { type: Number, default: 0 },
-  items: [inventorySchema],
+  items: [{type: Number}],
   sets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FlashcardSet' }],
   history: [{ type: mongoose.Schema.Types.ObjectId, ref: 'History' }],
   dailyquizHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: 'DailyQuizHistory' }],
