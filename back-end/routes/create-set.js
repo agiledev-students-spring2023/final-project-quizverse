@@ -16,7 +16,6 @@ router.post('/create-set', async (req, res) => {
       return new Flashcard({
         term: card.term,
         definition: card.definition,
-        lastTouched: Date.now()
       });
     }),
     createdAt: new Date(),
