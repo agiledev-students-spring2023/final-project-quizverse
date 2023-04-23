@@ -75,10 +75,12 @@ router.get('/daily-quiz', jwt_auth, async (req, res, next) => {
       set.flashcards.map((flashcard)=>{
         all_flashcards.push({
           term:flashcard.term,
-          definition: flashcard.definition
+          definition: flashcard.definition,
+          set_id: set._id
         })
       })
     })
+    console.log(all_flashcards)
     //NOTE: Cut our flashcards down to 10 for the daily quiz. We could try and customize this later.
     if (all_flashcards.length > 10){
       all_flashcards = _.sample(all_flashcards, 10)
@@ -91,15 +93,18 @@ router.get('/daily-quiz', jwt_auth, async (req, res, next) => {
   
 });
 // Creating a POST request for daily quiz
-router.post('/study-stats', (req, res) => {
-  axios
-    .post('https://my.api.mockaroo.com/generic_post.json?key=6b3bc3e0&__method=POST', req.body)
-    .then(console.log('Succesfully sent to database'))
-    .catch((err) => next(err));
+router.post('/study-stats', async (req, res) => {
+  let your_data = req.body
+  const username = req.headers.username
+  
+  // axios
+  //   .post('https://my.api.mockaroo.com/generic_post.json?key=6b3bc3e0&__method=POST', req.body)
+  //   .then(console.log('Succesfully sent to database'))
+  //   .catch((err) => next(err));
   const data = {
     status: 'Amazing success!',
     message: 'Congratulations on sending us this data!',
-    your_data: req.body
+    your_data: your_data
   };
   // ... then send a response of some kind to client
   res.json(data);

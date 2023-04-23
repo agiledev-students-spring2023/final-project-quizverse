@@ -45,7 +45,7 @@ router.get('/search/:searchTerm', jwt_auth, (req, res) => {
 });
 
 router.get('/flashcard-sets', jwt_auth, (req, res) => {
-  FlashcardSet.find({})
+  FlashcardSet.findOne({})
     .then((setsFromMongo) => {
       const flashcardSets = [];
       setsFromMongo.map((set) => {
