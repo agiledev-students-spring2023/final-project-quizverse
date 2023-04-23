@@ -5,7 +5,7 @@ const answerSchema = new Schema({
   term: String,
   right: Number,
   wrong: Number,
-  percent_correct: Double,
+  percent_correct: Number,
   set_id: { type: mongoose.Schema.Types.ObjectId, ref: 'FlashcardSet' }
 });
 
