@@ -79,12 +79,12 @@ function FullScreenFlashcardSet() {
     toast.promise(
       axios.post(`http://localhost:3001/edit-set?id=${id}`, info),
       {
-        id: 'save-changes'
-      },
-      {
         loading: 'Saving changes...',
         success: () => `Saved changes to set ${title}`,
         error: (err) => `Error saving changes. Please try again.`
+      },
+      {
+        id: 'save-changes'
       }
     );
   }
@@ -107,12 +107,12 @@ function FullScreenFlashcardSet() {
     toast.promise(
       navigator.clipboard.writeText(setURL),
       {
-        id: 'copy-link'
+        loading: 'Copying link to clipboard...',
+        success: `Copied link for "${title}".`,
+        error: (err) => `Error copying link to clipboard. Please try again.`
       },
       {
-        loading: 'Copying link to clipboard...',
-        success: () => `Copied link for "${title}".`,
-        error: (err) => `Error copying link to clipboard. Please try again.`
+        id: 'copy-link'
       }
     );
   };
