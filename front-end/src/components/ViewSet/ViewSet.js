@@ -8,20 +8,21 @@ import Button from '@mui/material/Button';
 import ViewCard from './ViewCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faCirclePlus, faPen } from '@fortawesome/free-solid-svg-icons';
+import toast from 'react-hot-toast';
 
 function FullScreenFlashcardSet() {
   const navigate = useNavigate();
   let token = 'Zappy!';
-  let parsed = "";
-  let username = "";
+  let parsed = '';
+  let username = '';
   const [logged_in, setLoggedIn] = useState(false);
   useEffect(() => {
     try {
-      parsed = JSON.parse(localStorage.getItem('info'))
+      parsed = JSON.parse(localStorage.getItem('info'));
       token = parsed.token;
-      username = parsed.username
-      console.log("logged in")
-      setLoggedIn(true)
+      username = parsed.username;
+      console.log('logged in');
+      setLoggedIn(true);
     } catch {
       console.log('Not logged in.');
     }
@@ -30,7 +31,7 @@ function FullScreenFlashcardSet() {
   const theme = createTheme();
   const location = useLocation();
   const [id, setId] = useState(location.pathname.substring(location.pathname.lastIndexOf('/') + 1));
-  const [user, setUser] = useState(location.pathname.split("/")[2])
+  const [user, setUser] = useState(location.pathname.split('/')[2]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [cards, setCards] = useState([
@@ -80,9 +81,11 @@ function FullScreenFlashcardSet() {
       description: { description },
       cards: { cards }
     };
-    axios
-      .post(`http://localhost:3001/edit-set?id=${id}`)
-      .then((response) => alert(`Saved changes to set ${title}`));
+    toast.promise(axios.post(`http://localhost:3001/edit-set?id=${id}`, info), {
+      loading: 'Saving changes...',
+      success: () => `Saved changes to set ${title}`,
+      error: (err) => `Error saving changes. Please try again.`
+    });
   }
 
   const cardElements = cards.map((info, i) => {
@@ -100,11 +103,13 @@ function FullScreenFlashcardSet() {
 
   const shareSet = () => {
     const setURL = window.location.href;
-    navigator.clipboard.writeText(setURL).then(() => {
-      alert(`Link to flashcard set "${title}" has copied to clipboard!`);
+    toast.promise(navigator.clipboard.writeText(setURL), {
+      loading: 'Copying link to clipboard...',
+      success: () => `Copied link for "${title}".`,
+      error: (err) => `Error copying link to clipboard. Please try again.`
     });
   };
-  if (logged_in){
+  if (logged_in) {
     return (
       <ThemeProvider theme={theme}>
         <div className={styles['set-buttons']}>
@@ -125,21 +130,19 @@ function FullScreenFlashcardSet() {
         <div className={styles.cardsContainer}>{cardElements}</div>
       </ThemeProvider>
     );
-  }
-  else{
-    return(
+  } else {
+    return (
       <ThemeProvider theme={theme}>
-      <p>Please log in to edit this set.</p>
-      <h1 className={styles.setTitle}>{title}</h1>
+        <p>Please log in to edit this set.</p>
+        <h1 className={styles.setTitle}>{title}</h1>
         <p className={styles.setDescription}>{description}</p>
         <Button className={styles.shareSetButton} onClick={shareSet}>
           Share
         </Button>
         <div className={styles.cardsContainer}>{cardElements}</div>
       </ThemeProvider>
-    )
+    );
   }
-  
 }
 
 export default FullScreenFlashcardSet;

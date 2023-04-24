@@ -6,22 +6,22 @@ import { useNavigate } from 'react-router-dom';
 import styles from './CreateSet.module.css';
 import EditCard from './EditCard';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const CreateSet = (props) => {
   const navigate = useNavigate();
   let token = 'Zappy!';
-  let parsed = "";
+  let parsed = '';
   const [user, setUser] = useState('');
-  let username = "";
+  let username = '';
   useEffect(() => {
     try {
-      parsed = JSON.parse(localStorage.getItem('info'))
+      parsed = JSON.parse(localStorage.getItem('info'));
       token = parsed.token;
-      username = parsed.username
+      username = parsed.username;
     } catch {
-      alert("Please log in.")
       console.log('Not logged in.');
-      navigate('/');
+      navigate('/', { state: { redirectedFrom: 'CreateSet' } });
     }
   });
   const [title, setTitle] = useState('');
@@ -62,23 +62,24 @@ const CreateSet = (props) => {
       cards
     };
 
-    axios({
-      method: 'POST',
-      data: {
-        info
-      },
-      withCredentials: true,
-      headers: { 'jwt-token': token, username: parsed.username},
-      url: 'http://localhost:3001/create-set'
-    }
-    
-      
-    ).then((response) => {
-      console.log('Data successfully sent!');
-      alert('Your set has been saved!');
-      //navigate('/flashcards');
-      /*TEMPORARILY COMMENTED OUT, PLEASE ADD BACK LATER*/
-    });
+    toast.promise(
+      axios({
+        method: 'POST',
+        data: {
+          info
+        },
+        withCredentials: true,
+        headers: { 'jwt-token': token, username: parsed.username },
+        url: 'http://localhost:3001/create-set'
+      }),
+      {
+        loading: 'Saving your set...',
+        success: 'Your set has been saved!',
+        error: 'Something went wrong. Please try again.'
+      }
+    );
+    //navigate('/flashcards');
+    /*TEMPORARILY COMMENTED OUT, PLEASE ADD BACK LATER*/
   }
 
   const cardElements = cards.map((info, i) => {

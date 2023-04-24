@@ -16,13 +16,12 @@ const StudyStats = (props) => {
   let username = "";
   useEffect(() => {
     try {
-      parsed = JSON.parse(localStorage.getItem('info'))
+      parsed = JSON.parse(localStorage.getItem('info'));
       token = parsed.token;
-      username = parsed.username
+      username = parsed.username;
     } catch {
-      alert("Please log in.")
       console.log('Not logged in.');
-      navigate('/');
+      navigate('/', { state: { redirectedFrom: 'StudyStats' } });
     }
   });
   // eslint-disable-next-line

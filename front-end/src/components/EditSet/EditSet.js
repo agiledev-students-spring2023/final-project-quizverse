@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './EditSet.module.css';
 import EditCard from '../CreateSet/EditCard';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const EditSet = (props) => {
   const navigate = useNavigate();
@@ -15,13 +16,12 @@ const EditSet = (props) => {
   let username = "";
   useEffect(() => {
     try {
-      parsed = JSON.parse(localStorage.getItem('info'))
+      parsed = JSON.parse(localStorage.getItem('info'));
       token = parsed.token;
-      username = parsed.username
+      username = parsed.username;
     } catch {
-      alert("Please log in.")
       console.log('Not logged in.');
-      navigate('/');
+      navigate('/', { state: { redirectedFrom: 'EditSet' } });
     }
   });
   const location = useLocation();
@@ -37,14 +37,16 @@ const EditSet = (props) => {
   ]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/flashcard-set/${id}`, {
-      headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
-    }).then((response) => {
-      const data = response.data;
-      setTitle(data.title);
-      setDescription(data.description);
-      setCards(data.cards);
-    });
+    axios
+      .get(`http://localhost:3001/flashcard-set/${id}`, {
+        headers: { 'jwt-token': token, username: username } // pass the token, if any, to the server
+      })
+      .then((response) => {
+        const data = response.data;
+        setTitle(data.title);
+        setDescription(data.description);
+        setCards(data.cards);
+      });
   }, []);
 
   function handleChange(evt) {
@@ -79,18 +81,21 @@ const EditSet = (props) => {
       cards
     };
 
-    axios({
-      method: 'POST',
-      data: {
-        info
-      },
-      withCredentials: true,
-      url: 'http://localhost:3001/create-set'
-    }).then((response) => {
-      console.log('Data successfully sent!');
-      alert('Your set has been saved!');
-      navigate(`/view/${id}`);
-    });
+    toast.promise(
+      axios({
+        method: 'POST',
+        data: {
+          info
+        },
+        withCredentials: true,
+        url: 'http://localhost:3001/create-set'
+      }),
+      {
+        loading: 'Saving...',
+        success: 'Your set has been saved!',
+        error: 'Something went wrong saving your set.'
+      }
+    );
   }
 
   const cardElements = cards.map((info, i) => {

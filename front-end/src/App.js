@@ -16,6 +16,7 @@ import Settings from './components/Settings/Settings';
 import StudyStats from './components/StudyStats/StudyStats';
 import ViewSet from './components/ViewSet/ViewSet';
 import EditSet from './components/EditSet/EditSet';
+import { Toaster } from 'react-hot-toast';
 
 const theme = createTheme({
   palette: {
@@ -35,6 +36,7 @@ const App = (props) => {
   return (
     <>
       <ThemeProvider theme={theme}>
+        <Toaster />
         <Routes>
           <Route path="/" element={<Layout />}>
             {/* ADD YOUR ROUTES HERE */}

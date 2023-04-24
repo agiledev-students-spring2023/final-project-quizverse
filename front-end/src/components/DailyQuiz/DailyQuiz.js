@@ -4,22 +4,22 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import Flashcard from './Flashcard/Flashcard';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const DailyQuiz = (props) => {
   const navigate = useNavigate();
   let token = 'Zappy!';
-  let parsed = "";
+  let parsed = '';
   const [user, setUser] = useState('');
-  let username = "";
+  let username = '';
   useEffect(() => {
     try {
-      parsed = JSON.parse(localStorage.getItem('info'))
+      parsed = JSON.parse(localStorage.getItem('info'));
       token = parsed.token;
-      username = parsed.username
+      username = parsed.username;
     } catch {
-      alert("Please log in.")
       console.log('Not logged in.');
-      navigate('/');
+      navigate('/', { state: { redirectedFrom: 'DailyQuiz' } });
     }
   });
   const [data, setData] = useState([
@@ -41,14 +41,20 @@ const DailyQuiz = (props) => {
     e.preventDefault();
     const foundUser = answer;
     if (foundUser === term) {
-      alert('Correct!');
-      setCorrect([...correct,{term:term, definition: definition, set_id:data[arrIndex].set_id}])
-      console.log(correct)
+      toast.success('Correct!');
+      setCorrect([
+        ...correct,
+        { term: term, definition: definition, set_id: data[arrIndex].set_id }
+      ]);
+      console.log(correct);
       Next();
     } else {
-      alert('Incorrect!');
-      setIncorrect([...incorrect,{term:term, definition: definition, set_id:data[arrIndex].set_id}]);
-      console.log(incorrect)
+      toast.error('Incorrect!');
+      setIncorrect([
+        ...incorrect,
+        { term: term, definition: definition, set_id: data[arrIndex].set_id }
+      ]);
+      console.log(incorrect);
     }
   };
   // the following side-effect will be called once upon initial render
@@ -57,7 +63,7 @@ const DailyQuiz = (props) => {
     console.log('fetching 10 random flashcards...');
     axios
       .get('http://localhost:3001/daily-quiz', {
-        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+        headers: { 'jwt-token': token, username: username } // pass the token, if any, to the server
       })
       .then((response) => {
         // extract the data from the server response
@@ -87,18 +93,19 @@ const DailyQuiz = (props) => {
   const Next = () => {
     setDisplayTerm(false);
     if (arrIndex + 1 >= arrLength) {
-      alert(`Congratulations on finishing your Quiz! Score: ${correct.length} out of ${arrLength}`);
+      toast.success(
+        `Congratulations on finishing your Quiz! Score: ${correct.length} out of ${arrLength}`
+      );
       axios({
         method: 'POST',
         data: {
-          correct:correct,
-          incorrect:incorrect
+          correct: correct,
+          incorrect: incorrect
         },
         withCredentials: true,
-        headers: { 'jwt-token': token, username: parsed.username},
+        headers: { 'jwt-token': token, username: parsed.username },
         url: 'http://localhost:3001/study-stats'
-      }
-      )
+      })
         .then(console.log('Success!'))
         .catch((err) => console.log(err));
       return;
