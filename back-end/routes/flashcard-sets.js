@@ -1,15 +1,15 @@
 // Router for the page that includes all flashcard sets and a search bar
 const express = require('express');
 const axios = require('axios');
-const FlashcardSet = require('../schemas/flashcard-set-schema');
+const { FlashcardSet } = require('../schemas/flashcard-set-schema');
 const router = express.Router();
 const jwt_auth = require('./jwt');
 const User = require('../schemas/user-schema');
 const mongoose = require('mongoose');
 
 /*
-* Commenting out for now because I'm not sure what this does, and it's not linked to DB.
-*/
+ * Commenting out for now because I'm not sure what this does, and it's not linked to DB.
+ */
 
 // router.get('/search/:searchTerm', jwt_auth, (req, res) => {
 //   const searchTerm = req.params.searchTerm;
@@ -51,21 +51,36 @@ const mongoose = require('mongoose');
 // });
 
 router.get('/flashcard-sets', jwt_auth, (req, res) => {
-  username = req.headers.username
-  User.findOne({username:username}).populate('sets').then((u)=>{
-    sets = u.sets
-    const flashcardSets = [];
-      sets.map((set) => {
-        flashcardSets.push({
-          numCards: (set.flashcards?set.flashcards.length:0),
-          title: set.title,
-          description: set.description,
-          createdBy: username,
-          id: set._id
-        });
-      });
-      res.status(200).json(flashcardSets);
-  })
+  username = req.headers.username;
+  try {
+    FlashcardSet.find({ createdBy: username }).then((sets) => {
+      if (!sets) {
+        // if no sets returned
+        res.status(204).send('user has no sets created'); // signify no content
+      } else {
+        console.log(sets.length);
+        res.status(200).send(sets);
+      }
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(404).send({ message: 'error' });
+  }
+
+  // User.findOne({username:username}).populate('sets').then((u)=>{
+  //   sets = u.sets
+  //   const flashcardSets = [];
+  //     sets.map((set) => {
+  //       flashcardSets.push({
+  //         numCards: (set.flashcards?set.flashcards.length:0),
+  //         title: set.title,
+  //         description: set.description,
+  //         createdBy: username,
+  //         id: set._id
+  //       });
+  //     });
+  //     res.status(200).json(flashcardSets);
+  // })
   // FlashcardSet.findOne({})
   //   .then((setsFromMongo) => {
   //     const flashcardSets = [];
@@ -78,9 +93,6 @@ router.get('/flashcard-sets', jwt_auth, (req, res) => {
   //     });
   //     res.json(flashcardSets);
   //   })
-    .catch((err) => {
-      console.error(err);
-    });
 });
 
 router.get('/flashcard-set/:username/:id', (req, res) => {
@@ -89,28 +101,43 @@ router.get('/flashcard-set/:username/:id', (req, res) => {
   if (!id) {
     res.status(400).send({ message: 'missing set id' });
   }
-
-
-  User.findOne({username:username}).populate("sets").then((u)=>{
-    sets = u.sets
-    let response_set = {
-      title: '',
-      description: '',
-      cards: []
+  else if (!username) {
+    res.status(400).send({ message: 'missing username' });
+  }
+  else {
+    try {
+      FlashcardSet.findOne({createdBy: username, _id: id}).then(set => {
+        console.log(set)
+        res.status(200).send(set)
+      })
     }
-    for (set in sets){
-      mongoose_id = new mongoose.Types.ObjectId(id)
-      if (sets[set]._id==id){
-        response_set = {
-          title: sets[set].title,
-          description: sets[set].description,
-          cards: sets[set].flashcards
-        }
-        res.status(200).json(response_set)
-      }
-      
+    catch (err) {
+      console.log(err)
+      res.status(400).send({message: 'searching error'})
     }
-  })
+
+    // serach under sets instead of under user
+    // User.findOne({username:username}).populate("sets").then((u)=>{
+    //   sets = u.sets
+    //   let response_set = {
+    //     title: '',
+    //     description: '',
+    //     cards: []
+    //   }
+    //   for (set in sets){
+    //     mongoose_id = new mongoose.Types.ObjectId(id)
+    //     if (sets[set]._id==id){
+    //       response_set = {
+    //         title: sets[set].title,
+    //         description: sets[set].description,
+    //         cards: sets[set].flashcards
+    //       }
+    //       res.status(200).json(response_set)
+    //     }
+    //   }
+    // })
+  }
+  
  
   // FlashcardSet.findOne({_id: mongoose_id}).then((set)=>{
   //   console.log(set)
@@ -129,16 +156,18 @@ router.get('/flashcard-set/:username/:id', (req, res) => {
   //     console.error(err);
   //   });
 });
-router.get('/flashcards', jwt_auth, (req, res) => {
-  axios
-    .get(`https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0`)
-    .then((apiResponse) => {
-      const data = apiResponse.data;
-      const filteredData = data.filter((item) => {
-        return item.title.toLowerCase().includes(searchTerm.toLowerCase());
-      });
-      res.json(filteredData);
-    })
-    .catch((err) => res.status(500).send({ message: 'api request error' }));
-});
+
+// outdated route that no longer does anything
+// router.get('/flashcards', jwt_auth, (req, res) => {
+//   axios
+//     .get(`https://my.api.mockaroo.com/flashcards.json?key=6b3bc3e0`)
+//     .then((apiResponse) => {
+//       const data = apiResponse.data;
+//       const filteredData = data.filter((item) => {
+//         return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+//       });
+//       res.json(filteredData);
+//     })
+//     .catch((err) => res.status(500).send({ message: 'api request error' }));
+// });
 module.exports = router;

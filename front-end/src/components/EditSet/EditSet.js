@@ -9,42 +9,38 @@ import axios from 'axios';
 
 const EditSet = (props) => {
   const navigate = useNavigate();
+
   let token = 'Zappy!';
-  let parsed = "";
-  const [user, setUser] = useState('');
-  let username = "";
+  let parsed = '';
+  let username = '';
+
   useEffect(() => {
     try {
-      parsed = JSON.parse(localStorage.getItem('info'))
+      parsed = JSON.parse(localStorage.getItem('info'));
       token = parsed.token;
-      username = parsed.username
+      username = parsed.username;
     } catch {
-      alert("Please log in.")
+      alert('Please log in.');
       console.log('Not logged in.');
       navigate('/');
     }
   });
+
   const location = useLocation();
-  const id = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);
+  const [id, setId] = useState(location.pathname.substring(location.pathname.lastIndexOf('/') + 1));
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [editted, setEditted] = useState(false);
-  const [cards, setCards] = useState([
-    {
-      term: '',
-      definiion: ''
-    }
-  ]);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/flashcard-set/${id}`, {
-      headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
-    }).then((response) => {
+    axios.get(`http://localhost:3001/flashcard-set/${username}/${id}`).then((response) => {
       const data = response.data;
       setTitle(data.title);
       setDescription(data.description);
-      setCards(data.cards);
+      setCards(data.flashcards);
     });
+    console.log(id);
   }, []);
 
   function handleChange(evt) {
@@ -89,7 +85,7 @@ const EditSet = (props) => {
     }).then((response) => {
       console.log('Data successfully sent!');
       alert('Your set has been saved!');
-      navigate(`/view/${id}`);
+      navigate(`/view/${username}/${id}`);
     });
   }
 
@@ -119,7 +115,7 @@ const EditSet = (props) => {
         <div className={styles['set-controls']}>
           <Button
             startIcon={<FontAwesomeIcon icon={faArrowLeft} />}
-            onClick={() => navigate(`/view/${id}`)}>
+            onClick={() => navigate(`/view/${username}/${id}`)}>
             Back to set
           </Button>
           <Button onClick={handleSubmit} disabled={!editted} variant="outlined">

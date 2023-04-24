@@ -33,19 +33,14 @@ function FullScreenFlashcardSet() {
   const [user, setUser] = useState(location.pathname.split("/")[2])
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [cards, setCards] = useState([
-    {
-      term: '',
-      definition: ''
-    }
-  ]);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/flashcard-set/${user}/${id}`).then((response) => {
       const data = response.data;
       setTitle(data.title);
       setDescription(data.description);
-      setCards(data.cards);
+      setCards(data.flashcards);
     });
     console.log(id);
   }, []);
@@ -70,21 +65,6 @@ function FullScreenFlashcardSet() {
     setCards(cards.slice(0, index).concat(cards.slice(index + 1)));
   }
 
-  function addNew() {
-    setCards(cards.concat({ term: '', definition: '' }));
-  }
-
-  function handleSubmit(evt) {
-    const info = {
-      title: { title },
-      description: { description },
-      cards: { cards }
-    };
-    axios
-      .post(`http://localhost:3001/edit-set?id=${id}`)
-      .then((response) => alert(`Saved changes to set ${title}`));
-  }
-
   const cardElements = cards.map((info, i) => {
     return (
       <>
@@ -104,6 +84,7 @@ function FullScreenFlashcardSet() {
       alert(`Link to flashcard set "${title}" has copied to clipboard!`);
     });
   };
+  
   if (logged_in){
     return (
       <ThemeProvider theme={theme}>
