@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Settings.css';
+import toast from 'react-hot-toast';
 
 /**
  * A React component that represents the Settings page of the app.
@@ -20,15 +21,15 @@ const Settings = (props) => {
       token = parsed.token;
       username = parsed.username
     } catch {
-      alert("Please log in.")
       console.log('Not logged in.');
-      navigate('/');
+      navigate('/', { state: { redirectedFrom: 'Settings' } });
     }
   });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const changeEmail = (event) => {
     event.preventDefault();
+<<<<<<< HEAD
     alert('Email changed! Your email is now set to ' + email + '!');
     axios({
       method: 'POST',
@@ -40,6 +41,14 @@ const Settings = (props) => {
       url: 'http://localhost:3001/settings-email'
     }
     )
+=======
+    toast.success('Email changed! Your email is now set to ' + email + '!');
+    axios
+      // post new message to server
+      .post('http://localhost:3001/settings-email', {
+        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+      }, { email: email })
+>>>>>>> d53911c (Settings)
       .then((response) => {
         console.log('Email updated!');
         return 'Email updated!';
@@ -52,7 +61,7 @@ const Settings = (props) => {
   };
   const changePassword = (event) => {
     event.preventDefault();
-    alert('Password changed! Your new password is now set.');
+    toast.success('Password changed! Your password is now set to ' + password + '!');
     axios({
       method: 'POST',
       data: {
@@ -79,7 +88,7 @@ const Settings = (props) => {
       "THIS WILL DELETE YOUR ACCOUNT PERMANENTLY. TYPE 'ok' in this box to confirm deletion of your account."
     );
     if (input === 'ok') {
-      alert('Your account has been deleted!');
+      toast.success('Your account has been deleted!');
       axios({
         method: 'POST',
         withCredentials: true,
@@ -97,12 +106,12 @@ const Settings = (props) => {
         });
       navigate('/');
     } else {
-      alert('Incorrect input!');
+      toast.error('Incorrect input!');
       console.log('Incorrect input!');
     }
   };
   const logoutWarning = (event) => {
-    alert('Thanks for using QuizVerse! See you again soon!');
+    toast.success('Thanks for using QuizVerse! See you again soon!')
     axios
       // post new message to server
       .post('http://localhost:3001/logout', {
