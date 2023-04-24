@@ -49,7 +49,10 @@ export default function Shop() {
       navigate('/', { state: { redirectedFrom: 'Shop' } });
     }
     
-    axios
+    
+  });
+  useEffect(() => {
+  axios
       .get('http://localhost:3001/home', {
         headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
       })
@@ -69,7 +72,7 @@ export default function Shop() {
         console.log(err.status);
         navigate('/', { state: { redirectedFrom: 'Shop' } });
       });
-  });
+    }, []);
   function linkItems() {
     navigate('/items');
   }
@@ -77,20 +80,28 @@ export default function Shop() {
     navigate('/daily-quiz');
   }
   function purchase(itemNum) {
-    toast.promise(
-      axios({
-        method: 'POST',
-        withCredentials: true,
-        headers: { 'jwt-token': token, username: parsed.username, item: itemNum },
-        url: 'http://localhost:3001/shop'
-      }),
-      {
-        loading: 'Purchasing...',
-        success: (response) =>
-          response.status === 200 ? 'Item purchased!' : 'You already own this item',
-        error: 'Purchase fail!'
-      }
-    );
+    axios({
+      method: 'POST',
+      withCredentials: true,
+      headers: { 'jwt-token': token, username: parsed.username, item:itemNum},
+      url: 'http://localhost:3001/shop'
+    })
+      .then((response) => {
+        console.log(response)
+        if (response.status===200){
+          toast.success(`Item purchased!`);
+        }
+        if (response.status===201){
+          toast.error('You already own this item.');
+        }
+        if (response.status===202){
+          toast.error('You do not have enough coins to buy this item.')
+        }
+      })
+      .catch((err) => {
+        console.log('Purchase fail!');
+        toast.error('Purchase fail!');
+      });
   }
   return (
     <ThemeProvider theme={useTheme()}>

@@ -88,6 +88,7 @@ const Settings = (props) => {
       )
         .then((response) => {
           console.log('Deletion Successful!');
+          localStorage.removeItem('info');
           return 'Deletion Successful!';
         })
         .catch((err) => {
