@@ -40,21 +40,38 @@ router.post('/shop', (req, res) => {
       res.status(201).send({ message: 'Already owned' });
     }
     else{
-      let newItems = []
-      if ('items' in u){
-        newItems = [...u.items, item_id]
+      let coins = u.coins
+      let coins_deducted = 0
+      if (item_id==1){
+        coins_deducted = 50
+      }
+      if (item_id==2){
+        coins_deducted = 100
+      }
+      if (item_id==3){
+        coins_deducted = 150
+      }
+      if (coins<coins_deducted){
+        res.status(202).send({message: 'not enough coins'});
       }
       else{
-        newItems = [item_id]
-      }
+        let newItems = []
+        if ('items' in u){
+          newItems = [...u.items, item_id]
+        }
+        else{
+          newItems = [item_id]
+        }
       
-      User.findOneAndUpdate({username:req.headers.username},
-        {items: newItems},
-        { new: true }).
-        then((u)=>{
-        console.log(u);
-        res.status(200).send({ message: 'success' });
-      })
+        User.findOneAndUpdate({username:req.headers.username},
+          {items: newItems,
+          coins: coins-coins_deducted},
+          { new: true }).
+          then((u)=>{
+          console.log(u);
+          res.status(200).send({ message: 'success' });
+        })
+      }
     }
   })
 });
