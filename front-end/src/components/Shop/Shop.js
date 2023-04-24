@@ -35,6 +35,9 @@ export default function Shop() {
   let token = 'Zappy!';
   let parsed = "";
   const [user, setUser] = useState('');
+  const [data, setData] = useState([]); // eslint-disable-next-line
+  const [streak, setStreak] = useState(0); // eslint-disable-next-line
+  const [coins, setCoins] = useState(0);
   let username = "";
   useEffect(() => {
     try {
@@ -46,6 +49,29 @@ export default function Shop() {
       console.log('Not logged in.');
       navigate('/');
     }
+    
+    axios
+      .get('http://localhost:3001/home', {
+        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+      })
+      .then((response) => {
+        // extract the data from the server response
+        if (response.data === null || response.data.streak==null || response.data.coins == null || response.data.username == null){
+          alert("Incorrect credentials. Returning to login screen.")
+          navigate('/');
+        }
+        
+        setData(response.data);
+        setStreak(response.data.streak);
+        setCoins(response.data.coins);
+        setUser(response.data.username);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.status);
+        alert("Incorrect credentials. Returning to login screen.")
+        navigate('/');
+      });
   });
   function linkItems() {
     navigate('/items');
@@ -96,7 +122,7 @@ export default function Shop() {
                 Item Shop
               </Typography>
               <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                Redeem your coins here! Earn coins by studying everyday.
+                Redeem your coins here! Earn coins by studying everyday.You have {coins} coins.
               </Typography>
               <Stack sx={{ pt: 4 }} direction="row" spacing={2} justifyContent="center">
                 <Button variant="contained" onClick={linkStudy}>

@@ -126,10 +126,14 @@ router.post('/study-stats', async (req, res) => {
     console.log('error when saving new set' + err);
     res.status(500).send({ message: 'error' });
   }
+
   User.findOne({username: req.headers.username}).then((u)=>{
     let combinedHistory = [...u.dailyquizHistory, todays_stats]
+    let c = u.coins
     User.findOneAndUpdate({username:req.headers.username},
-      {dailyquizHistory:combinedHistory},
+      {dailyquizHistory:combinedHistory,
+      coins: c+correct.length, //this coins algorithm is good for final product
+      streak: u.streak + 1}, //UPDATE streak mechanism before end of sprint 4
       {new: true}
       ).then((u)=>{
         console.log(`updated user: ${u}`);
