@@ -13,36 +13,35 @@ function FullScreenFlashcardSet() {
   const navigate = useNavigate();
   let token = 'Zappy!';
   let parsed = "";
-  const [user, setUser] = useState('');
   let username = "";
+  const [logged_in, setLoggedIn] = useState(false);
   useEffect(() => {
     try {
       parsed = JSON.parse(localStorage.getItem('info'))
       token = parsed.token;
       username = parsed.username
+      console.log("logged in")
+      setLoggedIn(true)
     } catch {
-      alert("Please log in.")
       console.log('Not logged in.');
-      navigate('/');
     }
   });
   //this one needs to pull flashcard data
   const theme = createTheme();
   const location = useLocation();
   const [id, setId] = useState(location.pathname.substring(location.pathname.lastIndexOf('/') + 1));
+  const [user, setUser] = useState(location.pathname.split("/")[2])
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [cards, setCards] = useState([
     {
       term: '',
-      definiion: ''
+      definition: ''
     }
   ]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/flashcard-set/${id}`, {
-      headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
-    }).then((response) => {
+    axios.get(`http://localhost:3001/flashcard-set/${user}/${id}`).then((response) => {
       const data = response.data;
       setTitle(data.title);
       setDescription(data.description);
@@ -105,27 +104,42 @@ function FullScreenFlashcardSet() {
       alert(`Link to flashcard set "${title}" has copied to clipboard!`);
     });
   };
-
-  return (
-    <ThemeProvider theme={theme}>
-      <div className={styles['set-buttons']}>
-        <Button
-          startIcon={<FontAwesomeIcon icon={faArrowLeft} />}
-          onClick={() => navigate('/flashcards')}>
-          My Sets
+  if (logged_in){
+    return (
+      <ThemeProvider theme={theme}>
+        <div className={styles['set-buttons']}>
+          <Button
+            startIcon={<FontAwesomeIcon icon={faArrowLeft} />}
+            onClick={() => navigate('/flashcards')}>
+            My Sets
+          </Button>
+          <Button
+            startIcon={<FontAwesomeIcon icon={faPen} />}
+            onClick={() => navigate(`/edit/${id}`)}></Button>
+        </div>
+        <h1 className={styles.setTitle}>{title}</h1>
+        <p className={styles.setDescription}>{description}</p>
+        <Button className={styles.shareSetButton} onClick={shareSet}>
+          Share
         </Button>
-        <Button
-          startIcon={<FontAwesomeIcon icon={faPen} />}
-          onClick={() => navigate(`/edit/${id}`)}></Button>
-      </div>
+        <div className={styles.cardsContainer}>{cardElements}</div>
+      </ThemeProvider>
+    );
+  }
+  else{
+    return(
+      <ThemeProvider theme={theme}>
+      <p>Please log in to edit this set.</p>
       <h1 className={styles.setTitle}>{title}</h1>
-      <p className={styles.setDescription}>{description}</p>
-      <Button className={styles.shareSetButton} onClick={shareSet}>
-        Share
-      </Button>
-      <div className={styles.cardsContainer}>{cardElements}</div>
-    </ThemeProvider>
-  );
+        <p className={styles.setDescription}>{description}</p>
+        <Button className={styles.shareSetButton} onClick={shareSet}>
+          Share
+        </Button>
+        <div className={styles.cardsContainer}>{cardElements}</div>
+      </ThemeProvider>
+    )
+  }
+  
 }
 
 export default FullScreenFlashcardSet;

@@ -52,7 +52,7 @@ const App = (props) => {
             <Route path="/create-set" element={<CreateSet />} />
             <Route path="/flashcards" element={<FlashcardSets />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/view/:id" element={<ViewSet />} />
+            <Route path="/view/:username/:id" element={<ViewSet />} />
             <Route path="/edit/:id" element={<EditSet />} />
             <Route path="/study-stats" element={<StudyStats />} />
           </Route>

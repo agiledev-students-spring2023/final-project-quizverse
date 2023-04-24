@@ -60,6 +60,7 @@ router.get('/flashcard-sets', jwt_auth, (req, res) => {
           numCards: (set.flashcards?set.flashcards.length:0),
           title: set.title,
           description: set.description,
+          createdBy: username,
           id: set._id
         });
       });
@@ -82,9 +83,9 @@ router.get('/flashcard-sets', jwt_auth, (req, res) => {
     });
 });
 
-router.get('/flashcard-set/:id', jwt_auth, (req, res) => {
+router.get('/flashcard-set/:username/:id', (req, res) => {
   const id = req.params.id;
-  username = req.headers.username
+  username = req.params.username;
   if (!id) {
     res.status(400).send({ message: 'missing set id' });
   }
