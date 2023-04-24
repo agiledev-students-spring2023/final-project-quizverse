@@ -81,9 +81,9 @@ router.post('/register', async (req, res) => {
     await createdUser.save();
     // return new user
     //Send just the token :o
-    res.status(200).json(token);
+    res.status(200).json(token)
     console.log(createdUser);
-    res.send({ status: 'success', message: 'User registered successfully' });
+    
   } catch (err) {
     console.error('Error caught in catch block:', err);
     res.status(500).send('Internal server error');

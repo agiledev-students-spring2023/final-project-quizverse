@@ -16,7 +16,7 @@ function SignUpPage() {
 
     try {
       const response = await axios.post('http://localhost:3001/register', { username, password });
-      alert(response.data.message);
+      alert("Successfully registered. Please log in.")
       navigate('/login');
     } catch (error) {
       alert(error.response?.data?.message || 'An error occurred');
