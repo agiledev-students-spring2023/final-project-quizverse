@@ -42,11 +42,13 @@ const DailyQuiz = (props) => {
     const foundUser = answer;
     if (foundUser === term) {
       alert('Correct!');
-      setCorrect([...correct, term]);
+      setCorrect([...correct,{term:term, definition: definition, set_id:data[arrIndex].set_id}])
+      console.log(correct)
       Next();
     } else {
       alert('Incorrect!');
-      setIncorrect([...incorrect, term]);
+      setIncorrect([...incorrect,{term:term, definition: definition, set_id:data[arrIndex].set_id}]);
+      console.log(incorrect)
     }
   };
   // the following side-effect will be called once upon initial render
@@ -86,10 +88,17 @@ const DailyQuiz = (props) => {
     setDisplayTerm(false);
     if (arrIndex + 1 >= arrLength) {
       alert(`Congratulations on finishing your Quiz! Score: ${correct.length} out of ${arrLength}`);
-      axios
-        .post('http://localhost:3001/study-stats', {
-          headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
-        },  { correct: correct, incorrect: incorrect })
+      axios({
+        method: 'POST',
+        data: {
+          correct:correct,
+          incorrect:incorrect
+        },
+        withCredentials: true,
+        headers: { 'jwt-token': token, username: parsed.username},
+        url: 'http://localhost:3001/study-stats'
+      }
+      )
         .then(console.log('Success!'))
         .catch((err) => console.log(err));
       return;
@@ -141,14 +150,14 @@ const DailyQuiz = (props) => {
       </form>
       <div>
         <h2>Topics You Got Right:</h2>
-        {correct.map((word) => (
-          <p>{word}</p>
+        {correct.map((o) => (
+          <p>{o.term}</p>
         ))}
       </div>
       <div>
         <h2>Topics You Got Wrong:</h2>
-        {incorrect.map((word) => (
-          <p>{word}</p>
+        {incorrect.map((o) => (
+          <p>{o.term}</p>
         ))}
       </div>
     </>

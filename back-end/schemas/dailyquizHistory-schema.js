@@ -17,8 +17,8 @@ const termSchema = new Schema({
 
 const dailyquizSchema = new Schema({
   dayOfQuiz: Date,
-  percentageCorrect: Double,
+  percentageCorrect: Number,
   answers: [termSchema]
 });
 
-module.exports = mongoose.model(dailyquizSchema, 'DailyQuizHistory');
+module.exports = mongoose.model('DailyQuizHistory',dailyquizSchema);
