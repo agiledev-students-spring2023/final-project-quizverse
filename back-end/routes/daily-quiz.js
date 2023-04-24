@@ -128,8 +128,11 @@ router.post('/study-stats', async (req, res) => {
   }
   User.findOne({username: req.headers.username}).then((u)=>{
     let combinedHistory = [...u.dailyquizHistory, todays_stats]
+    let c = u.coins
     User.findOneAndUpdate({username:req.headers.username},
-      {dailyquizHistory:combinedHistory},
+      {dailyquizHistory:combinedHistory,
+      coins: c+correct.length,
+      streak: u.streak + 1},
       {new: true}
       ).then((u)=>{
         console.log(`updated user: ${u}`);
