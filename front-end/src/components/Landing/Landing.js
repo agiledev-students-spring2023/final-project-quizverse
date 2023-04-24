@@ -2,8 +2,15 @@ import React from 'react';
 import Typewriter from 'typewriter-effect';
 import styles from './Landing.module.css';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function Landing() {
+  const { redirectedFrom } = useLocation().state || { redirectedFrom: null };
+  if (redirectedFrom) {
+    toast.error(`You must be logged in to access the page!`);
+  }
+
   return (
     <div className={styles.LandingContainer}>
       <div className={styles.LandingHeader}>
