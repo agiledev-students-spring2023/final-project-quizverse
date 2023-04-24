@@ -110,6 +110,7 @@ function FlashcardSets() {
             title={set.title}
             description={set.description}
             numCards={set.numCards}
+            username={set.createdBy}
           />
         ))}
       </div>
