@@ -34,19 +34,14 @@ function FullScreenFlashcardSet() {
   const [user, setUser] = useState(location.pathname.split('/')[2]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [cards, setCards] = useState([
-    {
-      term: '',
-      definition: ''
-    }
-  ]);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/flashcard-set/${user}/${id}`).then((response) => {
       const data = response.data;
       setTitle(data.title);
       setDescription(data.description);
-      setCards(data.cards);
+      setCards(data.flashcards);
     });
     console.log(id);
   }, []);
@@ -121,6 +116,7 @@ function FullScreenFlashcardSet() {
       }
     );
   };
+
   if (logged_in) {
     return (
       <ThemeProvider theme={theme}>

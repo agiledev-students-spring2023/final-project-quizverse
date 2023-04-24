@@ -10,51 +10,47 @@ import toast from 'react-hot-toast';
 
 const EditSet = (props) => {
   const navigate = useNavigate();
+
   let token = 'Zappy!';
-  let parsed = "";
-  const [user, setUser] = useState('');
-  let username = "";
+  let parsed = '';
+  let username = '';
+
   useEffect(() => {
     try {
       parsed = JSON.parse(localStorage.getItem('info'));
       token = parsed.token;
       username = parsed.username;
     } catch {
+      alert('Please log in.');
       console.log('Not logged in.');
       navigate('/', { state: { redirectedFrom: 'EditSet' } });
     }
   });
+
   const location = useLocation();
-  const id = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);
+  const [id, setId] = useState(location.pathname.substring(location.pathname.lastIndexOf('/') + 1));
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [editted, setEditted] = useState(false);
-  const [cards, setCards] = useState([
-    {
-      term: '',
-      definiion: ''
-    }
-  ]);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3001/flashcard-set/${id}`, {
-        headers: { 'jwt-token': token, username: username } // pass the token, if any, to the server
-      })
-      .then((response) => {
-        const data = response.data;
-        setTitle(data.title);
-        setDescription(data.description);
-        setCards(data.cards);
-      });
+    axios.get(`http://localhost:3001/flashcard-set/${username}/${id}`).then((response) => {
+      const data = response.data;
+      setTitle(data.title);
+      setDescription(data.description);
+      setCards(data.flashcards);
+    });
+    console.log(id);
   }, []);
 
   function handleChange(evt) {
-    setEditted(true);
     const value = evt.target.value;
     const id = evt.target.name;
-    const field = id.slice(0, -1);
-    const index = id.slice(id.length - 1);
+    console.log(id);
+    const field = id.match(/[a-z]+/)[0];
+    const index = id.match(/\d+/)[0];
+    console.log(`field is ${field}, index is ${index}, value is ${value}`);
     const newCard = cards[index];
     newCard[field] = value;
     setCards(
@@ -63,13 +59,16 @@ const EditSet = (props) => {
         .concat(newCard)
         .concat(cards.slice(index + 1))
     );
+    setEditted(true);
   }
 
   function handleDelete(index) {
+    setEditted(true);
     setCards(cards.slice(0, index).concat(cards.slice(index + 1)));
   }
 
   function addNew() {
+    setEditted(true);
     setCards(cards.concat({ term: '', definition: '' }));
   }
 
@@ -80,25 +79,30 @@ const EditSet = (props) => {
       description,
       cards
     };
-
-    toast.promise(
-      axios({
-        method: 'POST',
-        data: {
-          info
+    toast
+      .promise(
+        axios({
+          method: 'POST',
+          data: {
+            info
+          },
+          withCredentials: true,
+          url: `http://localhost:3001/edit-set/${id}`
+        }),
+        {
+          id: 'save-set'
         },
-        withCredentials: true,
-        url: 'http://localhost:3001/create-set'
-      }),
-      {
-        id: 'save-set'
-      },
-      {
-        loading: 'Saving...',
-        success: 'Your set has been saved!',
-        error: 'Something went wrong saving your set.'
-      }
-    );
+        {
+          loading: 'Saving...',
+          success: 'Your set has been saved!',
+          error: 'Something went wrong saving your set.'
+        }
+      )
+      .then((res) => {
+        if ((res.status = 200)) {
+          navigate(`/view/${username}/${id}`);
+        }
+      });
   }
 
   const cardElements = cards.map((info, i) => {
@@ -127,7 +131,7 @@ const EditSet = (props) => {
         <div className={styles['set-controls']}>
           <Button
             startIcon={<FontAwesomeIcon icon={faArrowLeft} />}
-            onClick={() => navigate(`/view/${id}`)}>
+            onClick={() => navigate(`/view/${username}/${id}`)}>
             Back to set
           </Button>
           <Button onClick={handleSubmit} disabled={!editted} variant="outlined">

@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
 /*
-* @1019jchen: I consolidated the answerSchema and history schemas to be the same thing.
-*/
+ * @1019jchen: I consolidated the answerSchema and history schemas to be the same thing.
+ */
 // const answerSchema = new Schema({
 //   term: String,
 //   right: Number,

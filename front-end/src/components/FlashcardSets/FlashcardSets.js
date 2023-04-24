@@ -15,100 +15,86 @@ function FlashcardSets() {
   const navigate = useNavigate();
   let token = 'Zappy!';
   let parsed = "";
-  const [user, setUser] = useState('');
-  const [data, setData] = useState([
-    {
-      title: '',
-      description: '',
-      numCards: 0,
-      id: ''
-    }
-  ]);
-  const [filteredData, setFilteredData] = useState([
-    {
-      title: '',
-      description: '',
-      numCards: 0,
-      id: ''
-    }
-  ]);
+  let username = '';
+
+  const [sets, setSets] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  let username = "";
-  const onSearch = (() => {
-    setFilteredData(data.filter((item) => {
-      return item.title.toLowerCase().includes(searchTerm.toLowerCase());
-     }));
-     console.log(filteredData)
-  });
+  const [filtered, setFiltered] = useState([]);
+
+  const onSearch = () => {
+    setFiltered(
+      sets.filter((item) => {
+        return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+      })
+    );
+    console.log(filtered);
+  };
+
+  // jwt
   useEffect(() => {
-    
-    
-    
-  
     try {
       parsed = JSON.parse(localStorage.getItem('info'));
+      parsed = JSON.parse(localStorage.getItem('info'));
       token = parsed.token;
+      username = parsed.username;
       username = parsed.username;
     } catch {
       console.log('Not logged in.');
       navigate('/', { state: { redirectedFrom: 'FlashcardSets' } });
     }
   });
-  
+
   useEffect(() => {
-    // fetch some mock sets
-    // make this a backend request!
-    //set name and description
-    
     axios('http://localhost:3001/flashcard-sets', {
-      headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+      headers: { 'jwt-token': token, username: username } // pass the token, if any, to the server
     })
       .then((response) => {
         // extract the data from the server response
-        setData(response.data);
-        setFilteredData(response.data);
+        console.log(response);
+        setSets(response.data);
       })
       .catch((err) => {
         console.error(err); // the server returned an error... probably too many requests... until we pay!
       });
   }, []);
+
   return (
     <>
       <div className={styles.searchContainer}>
-      <ThemeProvider theme={theme}>
-        <Grid className={styles.gridContainer} container>
-          <Grid item xs={1} />
-          <Grid item xs={8}>
-            <TextField
-              id="outlined-search"
-              label="Enter your search term"
-              type="search"
-              variant="outlined"
-              className={styles.searchTextField}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              fullWidth
-            />
+        <ThemeProvider theme={theme}>
+          <Grid className={styles.gridContainer} container>
+            <Grid item xs={1} />
+            <Grid item xs={8}>
+              <TextField
+                id="outlined-search"
+                label="Enter your search term"
+                type="search"
+                variant="outlined"
+                className={styles.searchTextField}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={onSearch}
+                className={styles.searchButton}
+                fullWidth>
+                Search
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={2}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={onSearch}
-              className={styles.searchButton}
-              fullWidth>
-              Search
-            </Button>
-          </Grid>
-        </Grid>
-      </ThemeProvider>
+        </ThemeProvider>
       </div>
       <div className={styles.flashcardSetContainer}>
-        {filteredData.map((set) => (
+        {sets.map((set) => (
           <FlashcardSet
-            id={set.id} // generate random set id that will be replaced by db id later
+            id={set._id}
             title={set.title}
             description={set.description}
-            numCards={set.numCards}
+            numCards={set.flashcards.length}
             username={set.createdBy}
           />
         ))}
