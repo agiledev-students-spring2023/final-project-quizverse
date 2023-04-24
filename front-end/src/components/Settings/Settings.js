@@ -29,26 +29,16 @@ const Settings = (props) => {
   const [password, setPassword] = useState('');
   const changeEmail = (event) => {
     event.preventDefault();
-<<<<<<< HEAD
-    alert('Email changed! Your email is now set to ' + email + '!');
+    toast.success('Email changed! Your email is now set to ' + email + '!');
     axios({
       method: 'POST',
       data: {
-        email:email
+        email: email
       },
       withCredentials: true,
-      headers: { 'jwt-token': token, username: parsed.username},
+      headers: { 'jwt-token': token, username: parsed.username },
       url: 'http://localhost:3001/settings-email'
-    }
-    )
-=======
-    toast.success('Email changed! Your email is now set to ' + email + '!');
-    axios
-      // post new message to server
-      .post('http://localhost:3001/settings-email', {
-        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
-      }, { email: email })
->>>>>>> d53911c (Settings)
+    })
       .then((response) => {
         console.log('Email updated!');
         return 'Email updated!';
