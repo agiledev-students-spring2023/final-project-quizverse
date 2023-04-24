@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './Login.css';
 //import {UserContext} from '../Landing/UserContext';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -34,7 +35,7 @@ function LoginPage() {
       // };
       // const serializedObj = JSON.stringify(monkey, null, 0); // a JSON string representation of the object
       // localStorage.setItem('Yunaka', serializedObj); // store it with the key, foo
-      alert(`${response.data.username} is now logged in!`);
+      toast.success(`${response.data.username} is now logged in!`);
       console.log(response.data);
       const info = {
         username: response.data.username,
@@ -43,7 +44,7 @@ function LoginPage() {
       localStorage.setItem('info', JSON.stringify(info, null, 0));
       navigate('/home');
     } catch (error) {
-      alert(error.response?.data?.message || 'An error occurred on login');
+      toast.error(error.response?.data?.message || 'An error occurred on login');
     }
   };
 
