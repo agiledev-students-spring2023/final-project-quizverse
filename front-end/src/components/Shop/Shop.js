@@ -50,7 +50,10 @@ export default function Shop() {
       navigate('/');
     }
     
-    axios
+    
+  });
+  useEffect(() => {
+  axios
       .get('http://localhost:3001/home', {
         headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
       })
@@ -72,7 +75,7 @@ export default function Shop() {
         alert("Incorrect credentials. Returning to login screen.")
         navigate('/');
       });
-  });
+    }, []);
   function linkItems() {
     navigate('/items');
   }
@@ -93,7 +96,10 @@ export default function Shop() {
           alert(`Item purchased!`);
         }
         if (response.status===201){
-          alert('You already own this item');
+          alert('You already own this item.');
+        }
+        if (response.status===202){
+          alert('You do not have enough coins to buy this item.')
         }
       })
       .catch((err) => {
