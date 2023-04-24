@@ -20,20 +20,21 @@ function FlashcardSets() {
     {
       title: '',
       description: '',
-      numCards: 0
+      numCards: 0,
+      id: ''
     }
   ]);
   const [filteredData, setFilteredData] = useState([
     {
       title: '',
       description: '',
-      numCards: 0
+      numCards: 0,
+      id: ''
     }
   ]);
   const [searchTerm, setSearchTerm] = useState('');
   let username = "";
   const onSearch = (() => {
-    console.log("visited onsearch")
     setFilteredData(data.filter((item) => {
       return item.title.toLowerCase().includes(searchTerm.toLowerCase());
      }));
@@ -66,7 +67,7 @@ function FlashcardSets() {
       .then((response) => {
         // extract the data from the server response
         setData(response.data);
-        onSearch();
+        setFilteredData(response.data);
       })
       .catch((err) => {
         console.error(err); // the server returned an error... probably too many requests... until we pay!
@@ -105,7 +106,7 @@ function FlashcardSets() {
       <div className={styles.flashcardSetContainer}>
         {filteredData.map((set) => (
           <FlashcardSet
-            id={Math.floor(1000 + Math.random() * 9000)} // generate random set id that will be replaced by db id later
+            id={set.id} // generate random set id that will be replaced by db id later
             title={set.title}
             description={set.description}
             numCards={set.numCards}

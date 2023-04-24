@@ -53,13 +53,13 @@ router.get('/flashcard-sets', jwt_auth, (req, res) => {
   username = req.headers.username
   User.findOne({username:username}).populate('sets').then((u)=>{
     sets = u.sets
-    console.log(sets)
     const flashcardSets = [];
       sets.map((set) => {
         flashcardSets.push({
           numCards: (set.flashcards?set.flashcards.length:0),
           title: set.title,
-          description: set.description
+          description: set.description,
+          id: set._id
         });
       });
       res.status(200).json(flashcardSets);
