@@ -29,13 +29,15 @@ function Copyright() {
   );
 }
 
-//const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Shop() {
   const navigate = useNavigate();
   let token = 'Zappy!';
   let parsed = "";
   const [user, setUser] = useState('');
+  const [data, setData] = useState([]); // eslint-disable-next-line
+  const [streak, setStreak] = useState(0); // eslint-disable-next-line
+  const [coins, setCoins] = useState(0);
   let username = "";
   useEffect(() => {
     try {
@@ -47,6 +49,29 @@ export default function Shop() {
       console.log('Not logged in.');
       navigate('/');
     }
+    
+    axios
+      .get('http://localhost:3001/home', {
+        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+      })
+      .then((response) => {
+        // extract the data from the server response
+        if (response.data === null || response.data.streak==null || response.data.coins == null || response.data.username == null){
+          alert("Incorrect credentials. Returning to login screen.")
+          navigate('/');
+        }
+        
+        setData(response.data);
+        setStreak(response.data.streak);
+        setCoins(response.data.coins);
+        setUser(response.data.username);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.status);
+        alert("Incorrect credentials. Returning to login screen.")
+        navigate('/');
+      });
   });
   function linkItems() {
     navigate('/items');
@@ -54,19 +79,25 @@ export default function Shop() {
   function linkStudy() {
     navigate('/daily-quiz');
   }
-  function purchase(itemName) {
-    axios
-      // post new message to server
-      .post('http://localhost:3001/shop', {
-        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
-      }, {})
+  function purchase(itemNum) {
+    axios({
+      method: 'POST',
+      withCredentials: true,
+      headers: { 'jwt-token': token, username: parsed.username, item:itemNum},
+      url: 'http://localhost:3001/shop'
+    }
+    )
       .then((response) => {
-        console.log(`${itemName} purchased!`);
-        return 'Logout Successful!';
+        console.log(response)
+        if (response.status===200){
+          alert(`Item purchased!`);
+        }
+        if (response.status===201){
+          alert('You already own this item');
+        }
       })
       .catch((err) => {
         console.log('Purchase fail!');
-        return 'Oh noes big error!';
       });
   }
   return (
@@ -91,7 +122,7 @@ export default function Shop() {
                 Item Shop
               </Typography>
               <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                Redeem your coins here! Earn coins by studying everyday.
+                Redeem your coins here! Earn coins by studying everyday.You have {coins} coins.
               </Typography>
               <Stack sx={{ pt: 4 }} direction="row" spacing={2} justifyContent="center">
                 <Button variant="contained" onClick={linkStudy}>
@@ -124,7 +155,7 @@ export default function Shop() {
                     <Typography>Double your coins when studying. Cost: 50 coins.</Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">Buy</Button>
+                    <Button size="small" onClick={() => purchase(1)}>Buy</Button>
                   </CardActions>
                 </Card>
               </Grid>
@@ -149,7 +180,7 @@ export default function Shop() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">Buy</Button>
+                    <Button size="small" onClick={() => purchase(2)}>Buy</Button>
                   </CardActions>
                 </Card>
               </Grid>
@@ -174,7 +205,7 @@ export default function Shop() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" onClick={() => purchase('Streak Freeze')}>
+                    <Button size="small" onClick={() => purchase(3)}>
                       Buy
                     </Button>
                   </CardActions>

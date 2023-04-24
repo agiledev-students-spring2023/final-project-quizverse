@@ -20,7 +20,7 @@ function FlashcardSet(props) {
         className={styles.flashcardSetCard}
         sx={{ width: 1 }}
         onClick={() => {
-          navigate(`/view/${props.id}`);
+          navigate(`/view/${props.username}/${props.id}`);
         }}>
         <CardContent>
           <Typography

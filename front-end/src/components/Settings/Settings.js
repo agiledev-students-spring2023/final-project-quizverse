@@ -30,11 +30,16 @@ const Settings = (props) => {
   const changeEmail = (event) => {
     event.preventDefault();
     alert('Email changed! Your email is now set to ' + email + '!');
-    axios
-      // post new message to server
-      .post('http://localhost:3001/settings-email', {
-        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
-      }, { email: email })
+    axios({
+      method: 'POST',
+      data: {
+        email:email
+      },
+      withCredentials: true,
+      headers: { 'jwt-token': token, username: parsed.username},
+      url: 'http://localhost:3001/settings-email'
+    }
+    )
       .then((response) => {
         console.log('Email updated!');
         return 'Email updated!';
@@ -48,11 +53,16 @@ const Settings = (props) => {
   const changePassword = (event) => {
     event.preventDefault();
     alert('Password changed! Your new password is now set.');
-    axios
-      // post new message to server
-      .post('http://localhost:3001/settings-password', {
-        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
-      }, { password: password })
+    axios({
+      method: 'POST',
+      data: {
+        password: password
+      },
+      withCredentials: true,
+      headers: { 'jwt-token': token, username: parsed.username},
+      url: 'http://localhost:3001/settings-password'
+    }
+    )
       .then((response) => {
         console.log('Password updated!');
         return 'Password updated!';
@@ -70,11 +80,13 @@ const Settings = (props) => {
     );
     if (input === 'ok') {
       alert('Your account has been deleted!');
-      axios
-        // post new message to server
-        .post('http://localhost:3001/delete', {
-          headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
-        }, {})
+      axios({
+        method: 'POST',
+        withCredentials: true,
+        headers: { 'jwt-token': token, username: parsed.username},
+        url: 'http://localhost:3001/delete'
+      }
+      )
         .then((response) => {
           console.log('Deletion Successful!');
           return 'Deletion Successful!';
