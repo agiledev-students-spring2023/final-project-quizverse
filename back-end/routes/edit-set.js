@@ -1,20 +1,36 @@
 const express = require('express');
 const axios = require('axios');
-const FlashcardSet = require('../schemas/flashcard-set-schema');
+const { FlashcardSet, Flashcard } = require('../schemas/flashcard-set-schema');
 const User = require('../schemas/user-schema');
 
 const router = express.Router();
 
 router.post('/edit-set/:id', (req, res) => {
   const id = req.params.id;
+  console.log(id);
   // a mongoDB update takes place here
   const { title, description, cards } = req.body.info;
+  const flashcardObjs = cards.map((card) => {
+    return new Flashcard({
+      term: card.term,
+      definition: card.definition
+    });
+  });
+  console.log(flashcardObjs);
   const username = req.headers.username;
-  // const user_id = req.body.user;
   const currentDate = new Date();
-
+  const update = {
+    title,
+    description,
+    editedAt: currentDate,
+    flashcards: flashcardObjs
+  };
   try {
-    FlashcardSet.updateOne({ username }, { $set: { editedAt: currentDate, flashcards: cards } });
+    FlashcardSet.findOneAndUpdate({ _id: id }, update, {
+      new: true
+    }).then((newSet) => {
+      console.log(newSet);
+    });
     res.status(200).send({ message: 'success' });
   } catch (err) {
     console.log('Erro occured: ', err);

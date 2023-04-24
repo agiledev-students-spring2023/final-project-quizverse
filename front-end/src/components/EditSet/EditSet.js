@@ -45,11 +45,12 @@ const EditSet = (props) => {
   }, []);
 
   function handleChange(evt) {
-    setEditted(true);
     const value = evt.target.value;
     const id = evt.target.name;
-    const field = id.slice(0, -1);
-    const index = id.slice(id.length - 1);
+    console.log(id);
+    const field = id.match(/[a-z]+/)[0];
+    const index = id.match(/\d+/)[0];
+    console.log(`field is ${field}, index is ${index}, value is ${value}`);
     const newCard = cards[index];
     newCard[field] = value;
     setCards(
@@ -58,13 +59,16 @@ const EditSet = (props) => {
         .concat(newCard)
         .concat(cards.slice(index + 1))
     );
+    setEditted(true);
   }
 
   function handleDelete(index) {
+    setEditted(true);
     setCards(cards.slice(0, index).concat(cards.slice(index + 1)));
   }
 
   function addNew() {
+    setEditted(true);
     setCards(cards.concat({ term: '', definition: '' }));
   }
 
@@ -75,7 +79,6 @@ const EditSet = (props) => {
       description,
       cards
     };
-
     toast.promise(
       axios({
         method: 'POST',
@@ -83,7 +86,7 @@ const EditSet = (props) => {
           info
         },
         withCredentials: true,
-        url: 'http://localhost:3001/create-set'
+        url: `http://localhost:3001/edit-set/${id}`
       }),
       {
         id: 'save-set'
