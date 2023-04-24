@@ -5,6 +5,7 @@ const FlashcardSet = require('../schemas/flashcard-set-schema');
 const router = express.Router();
 const jwt_auth = require('./jwt');
 const User = require('../schemas/user-schema');
+const mongoose = require('mongoose');
 
 /*
 * Commenting out for now because I'm not sure what this does, and it's not linked to DB.
@@ -83,19 +84,49 @@ router.get('/flashcard-sets', jwt_auth, (req, res) => {
 
 router.get('/flashcard-set/:id', jwt_auth, (req, res) => {
   const id = req.params.id;
+  username = req.headers.username
   if (!id) {
     res.status(400).send({ message: 'missing set id' });
   }
 
-  // find flashcard set by object id
-  FlashcardSet.findById(id)
-    .then((setFromMongo) => {
-      console.log(setFromMongo);
-      res.json(setFromMongo);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+
+  User.findOne({username:username}).populate("sets").then((u)=>{
+    sets = u.sets
+    let response_set = {
+      title: '',
+      description: '',
+      cards: []
+    }
+    for (set in sets){
+      mongoose_id = new mongoose.Types.ObjectId(id)
+      if (sets[set]._id==id){
+        response_set = {
+          title: sets[set].title,
+          description: sets[set].description,
+          cards: sets[set].flashcards
+        }
+        res.status(200).json(response_set)
+      }
+      
+    }
+  })
+ 
+  // FlashcardSet.findOne({_id: mongoose_id}).then((set)=>{
+  //   console.log(set)
+  //   res.status(200).json(set)
+  // })
+  // .catch((err)=>{
+  //   console.log(err)
+  // })
+
+  // FlashcardSet.findById(id)
+  //   .then((setFromMongo) => {
+  //     console.log(setFromMongo);
+  //     res.json(setFromMongo);
+  //   })
+  //   .catch((err) => {
+  //     console.error(err);
+  //   });
 });
 router.get('/flashcards', jwt_auth, (req, res) => {
   axios
