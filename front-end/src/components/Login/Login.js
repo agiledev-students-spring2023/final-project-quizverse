@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 //import useContext from 'react';
 //import {useEffect } from "react"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Login.css';
 //import {UserContext} from '../Landing/UserContext';
 import axios from 'axios';
@@ -11,6 +11,12 @@ function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { redirectedFrom } = useLocation().state || { redirectedFrom: null };
+
+  if (redirectedFrom) {
+    toast.success(`Registration successful! Try logging in now!`);
+  }
+
   //const {userCredentials} = useContext(UserContext);
 
   //const [cookieData, setCookieData] = useState({})
