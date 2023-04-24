@@ -91,6 +91,9 @@ const EditSet = (props) => {
         url: 'http://localhost:3001/create-set'
       }),
       {
+        id: 'save-set'
+      },
+      {
         loading: 'Saving...',
         success: 'Your set has been saved!',
         error: 'Something went wrong saving your set.'

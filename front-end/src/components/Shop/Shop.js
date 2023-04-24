@@ -88,14 +88,20 @@ export default function Shop() {
     })
       .then((response) => {
         console.log(response)
-        if (response.status===200){
-          toast.success(`Item purchased!`);
+        if (response.status === 200) {
+          toast.success(`Item purchased!`, {
+            id: 'purchase-success'
+          });
         }
-        if (response.status===201){
-          toast.error('You already own this item.');
+        if (response.status === 201) {
+          toast.error('You already own this item.', {
+            id: 'already-own'
+          });
         }
         if (response.status===202){
-          toast.error('You do not have enough coins to buy this item.')
+          toast.error('You do not have enough coins to buy this item.', {
+            id: 'not-enough-coins'
+          });
         }
       })
       .catch((err) => {

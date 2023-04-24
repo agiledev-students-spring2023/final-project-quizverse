@@ -19,7 +19,9 @@ function SignUpPage() {
       const response = await axios.post('http://localhost:3001/register', { username, password });
       navigate('/login', { state: { redirectedFrom: 'Login' } });
     } catch (error) {
-      toast.error(error.response?.data?.message || 'An error occurred on login');
+      toast.error(error.response?.data?.message || 'An error occurred on login', {
+        id: 'login-error'
+      });
     }
   };
 

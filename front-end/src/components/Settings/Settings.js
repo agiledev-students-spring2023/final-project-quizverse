@@ -29,7 +29,9 @@ const Settings = (props) => {
   const [password, setPassword] = useState('');
   const changeEmail = (event) => {
     event.preventDefault();
-    toast.success('Email changed! Your email is now set to ' + email + '!');
+    toast.success('Email changed! Your email is now set to ' + email + '!', {
+      id: 'email-changed'
+    });
     axios({
       method: 'POST',
       data: {
@@ -51,17 +53,18 @@ const Settings = (props) => {
   };
   const changePassword = (event) => {
     event.preventDefault();
-    toast.success('Password changed! Your password is now set to ' + password + '!');
+    toast.success('Password changed! Your password is now set to ' + password + '!', {
+      id: 'password-changed'
+    });
     axios({
       method: 'POST',
       data: {
         password: password
       },
       withCredentials: true,
-      headers: { 'jwt-token': token, username: parsed.username},
+      headers: { 'jwt-token': token, username: parsed.username },
       url: 'http://localhost:3001/settings-password'
-    }
-    )
+    })
       .then((response) => {
         console.log('Password updated!');
         return 'Password updated!';
@@ -78,14 +81,15 @@ const Settings = (props) => {
       "THIS WILL DELETE YOUR ACCOUNT PERMANENTLY. TYPE 'ok' in this box to confirm deletion of your account."
     );
     if (input === 'ok') {
-      toast.success('Your account has been deleted!');
+      toast.success('Your account has been deleted!', {
+        id: 'account-deleted'
+      });
       axios({
         method: 'POST',
         withCredentials: true,
-        headers: { 'jwt-token': token, username: parsed.username},
+        headers: { 'jwt-token': token, username: parsed.username },
         url: 'http://localhost:3001/delete'
-      }
-      )
+      })
         .then((response) => {
           console.log('Deletion Successful!');
           localStorage.removeItem('info');
@@ -102,12 +106,18 @@ const Settings = (props) => {
     }
   };
   const logoutWarning = (event) => {
-    toast.success('Thanks for using QuizVerse! See you again soon!')
+    toast.success('Thanks for using QuizVerse! See you again soon!', {
+      id: 'logout'
+    });
     axios
       // post new message to server
-      .post('http://localhost:3001/logout', {
-        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
-      }, {})
+      .post(
+        'http://localhost:3001/logout',
+        {
+          headers: { 'jwt-token': token, username: username } // pass the token, if any, to the server
+        },
+        {}
+      )
       .then((response) => {
         localStorage.removeItem('info');
         console.log('Logout Successful!');

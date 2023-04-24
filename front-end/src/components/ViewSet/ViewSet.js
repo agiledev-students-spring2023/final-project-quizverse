@@ -81,11 +81,17 @@ function FullScreenFlashcardSet() {
       description: { description },
       cards: { cards }
     };
-    toast.promise(axios.post(`http://localhost:3001/edit-set?id=${id}`, info), {
-      loading: 'Saving changes...',
-      success: () => `Saved changes to set ${title}`,
-      error: (err) => `Error saving changes. Please try again.`
-    });
+    toast.promise(
+      axios.post(`http://localhost:3001/edit-set?id=${id}`, info),
+      {
+        id: 'save-changes'
+      },
+      {
+        loading: 'Saving changes...',
+        success: () => `Saved changes to set ${title}`,
+        error: (err) => `Error saving changes. Please try again.`
+      }
+    );
   }
 
   const cardElements = cards.map((info, i) => {
@@ -103,11 +109,17 @@ function FullScreenFlashcardSet() {
 
   const shareSet = () => {
     const setURL = window.location.href;
-    toast.promise(navigator.clipboard.writeText(setURL), {
-      loading: 'Copying link to clipboard...',
-      success: () => `Copied link for "${title}".`,
-      error: (err) => `Error copying link to clipboard. Please try again.`
-    });
+    toast.promise(
+      navigator.clipboard.writeText(setURL),
+      {
+        id: 'copy-link'
+      },
+      {
+        loading: 'Copying link to clipboard...',
+        success: () => `Copied link for "${title}".`,
+        error: (err) => `Error copying link to clipboard. Please try again.`
+      }
+    );
   };
   if (logged_in) {
     return (
