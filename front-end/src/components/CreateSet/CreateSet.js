@@ -75,12 +75,12 @@ const CreateSet = (props) => {
         url: 'http://localhost:3001/create-set'
       }),
       {
-        id: 'create-set'
-      },
-      {
         loading: 'Saving your set...',
         success: 'Your set has been saved!',
         error: 'Something went wrong. Please try again.'
+      },
+      {
+        id: 'create-set'
       }
     );
     //navigate('/flashcards');
