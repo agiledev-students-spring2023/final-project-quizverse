@@ -15,6 +15,7 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { useTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function Copyright() {
   return (
@@ -29,11 +30,10 @@ function Copyright() {
   );
 }
 
-
 export default function Shop() {
   const navigate = useNavigate();
   let token = 'Zappy!';
-  let parsed = "";
+  let parsed = '';
   const [user, setUser] = useState('');
   const [data, setData] = useState([]); // eslint-disable-next-line
   const [streak, setStreak] = useState(0); // eslint-disable-next-line
@@ -41,13 +41,12 @@ export default function Shop() {
   let username = "";
   useEffect(() => {
     try {
-      parsed = JSON.parse(localStorage.getItem('info'))
+      parsed = JSON.parse(localStorage.getItem('info'));
       token = parsed.token;
-      username = parsed.username
+      username = parsed.username;
     } catch {
-      alert("Please log in.")
       console.log('Not logged in.');
-      navigate('/');
+      navigate('/', { state: { redirectedFrom: 'Shop' } });
     }
     
     axios
@@ -57,8 +56,7 @@ export default function Shop() {
       .then((response) => {
         // extract the data from the server response
         if (response.data === null || response.data.streak==null || response.data.coins == null || response.data.username == null){
-          alert("Incorrect credentials. Returning to login screen.")
-          navigate('/');
+          navigate('/', { state: { redirectedFrom: 'Shop' } });
         }
         
         setData(response.data);
@@ -69,8 +67,7 @@ export default function Shop() {
       .catch((err) => {
         console.log(err);
         console.log(err.status);
-        alert("Incorrect credentials. Returning to login screen.")
-        navigate('/');
+        navigate('/', { state: { redirectedFrom: 'Shop' } });
       });
   });
   function linkItems() {
@@ -80,25 +77,20 @@ export default function Shop() {
     navigate('/daily-quiz');
   }
   function purchase(itemNum) {
-    axios({
-      method: 'POST',
-      withCredentials: true,
-      headers: { 'jwt-token': token, username: parsed.username, item:itemNum},
-      url: 'http://localhost:3001/shop'
-    }
-    )
-      .then((response) => {
-        console.log(response)
-        if (response.status===200){
-          alert(`Item purchased!`);
-        }
-        if (response.status===201){
-          alert('You already own this item');
-        }
-      })
-      .catch((err) => {
-        console.log('Purchase fail!');
-      });
+    toast.promise(
+      axios({
+        method: 'POST',
+        withCredentials: true,
+        headers: { 'jwt-token': token, username: parsed.username, item: itemNum },
+        url: 'http://localhost:3001/shop'
+      }),
+      {
+        loading: 'Purchasing...',
+        success: (response) =>
+          response.status === 200 ? 'Item purchased!' : 'You already own this item',
+        error: 'Purchase fail!'
+      }
+    );
   }
   return (
     <ThemeProvider theme={useTheme()}>
@@ -155,7 +147,9 @@ export default function Shop() {
                     <Typography>Double your coins when studying. Cost: 50 coins.</Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" onClick={() => purchase(1)}>Buy</Button>
+                    <Button size="small" onClick={() => purchase(1)}>
+                      Buy
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>
@@ -180,7 +174,9 @@ export default function Shop() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" onClick={() => purchase(2)}>Buy</Button>
+                    <Button size="small" onClick={() => purchase(2)}>
+                      Buy
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>
