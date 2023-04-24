@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 //import {UserContext} from '../Landing/UserContext';
 import './SignUp.css';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function SignUpPage() {
   //const {userCredentials, setUserCredentials} = useContext(UserContext);
@@ -16,10 +17,11 @@ function SignUpPage() {
 
     try {
       const response = await axios.post('http://localhost:3001/register', { username, password });
-      alert("Successfully registered. Please log in.")
-      navigate('/login');
+      navigate('/login', { state: { redirectedFrom: 'Login' } });
     } catch (error) {
-      alert(error.response?.data?.message || 'An error occurred');
+      toast.error(error.response?.data?.message || 'An error occurred on login', {
+        id: 'login-error'
+      });
     }
   };
 

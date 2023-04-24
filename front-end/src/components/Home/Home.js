@@ -17,35 +17,38 @@ const Home = (props) => {
   let username = "";
   useEffect(() => {
     try {
-      parsed = JSON.parse(localStorage.getItem('info'))
+      parsed = JSON.parse(localStorage.getItem('info'));
       token = parsed.token;
-      username = parsed.username
+      username = parsed.username;
     } catch {
-      alert("Please log in.")
       console.log('Not logged in.');
-      navigate('/');
+      navigate('/', { state: { redirectedFrom: 'Home' } });
     }
   });
   //eslint-disable-next-line
   const [data, setData] = useState([]); // eslint-disable-next-line
   const [streak, setStreak] = useState(0); // eslint-disable-next-line
   const [coins, setCoins] = useState(0);
-  
 
   // the following side-effect will be called once upon initial render
   useEffect(() => {
     // fetch some mock data about animals for sale
     axios
       .get('http://localhost:3001/home', {
-        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+        headers: { 'jwt-token': token, username: username } // pass the token, if any, to the server
       })
       .then((response) => {
         // extract the data from the server response
-        if (response.data === null || response.data.streak==null || response.data.coins == null || response.data.username == null){
-          alert("Incorrect credentials. Returning to login screen.")
-          navigate('/');
+        if (
+          response.data === null ||
+          response.data.streak == null ||
+          response.data.coins == null ||
+          response.data.username == null
+        ) {
+          console.log('Incorrect credentials. Returning to login screen.');
+          navigate('/', { state: { redirectedFrom: 'Home' } });
         }
-        
+
         setData(response.data);
         setStreak(response.data.streak);
         setCoins(response.data.coins);
@@ -55,8 +58,8 @@ const Home = (props) => {
       .catch((err) => {
         console.log(err);
         console.log(err.status);
-        alert("Incorrect credentials. Returning to login screen.")
-        navigate('/');
+        console.log('Incorrect credentials. Returning to login screen.');
+        navigate('/', { state: { redirectedFrom: 'Home' } });
       });
     // eslint-disable-next-line
   }, []);

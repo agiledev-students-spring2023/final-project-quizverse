@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 //import useContext from 'react';
 //import {useEffect } from "react"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Login.css';
 //import {UserContext} from '../Landing/UserContext';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { redirectedFrom } = useLocation().state || { redirectedFrom: null };
+
+  if (redirectedFrom) {
+    toast.success(`Registration successful! Try logging in now!`, {
+      id: 'login-success'
+    });
+  }
+
   //const {userCredentials} = useContext(UserContext);
 
   //const [cookieData, setCookieData] = useState({})
@@ -34,7 +43,9 @@ function LoginPage() {
       // };
       // const serializedObj = JSON.stringify(monkey, null, 0); // a JSON string representation of the object
       // localStorage.setItem('Yunaka', serializedObj); // store it with the key, foo
-      alert(`${response.data.username} is now logged in!`);
+      toast.success(`${response.data.username} is now logged in!`, {
+        id: 'login-success'
+      });
       console.log(response.data);
       const info = {
         username: response.data.username,
@@ -43,7 +54,9 @@ function LoginPage() {
       localStorage.setItem('info', JSON.stringify(info, null, 0));
       navigate('/home');
     } catch (error) {
-      alert(error.response?.data?.message || 'An error occurred on login');
+      toast.error(error.response?.data?.message || 'An error occurred on login', {
+        id: 'login-error'
+      });
     }
   };
 

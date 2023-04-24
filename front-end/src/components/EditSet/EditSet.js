@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './EditSet.module.css';
 import EditCard from '../CreateSet/EditCard';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const EditSet = (props) => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const EditSet = (props) => {
     } catch {
       alert('Please log in.');
       console.log('Not logged in.');
-      navigate('/');
+      navigate('/', { state: { redirectedFrom: 'EditSet' } });
     }
   });
 
@@ -75,18 +76,24 @@ const EditSet = (props) => {
       cards
     };
 
-    axios({
-      method: 'POST',
-      data: {
-        info
+    toast.promise(
+      axios({
+        method: 'POST',
+        data: {
+          info
+        },
+        withCredentials: true,
+        url: 'http://localhost:3001/create-set'
+      }),
+      {
+        id: 'save-set'
       },
-      withCredentials: true,
-      url: 'http://localhost:3001/create-set'
-    }).then((response) => {
-      console.log('Data successfully sent!');
-      alert('Your set has been saved!');
-      navigate(`/view/${username}/${id}`);
-    });
+      {
+        loading: 'Saving...',
+        success: 'Your set has been saved!',
+        error: 'Something went wrong saving your set.'
+      }
+    );
   }
 
   const cardElements = cards.map((info, i) => {
