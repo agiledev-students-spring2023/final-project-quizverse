@@ -14,7 +14,9 @@ function LoginPage() {
   const { redirectedFrom } = useLocation().state || { redirectedFrom: null };
 
   if (redirectedFrom) {
-    toast.success(`Registration successful! Try logging in now!`);
+    toast.success(`Registration successful! Try logging in now!`, {
+      id: 'login-success'
+    });
   }
 
   //const {userCredentials} = useContext(UserContext);
@@ -41,7 +43,9 @@ function LoginPage() {
       // };
       // const serializedObj = JSON.stringify(monkey, null, 0); // a JSON string representation of the object
       // localStorage.setItem('Yunaka', serializedObj); // store it with the key, foo
-      toast.success(`${response.data.username} is now logged in!`);
+      toast.success(`${response.data.username} is now logged in!`, {
+        id: 'login-success'
+      });
       console.log(response.data);
       const info = {
         username: response.data.username,
@@ -50,7 +54,9 @@ function LoginPage() {
       localStorage.setItem('info', JSON.stringify(info, null, 0));
       navigate('/home');
     } catch (error) {
-      toast.error(error.response?.data?.message || 'An error occurred on login');
+      toast.error(error.response?.data?.message || 'An error occurred on login', {
+        id: 'login-error'
+      });
     }
   };
 

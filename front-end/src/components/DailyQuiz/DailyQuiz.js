@@ -41,7 +41,9 @@ const DailyQuiz = (props) => {
     e.preventDefault();
     const foundUser = answer;
     if (foundUser === term) {
-      toast.success('Correct!');
+      toast.success('Correct!', {
+        id: 'correct'
+      });
       setCorrect([
         ...correct,
         { term: term, definition: definition, set_id: data[arrIndex].set_id }
@@ -49,7 +51,9 @@ const DailyQuiz = (props) => {
       console.log(correct);
       Next();
     } else {
-      toast.error('Incorrect!');
+      toast.error('Incorrect!', {
+        id: 'incorrect'
+      });
       setIncorrect([
         ...incorrect,
         { term: term, definition: definition, set_id: data[arrIndex].set_id }
@@ -94,7 +98,10 @@ const DailyQuiz = (props) => {
     setDisplayTerm(false);
     if (arrIndex + 1 >= arrLength) {
       toast.success(
-        `Congratulations on finishing your Quiz! Score: ${correct.length} out of ${arrLength}`
+        `Congratulations on finishing your Quiz! Score: ${correct.length} out of ${arrLength}`,
+        {
+          id: 'quiz-finished'
+        }
       );
       axios({
         method: 'POST',

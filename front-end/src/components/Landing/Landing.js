@@ -8,7 +8,9 @@ import toast from 'react-hot-toast';
 function Landing() {
   const { redirectedFrom } = useLocation().state || { redirectedFrom: null };
   if (redirectedFrom) {
-    toast.error(`You must be logged in to access the page!`);
+    toast.error(`You must be logged in to access the page!`, {
+      id: 'login-error'
+    });
   }
 
   return (
