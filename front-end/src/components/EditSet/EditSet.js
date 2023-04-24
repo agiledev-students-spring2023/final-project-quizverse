@@ -79,24 +79,30 @@ const EditSet = (props) => {
       description,
       cards
     };
-    toast.promise(
-      axios({
-        method: 'POST',
-        data: {
-          info
+    toast
+      .promise(
+        axios({
+          method: 'POST',
+          data: {
+            info
+          },
+          withCredentials: true,
+          url: `http://localhost:3001/edit-set/${id}`
+        }),
+        {
+          id: 'save-set'
         },
-        withCredentials: true,
-        url: `http://localhost:3001/edit-set/${id}`
-      }),
-      {
-        id: 'save-set'
-      },
-      {
-        loading: 'Saving...',
-        success: 'Your set has been saved!',
-        error: 'Something went wrong saving your set.'
-      }
-    );
+        {
+          loading: 'Saving...',
+          success: 'Your set has been saved!',
+          error: 'Something went wrong saving your set.'
+        }
+      )
+      .then((res) => {
+        if ((res.status = 200)) {
+          navigate(`/view/${username}/${id}`);
+        }
+      });
   }
 
   const cardElements = cards.map((info, i) => {
