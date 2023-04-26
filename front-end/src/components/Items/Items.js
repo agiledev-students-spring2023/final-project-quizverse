@@ -18,14 +18,15 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const theme = createTheme();
 
 function Items() {
   let token = 'Zappy!';
-  let parsed = "";
+  let parsed = '';
   const [user, setUser] = useState('');
-  let username = "";
+  let username = '';
   useEffect(() => {
     try {
       parsed = JSON.parse(localStorage.getItem('info'));
@@ -50,6 +51,29 @@ function Items() {
   const [arrIndex, setArrIndex] = useState(0);
   function itemUsage(item_id) {
     console.log(item_id);
+    axios({
+      method: 'POST',
+      withCredentials: true,
+      headers: { 'jwt-token': token, username: parsed.username, item_id: item_id },
+      url: 'http://localhost:3001/use-items'
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          toast.success(`Item used!`, {
+            id: 'use-success'
+          });
+        }
+        if (response.status === 201) {
+          toast.error('You do not own this item.', {
+            id: 'not-owned'
+          });
+        }
+      })
+      .catch((err) => {
+        console.log('Item use fail!');
+        toast.error('Item use fail!');
+      });
   }
   useEffect(() => {
     // fetch some items

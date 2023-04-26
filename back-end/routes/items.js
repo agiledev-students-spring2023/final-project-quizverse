@@ -29,6 +29,21 @@ router.get('/your-items', jwt_auth, (req, res, next) => {
     res.json(data);
   });
 });
-
+router.get('/use-items', jwt_auth, (req, res, next) => {
+  function monkey() {
+    console.log('ooo ooo aaa aa');
+    if (item_id == 0) {
+    }
+  }
+  // use axios to make a request to use an item
+  user = req.headers.username;
+  item_id = req.headers.item_id;
+  const filter = { username: user };
+  if (item_id == 0) {
+    const update = { 'items.item_id': 0, user };
+  }
+  User.findOneAndUpdate(filter, update, { new: true }).then(monkey()).catch(console.log('monkey'));
+  res.json(data);
+});
 
 module.exports = router;

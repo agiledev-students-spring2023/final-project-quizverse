@@ -6,5 +6,9 @@ const itemSchema = new Schema({
   item_id: Number,
   cost: Number
 });
-
+const inventorySchema = new Schema({
+  name: String,
+  item_id: Number,
+  cost: Number
+});
 module.exports = mongoose.model('Item', itemSchema);
