@@ -29,9 +29,7 @@ const Settings = (props) => {
   const [password, setPassword] = useState('');
   const changeEmail = (event) => {
     event.preventDefault();
-    toast.success('Email changed! Your email is now set to ' + email + '!', {
-      id: 'email-changed'
-    });
+
     axios({
       method: 'POST',
       data: {
@@ -43,19 +41,22 @@ const Settings = (props) => {
     })
       .then((response) => {
         console.log('Email updated!');
+        toast.success('Email changed! Your email is now set to ' + email + '!', {
+          id: 'email-changed'
+        });
         return 'Email updated!';
       })
       .catch((err) => {
         console.log('Email change error!');
+        toast.error(err.response?.data?.errors[0].msg || 'Email update error', {
+          id: 'email-error'
+        });
         return 'Email change error!';
       });
     //console.log({ email });
   };
   const changePassword = (event) => {
     event.preventDefault();
-    toast.success('Password changed! Your password is now set to ' + password + '!', {
-      id: 'password-changed'
-    });
     axios({
       method: 'POST',
       data: {
@@ -67,10 +68,16 @@ const Settings = (props) => {
     })
       .then((response) => {
         console.log('Password updated!');
+        toast.success('Password changed! Your password is now set to ' + password + '!', {
+          id: 'password-changed'
+        });
         return 'Password updated!';
       })
       .catch((err) => {
         console.log('Password change error!');
+        toast.error(err.response?.data?.errors[0].msg || 'Password update error', {
+          id: 'pwd-change-error'
+        });
         return 'Password change error!';
       });
     //post('http://localhost:3001/login');

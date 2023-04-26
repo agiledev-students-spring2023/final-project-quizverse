@@ -56,8 +56,16 @@ router.post(
 router.post(
   '/register',
   [
-    check('username').notEmpty().withMessage('Username cannot be empty'),
-    check('password').notEmpty().withMessage('Password cannot be empty')
+    check('username')
+      .notEmpty()
+      .withMessage('Username cannot be empty')
+      .isLength({ min: 4 })
+      .withMessage('Username needs to be at least 4 characters long'),
+    check('password')
+      .notEmpty()
+      .withMessage('Password cannot be empty')
+      .isLength({ min: 4 })
+      .withMessage('Password needs to be at least 4 characters long')
   ],
   async (req, res) => {
     const errors = validationResult(req);

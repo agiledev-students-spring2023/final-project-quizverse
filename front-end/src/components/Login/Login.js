@@ -57,7 +57,7 @@ function LoginPage() {
       if (error.response?.data?.errors) {
         // if form fields are empty
         const errArr = error.response?.data?.errors;
-        const errStr = errArr.map((err) => err.msg + ', ');
+        const errStr = errArr.map((err) => err.msg + '\n');
         toast.error(errStr, {
           id: 'login-error'
         });
