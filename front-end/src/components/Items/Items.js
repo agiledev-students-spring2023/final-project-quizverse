@@ -48,20 +48,23 @@ function Items() {
   const [definition, setDefinition] = useState(''); // eslint-disable-next-line
   const [arrLength, setArrLength] = useState(0); // eslint-disable-next-line
   const [arrIndex, setArrIndex] = useState(0);
+  function itemUsage(item_id) {
+    console.log(item_id);
+  }
   useEffect(() => {
     // fetch some items
     axios
       .get('http://localhost:3001/your-items', {
-        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+        headers: { 'jwt-token': token, username: username } // pass the token, if any, to the server
       })
       .then((response) => {
         // extract the data from the server response
-        console.log(response.data)
+        console.log(response.data);
         setData(response.data);
         setArrLength(response.data.length);
       })
       .catch((err) => {
-        console.error(err); // the server returned an error... probably too many requests... until we pay!
+        console.error(err); // axios error!
         navigate('/'); //kick back to landing
       });
   }, []);
@@ -113,7 +116,13 @@ function Items() {
                     <Typography>{card.desc}</Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">Use</Button>
+                    <Button
+                      size="small"
+                      onClick={() => {
+                        itemUsage(card.item_id);
+                      }}>
+                      Use
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>
