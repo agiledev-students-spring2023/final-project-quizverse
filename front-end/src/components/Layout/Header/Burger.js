@@ -7,7 +7,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 const Burger = ({ open, setOpen }) => {
   return (
     <StyledBurger color="black" open={open} onClick={() => setOpen(!open)}>
-      <FontAwesomeIcon icon={faBars} size="xl" />
+      <FontAwesomeIcon icon={faBars} size="2xl" />
     </StyledBurger>
   );
 };
