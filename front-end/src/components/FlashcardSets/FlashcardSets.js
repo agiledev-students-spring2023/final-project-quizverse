@@ -66,7 +66,7 @@ function FlashcardSets() {
         <ThemeProvider theme={theme}>
           <Grid className={styles.gridContainer} container>
             <Grid item xs={1} />
-            <Grid item xs={8}>
+            <Grid item xs={6}>
               <TextField
                 id="outlined-search"
                 label="Enter your search term"
@@ -87,14 +87,19 @@ function FlashcardSets() {
                 fullWidth>
                 Search
               </Button>
+            </Grid>
+            <Grid item xs={2}>
               <Button
+                className={styles.searchButton}
                 onClick={() => {
                   setSearchTerm('');
                   setFiltered([]);
                   setSearched(false);
                 }}
                 disabled={!searched}
-                variant="outlined">
+                variant="outlined"
+                color="primary"
+                fullWidth>
                 Reset
               </Button>
             </Grid>
