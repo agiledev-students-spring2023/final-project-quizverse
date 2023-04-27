@@ -19,14 +19,16 @@ function FlashcardSets() {
 
   const [sets, setSets] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [searched, setSearched] = useState(true);
   const [filtered, setFiltered] = useState([]);
 
   const onSearch = () => {
     setFiltered(
-      sets.filter((item) => {
-        return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+      sets.filter((set) => {
+        return set.title.toLowerCase().includes(searchTerm.toLowerCase());
       })
     );
+    setSearched(true);
     console.log(filtered);
   };
 
@@ -70,6 +72,7 @@ function FlashcardSets() {
                 label="Enter your search term"
                 type="search"
                 variant="outlined"
+                value={searchTerm}
                 className={styles.searchTextField}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 fullWidth
@@ -84,20 +87,40 @@ function FlashcardSets() {
                 fullWidth>
                 Search
               </Button>
+              <Button
+                onClick={() => {
+                  setSearchTerm('');
+                  setFiltered([]);
+                  setSearched(false);
+                }}
+                disabled={!searched}
+                variant="outlined">
+                Reset
+              </Button>
             </Grid>
           </Grid>
         </ThemeProvider>
       </div>
       <div className={styles.flashcardSetContainer}>
-        {sets.map((set) => (
-          <FlashcardSet
-            id={set._id}
-            title={set.title}
-            description={set.description}
-            numCards={set.flashcards.length}
-            username={set.createdBy}
-          />
-        ))}
+        {filtered.length > 0
+          ? filtered.map((set) => (
+              <FlashcardSet
+                id={set._id}
+                title={set.title}
+                description={set.description}
+                numCards={set.flashcards.length}
+                username={set.createdBy}
+              />
+            ))
+          : sets.map((set) => (
+              <FlashcardSet
+                id={set._id}
+                title={set.title}
+                description={set.description}
+                numCards={set.flashcards.length}
+                username={set.createdBy}
+              />
+            ))}
       </div>
     </>
   );
