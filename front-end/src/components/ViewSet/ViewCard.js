@@ -12,8 +12,12 @@ const ViewCard = ({ index, term, def }) => {
         textAlign: 'left'
       }}>
       <CardContent>
-        <Typography name={'term' + index}>{term}</Typography>
-        <Typography name={'definition' + index}> {def}</Typography>
+        <Typography variant="h6" name={'term' + index}>
+          {term}
+        </Typography>
+        <Typography variant="body1" name={'definition' + index}>
+          {def}
+        </Typography>
       </CardContent>
     </Card>
   );

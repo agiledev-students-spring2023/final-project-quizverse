@@ -40,8 +40,14 @@
 .nav-item {
   display: inline-block;
   padding: 1px;
-  font-size: small;
-  margin: 0 3px;
+  font-size: medium;
+  margin: 0 8px;
 }
+
+.nav-item > a {
+  text-decoration: none;
+}
+
+
 
 
