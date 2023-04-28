@@ -34,15 +34,7 @@ router.post(
           username: username,
           token: token
         };
-        // Save token within the user object
-        //foundUser.token = token;
-        // Sending the entire user object
-        //res.status(200).json(foundUser);
-        //Send just the token (and username for reference)
         res.status(200).json(info);
-        // res
-        //   .cookie('meeple', 'beeple', { httpOnly: true }) //this doesn't send
-        //   .send({ status: 'success', message: 'Logged in successfully' });
       } else {
         res.status(401).send({ status: 'error', message: 'Invalid username or password' });
       }

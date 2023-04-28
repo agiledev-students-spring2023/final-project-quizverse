@@ -13,26 +13,9 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    //res.send('Email Updated!');
-    //for tester purposes this post request also generates a new anna
     const emailData = req.body.email;
     let user = req.headers.username;
-    // try {
-    //   const user = User.create({
-    //     username: 'Anna',
-    //     email: 'anna@money.com',
-    //     password: 'make a killing'
-    //   })
-    //     .then((username) => {
-    //       console.log(`Generated new ${username}`);
-    //     })
-    //     .catch((err) => {
-    //       console.log(`Failure: ${err}`);
-    //     });
-    //   console.log(user);
-    // } catch (e) {
-    //   console.log(e.message);
-    // }
+    //code section 1
     try {
       const filter = { username: user };
       const update = { email: emailData };
@@ -62,7 +45,6 @@ router.post(
       .withMessage('Password needs to be at least 4 characters long')
   ],
   async (req, res) => {
-    //res.send('Password Updated!');
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
@@ -84,35 +66,6 @@ router.post(
     res.send({ password: passwordData });
   }
 );
-// router.get('/items', (req, res) => {
-//   //res.send('Here are your items:');
-//   const items = {
-//     item1: 'Double Coins!',
-//     item2: 'Triple Coins!',
-//     item3: 'Streak Freeze!',
-//     item4: 'Streak Protection!'
-//   };
-//   if (!Object.keys(items).length) {
-//     console.log('no data found');
-//     res.send({ item: 'Whoops! You have no items.' });
-//   } else {
-//     res.json(items);
-//   }
-// });
-router.get('/study-stats', (req, res) => {
-  //res.send('Your study statistics:');
-  const words = {
-    mostMissed1: 'banana',
-    mostMissed2: 'canoe',
-    mostMissed3: 'The depths of the abyss'
-  };
-  if (!Object.keys(words).length) {
-    console.log('no data found');
-    res.send({ mostMissed: 'Whoops! You have no study statistics. Go study to get some!' });
-  } else {
-    res.json(words);
-  }
-});
 router.post('/delete', (req, res) => {
   let user = req.headers.username
   const filter = { username: user };

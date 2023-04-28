@@ -117,3 +117,13 @@ daily-quiz.js
         //       // console.log(us)
         //   })
         // }
+
+Above const data at the end
+    /*
+     * Dealing with the dailyquizHistory-schema first
+     */
+
+    // axios
+    //   .post('https://my.api.mockaroo.com/generic_post.json?key=6b3bc3e0&__method=POST', req.body)
+    //   .then(console.log('Succesfully sent to database'))
+    //   .catch((err) => next(err));

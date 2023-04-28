@@ -101,15 +101,6 @@ router.post(
       let found = false;
       answers.map((answer) => {});
     });
-
-    /*
-     * Dealing with the dailyquizHistory-schema first
-     */
-
-    // axios
-    //   .post('https://my.api.mockaroo.com/generic_post.json?key=6b3bc3e0&__method=POST', req.body)
-    //   .then(console.log('Succesfully sent to database'))
-    //   .catch((err) => next(err));
     const data = {
       status: 'Amazing success!',
       message: 'Congratulations on sending us this data!',
