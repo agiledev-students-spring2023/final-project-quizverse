@@ -83,8 +83,8 @@ const CreateSet = (props) => {
         id: 'create-set'
       }
     );
-    //navigate('/flashcards');
-    /*TEMPORARILY COMMENTED OUT, PLEASE ADD BACK LATER*/
+    navigate('/flashcards');
+    /*TEMPORARILY COMMENTED OUT, PLEASE ADD BACK LATER*/ //uncommented! Hopefully this doesn't break
   }
 
   const cardElements = cards.map((info, i) => {
