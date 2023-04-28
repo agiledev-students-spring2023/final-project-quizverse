@@ -54,9 +54,18 @@ function LoginPage() {
       localStorage.setItem('info', JSON.stringify(info, null, 0));
       navigate('/home');
     } catch (error) {
-      toast.error(error.response?.data?.message || 'An error occurred on login', {
-        id: 'login-error'
-      });
+      if (error.response?.data?.errors) {
+        // if form fields are empty
+        const errArr = error.response?.data?.errors;
+        const errStr = errArr.map((err) => err.msg + '\n');
+        toast.error(errStr, {
+          id: 'login-error'
+        });
+      } else {
+        toast.error(error.response?.data?.message || 'An error occurred on login', {
+          id: 'login-error'
+        });
+      }
     }
   };
 

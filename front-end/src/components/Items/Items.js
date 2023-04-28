@@ -38,12 +38,7 @@ function Items() {
     }
   });
   const navigate = useNavigate();
-  const [data, setData] = useState([
-    {
-      term: '',
-      definition: ''
-    }
-  ]);
+  const [data, setData] = useState([]);
   // eslint-disable-next-line
   const [term, setTerm] = useState(''); // eslint-disable-next-line
   const [definition, setDefinition] = useState(''); // eslint-disable-next-line
@@ -83,15 +78,50 @@ function Items() {
       })
       .then((response) => {
         // extract the data from the server response
-        console.log(response.data);
-        setData(response.data);
-        setArrLength(response.data.length);
+        if (response.data.message == 'Success') {
+          setData(response.data);
+          setArrLength(response.data.length);
+        } else {
+          setArrLength(0);
+        }
       })
       .catch((err) => {
         console.error(err); // axios error!
         navigate('/'); //kick back to landing
       });
   }, []);
+
+  console.log(arrLength);
+  console.log(data);
+  const myItems = arrLength ? (
+    <Typography>You have no items!</Typography>
+  ) : (
+    data.map((card) => (
+      <Grid item xs={12} sm={6} md={4}>
+        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+          <CardMedia
+            component="img"
+            sx={{
+              // 16:9
+              pt: '20%'
+            }}
+            src="http://localhost:3001/static/images/QuizVerseLogo.png"
+            alt="QuizVerse Logo"
+          />
+          <CardContent sx={{ flexGrow: 1 }}>
+            <Typography gutterBottom variant="h5" component="h2">
+              {card.item}
+            </Typography>
+            <Typography>{card.desc}</Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Use</Button>
+          </CardActions>
+        </Card>
+      </Grid>
+    ))
+  );
+
   return (
     // the following side-effect will be called once upon initial render
     <ThemeProvider theme={theme}>
@@ -121,36 +151,7 @@ function Items() {
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {data.map((card) => (
-              <Grid item xs={12} sm={6} md={4}>
-                <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      // 16:9
-                      pt: '20%'
-                    }}
-                    src="http://localhost:3001/static/images/QuizVerseLogo.png"
-                    alt="QuizVerse Logo"
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {card.item}
-                    </Typography>
-                    <Typography>{card.desc}</Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button
-                      size="small"
-                      onClick={() => {
-                        itemUsage(card.item_id);
-                      }}>
-                      Use
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
+            {myItems}
           </Grid>
         </Container>
       </main>

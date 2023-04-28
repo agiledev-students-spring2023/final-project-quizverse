@@ -20,30 +20,18 @@ router.get('/your-items', jwt_auth, (req, res, next) => {
   user = req.headers.username;
 
   User.findOne({ username: req.headers.username }).then((u) => {
-    const items = u.items;
-    console.log(`items:${items}`);
-    data = items.map((i) => {
+    const items = u.items
+    console.log(`items:${items}`)
+    const data = items?.map((i) => {
       console.log(item_id_table[i]);
       return item_id_table[i];
     });
-    res.json(data);
-  });
-});
-router.get('/use-items', jwt_auth, (req, res, next) => {
-  function monkey() {
-    console.log('ooo ooo aaa aa');
-    if (item_id == 0) {
+    if (!data) {
+      res.send({ message: 'Empty' });
+    } else {
+      res.json({ message: 'Success', items: data });
     }
-  }
-  // use axios to make a request to use an item
-  user = req.headers.username;
-  item_id = req.headers.item_id;
-  const filter = { username: user };
-  if (item_id == 0) {
-    const update = { 'items.item_id': 0, user };
-  }
-  User.findOneAndUpdate(filter, update, { new: true }).then(monkey()).catch(console.log('monkey'));
-  res.json(data);
+  })
 });
 
 module.exports = router;
