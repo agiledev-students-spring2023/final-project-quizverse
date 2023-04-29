@@ -28,21 +28,7 @@ function LoginPage() {
 
     try {
       const response = await axios.post('http://localhost:3001/login', { username, password });
-      // if (response.data && response.data.token){
-      //   //alert(response.data.token);
-      //   //console.log(response.data.token);
-      //   //localStorage.setItem("token", response.data.token);
-      //   //future requests should have
-      // }
-      //alert(response.data.message);
-      // console.log(response.data.token);
-      // const monkey = {
-      //   ooo_ooo: 'aaa_aaa',
-      //   sus: 'Zappy!',
-      //   token: response.data.token
-      // };
-      // const serializedObj = JSON.stringify(monkey, null, 0); // a JSON string representation of the object
-      // localStorage.setItem('Yunaka', serializedObj); // store it with the key, foo
+      //code section 1
       toast.success(`${response.data.username} is now logged in!`, {
         id: 'login-success'
       });
