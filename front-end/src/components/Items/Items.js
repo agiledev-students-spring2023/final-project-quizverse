@@ -68,41 +68,42 @@ function Items() {
   
   // console.log(arrLength);
   // console.log(data);
-  const myItems = (arrLength==0) ? (
-    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <CardContent sx={{ flexGrow: 1 }}>
-            <Typography gutterBottom variant="h5" component="h2">
-              You have no items.
-            </Typography>
-      </CardContent>
-    </Card>
-    You have no items
-  ) : (
-    data.map((card) => (
-      <Grid item xs={12} sm={6} md={4}>
-        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-          <CardMedia
-            component="img"
-            sx={{
-              // 16:9
-              pt: '20%'
-            }}
-            src="http://localhost:3001/static/images/QuizVerseLogo.png"
-            alt="QuizVerse Logo"
-          />
-          <CardContent sx={{ flexGrow: 1 }}>
-            <Typography gutterBottom variant="h5" component="h2">
-              {card.item}
-            </Typography>
-            <Typography>{card.desc}</Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Use</Button>
-          </CardActions>
-        </Card>
-      </Grid>
-    ))
-  );
+  const myItems =
+    arrLength == 0 ? (
+      <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <CardContent sx={{ flexGrow: 1 }}>
+          <Typography gutterBottom variant="h5" component="h2">
+            You have no items.
+          </Typography>
+        </CardContent>
+      </Card>
+    ) : (
+      // You have no items
+      data.map((card) => (
+        <Grid item xs={12} sm={6} md={4}>
+          <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <CardMedia
+              component="img"
+              sx={{
+                // 16:9
+                pt: '20%'
+              }}
+              src="http://localhost:3001/static/images/QuizVerseLogo.png"
+              alt="QuizVerse Logo"
+            />
+            <CardContent sx={{ flexGrow: 1 }}>
+              <Typography gutterBottom variant="h5" component="h2">
+                {card.item}
+              </Typography>
+              <Typography>{card.desc}</Typography>
+            </CardContent>
+            <CardActions>
+              <Button size="small">Use</Button>
+            </CardActions>
+          </Card>
+        </Grid>
+      ))
+    );
 
   return (
     // the following side-effect will be called once upon initial render
