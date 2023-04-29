@@ -44,8 +44,7 @@ const DailyQuiz = (props) => {
 
   const submitButton = (e) => {
     e.preventDefault();
-    const foundUser = answer;
-    if (foundUser === term) {
+    if (answer == term) {
       toast.success('Correct!', {
         id: 'correct'
       });
@@ -102,11 +101,16 @@ const DailyQuiz = (props) => {
   const Next = () => {
     setDisplayTerm(false);
     if (arrIndex + 1 >= arrLength) {
+      let uniqueCorrects = correct.filter((ans, i, arr) => {
+        return i === arr.findIndex((item) => item.term === ans.term);
+      });
+      let uniqueIncorrect = incorrect.filter((ans, i, arr) => {
+        return i === arr.findIndex((item) => item.term === ans.term);
+      });
       setComplete(true);
       toast.success(
-        // percentage correct was displaying wrong on sets with duplicate cards, switching to this way first
-        `Congratulations on finishing your Quiz! Score: ${correct.length} out of ${
-          correct.length + incorrect.length
+        `Congratulations on finishing your Quiz! Score: ${uniqueCorrects.length} out of ${
+          uniqueCorrects.length + uniqueIncorrect.length
         }`,
         {
           id: 'quiz-finished'
