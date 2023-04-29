@@ -104,7 +104,10 @@ const DailyQuiz = (props) => {
     if (arrIndex + 1 >= arrLength) {
       setComplete(true);
       toast.success(
-        `Congratulations on finishing your Quiz! Score: ${correct.length} out of ${arrLength}`,
+        // percentage correct was displaying wrong on sets with duplicate cards, switching to this way first
+        `Congratulations on finishing your Quiz! Score: ${correct.length} out of ${
+          correct.length + incorrect.length
+        }`,
         {
           id: 'quiz-finished'
         }

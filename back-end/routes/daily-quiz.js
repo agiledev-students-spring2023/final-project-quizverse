@@ -68,8 +68,9 @@ router.post('/study-stats', async (req, res) => {
   });
 
   let todays_stats = new DailyQuizHistory({
+    username: username,
     dayOfQuiz: new Date(),
-    percentageCorrect: correct.length / correct.length + incorrect.length,
+    percentageCorrect: correct.length / (correct.length + incorrect.length),
     answers: answers
   });
 
@@ -84,8 +85,9 @@ router.post('/study-stats', async (req, res) => {
     let combinedHistory = [...u.dailyquizHistory, todays_stats];
     let c = u.coins;
     User.findOneAndUpdate(
-      { username: req.headers.username },
+      { username },
       {
+        username,
         dailyquizHistory: combinedHistory,
         coins: c + correct.length, //this coins algorithm is good for final product
         streak: u.streak + 1
