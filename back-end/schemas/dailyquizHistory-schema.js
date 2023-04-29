@@ -16,6 +16,7 @@ const termSchema = new Schema({
  */
 
 const dailyquizSchema = new Schema({
+  username: String,
   dayOfQuiz: Date,
   percentageCorrect: Number,
   answers: [termSchema]

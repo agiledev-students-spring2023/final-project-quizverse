@@ -35,10 +35,8 @@ const CreateSet = (props) => {
   function handleChange(evt) {
     const value = evt.target.value;
     const id = evt.target.name;
-    console.log(id);
     const field = id.match(/[a-z]+/)[0];
     const index = id.match(/\d+/)[0];
-    console.log(`field is ${field}, index is ${index}, value is ${value}`);
     const newCard = cards[index];
     newCard[field] = value;
     setCards(

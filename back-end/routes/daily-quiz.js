@@ -38,77 +38,80 @@ router.get('/daily-quiz', jwt_auth, async (req, res, next) => {
     });
 });
 // Creating a POST request for daily quiz
-router.post(
-  '/study-stats',
-  body().isEmpty().withMessage('Body of request is empty'),
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-    let correct = req.body.correct;
-    let incorrect = req.body.incorrect;
-    const username = req.headers.username;
-    let answers = [];
-    correct.map((o) => {
-      answers.push({
-        term: o.term,
-        set_id: o.set_id,
-        correctness: true
-      });
-    });
-    incorrect.map((o) => {
-      answers.push({
-        term: o.term,
-        set_id: o.set_id,
-        correctness: false
-      });
-    });
-
-    let todays_stats = new DailyQuizHistory({
-      dayOfQuiz: new Date(),
-      percentageCorrect: correct.length / Math.max(correct.length + incorrect.length, 10),
-      answers: answers
-    });
-
-    try {
-      todays_stats.save();
-    } catch (err) {
-      console.log('error when saving new set' + err);
-      res.status(500).send({ message: 'error' });
-    }
-
-    User.findOne({ username: req.headers.username }).then((u) => {
-      let combinedHistory = [...u.dailyquizHistory, todays_stats];
-      let c = u.coins;
-      User.findOneAndUpdate(
-        { username: req.headers.username },
-        {
-          dailyquizHistory: combinedHistory,
-          coins: c + correct.length, //this coins algorithm is good for final product
-          streak: u.streak + 1
-        }, //UPDATE streak mechanism before end of sprint 4
-        { new: true }
-      ).then((u) => {
-        console.log(`updated user: ${u}`);
-      });
-    });
-    /*
-     * Now dealing with history schema. THIS DOES NOT WORK. Not sure how to fix this.
-     */
-    User.findOne({ username: req.headers.username }).then((u) => {
-      let history = u.history;
-      let found = false;
-      answers.map((answer) => {});
-    });
-    const data = {
-      status: 'Amazing success!',
-      message: 'Congratulations on sending us this data!',
-      your_data: req.body
-    };
-    // ... then send a response of some kind to client
-    res.json(data);
+router.post('/study-stats', async (req, res) => {
+  // validation: check if body is empty
+  if (Object.keys(req.body).length === 0) {
+    console.log('Req body is empty');
+    res.status(400).send({ message: 'Content cannot be empty' });
+    return;
   }
-);
+
+  let correct = req.body.correct;
+  let incorrect = req.body.incorrect;
+  console.log('correct terms:', correct);
+  console.log('incorrect terms:', incorrect);
+  const username = req.headers.username;
+  let answers = [];
+  correct.map((o) => {
+    answers.push({
+      term: o.term,
+      set_id: o.set_id,
+      correctness: true
+    });
+  });
+  incorrect.map((o) => {
+    answers.push({
+      term: o.term,
+      set_id: o.set_id,
+      correctness: false
+    });
+  });
+
+  let todays_stats = new DailyQuizHistory({
+    username: username,
+    dayOfQuiz: new Date(),
+    percentageCorrect: correct.length / (correct.length + incorrect.length),
+    answers: answers
+  });
+
+  try {
+    todays_stats.save();
+  } catch (err) {
+    console.log('error when saving new set' + err);
+    res.status(500).send({ message: 'error' });
+  }
+
+  User.findOne({ username: req.headers.username }).then((u) => {
+    let combinedHistory = [...u.dailyquizHistory, todays_stats];
+    let c = u.coins;
+    User.findOneAndUpdate(
+      { username },
+      {
+        username,
+        dailyquizHistory: combinedHistory,
+        coins: c + correct.length, //this coins algorithm is good for final product
+        streak: u.streak + 1
+      }, //UPDATE streak mechanism before end of sprint 4
+      { new: true }
+    ).then((u) => {
+      console.log(`updated user: ${u}`);
+    });
+  });
+  /*
+   * Now dealing with history schema. THIS DOES NOT WORK. Not sure how to fix this.
+   */
+  User.findOne({ username: req.headers.username }).then((u) => {
+    let history = u.history;
+    let found = false;
+    answers.map((answer) => {});
+  });
+  const data = {
+    status: 'Amazing success!',
+    message: 'Congratulations on sending us this data!',
+    your_data: req.body
+  };
+  // ... then send a response of some kind to client
+  res.json(data);
+});
 
 module.exports = router;
