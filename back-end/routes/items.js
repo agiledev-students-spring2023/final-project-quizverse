@@ -19,13 +19,13 @@ router.get('/your-items', jwt_auth, (req, res, next) => {
   User.findOne({ username: req.headers.username }).then((u) => {
     const items = u.items;
     console.log(`items:${items}`);
-    const data = items?.map((i) => {
-      console.log(item_id_table[i]);
-      return item_id_table[i];
-    });
-    if (!data) {
+    if (!items) {
       res.send({ message: 'Empty' });
     } else {
+      const data = items.map((i) => {
+      console.log(item_id_table[i]);
+      return item_id_table[i];
+      });
       res.json({ message: 'Success', items: data });
     }
   });
