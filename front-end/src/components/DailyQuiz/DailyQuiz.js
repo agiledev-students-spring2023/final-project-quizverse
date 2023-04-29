@@ -41,8 +41,6 @@ const DailyQuiz = (props) => {
   const [correct, setCorrect] = useState([]);
   const [incorrect, setIncorrect] = useState([]);
   const [complete, setComplete] = useState(false);
-  let noDupesCorrect = [];
-  let noDupesIncorrect = [];
 
   const submitButton = (e) => {
     e.preventDefault();
@@ -55,7 +53,7 @@ const DailyQuiz = (props) => {
         ...correct,
         { term: term, definition: definition, set_id: data[arrIndex].set_id }
       ]);
-      console.log(correct);
+      setAnswer('');
       Next();
     } else {
       toast.error('Incorrect!', {
@@ -65,8 +63,6 @@ const DailyQuiz = (props) => {
         ...incorrect,
         { term: term, definition: definition, set_id: data[arrIndex].set_id }
       ]);
-      noDupesIncorrect = [...new Set(incorrect)];
-      console.log(incorrect);
     }
   };
   // the following side-effect will be called once upon initial render
@@ -92,7 +88,7 @@ const DailyQuiz = (props) => {
 
   useEffect(() => {
     setTerm(data[arrIndex].term);
-    setDefinition(data[arrIndex].definition); // eslint-disable-next-line
+    setDefinition(data[arrIndex].definition);
   }, [arrIndex]);
   const Prev = () => {
     setDisplayTerm(false);
@@ -113,6 +109,8 @@ const DailyQuiz = (props) => {
           id: 'quiz-finished'
         }
       );
+      console.log('correct terms: ', correct);
+      console.log('incorrect terms: ', incorrect);
       axios({
         method: 'POST',
         data: {
@@ -139,7 +137,7 @@ const DailyQuiz = (props) => {
     <>
       <h1>Daily Quiz</h1>
       <h2>Current flashcard:</h2>
-      <div class="flashcard">
+      <div>
         <Flashcard
           term={term}
           definition={definition}
@@ -175,17 +173,27 @@ const DailyQuiz = (props) => {
           </Button>
         </div>
       </form>
-      <div>
-        <h2>Topics You Got Right:</h2>
-        {correct.map((o) => (
-          <p>{o.term}</p>
-        ))}
-      </div>
-      <div>
-        <h2>Topics You Got Wrong:</h2>
-        {noDupesIncorrect.map((o) => (
-          <p>{o.term}</p>
-        ))}
+      <div className={styles['quiz-results']}>
+        <div>
+          <h3>Topics You Got Right:</h3>
+          {correct
+            .filter((ans, i, arr) => {
+              return i === arr.findIndex((item) => item.term === ans.term);
+            })
+            .map((o) => (
+              <p>{o.term}</p>
+            ))}
+        </div>
+        <div>
+          <h3>Topics You Got Wrong:</h3>
+          {incorrect
+            .filter((ans, i, arr) => {
+              return i === arr.findIndex((item) => item.term === ans.term);
+            })
+            .map((o) => (
+              <p>{o.term}</p>
+            ))}
+        </div>
       </div>
     </>
   );
