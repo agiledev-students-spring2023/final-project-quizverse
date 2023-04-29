@@ -22,8 +22,8 @@ router.post(
       createdBy: req.headers.username,
       flashcards: cards.map((card) => {
         return new Flashcard({
-          term: card.term,
-          definition: card.definition
+          term: card.term.trim(),
+          definition: card.definition.trim()
         });
       }),
       createdAt: new Date(),
