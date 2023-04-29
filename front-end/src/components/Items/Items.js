@@ -65,10 +65,18 @@ function Items() {
       });
   }, []);
 
+  
   // console.log(arrLength);
   // console.log(data);
   const myItems = (arrLength==0) ? (
-    <p>You have no items!</p>
+    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <CardContent sx={{ flexGrow: 1 }}>
+            <Typography gutterBottom variant="h5" component="h2">
+              You have no items.
+            </Typography>
+      </CardContent>
+    </Card>
+    You have no items
   ) : (
     data.map((card) => (
       <Grid item xs={12} sm={6} md={4}>
