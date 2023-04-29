@@ -53,7 +53,7 @@ function Items() {
       .then((response) => {
         // extract the data from the server response
         if (response.data.message == 'Success') {
-          setData(response.data);
+          setData(response.data.items);
           setArrLength(response.data.length);
         } else {
           setArrLength(0);
@@ -65,10 +65,10 @@ function Items() {
       });
   }, []);
 
-  console.log(arrLength);
-  console.log(data);
-  const myItems = arrLength ? (
-    <Typography>You have no items!</Typography>
+  // console.log(arrLength);
+  // console.log(data);
+  const myItems = (arrLength==0) ? (
+    <p>You have no items!</p>
   ) : (
     data.map((card) => (
       <Grid item xs={12} sm={6} md={4}>
