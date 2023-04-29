@@ -5,6 +5,8 @@ import axios from "axios"
 import Flashcard from './Flashcard/Flashcard';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import ViewCard from '../ViewSet/ViewCard';
+import { TextField, FormControl, Button, Container, Stack } from '@mui/material';
 
 const DailyQuiz = (props) => {
   const navigate = useNavigate();
@@ -28,15 +30,20 @@ const DailyQuiz = (props) => {
       definition: ''
     }
   ]);
+
   const [answer, setAnswer] = useState('');
   const [term, setTerm] = useState('');
   const [definition, setDefinition] = useState('');
   const [arrLength, setArrLength] = useState(0);
-  const [arrIndex, setArrIndex] = useState(0); // eslint-disable-next-line
+  const [arrIndex, setArrIndex] = useState(0);
   const [displayTerm, setDisplayTerm] = useState(false); // eslint-disable-next-line
   const [displayDefinition, setDisplayDefinition] = useState(true);
   const [correct, setCorrect] = useState([]);
   const [incorrect, setIncorrect] = useState([]);
+  const [complete, setComplete] = useState(false);
+  let noDupesCorrect = [];
+  let noDupesIncorrect = [];
+
   const submitButton = (e) => {
     e.preventDefault();
     const foundUser = answer;
@@ -58,6 +65,7 @@ const DailyQuiz = (props) => {
         ...incorrect,
         { term: term, definition: definition, set_id: data[arrIndex].set_id }
       ]);
+      noDupesIncorrect = [...new Set(incorrect)];
       console.log(incorrect);
     }
   };
@@ -81,6 +89,7 @@ const DailyQuiz = (props) => {
         navigate('/'); //kick back to landing
       });
   }, []);
+
   useEffect(() => {
     setTerm(data[arrIndex].term);
     setDefinition(data[arrIndex].definition); // eslint-disable-next-line
@@ -97,6 +106,7 @@ const DailyQuiz = (props) => {
   const Next = () => {
     setDisplayTerm(false);
     if (arrIndex + 1 >= arrLength) {
+      setComplete(true);
       toast.success(
         `Congratulations on finishing your Quiz! Score: ${correct.length} out of ${arrLength}`,
         {
@@ -140,26 +150,29 @@ const DailyQuiz = (props) => {
         />
       </div>
       <p></p>
-      <form className="login-page-form" onSubmit={submitButton}>
-        <div className="login-page-input-container">
-          <label htmlFor="password" className="login-page-label">
-            Answer:
-          </label>
-          <input
-            type="text"
-            id="answer"
-            value={answer}
-            onChange={(event) => setAnswer(event.target.value)}
-            className="answer-input"
-          />
-        </div>
-        <button type="button" className="answer-button" onClick={submitButton}>
-          Submit
-        </button>
+      <form onSubmit={submitButton}>
+        <TextField
+          id="filled-basic"
+          value={answer}
+          onChange={(event) => setAnswer(event.target.value)}
+          label="Type the answer"
+          disabled={complete}
+        />
         <div>
-          <button type="button" className="show-answer-button" onClick={showAnswer}>
-            Show answer
-          </button>
+          <Button
+            sx={{ m: 1, width: '25vw' }}
+            onClick={submitButton}
+            variant="contained"
+            disabled={complete}>
+            submit
+          </Button>
+          <Button
+            sx={{ m: 1, width: '25vw' }}
+            onClick={showAnswer}
+            variant="contained"
+            disabled={complete}>
+            hint
+          </Button>
         </div>
       </form>
       <div>
@@ -170,7 +183,7 @@ const DailyQuiz = (props) => {
       </div>
       <div>
         <h2>Topics You Got Wrong:</h2>
-        {incorrect.map((o) => (
+        {noDupesIncorrect.map((o) => (
           <p>{o.term}</p>
         ))}
       </div>
