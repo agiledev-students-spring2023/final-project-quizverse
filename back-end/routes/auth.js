@@ -84,7 +84,8 @@ router.post(
         items: [],
         sets: [],
         history: [],
-        dailyquizHistory: []
+        dailyquizHistory: [],
+        inventory: []
       };
 
       //console.log('New user object:', newUser);

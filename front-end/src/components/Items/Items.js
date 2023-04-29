@@ -18,14 +18,15 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const theme = createTheme();
 
 function Items() {
   let token = 'Zappy!';
-  let parsed = "";
+  let parsed = '';
   const [user, setUser] = useState('');
-  let username = "";
+  let username = '';
   useEffect(() => {
     try {
       parsed = JSON.parse(localStorage.getItem('info'));
@@ -43,7 +44,28 @@ function Items() {
   const [definition, setDefinition] = useState(''); // eslint-disable-next-line
   const [arrLength, setArrLength] = useState(0); // eslint-disable-next-line
   const [arrIndex, setArrIndex] = useState(0);
-
+  function itemUse(item_id) {
+    console.log('I love yoylecake');
+    axios({
+      method: 'POST',
+      withCredentials: true,
+      headers: { 'jwt-token': token, username: parsed.username, item_id: item_id },
+      url: 'http://localhost:3001/use-items'
+    })
+      .then((response) => {
+        console.log(response);
+        toast.success(`Item used!`, {
+          id: 'item-use-success'
+        });
+      })
+      .catch((err) => {
+        console.log('Item use fail!');
+        console.log(err);
+        toast.error('Item use fail!', {
+          id: 'item-use-fail'
+        });
+      });
+  }
   useEffect(() => {
     // fetch some items
     axios
@@ -65,9 +87,8 @@ function Items() {
       });
   }, []);
 
-  
-  // console.log(arrLength);
-  // console.log(data);
+  console.log(arrLength);
+  console.log(data);
   const myItems =
     arrLength == 0 ? (
       <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -97,7 +118,9 @@ function Items() {
               <Typography>{card.desc}</Typography>
             </CardContent>
             <CardActions>
-              <Button size="small">Use</Button>
+              <Button size="small" onClick={() => itemUse(1)}>
+                Use
+              </Button>
             </CardActions>
           </Card>
         </Grid>

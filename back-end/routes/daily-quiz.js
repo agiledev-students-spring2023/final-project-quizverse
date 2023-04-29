@@ -84,17 +84,26 @@ router.post('/study-stats', async (req, res) => {
   User.findOne({ username: req.headers.username }).then((u) => {
     let combinedHistory = [...u.dailyquizHistory, todays_stats];
     let c = u.coins;
+    let doubleCoins = 1;
+    let monkey = User.findOne({ username, 'inventory.item_id': 1 }).then(() => {
+      console.log('monkey!!!!');
+      if (monkey.inventory.$.in_use == true) {
+        doubleCoins = 2;
+      }
+    });
+    console.log(doubleCoins);
     User.findOneAndUpdate(
       { username },
       {
         username,
         dailyquizHistory: combinedHistory,
-        coins: c + correct.length, //this coins algorithm is good for final product
+        coins: c + correct.length * doubleCoins, //this coins algorithm is good for final product
         streak: u.streak + 1
       }, //UPDATE streak mechanism before end of sprint 4
       { new: true }
     ).then((u) => {
-      console.log(`updated user: ${u}`);
+      //console.log(`updated user: ${u}`); //user report takes too much space
+      console.log('Quiz finished!');
     });
   });
   /*

@@ -24,11 +24,11 @@ function SignUpPage() {
         const errArr = error.response?.data?.errors;
         const errStr = errArr.map((err) => err.msg + '\n');
         toast.error(errStr, {
-          id: 'login-error'
+          id: 'signup-error'
         });
       } else {
-        toast.error(error.response?.data?.message || 'An error occurred on login', {
-          id: 'login-error'
+        toast.error(error.response?.data?.message || 'An error occurred on signup', {
+          id: 'signup-error'
         });
       }
     }
