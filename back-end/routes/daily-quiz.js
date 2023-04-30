@@ -45,9 +45,9 @@ router.post('/study-stats', async (req, res) => {
     res.status(400).send({ message: 'Content cannot be empty' });
     return;
   }
-
   let correct = req.body.correct;
   let incorrect = req.body.incorrect;
+  let doubleCoins = 1;
   console.log('correct terms:', correct);
   console.log('incorrect terms:', incorrect);
   const username = req.headers.username;
@@ -84,13 +84,6 @@ router.post('/study-stats', async (req, res) => {
   User.findOne({ username: req.headers.username }).then((u) => {
     let combinedHistory = [...u.dailyquizHistory, todays_stats];
     let c = u.coins;
-    let doubleCoins = 1;
-    let monkey = User.findOne({ username, 'inventory.item_id': 1 }).then(() => {
-      console.log('monkey!!!!');
-      if (monkey.inventory.$.in_use == true) {
-        doubleCoins = 2;
-      }
-    });
     console.log(doubleCoins);
     User.findOneAndUpdate(
       { username },
