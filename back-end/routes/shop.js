@@ -4,16 +4,16 @@ const axios = require('axios');
 const User = require('../schemas/user-schema');
 const router = express.Router();
 const { check, validationResult, body } = require('express-validator');
-
-router.post('/shop', body().isEmpty().withMessage('Body of request is empty'), (req, res) => {
+//body().isEmpty().withMessage('Body of request is empty')
+router.post('/shop', (req, res) => {
   //code section 1
   const username = req.headers.username;
   const item_id = req.headers.item;
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
-  User.findOne({ username: req.headers.username }).then((u) => {
+  //const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   return res.status(422).json({ errors: errors.array() });
+  // }
+  User.findOne({ username: username }).then((u) => {
     if ('items' in u && u.items.includes(item_id)) {
       res.status(201).send({ message: 'Already owned' });
     } else {

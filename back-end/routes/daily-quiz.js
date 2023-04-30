@@ -129,9 +129,9 @@ router.post('/study-stats', async (req, res) => {
     res.status(400).send({ message: 'Content cannot be empty' });
     return;
   }
-
   let correct = req.body.correct;
   let incorrect = req.body.incorrect;
+  let doubleCoins = 1;
   console.log('correct terms:', correct);
   console.log('incorrect terms:', incorrect);
   const username = req.headers.username;
@@ -189,6 +189,40 @@ router.post('/study-stats', async (req, res) => {
     console.log('error when saving new set' + err);
     res.status(500).send({ message: 'error' });
   }
+
+  User.findOne({ username: req.headers.username }).then((u) => {
+    let combinedHistory = [...u.dailyquizHistory, todays_stats];
+    let c = u.coins;
+    console.log(doubleCoins);
+    User.findOneAndUpdate(
+      { username },
+      {
+        username,
+        dailyquizHistory: combinedHistory,
+        coins: c + correct.length * doubleCoins, //this coins algorithm is good for final product
+        streak: u.streak + 1
+      }, //UPDATE streak mechanism before end of sprint 4
+      { new: true }
+    ).then((u) => {
+      //console.log(`updated user: ${u}`); //user report takes too much space
+      console.log('Quiz finished!');
+    });
+  });
+  /*
+   * Now dealing with history schema. THIS DOES NOT WORK. Not sure how to fix this.
+   */
+  User.findOne({ username: req.headers.username }).then((u) => {
+    let history = u.history;
+    let found = false;
+    answers.map((answer) => {});
+  });
+  const data = {
+    status: 'Amazing success!',
+    message: 'Congratulations on sending us this data!',
+    your_data: req.body
+  };
+  // ... then send a response of some kind to client
+  res.json(data);
 });
 
 module.exports = router;
