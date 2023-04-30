@@ -6,10 +6,9 @@ const jwt_auth = require('./jwt');
 const User = require('../schemas/user-schema');
 
 const item_id_table = {
-  1: {item: "Coins x2", desc: "Double your coins when studying."},
-  2: {item: "Time Travel Ticket", desc: "Go back in time to redo a daily study session."},
-  3: {item: "Streak Freeze", desc: "Protect your streak for 1 day in the future."}
-}
+  1: { item: 'Coins x2', desc: 'Double your coins when studying.' },
+  2: { item: 'Streak Freeze', desc: 'Protect your streak for 1 day in the future.' }
+};
 
 router.get('/your-items', jwt_auth, (req, res, next) => {
   // use axios to make a request to an API for flashcard data in the daily quiz

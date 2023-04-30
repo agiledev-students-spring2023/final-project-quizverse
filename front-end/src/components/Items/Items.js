@@ -127,7 +127,7 @@ function Items() {
               <Typography>{card.desc}</Typography>
             </CardContent>
             <CardActions>
-              <Button size="small" onClick={() => itemUse(3)}>
+              <Button size="small" onClick={() => itemUse(1)}>
                 Use
               </Button>
             </CardActions>

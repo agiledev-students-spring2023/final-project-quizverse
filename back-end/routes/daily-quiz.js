@@ -222,7 +222,7 @@ router.post('/study-stats', async (req, res) => {
     console.log(doubleCoins);
     if (streakFreezeUsed) {
       await User.findOneAndUpdate(
-        { username: username, 'inventory.item_id': 3 },
+        { username: username, 'inventory.item_id': 2 },
         { 'inventory.$.in_use': false },
         { upsert: true }
       ).then(() => console.log('Streak freeze no longer enabled!'));

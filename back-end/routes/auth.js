@@ -93,11 +93,6 @@ router.post(
           },
           {
             item_id: 2,
-            item_name: 'Time Travel Ticket',
-            item_desc: 'Zoom into the past to get a redo of your last daily quiz!'
-          },
-          {
-            item_id: 3,
             item_name: 'Streak Freeze',
             item_desc: 'Protect your streak from forgetting to study for a day. A nice safety net!'
           }
