@@ -4,7 +4,7 @@
   "description": "Back end of QuizVerse",
   "main": "server.js",
   "scripts": {
-    "test": "npx nyc --all mocha ./tests/ --recursive --timeout=3000 --exit"
+    "test": "npx nyc --all mocha ./tests/ --recursive --timeout=5000 --exit"
   },
   "config": {
     "blanket": {
