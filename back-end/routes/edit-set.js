@@ -32,8 +32,11 @@ router.post(
       flashcards: flashcardObjs
     };
     try {
+      
       FlashcardSet.findOneAndUpdate({ _id: id }, update, {
         new: true
+      }).then((f)=>{
+        // console.log(f)
       });
       res.status(200).send({ message: 'success' });
     } catch (err) {
