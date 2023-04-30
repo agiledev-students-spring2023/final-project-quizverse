@@ -122,8 +122,10 @@ router.post('/study-stats', async (req, res) => {
   let correct = req.body.correct;
   let incorrect = req.body.incorrect;
   let doubleCoins = 1;
-  console.log('correct terms:', correct);
-  console.log('incorrect terms:', incorrect);
+  let streakFreeze = false;
+  let streakFreezeUsed = false;
+  //console.log('correct terms:', correct);
+  //console.log('incorrect terms:', incorrect);
   const username = req.headers.username;
   let answers = [];
   correct.map((o) => {
@@ -164,7 +166,7 @@ router.post('/study-stats', async (req, res) => {
           }, //UPDATE streak mechanism before end of sprint 4
           { new: true }
         ).then((u) => {
-          console.log(`updated user: ${u}`);
+          //console.log(`updated user: ${u}`); //user logging takes up the whole console, uncomment if needed
         });
       });
     });
@@ -172,8 +174,25 @@ router.post('/study-stats', async (req, res) => {
     console.log('error when saving new set' + err);
     res.status(500).send({ message: 'error' });
   }
-
-  User.findOne({ username: req.headers.username }).then(async (u) => {
+  // let doubleCoinsUser = await User.exists({
+  //   username: username,
+  //   'inventory.item_id': 1,
+  //   'inventory.in_use': true
+  // }); this is User.exists code that I'm saving for reference
+  let itemUser = await User.findOne({
+    username: username
+  });
+  if (itemUser) {
+    if (itemUser.inventory[0].in_use) {
+      console.log('DOUBLE COINS!!!');
+      doubleCoins = 2;
+    }
+    if (itemUser.inventory[2].in_use) {
+      console.log('Streak freeze activated and has been used!');
+      streakFreeze = true;
+    }
+  }
+  User.findOne({ username: username }).then(async (u) => {
     let combinedHistory = [...u.dailyquizHistory, todays_stats];
     let c = u.coins;
     // find most recent dailyQuiz
@@ -188,15 +207,26 @@ router.post('/study-stats', async (req, res) => {
     console.log(dateOfLastQuiz);
     console.log(new Date());
     const DAY = 1000 * 60 * 60 * 24; // 24 hours
+    //const DAY = 0; //testing streak freeze
     const yesterday = Date.now();
     console.log(yesterday - dateOfLastQuiz);
     console.log('within 24 hrs: ', yesterday - dateOfLastQuiz < DAY);
     if (yesterday - dateOfLastQuiz < DAY) {
       streak += 1;
+    } else if (streakFreeze) {
+      streak += 1;
+      streakFreezeUsed = true;
     } else {
       streak = 0;
     }
     console.log(doubleCoins);
+    if (streakFreezeUsed) {
+      await User.findOneAndUpdate(
+        { username: username, 'inventory.item_id': 2 },
+        { 'inventory.$.in_use': false },
+        { upsert: true }
+      ).then(() => console.log('Streak freeze no longer enabled!'));
+    }
     User.findOneAndUpdate(
       { username },
       {

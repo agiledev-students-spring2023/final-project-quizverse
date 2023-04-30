@@ -8,10 +8,12 @@ const jwt = require('jsonwebtoken');
 
 //Simplifying the inventory to exclusively hold numbers tracking whether you have an item or not.
 const inventorySchema = new Schema({
-  item_id: Number,
+  item_id: { type: Number, required: true, unique: true },
   expiration_date: { type: Date, default: () => Date.now() },
-  number_owned: { type: Number, default: 1 },
-  in_use: { type: Boolean, default: false }
+  number_owned: { type: Number, default: 0 },
+  in_use: { type: Boolean, default: false },
+  item_name: { type: String, default: 'This item has no name! :o' },
+  item_desc: { type: String, default: 'This item has no description! :o' }
   // note: potentially need more trackers
 });
 
