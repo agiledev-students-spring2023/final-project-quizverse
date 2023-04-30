@@ -28,7 +28,6 @@ router.post(
       createdAt: new Date(),
       editedAt: new Date()
     });
-    // console.log(newSet); //debugging purposes
     try {
       newSet.save().then((savedSet) => {
         // initialize a dailyquiz history of all false to promote new cards to be studied in daily quiz
@@ -52,8 +51,6 @@ router.post(
       console.log('error when saving new set' + err);
       res.status(500).send({ message: 'error' });
     }
-
-    
     try {
       User.findOne({ username: req.headers.username }).then((u) => {
         existingSets = u.sets;

@@ -11,6 +11,56 @@ const { check, validationResult, body } = require('express-validator');
 const History = require('../schemas/history-schema');
 const _ = require('underscore');
 
+const checkHistories = (histories) => {
+  let mlpq = {};
+  histories.forEach((history) => {
+    history.answers.forEach((card) => {
+      // identify each card by its term and def to distinguish same term with multiple defs
+      const cardId = card.term + card.definition;
+      // if correct, increase its score to indicate a lower priority
+      if (card.correctness) {
+        if (mlpq.hasOwnProperty(cardId)) {
+          mlpq[cardId].priority = mlpq[cardId].priority + 1;
+        } else {
+          //console.log(card);
+          const newCard = {
+            info: { term: card.term, definition: card.definition, set_id: card.set_id },
+            priority: 1
+          };
+          mlpq[cardId] = newCard;
+        }
+      } else {
+        // if incorrect, simply bump it back up to highest priority (0)
+        if (mlpq.hasOwnProperty(cardId)) {
+          //console.log(mlpq[cardId]);
+          mlpq[cardId].priority = 0;
+        } else {
+          const newCard = {
+            info: { term: card.term, definition: card.definition, set_id: card.set_id },
+            priority: 0
+          };
+          mlpq[cardId] = newCard;
+          //console.log(mlpq[cardId]);
+        }
+      }
+    });
+  });
+  return mlpq;
+}
+
+
+const convertMLPQToArray = (mlpq) => {
+  let mlpqArr = [];
+        for (const termId in mlpq) {
+          mlpqArr.push(mlpq[termId]);
+        }
+        mlpqArr.sort((card1, card2) => {
+          return card1.priority - card2.priority;
+        });
+        //console.log(mlpqArr);
+        return mlpqArr.map((card) => card.info);
+}
+
 router.get('/daily-quiz', jwt_auth, async (req, res) => {
   // use axios to make a request to an API for flashcard data in the daily quiz
   // declare that we're going to fetch 10 flashcards, could be customized later
@@ -18,6 +68,9 @@ router.get('/daily-quiz', jwt_auth, async (req, res) => {
   // if wrong, set to 0 again
   // otherwise, increment priority and sort in ascending priority
   const username = req.headers.username;
+
+  
+
   try {
     // object used to track each term and their relative priority
     let mlpq = {};
@@ -30,51 +83,15 @@ router.get('/daily-quiz', jwt_auth, async (req, res) => {
     // first find all of the user's history, then sort by their lastest to most recent quiz
     DailyQuizHistory.aggregate([{ $match: { username } }, { $sort: { dayOfQuiz: 1 } }]).then(
       (histories) => {
-        console.log(histories);
+        //console.log(histories);
         // if the user has a history, proceed to populate mlpq
         if (histories.length >= 1) {
-          histories.forEach((history) => {
-            history.answers.forEach((card) => {
-              // identify each card by its term and def to distinguish same term with multiple defs
-              const cardId = card.term + card.definition;
-              // if correct, increase its score to indicate a lower priority
-              if (card.correctness) {
-                if (mlpq.hasOwnProperty(cardId)) {
-                  mlpq[cardId].priority = mlpq[cardId].priority + 1;
-                } else {
-                  console.log(card);
-                  const newCard = {
-                    info: { term: card.term, definition: card.definition, set_id: card.set_id },
-                    priority: 1
-                  };
-                  mlpq[cardId] = newCard;
-                }
-              } else {
-                // if incorrect, simply bump it back up to highest priority (0)
-                if (mlpq.hasOwnProperty(cardId)) {
-                  console.log(mlpq[cardId]);
-                  mlpq[cardId].priority = 0;
-                } else {
-                  const newCard = {
-                    info: { term: card.term, definition: card.definition, set_id: card.set_id },
-                    priority: 0
-                  };
-                  mlpq[cardId] = newCard;
-                  console.log(mlpq[cardId]);
-                }
-              }
-            });
-          });
+
+          mlpq = checkHistories(histories);
           // convert mlpq to array
-          let mlpqArr = [];
-          for (const termId in mlpq) {
-            mlpqArr.push(mlpq[termId]);
-          }
-          mlpqArr.sort((card1, card2) => {
-            return card1.priority - card2.priority;
-          });
-          console.log(mlpqArr);
-          fetchedCards = mlpqArr.map((card) => card.info);
+          
+
+          fetchedCards = convertMLPQToArray(mlpq)
         }
         // if user has studied less than 10 cards, fetch more
         if (fetchedCards.length < dqLength) {
@@ -248,4 +265,8 @@ router.post('/study-stats', async (req, res) => {
   });
 });
 
-module.exports = router;
+module.exports = {
+  dailyQuizRouter: router,
+  convertMLPQToArray,
+  checkHistories
+}

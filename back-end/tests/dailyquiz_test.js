@@ -1,7 +1,7 @@
 // use mocha's built-in assertion library
 const app = require('../server');
 const assert = require('assert');
-const daily = require('../routes/daily-quiz');
+const {checkHistories, convertMLPQToArray} = require('../routes/daily-quiz');
 const chai = require('chai');
 chai.use(require('chai-json'));
 const chaiHttp = require('chai-http');
@@ -26,6 +26,19 @@ describe('Daily Quiz', function () {
           expect(res).to.be.an('object');
           done();
         });
+    });
+  });
+  describe('Test histories function', function () {
+    // assert what should be returned
+    it('it should return the priorities of the histories', (done) => {
+      assert.deepEqual(checkHistories([]), {})
+      done();
+    });
+  });
+  describe('Test convertMLPQToArray function', function () {
+    // assert what should be returned
+    it('it should convert MLPQ to an array', (done) => {
+      assert.deepEqual(convertMLPQToArray({}), [])
     });
   });
   describe('Post the daily quiz stats', function (done) {
