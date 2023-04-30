@@ -16,17 +16,33 @@ router.get('/your-items', jwt_auth, (req, res, next) => {
   user = req.headers.username;
   //code section 1
 
-  User.findOne({ username: req.headers.username }).then((u) => {
+  User.findOne({ username: user }).then((u) => {
+    const inventory = u.inventory;
+    //console.log(`Inventory:${inventory}`);
+    // if (!inventory) {
+    //   res.status(201).send({ message: 'You have no items! Go buy some.' });
+    // } else {
+    //   const data = inventory.map((item) => {
+    //     if (item.number_owned > 0) {
+    //       console.log(`Added ${item}`);
+    //       return item;
+    //     } else {
+    //       console.log(`Did not add ${item.item_id}`);
+    //       return 0;
+    //     }
+    //   });
+    //   res.status(200).send({ message: 'Items obtained!', items: data });
+    // }
     const items = u.items;
     console.log(`items:${items}`);
     if (!items) {
-      res.send({ message: 'Empty' });
+      res.status(201).send({ message: 'Empty' });
     } else {
       const data = items.map((i) => {
-      console.log(item_id_table[i]);
-      return item_id_table[i];
+        console.log(item_id_table[i]);
+        return item_id_table[i];
       });
-      res.json({ message: 'Success', items: data });
+      res.status(200).send({ message: 'Success', items: data });
     }
   });
 });

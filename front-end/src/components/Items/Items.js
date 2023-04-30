@@ -72,13 +72,17 @@ function Items() {
       .get('http://localhost:3001/your-items', {
         headers: { 'jwt-token': token, username: username } // pass the token, if any, to the server
       })
-      .then((response) => {
+      .then((res) => {
         // extract the data from the server response
-        if (response.data.message == 'Success') {
-          setData(response.data.items);
-          setArrLength(response.data.length);
+        if ((res.status = 200)) {
+          setData(res.data.items);
+          setArrLength(res.data.length);
+          console.log('Items found in response!');
+          console.log(res);
         } else {
           setArrLength(0);
+          console.log('Nothing found in response');
+          console.log(res);
         }
       })
       .catch((err) => {
@@ -87,8 +91,8 @@ function Items() {
       });
   }, []);
 
-  console.log(arrLength);
-  console.log(data);
+  // console.log(arrLength);
+  // console.log(data);
   const myItems =
     arrLength == 0 ? (
       <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
