@@ -53,7 +53,7 @@ const Home = (props) => {
         setStreak(response.data.streak);
         setCoins(response.data.coins);
         setUser(response.data.username);
-        console.log(token);
+        //console.log(token);
       })
       .catch((err) => {
         console.log(err);
