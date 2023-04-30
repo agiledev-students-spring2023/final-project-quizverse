@@ -147,19 +147,47 @@ router.post('/study-stats', async (req, res) => {
 
   try {
     todays_stats.save().then((savedHistory) => {
-      User.findOne({ username: req.headers.username }).then((u) => {
-        let combinedHistory = [...u.dailyquizHistory, savedHistory._id];
+      User.findOne({ username: req.headers.username }).then(async (u) => {
+        let combinedHistory = [...u.dailyquizHistory, todays_stats];
         let c = u.coins;
+        // find most recent dailyQuiz
+        const lastQuiz = await DailyQuizHistory.aggregate([
+          { $match: { username } },
+          { $sort: { dayOfQuiz: -1 } },
+          { $limit: 2 }
+        ]);
+        let { streak } = await User.findOne({ username });
+        console.log('current streak is: ', streak);
+        const dateOfLastQuiz = new Date(lastQuiz[1].dayOfQuiz);
+        console.log(dateOfLastQuiz);
+        console.log(new Date());
+        const DAY = 1000 * 60 * 60 * 24; // 24 hours
+        const yesterday = Date.now();
+        console.log(yesterday - dateOfLastQuiz);
+        console.log('within 24 hrs: ', yesterday - dateOfLastQuiz < DAY);
+        if (yesterday - dateOfLastQuiz < DAY) {
+          streak += 1;
+        } else {
+          streak = 0;
+        }
+        console.log(doubleCoins);
         User.findOneAndUpdate(
           { username },
           {
+            username,
             dailyquizHistory: combinedHistory,
-            coins: c + correct.length, //this coins algorithm is good for final product
-            streak: u.streak + 1
-          }, //UPDATE streak mechanism before end of sprint 4
+            coins: c + correct.length * doubleCoins,
+            streak
+          },
           { new: true }
         ).then((u) => {
-          console.log(`updated user: ${u}`);
+          const data = {
+            status: 'Amazing success!',
+            message: 'Congratulations on sending us this data!',
+            your_data: req.body
+          };
+          res.status(200).json(data);
+          console.log('Quiz finished!');
         });
       });
     });
@@ -168,49 +196,7 @@ router.post('/study-stats', async (req, res) => {
     res.status(500).send({ message: 'error' });
   }
 
-  User.findOne({ username: req.headers.username }).then(async (u) => {
-    let combinedHistory = [...u.dailyquizHistory, todays_stats];
-    let c = u.coins;
-    // find most recent dailyQuiz
-    const lastQuiz = await DailyQuizHistory.aggregate([
-      { $match: { username } },
-      { $sort: { dayOfQuiz: -1 } },
-      { $limit: 2 }
-    ]);
-    let { streak } = await User.findOne({ username });
-    console.log('current streak is: ', streak);
-    const dateOfLastQuiz = new Date(lastQuiz[1].dayOfQuiz);
-    console.log(dateOfLastQuiz);
-    console.log(new Date());
-    const DAY = 1000 * 60 * 60 * 24; // 24 hours
-    const yesterday = Date.now();
-    console.log(yesterday - dateOfLastQuiz);
-    console.log('within 24 hrs: ', yesterday - dateOfLastQuiz < DAY);
-    if (yesterday - dateOfLastQuiz < DAY) {
-      streak += 1;
-    } else {
-      streak = 0;
-    }
-    console.log(doubleCoins);
-    User.findOneAndUpdate(
-      { username },
-      {
-        username,
-        dailyquizHistory: combinedHistory,
-        coins: c + correct.length * doubleCoins,
-        streak
-      },
-      { new: true }
-    ).then((u) => {
-      const data = {
-        status: 'Amazing success!',
-        message: 'Congratulations on sending us this data!',
-        your_data: req.body
-      };
-      res.status(200).json(data);
-      console.log('Quiz finished!');
-    });
-  });
+  
 });
 
 module.exports = router;
