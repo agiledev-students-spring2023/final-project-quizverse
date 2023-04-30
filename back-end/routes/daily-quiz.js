@@ -175,29 +175,21 @@ router.post('/study-stats', async (req, res) => {
     const lastQuiz = await DailyQuizHistory.aggregate([
       { $match: { username } },
       { $sort: { dayOfQuiz: -1 } },
-      { $limit: 1 }
+      { $limit: 2 }
     ]);
-    const dateOfLastQuiz = new Date(lastQuiz[0].dayOfQuiz);
+    let { streak } = await User.findOne({ username });
+    console.log('current streak is: ', streak);
+    const dateOfLastQuiz = new Date(lastQuiz[1].dayOfQuiz);
     console.log(dateOfLastQuiz);
     console.log(new Date());
-    const DAY = 1000 * 60 * 60 * 24;
+    const DAY = 1000 * 60 * 60 * 24; // 24 hours
     const yesterday = Date.now();
     console.log(yesterday - dateOfLastQuiz);
     console.log('within 24 hrs: ', yesterday - dateOfLastQuiz < DAY);
     if (yesterday - dateOfLastQuiz < DAY) {
-      User.updateOne(
-        { username },
-        {
-          $inc: { streak: 1 }
-        }
-      );
+      streak += 1;
     } else {
-      User.updateOne(
-        { username },
-        {
-          $set: { streak: 0 }
-        }
-      );
+      streak = 0;
     }
     console.log(doubleCoins);
     User.findOneAndUpdate(
@@ -205,7 +197,8 @@ router.post('/study-stats', async (req, res) => {
       {
         username,
         dailyquizHistory: combinedHistory,
-        coins: c + correct.length * doubleCoins //this coins algorithm is good for final product
+        coins: c + correct.length * doubleCoins,
+        streak
       },
       { new: true }
     ).then((u) => {
