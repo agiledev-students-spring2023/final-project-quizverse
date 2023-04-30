@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const termSchema = new Schema({
   term: String,
   set_id: { type: mongoose.Schema.Types.ObjectId, ref: 'FlashcardSet' },
+  definition: String,
   correctness: Boolean
 });
 
