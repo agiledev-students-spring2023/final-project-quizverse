@@ -172,33 +172,6 @@ export default function Shop() {
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Time Travel Ticket
-                    </Typography>
-                    <Typography>
-                      Go back in time to redo a daily study session. Cost: 100 coins.
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" onClick={() => purchase(2)}>
-                      Buy
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-
-              <Grid item xs={12} sm={6} md={4}>
-                <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      // 16:9
-                      pt: '20%'
-                    }}
-                    src="http://localhost:3001/static/images/QuizVerseLogo.png"
-                    alt="random"
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
                       Streak Freeze
                     </Typography>
                     <Typography>
@@ -206,7 +179,7 @@ export default function Shop() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" onClick={() => purchase(3)}>
+                    <Button size="small" onClick={() => purchase(2)}>
                       Buy
                     </Button>
                   </CardActions>
