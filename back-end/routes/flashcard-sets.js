@@ -36,7 +36,7 @@ router.get('/flashcard-set/:username/:id', (req, res) => {
     res.status(400).send({ message: 'missing username' });
   } else {
     try {
-      FlashcardSet.findOne({ createdBy: username, _id: id }).then((set) => {
+      FlashcardSet.findOne({createdBy: username, _id: id}).then((set) => {
         // console.log(set);
         res.status(200).send(set);
       });
