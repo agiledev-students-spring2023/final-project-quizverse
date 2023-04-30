@@ -17,9 +17,9 @@ const Menu = ({ open, setOpen }) => {
       <Link to="/shop" onClick={() => setOpen(!open)}>
         Shop
       </Link>
-      <Link to="/study-stats" onClick={() => setOpen(!open)}>
+      {/* <Link to="/study-stats" onClick={() => setOpen(!open)}>
         My Stats
-      </Link>
+      </Link> */}
     </StyledMenu>
   );
 };
