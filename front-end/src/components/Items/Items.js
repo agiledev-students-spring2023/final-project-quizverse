@@ -74,11 +74,16 @@ function Items() {
       })
       .then((res) => {
         // extract the data from the server response
-        if ((res.status = 200)) {
+        if (res.status == 200) {
           setData(res.data.items);
           setArrLength(res.data.length);
           console.log('Items found in response!');
           console.log(res);
+        } else if (res.status == 201) {
+          console.log('Item use fail!');
+          toast.fail(`You don\'t actually own this item!`, {
+            id: 'item-use-fail-no-own'
+          });
         } else {
           setArrLength(0);
           console.log('Nothing found in response');
