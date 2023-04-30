@@ -168,18 +168,45 @@ router.post('/study-stats', async (req, res) => {
     res.status(500).send({ message: 'error' });
   }
 
-  User.findOne({ username: req.headers.username }).then((u) => {
+  User.findOne({ username: req.headers.username }).then(async (u) => {
     let combinedHistory = [...u.dailyquizHistory, todays_stats];
     let c = u.coins;
+    // find most recent dailyQuiz
+    const lastQuiz = await DailyQuizHistory.aggregate([
+      { $match: { username } },
+      { $sort: { dayOfQuiz: -1 } },
+      { $limit: 1 }
+    ]);
+    const dateOfLastQuiz = new Date(lastQuiz[0].dayOfQuiz);
+    console.log(dateOfLastQuiz);
+    console.log(new Date());
+    const DAY = 1000 * 60 * 60 * 24;
+    const yesterday = Date.now();
+    console.log(yesterday - dateOfLastQuiz);
+    console.log('within 24 hrs: ', yesterday - dateOfLastQuiz < DAY);
+    if (yesterday - dateOfLastQuiz < DAY) {
+      User.updateOne(
+        { username },
+        {
+          $inc: { streak: 1 }
+        }
+      );
+    } else {
+      User.updateOne(
+        { username },
+        {
+          $set: { streak: 0 }
+        }
+      );
+    }
     console.log(doubleCoins);
     User.findOneAndUpdate(
       { username },
       {
         username,
         dailyquizHistory: combinedHistory,
-        coins: c + correct.length * doubleCoins, //this coins algorithm is good for final product
-        streak: u.streak + 1
-      }, //UPDATE streak mechanism before end of sprint 4
+        coins: c + correct.length * doubleCoins //this coins algorithm is good for final product
+      },
       { new: true }
     ).then((u) => {
       const data = {
