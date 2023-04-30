@@ -187,7 +187,7 @@ router.post('/study-stats', async (req, res) => {
       console.log('DOUBLE COINS!!!');
       doubleCoins = 2;
     }
-    if (itemUser.inventory[2].in_use) {
+    if (itemUser.inventory[1].in_use) {
       console.log('Streak freeze activated and has been used!');
       streakFreeze = true;
     }

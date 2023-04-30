@@ -44,8 +44,9 @@ function Items() {
   const [definition, setDefinition] = useState(''); // eslint-disable-next-line
   const [arrLength, setArrLength] = useState(0); // eslint-disable-next-line
   const [arrIndex, setArrIndex] = useState(0);
+  const [doubleCoinsDesc, setDoubleCoinsDesc] = useState('')
+  const [streakFreezeDesc, setStreakFreezeDesc] = useState('')
   function itemUse(item_id) {
-    console.log('I love yoylecake');
     axios({
       method: 'POST',
       withCredentials: true,
@@ -54,9 +55,16 @@ function Items() {
     })
       .then((response) => {
         console.log(response);
-        toast.success(`Item used!`, {
-          id: 'item-use-success'
-        });
+        if (response.status == 200){
+          toast.success(`Item used!`, {
+            id: 'item-use-success'
+          });
+        }
+        if (response.status == 201){
+          toast.error(`Item not owned!`, {
+            id: 'item-not-owned'
+          });
+        }
       })
       .catch((err) => {
         console.log('Item use fail!');
@@ -75,16 +83,58 @@ function Items() {
       .then((res) => {
         // extract the data from the server response
         if (res.status == 200) {
-          setData(res.data.items);
-          setArrLength(res.data.length);
-          console.log('Items found in response!');
-          console.log(res);
-        } else if (res.status == 201) {
-          console.log('Item use fail!');
-          toast.fail(`You don\'t actually own this item!`, {
-            id: 'item-use-fail-no-own'
-          });
-        } else {
+          //console.log(`res: ${res}`)
+          console.log(res.data.inventory)
+          setData(res.data.inventory);
+          console.log(`data: ${data}`)
+          setArrLength(res.data.inventory.length);
+          //console.log('Inventory retrieved!');
+          let temp = res.data.inventory
+          temp.forEach((val, i, arr)=>{
+            if (val.number_owned == 0){
+              
+              arr[i].item_desc = "You do not own this item."
+              if (i==0){
+                setDoubleCoinsDesc(arr[i].item_desc)
+              }
+              else{
+                setStreakFreezeDesc(arr[i].item_desc)
+              }
+            }
+            else{
+              if (val.in_use){
+              arr[i].item_desc = "This item is in use."
+              if (i==0){
+                setDoubleCoinsDesc(arr[i].item_desc)
+              }
+              else{
+                setStreakFreezeDesc(arr[i].item_desc)
+              }
+              }
+              else{
+                arr[i].item_desc += `You own ${val.number_owned} of these.` 
+                if (i==0){
+                  setDoubleCoinsDesc(arr[i].item_desc)
+                }
+                else{
+                  setStreakFreezeDesc(arr[i].item_desc)
+                }
+              }
+            }
+          })
+          console.log(`temp: ${temp}`)
+          setData(temp)
+          
+          
+          //console.log(`data: ${data}`)
+          // console.log(res);
+        // } else if (res.status == 201) {
+        //   console.log('Item use fail!');
+        //   toast.fail(`You don\'t actually own this item!`, {
+        //     id: 'item-use-fail-no-own'
+        //   });
+        // } 
+        }else {
           setArrLength(0);
           console.log('Nothing found in response');
           console.log(res);
@@ -98,7 +148,7 @@ function Items() {
 
   // console.log(arrLength);
   // console.log(data);
-  const myItems =
+  let x2CoinsCard =
     arrLength == 0 ? (
       <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flexGrow: 1 }}>
@@ -108,7 +158,6 @@ function Items() {
         </CardContent>
       </Card>
     ) : (
-      data.map((card) => (
         <Grid item xs={12} sm={6} md={4}>
           <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
             <CardMedia
@@ -122,9 +171,9 @@ function Items() {
             />
             <CardContent sx={{ flexGrow: 1 }}>
               <Typography gutterBottom variant="h5" component="h2">
-                {card.item}
+                Double Coins
               </Typography>
-              <Typography>{card.desc}</Typography>
+              <Typography>{doubleCoinsDesc}</Typography>
             </CardContent>
             <CardActions>
               <Button size="small" onClick={() => itemUse(1)}>
@@ -132,9 +181,49 @@ function Items() {
               </Button>
             </CardActions>
           </Card>
+
         </Grid>
-      ))
-    );
+        
+      )
+
+let streakFreezeCard =
+    arrLength == 0 ? (
+      <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <CardContent sx={{ flexGrow: 1 }}>
+          <Typography gutterBottom variant="h5" component="h2">
+            You have no items.
+          </Typography>
+        </CardContent>
+      </Card>
+    ) : (
+        <Grid item xs={12} sm={6} md={4}>
+          <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <CardMedia
+              component="img"
+              sx={{
+                // 16:9
+                pt: '20%'
+              }}
+              src="http://localhost:3001/static/images/QuizVerseLogo.png"
+              alt="QuizVerse Logo"
+            />
+            <CardContent sx={{ flexGrow: 1 }}>
+              <Typography gutterBottom variant="h5" component="h2">
+                Streak Freeze
+              </Typography>
+              <Typography>{streakFreezeDesc}</Typography>
+            </CardContent>
+            <CardActions>
+              <Button size="small" onClick={() => itemUse(2)}>
+                Use
+              </Button>
+            </CardActions>
+          </Card>
+
+        </Grid>
+        
+      )
+    
 
   return (
     // the following side-effect will be called once upon initial render
@@ -165,7 +254,8 @@ function Items() {
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {myItems}
+            {x2CoinsCard}
+            {streakFreezeCard}
           </Grid>
         </Container>
       </main>
