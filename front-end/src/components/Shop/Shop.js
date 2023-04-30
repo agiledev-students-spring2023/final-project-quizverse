@@ -17,19 +17,6 @@ import { useTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="primary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        QuizVerse
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 export default function Shop() {
   const navigate = useNavigate();
   let token = 'Zappy!';
@@ -230,9 +217,6 @@ export default function Shop() {
         </div>
       </main>
       {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-        <Copyright />
-      </Box>
       {/* End footer */}
     </ThemeProvider>
   );
