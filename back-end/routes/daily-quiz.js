@@ -177,19 +177,20 @@ router.post('/study-stats', async (req, res) => {
     console.log('DOUBLE COINS!!!');
     doubleCoins = 2;
   }
-  // let streakFreezeUser = await User.findOne({
-  //   username: username,
-  //   'inventory.item_id': 3
-  // });
-  // if (streakFreezeUser) {
-  //   console.log('I am a good dragon');
-  //   streakFreeze = true;
-  //   await User.findOneAndUpdate(
-  //     { username: username, 'inventory.item_id': 3 },
-  //     { 'inventory.$.in_use': false },
-  //     { upsert: true }
-  //   ).then(() => console.log('Streak freeze no longer enabled!'));
-  // }
+  let streakFreezeUser = await User.findOne({
+    username: username
+  });
+  if (streakFreezeUser) {
+    if (streakFreezeUser.inventory[2].in_use) {
+      console.log('I am a good dragon');
+      streakFreeze = true;
+      await User.findOneAndUpdate(
+        { username: username, 'inventory.item_id': 3 },
+        { 'inventory.$.in_use': false },
+        { upsert: true }
+      ).then(() => console.log('Streak freeze no longer enabled!'));
+    }
+  }
   User.findOne({ username: username }).then(async (u) => {
     let combinedHistory = [...u.dailyquizHistory, todays_stats];
     let c = u.coins;
