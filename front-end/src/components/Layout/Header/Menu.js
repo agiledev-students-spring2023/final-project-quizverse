@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Menu = ({ open, setOpen }) => {
   return (
     <StyledMenu open={open}>
-      <Link to="/" onClick={() => setOpen(!open)}>
+      <Link to="/home" onClick={() => setOpen(!open)}>
         Home
       </Link>
       <Link to="/daily-quiz" onClick={() => setOpen(!open)}>
