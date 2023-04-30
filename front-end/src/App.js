@@ -56,7 +56,7 @@ const App = (props) => {
             <Route path="/settings" element={<Settings />} />
             <Route path="/view/:username/:id" element={<ViewSet />} />
             <Route path="/edit/:id" element={<EditSet />} />
-            <Route path="/study-stats" element={<StudyStats />} />
+            {/* <Route path="/study-stats" element={<StudyStats />} /> */}
           </Route>
         </Routes>
       </ThemeProvider>
