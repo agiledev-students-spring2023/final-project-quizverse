@@ -205,8 +205,8 @@ router.post('/study-stats', async (req, res) => {
     const dateOfLastQuiz = new Date(lastQuiz[1].dayOfQuiz);
     console.log(dateOfLastQuiz);
     console.log(new Date());
-    //const DAY = 1000 * 60 * 60 * 24; // 24 hours
-    const DAY = 0; //testing streak freeze
+    const DAY = 1000 * 60 * 60 * 24; // 24 hours
+    //const DAY = 0; //testing streak freeze
     const yesterday = Date.now();
     console.log(yesterday - dateOfLastQuiz);
     console.log('within 24 hrs: ', yesterday - dateOfLastQuiz < DAY);
