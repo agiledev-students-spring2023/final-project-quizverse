@@ -1,6 +1,6 @@
 //currently not working, test file to generate a new anna
 const express = require('express');
-const User = require('../schemas/user-schema');
+const User = require('../../back-end/schemas/user-schema');
 const router = express.Router();
 try {
   const user = User.create({

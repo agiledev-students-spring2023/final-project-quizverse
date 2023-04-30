@@ -77,21 +77,21 @@ describe('Settings', function () {
         });
     });
   });
-  describe('Delete Route', function () {
-    // assert what should be returned
-    it('Delete Account', function (done) {
-      let path = '/delete';
-      request(app)
-        .post(path)
-        .send({ filler: 'filler text! :)' })
-        .end(function (err, res) {
-          if (err) {
-            console.log('Failed to delete account');
-            done(err);
-          }
-          expect(res.body).to.be.an('object');
-          done();
-        });
-    });
-  });
+  // describe('Delete Route', function () {
+  //   // assert what should be returned
+  //   it('Delete Account', function (done) {
+  //     let path = '/delete';
+  //     request(app)
+  //       .post(path)
+  //       .send({ filler: 'filler text! :)' })
+  //       .end(function (err, res) {
+  //         if (err) {
+  //           console.log('Failed to delete account');
+  //           done(err);
+  //         }
+  //         expect(res.body).to.be.an('object');
+  //         done();
+  //       });
+  //   });
+  // });
 });

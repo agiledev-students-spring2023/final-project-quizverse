@@ -36,7 +36,7 @@ router.post(
       console.log('error when saving new set' + err);
       res.status(500).send({ message: 'error' });
     }
-
+    console.log("arrived")
     try {
       User.findOne({ username: req.headers.username }).then((u) => {
         existingSets = u.sets;
