@@ -51,12 +51,12 @@ router.post(
     check('username')
       .notEmpty()
       .withMessage('Username cannot be empty')
-      .isLength({ min: 4 })
+      .isLength({ min: 1 }) //
       .withMessage('Username needs to be at least 4 characters long'),
     check('password')
       .notEmpty()
       .withMessage('Password cannot be empty')
-      .isLength({ min: 4 })
+      .isLength({ min: 1 })
       .withMessage('Password needs to be at least 4 characters long')
   ],
   async (req, res) => {
@@ -84,7 +84,8 @@ router.post(
         items: [],
         sets: [],
         history: [],
-        dailyquizHistory: []
+        dailyquizHistory: [],
+        inventory: [{ item_id: 1 }, { item_id: 2 }, { item_id: 3 }]
       };
 
       //console.log('New user object:', newUser);
@@ -92,9 +93,9 @@ router.post(
       const createdUser = await User.create(newUser);
       console.log('User created:', createdUser);
       // Create token
-      const token = jwt.sign({ user_id: createdUser._id, email }, process.env.JWT_SECRET);
+      const token = jwt.sign({ user_id: createdUser._id, username }, process.env.JWT_SECRET);
       // save user token
-      createdUser.token = token;
+      //createdUser.token = token;
       await createdUser.save();
       // return new user
       //Send just the token :o

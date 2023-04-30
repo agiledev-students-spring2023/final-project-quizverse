@@ -30,6 +30,19 @@ router.get('/your-items', jwt_auth, (req, res, next) => {
     }
   });
 });
-
+router.post('/use-items', jwt_auth, (req, res, next) => {
+  item_id = req.headers.item_id;
+  user = req.headers.username;
+  let filter = { username: user, 'inventory.item_id': 1 };
+  let update = { $inc: { 'inventory.$.number_owned': -1 }, 'inventory.$.in_use': true };
+  User.findOneAndUpdate(filter, update, {
+    new: true
+  })
+    .then(() => console.log('Success?'))
+    .catch((err) => {
+      console.log(`Failure: ${err}`);
+    });
+  res.status(200).send({ message: 'success' });
+});
 
 module.exports = router;

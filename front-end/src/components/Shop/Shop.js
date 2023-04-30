@@ -106,6 +106,7 @@ export default function Shop() {
       })
       .catch((err) => {
         console.log('Purchase fail!');
+        console.log(err);
         toast.error('Purchase fail!');
       });
   }
