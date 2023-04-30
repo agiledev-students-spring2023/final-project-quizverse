@@ -37,7 +37,7 @@ router.get('/flashcard-set/:username/:id', (req, res) => {
   } else {
     try {
       FlashcardSet.findOne({ createdBy: username, _id: id }).then((set) => {
-        console.log(set);
+        // console.log(set);
         res.status(200).send(set);
       });
     } catch (err) {
