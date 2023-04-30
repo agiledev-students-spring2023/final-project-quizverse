@@ -22,6 +22,11 @@ router.get('/daily-quiz', jwt_auth, async (req, res) => {
     // object used to track each term and their relative priority
     let mlpq = {};
 
+    const validationUser = await User.findOne({ username: req.headers.username });
+    if (validationUser.sets.length === 0) {
+      return res.status(400).json({ msg: 'User has no sets' });
+    }
+
     // first find all of the user's history, then sort by their lastest to most recent quiz
     DailyQuizHistory.aggregate([{ $match: { username } }, { $sort: { dayOfQuiz: 1 } }]).then(
       (histories) => {
