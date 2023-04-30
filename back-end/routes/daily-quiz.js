@@ -14,6 +14,7 @@ const _ = require('underscore');
 const checkHistories = (histories) => {
   let mlpq = {};
   histories.forEach((history) => {
+    console.log(history.answers)
     history.answers.forEach((card) => {
       // identify each card by its term and def to distinguish same term with multiple defs
       const cardId = card.term + card.definition;
@@ -47,7 +48,6 @@ const checkHistories = (histories) => {
   });
   return mlpq;
 }
-
 
 const convertMLPQToArray = (mlpq) => {
   let mlpqArr = [];

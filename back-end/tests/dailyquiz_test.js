@@ -31,14 +31,60 @@ describe('Daily Quiz', function () {
   describe('Test histories function', function () {
     // assert what should be returned
     it('it should return the priorities of the histories', (done) => {
-      assert.deepEqual(checkHistories([]), {})
+      let answers = [
+        {
+          term: 'word',
+          set_id: "644ed7ed37c002ee4dc6f55c",
+          definition: 'def',
+          correctness: false,
+          _id: "644ed7ed37c002ee4dc6f564"
+        }
+      ]
+      let mockUser = [
+        {
+          _id: "644ed7ed37c002ee4dc6f563",
+          username: 'foobar',
+          dayOfQuiz: "2023-04-30T21:04:45.958Z",
+          percentageCorrect: 0,
+          answers: answers
+        }
+      ]
+      let mockAnswer = {
+          "worddef": {
+            "info": {
+              "definition": "def",
+             "set_id": "644ed7ed37c002ee4dc6f55c",
+              "term": "word"
+            },
+            "priority": 0
+          }
+        }
+      assert.deepEqual(checkHistories(mockUser), mockAnswer)
       done();
     });
   });
   describe('Test convertMLPQToArray function', function () {
     // assert what should be returned
     it('it should convert MLPQ to an array', (done) => {
-      assert.deepEqual(convertMLPQToArray({}), [])
+      let input = {
+        "worddef": {
+          "info": {
+            "definition": "def",
+           "set_id": "644ed7ed37c002ee4dc6f55c",
+            "term": "word"
+          },
+          "priority": 0
+        }
+      }
+      let mockOuput = [
+          {
+            "definition": "def",
+            "set_id": "644ed7ed37c002ee4dc6f55c",
+            "term": "word"
+          }
+        ]
+      assert.deepEqual(convertMLPQToArray(input), mockOuput)
+      done();
     });
   });
   describe('Post the daily quiz stats', function (done) {
