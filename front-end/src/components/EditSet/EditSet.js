@@ -138,9 +138,6 @@ const EditSet = (props) => {
           <Button onClick={handleSubmit} disabled={!editted} variant="outlined">
             Save
           </Button>
-          <Button>
-            Hello
-          </Button>
         </div>
         <FormControl sx={{ m: 1, width: '86vw' }} variant="outlined">
           <TextField

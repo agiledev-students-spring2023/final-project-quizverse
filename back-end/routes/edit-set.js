@@ -13,7 +13,7 @@ router.get('/delete-set/:id', jwt_auth, async (req, res, next) => {
   try{
     console.log(id)
     FlashcardSet.findOneAndDelete({ createdBy: username, _id: id }).then((s)=>{
-      console.log(s)
+      //console.log(s)
     })
     
     res.status(200).send({message: 'success'})
