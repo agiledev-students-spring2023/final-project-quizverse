@@ -84,8 +84,8 @@ const Home = (props) => {
           <Link to="/flashcards" className="big-button">
             My Flashcard Sets
           </Link>
-          <Link to="/study-stats" className="big-button">
-            My Study Statistics
+          <Link to="/create-set" className="big-button">
+            Create a Flashcard Set
           </Link>
           <Link to="/settings" className="big-button">
             Settings
