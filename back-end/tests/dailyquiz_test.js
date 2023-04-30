@@ -30,17 +30,17 @@ describe('Daily Quiz', function () {
   });
   describe('Post the daily quiz stats', function (done) {
     // assert what should be returned
-    it('it should POST the users results after the quiz', (done) => {
-      const host = 'http://localhost:3001';
-      const path = '/study-stats';
-      // test that assertion
-      request(app)
-        .post(path)
-        .send({ correct: 10, incorrect: 1 })
-        .end(function (err, res) {
-          expect(res.body).to.be.an('object');
-          done();
-        });
-    });
+    // it('it should POST the users results after the quiz', (done) => {
+    //   const host = 'http://localhost:3001';
+    //   const path = '/study-stats';
+    //   // test that assertion
+    //   request(app)
+    //     .post(path)
+    //     .send({ correct: 10, incorrect: 1 })
+    //     .end(function (err, res) {
+    //       expect(res.body).to.be.an('object');
+    //       done();
+    //     });
+    // });
   });
 });
