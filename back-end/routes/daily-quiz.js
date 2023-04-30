@@ -38,36 +38,42 @@ router.get('/daily-quiz', jwt_auth, async (req, res) => {
     // }
 
     // first find all of the user's history, then sort by their lastest to most recent quiz
-    DailyQuizHistory.aggregate([{ $match: { username } }, { $sort: { _id: '$dayOfQuiz' } }]).then(
-      (sets) => {
+    DailyQuizHistory.aggregate([{ $match: { username } }, { $sort: { dayOfQuiz: 1 } }]).then(
+      (histories) => {
+        console.log(histories);
         // if the user has a history, proceed to populate mlpq
-        if (sets.length >= 1) {
-          sets.forEach((card) => {
-            // identify each card by its term and def to distinguish same term with multiple defs
-            const cardId = card.term + card.definition;
-            // if correct, increase its score to indicate a lower priority
-            if (card.correctness) {
-              if (recentCardsPriority.hasOwnProperty(cardId)) {
-                mlpq.cardId.priority = mlpq.cardId.priority + 1;
+        if (histories.length >= 1) {
+          histories.forEach((history) => {
+            history.answers.forEach((card) => {
+              // identify each card by its term and def to distinguish same term with multiple defs
+              const cardId = card.term + card.definition;
+              // if correct, increase its score to indicate a lower priority
+              if (card.correctness) {
+                if (mlpq.hasOwnProperty(cardId)) {
+                  mlpq.cardId.priority = mlpq.cardId.priority + 1;
+                } else {
+                  console.log(card);
+                  const newCard = {
+                    info: { term: card.term, definition: card.definition, set_id: card.set_id },
+                    priority: 1
+                  };
+                  mlpq[cardId] = newCard;
+                }
               } else {
-                const newCard = {
-                  info: { term: card.term, definition: card.definition, set_id: card.set_id },
-                  priority: 1
-                };
-                mlpq[cardId] = newCard;
+                // if incorrect, simply bump it back up to highest priority (0)
+                if (mlpq.hasOwnProperty(cardId)) {
+                  console.log(mlpq[cardId]);
+                  mlpq.cardId.priority = 0;
+                } else {
+                  const newCard = {
+                    info: { term: card.term, definition: card.definition, set_id: card.set_id },
+                    priority: 0
+                  };
+                  mlpq[cardId] = newCard;
+                  console.log(mlpq[cardId]);
+                }
               }
-            } else {
-              // if incorrect, simply bump it back up to highest priority (0)
-              if (recentCardsPriority.hasOwnProperty(cardId)) {
-                mlpq.cardId.priority = 0;
-              } else {
-                const newCard = {
-                  info: { term: card.term, definition: card.definition, set_id: card.set_id },
-                  priority: 0
-                };
-                mlpq[cardId] = newCard;
-              }
-            }
+            });
           });
           // convert mlpq to array
           let mlpqArr = [];
