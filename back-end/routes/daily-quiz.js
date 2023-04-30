@@ -21,21 +21,6 @@ router.get('/daily-quiz', jwt_auth, async (req, res) => {
   try {
     // object used to track each term and their relative priority
     let mlpq = {};
-    let fetchedCards = [];
-    // {
-    //   cardName: {
-    //     info: {
-
-    //     }
-    //     priority:
-    //   },
-    //   cardName2: {
-    //     info: {
-
-    //     }.
-    //     prority:
-    //   }
-    // }
 
     // first find all of the user's history, then sort by their lastest to most recent quiz
     DailyQuizHistory.aggregate([{ $match: { username } }, { $sort: { dayOfQuiz: 1 } }]).then(
@@ -50,7 +35,7 @@ router.get('/daily-quiz', jwt_auth, async (req, res) => {
               // if correct, increase its score to indicate a lower priority
               if (card.correctness) {
                 if (mlpq.hasOwnProperty(cardId)) {
-                  mlpq.cardId.priority = mlpq.cardId.priority + 1;
+                  mlpq[cardId].priority = mlpq[cardId].priority + 1;
                 } else {
                   console.log(card);
                   const newCard = {
@@ -63,7 +48,7 @@ router.get('/daily-quiz', jwt_auth, async (req, res) => {
                 // if incorrect, simply bump it back up to highest priority (0)
                 if (mlpq.hasOwnProperty(cardId)) {
                   console.log(mlpq[cardId]);
-                  mlpq.cardId.priority = 0;
+                  mlpq[cardId].priority = 0;
                 } else {
                   const newCard = {
                     info: { term: card.term, definition: card.definition, set_id: card.set_id },
@@ -78,13 +63,12 @@ router.get('/daily-quiz', jwt_auth, async (req, res) => {
           // convert mlpq to array
           let mlpqArr = [];
           for (const termId in mlpq) {
-            mlpq.push(mlpq[termId]);
+            mlpqArr.push(mlpq[termId]);
           }
-          // remove those that are already "learned"
-          mlpqArr.filter((card) => card.priority < 6);
-          mlpqArr.sort(card1, (card2) => {
+          mlpqArr.sort((card1, card2) => {
             return card1.priority - card2.priority;
           });
+          console.log(mlpqArr);
           fetchedCards = mlpqArr.map((card) => card.info);
         }
         // if user has studied less than 10 cards, fetch more
@@ -94,8 +78,8 @@ router.get('/daily-quiz', jwt_auth, async (req, res) => {
             .populate('sets')
             .then((u) => {
               let all_flashcards = [];
-              let test = u.sets.map((set) => {
-                set.flashcards.map((flashcard) => {
+              u.sets.forEach((set) => {
+                set.flashcards.forEach((flashcard) => {
                   all_flashcards.push({
                     term: flashcard.term,
                     definition: flashcard.definition,
@@ -110,7 +94,7 @@ router.get('/daily-quiz', jwt_auth, async (req, res) => {
               //RANDOMIZE the order of our daily quiz flashcards.
               //If someone wants to implement an algorithm, feel free to do so here.
               fetchedCards = fetchedCards.concat(all_flashcards);
-              fetchedCards = _.shuffle(fetchedCards);
+              // fetchedCards = _.shuffle(fetchedCards);
             });
         }
         res.json(fetchedCards).status(200);
@@ -121,6 +105,7 @@ router.get('/daily-quiz', jwt_auth, async (req, res) => {
     res.status(500).send({ message: 'error' });
   }
 });
+
 // Creating a POST request for daily quiz
 router.post('/study-stats', async (req, res) => {
   // validation: check if body is empty
@@ -177,13 +162,6 @@ router.post('/study-stats', async (req, res) => {
           console.log(`updated user: ${u}`);
         });
       });
-
-      const data = {
-        status: 'Amazing success!',
-        message: 'Congratulations on sending us this data!',
-        your_data: req.body
-      };
-      res.status(200).json(data);
     });
   } catch (err) {
     console.log('error when saving new set' + err);
@@ -204,25 +182,15 @@ router.post('/study-stats', async (req, res) => {
       }, //UPDATE streak mechanism before end of sprint 4
       { new: true }
     ).then((u) => {
-      //console.log(`updated user: ${u}`); //user report takes too much space
+      const data = {
+        status: 'Amazing success!',
+        message: 'Congratulations on sending us this data!',
+        your_data: req.body
+      };
+      res.status(200).json(data);
       console.log('Quiz finished!');
     });
   });
-  /*
-   * Now dealing with history schema. THIS DOES NOT WORK. Not sure how to fix this.
-   */
-  User.findOne({ username: req.headers.username }).then((u) => {
-    let history = u.history;
-    let found = false;
-    answers.map((answer) => {});
-  });
-  const data = {
-    status: 'Amazing success!',
-    message: 'Congratulations on sending us this data!',
-    your_data: req.body
-  };
-  // ... then send a response of some kind to client
-  res.json(data);
 });
 
 module.exports = router;

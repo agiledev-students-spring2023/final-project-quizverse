@@ -42,29 +42,7 @@ const DailyQuiz = (props) => {
   const [incorrect, setIncorrect] = useState([]);
   const [complete, setComplete] = useState(false);
 
-  const submitButton = (e) => {
-    e.preventDefault();
-    if (answer == term) {
-      toast.success('Correct!', {
-        id: 'correct'
-      });
-      setCorrect([
-        ...correct,
-        { term: term, definition: definition, set_id: data[arrIndex].set_id }
-      ]);
-      setAnswer('');
-      Next();
-    } else {
-      toast.error('Incorrect!', {
-        id: 'incorrect'
-      });
-      setIncorrect([
-        ...incorrect,
-        { term: term, definition: definition, set_id: data[arrIndex].set_id }
-      ]);
-    }
-  };
-  // the following side-effect will be called once upon initial render
+
   useEffect(() => {
     // fetch some mock flashcards
     console.log('fetching 10 random flashcards...');
@@ -89,14 +67,47 @@ const DailyQuiz = (props) => {
     setTerm(data[arrIndex].term);
     setDefinition(data[arrIndex].definition);
   }, [arrIndex]);
-  const Prev = () => {
-    setDisplayTerm(false);
-    if (arrIndex - 1 < 0) {
-      return;
+
+  useEffect(() => {
+    console.log(correct);
+    if (correct.length >= 1) {
+      Next();
+    }
+  }, [correct]);
+
+  const submitButton = (e) => {
+    e.preventDefault();
+    console.log('submitted');
+    if (answer == term) {
+      toast.success('Correct!', {
+        id: 'correct'
+      });
+      setCorrect([
+        ...correct,
+        { term: term, definition: definition, set_id: data[arrIndex].set_id }
+      ]);
+      console.log('finished saving answer');
+      setAnswer('');
     } else {
-      setArrIndex(arrIndex - 1);
+      toast.error('Incorrect!', {
+        id: 'incorrect'
+      });
+      setIncorrect([
+        ...incorrect,
+        { term: term, definition: definition, set_id: data[arrIndex].set_id }
+      ]);
     }
   };
+  // the following side-effect will be called once upon initial render
+
+  // const Prev = () => {
+  //   setDisplayTerm(false);
+  //   if (arrIndex - 1 < 0) {
+  //     return;
+  //   } else {
+  //     setArrIndex(arrIndex - 1);
+  //   }
+  // };
 
   const Next = () => {
     setDisplayTerm(false);
@@ -104,6 +115,7 @@ const DailyQuiz = (props) => {
       let uniqueCorrects = correct.filter((ans, i, arr) => {
         return i === arr.findIndex((item) => item.term === ans.term);
       });
+
       let uniqueIncorrect = incorrect.filter((ans, i, arr) => {
         return i === arr.findIndex((item) => item.term === ans.term);
       });
@@ -148,8 +160,8 @@ const DailyQuiz = (props) => {
         <Flashcard
           term={term}
           definition={definition}
-          handleNext={Next}
-          handlePrev={Prev}
+          // handleNext={Next}
+          // handlePrev={Prev}
           displayTerm={displayTerm}
           displayDefinition={displayDefinition}
         />
@@ -183,13 +195,9 @@ const DailyQuiz = (props) => {
       <div className={styles['quiz-results']}>
         <div>
           <h3>Topics You Got Right:</h3>
-          {correct
-            .filter((ans, i, arr) => {
-              return i === arr.findIndex((item) => item.term === ans.term);
-            })
-            .map((o) => (
-              <p>{o.term}</p>
-            ))}
+          {correct.map((o) => (
+            <p>{o.term}</p>
+          ))}
         </div>
         <div>
           <h3>Topics You Got Wrong:</h3>
