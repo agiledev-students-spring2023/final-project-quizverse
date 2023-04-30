@@ -28,7 +28,7 @@ router.post(
       createdAt: new Date(),
       editedAt: new Date()
     });
-    console.log(newSet); //debugging purposes
+    // console.log(newSet); //debugging purposes
     try {
       newSet.save().then((savedSet) => {
         // initialize a dailyquiz history of all false to promote new cards to be studied in daily quiz
@@ -53,7 +53,7 @@ router.post(
       res.status(500).send({ message: 'error' });
     }
 
-    console.log('arrived');
+    
     try {
       User.findOne({ username: req.headers.username }).then((u) => {
         existingSets = u.sets;
@@ -63,7 +63,7 @@ router.post(
           { sets: existingSetsPlusNew },
           { new: true }
         ).then((u) => {
-          console.log('updated user', u);
+          // console.log('updated user', u);
         });
         res.status(200).send({ message: 'success' });
       });
