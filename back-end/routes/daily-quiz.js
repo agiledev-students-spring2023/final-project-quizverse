@@ -80,8 +80,16 @@ router.post('/study-stats', async (req, res) => {
     console.log('error when saving new set' + err);
     res.status(500).send({ message: 'error' });
   }
-
-  User.findOne({ username: req.headers.username }).then((u) => {
+  let doubleCoinsUser = await User.exists({
+    username: user,
+    'inventory.item_id': 1,
+    'inventory.in_use': true
+  });
+  if (doubleCoinsUser) {
+    console.log('DOUBLE COINS!!!');
+    doubleCoins = 2;
+  }
+  User.findOne({ username: user }).then((u) => {
     let combinedHistory = [...u.dailyquizHistory, todays_stats];
     let c = u.coins;
     console.log(doubleCoins);
