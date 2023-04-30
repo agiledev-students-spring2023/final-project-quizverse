@@ -117,8 +117,9 @@ router.post('/study-stats', async (req, res) => {
   let correct = req.body.correct;
   let incorrect = req.body.incorrect;
   let doubleCoins = 1;
-  console.log('correct terms:', correct);
-  console.log('incorrect terms:', incorrect);
+  let streakFreeze = false;
+  //console.log('correct terms:', correct);
+  //console.log('incorrect terms:', incorrect);
   const username = req.headers.username;
   let answers = [];
   correct.map((o) => {
@@ -176,6 +177,19 @@ router.post('/study-stats', async (req, res) => {
     console.log('DOUBLE COINS!!!');
     doubleCoins = 2;
   }
+  // let streakFreezeUser = await User.findOne({
+  //   username: username,
+  //   'inventory.item_id': 3
+  // });
+  // if (streakFreezeUser) {
+  //   console.log('I am a good dragon');
+  //   streakFreeze = true;
+  //   await User.findOneAndUpdate(
+  //     { username: username, 'inventory.item_id': 3 },
+  //     { 'inventory.$.in_use': false },
+  //     { upsert: true }
+  //   ).then(() => console.log('Streak freeze no longer enabled!'));
+  // }
   User.findOne({ username: username }).then(async (u) => {
     let combinedHistory = [...u.dailyquizHistory, todays_stats];
     let c = u.coins;
@@ -190,11 +204,14 @@ router.post('/study-stats', async (req, res) => {
     const dateOfLastQuiz = new Date(lastQuiz[1].dayOfQuiz);
     console.log(dateOfLastQuiz);
     console.log(new Date());
-    const DAY = 1000 * 60 * 60 * 24; // 24 hours
+    //const DAY = 1000 * 60 * 60 * 24; // 24 hours
+    const DAY = 0; //testing streak freeze
     const yesterday = Date.now();
     console.log(yesterday - dateOfLastQuiz);
     console.log('within 24 hrs: ', yesterday - dateOfLastQuiz < DAY);
     if (yesterday - dateOfLastQuiz < DAY) {
+      streak += 1;
+    } else if (streakFreeze) {
       streak += 1;
     } else {
       streak = 0;
