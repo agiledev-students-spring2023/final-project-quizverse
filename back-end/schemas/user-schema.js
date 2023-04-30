@@ -10,8 +10,8 @@ const jwt = require('jsonwebtoken');
 const inventorySchema = new Schema({
   item_id: Number,
   expiration_date: { type: Date, default: () => Date.now() },
-  number_owned: Number,
-  in_use: Boolean
+  number_owned: { type: Number, default: 1 },
+  in_use: { type: Boolean, default: false }
   // note: potentially need more trackers
 });
 
