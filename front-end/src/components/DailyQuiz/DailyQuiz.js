@@ -59,7 +59,14 @@ const DailyQuiz = (props) => {
       })
       .catch((err) => {
         console.log(err);
-        navigate('/'); //kick back to landing
+        if (err.response.data.msg === 'User has no sets') {
+          toast.error('You have no sets to study! Please create a set and try again later!', {
+            id: 'no-sets'
+          });
+          navigate('/home');
+        } else {
+          navigate('/'); //kick back to landing
+        }
       });
   }, []);
 
