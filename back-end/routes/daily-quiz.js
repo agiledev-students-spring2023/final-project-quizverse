@@ -118,6 +118,7 @@ router.post('/study-stats', async (req, res) => {
   let incorrect = req.body.incorrect;
   let doubleCoins = 1;
   let streakFreeze = false;
+  let streakFreezeUsed = false;
   //console.log('correct terms:', correct);
   //console.log('incorrect terms:', incorrect);
   const username = req.headers.username;
@@ -168,27 +169,22 @@ router.post('/study-stats', async (req, res) => {
     console.log('error when saving new set' + err);
     res.status(500).send({ message: 'error' });
   }
-  let doubleCoinsUser = await User.exists({
-    username: username,
-    'inventory.item_id': 1,
-    'inventory.in_use': true
-  });
-  if (doubleCoinsUser) {
-    console.log('DOUBLE COINS!!!');
-    doubleCoins = 2;
-  }
-  let streakFreezeUser = await User.findOne({
+  // let doubleCoinsUser = await User.exists({
+  //   username: username,
+  //   'inventory.item_id': 1,
+  //   'inventory.in_use': true
+  // }); this is User.exists code that I'm saving for reference
+  let itemUser = await User.findOne({
     username: username
   });
-  if (streakFreezeUser) {
-    if (streakFreezeUser.inventory[2].in_use) {
-      console.log('I am a good dragon');
+  if (itemUser) {
+    if (itemUser.inventory[0].in_use) {
+      console.log('DOUBLE COINS!!!');
+      doubleCoins = 2;
+    }
+    if (itemUser.inventory[2].in_use) {
+      console.log('Streak freeze activated and has been used!');
       streakFreeze = true;
-      await User.findOneAndUpdate(
-        { username: username, 'inventory.item_id': 3 },
-        { 'inventory.$.in_use': false },
-        { upsert: true }
-      ).then(() => console.log('Streak freeze no longer enabled!'));
     }
   }
   User.findOne({ username: username }).then(async (u) => {
@@ -214,10 +210,18 @@ router.post('/study-stats', async (req, res) => {
       streak += 1;
     } else if (streakFreeze) {
       streak += 1;
+      streakFreezeUsed = true;
     } else {
       streak = 0;
     }
     console.log(doubleCoins);
+    if (streakFreezeUsed) {
+      await User.findOneAndUpdate(
+        { username: username, 'inventory.item_id': 3 },
+        { 'inventory.$.in_use': false },
+        { upsert: true }
+      ).then(() => console.log('Streak freeze no longer enabled!'));
+    }
     User.findOneAndUpdate(
       { username },
       {
