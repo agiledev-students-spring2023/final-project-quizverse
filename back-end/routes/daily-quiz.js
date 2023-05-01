@@ -141,8 +141,6 @@ router.post('/study-stats', async (req, res) => {
   let doubleCoins = 1;
   let streakFreeze = false;
   let streakFreezeUsed = false;
-  //console.log('correct terms:', correct);
-  //console.log('incorrect terms:', incorrect);
   const username = req.headers.username;
   let answers = [];
   correct.map((o) => {
@@ -219,15 +217,10 @@ router.post('/study-stats', async (req, res) => {
       { $limit: 2 }
     ]);
     let { streak } = await User.findOne({ username });
-    console.log('current streak is: ', streak);
     const dateOfLastQuiz = new Date(lastQuiz[1].dayOfQuiz);
-    console.log(dateOfLastQuiz);
-    console.log(new Date());
     const DAY = 1000 * 60 * 60 * 24; // 24 hours
     //const DAY = 0; //testing streak freeze
     const yesterday = Date.now();
-    console.log(yesterday - dateOfLastQuiz);
-    console.log('within 24 hrs: ', yesterday - dateOfLastQuiz < DAY);
     if (yesterday - dateOfLastQuiz < DAY) {
       streak += 1;
     } else if (streakFreeze) {
@@ -236,7 +229,6 @@ router.post('/study-stats', async (req, res) => {
     } else {
       streak = 0;
     }
-    console.log(doubleCoins);
     if (streakFreezeUsed) {
       await User.findOneAndUpdate(
         { username: username, 'inventory.item_id': 2 },
@@ -260,7 +252,6 @@ router.post('/study-stats', async (req, res) => {
         your_data: req.body
       };
       res.status(200).json(data);
-      console.log('Quiz finished!');
     });
   });
 });

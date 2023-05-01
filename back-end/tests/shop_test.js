@@ -22,6 +22,7 @@ describe('Shop', function () {
       //     expect(res.body).to.be.an('object');
       //     done();
       //   });
+      done();
     });
   });
 });
