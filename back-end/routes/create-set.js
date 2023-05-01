@@ -68,4 +68,6 @@ router.post(
   }
 );
 
-module.exports = router;
+module.exports = {
+  createSetRouter: router
+};

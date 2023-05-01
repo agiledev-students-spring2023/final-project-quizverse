@@ -9,14 +9,8 @@ router.post('/shop', (req, res) => {
   //code section 1
   const username = req.headers.username;
   const item_id = req.headers.item;
-  //const errors = validationResult(req);
-  // if (!errors.isEmpty()) {
-  //   return res.status(422).json({ errors: errors.array() });
-  // }
+
   User.findOne({ username: username }).then((u) => {
-    // if ('items' in u && u.items.includes(item_id)) {
-    //   res.status(201).send({ message: 'Already owned' });
-    // } else {
       let coins = u.coins;
       let coins_deducted = 0;
       if (item_id == 1) {
@@ -45,7 +39,6 @@ router.post('/shop', (req, res) => {
           res.status(200).send({ message: 'success' });
         });
       }
-    //}
   });
 });
 

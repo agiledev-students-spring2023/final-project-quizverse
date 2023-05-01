@@ -213,7 +213,6 @@ router.post('/study-stats', async (req, res) => {
     let { streak } = await User.findOne({ username });
     const dateOfLastQuiz = new Date(lastQuiz[1].dayOfQuiz);
     const DAY = 1000 * 60 * 60 * 24; // 24 hours
-    //const DAY = 0; //testing streak freeze
     const yesterday = Date.now();
     if (yesterday - dateOfLastQuiz < DAY) {
       streak += 1;
@@ -224,11 +223,8 @@ router.post('/study-stats', async (req, res) => {
       streak = 0;
     }
     if (streakFreezeUsed) {
-      await User.findOneAndUpdate(
-        { username: username, 'inventory.item_id': 2 },
-        { 'inventory.$.in_use': false },
-        { upsert: true }
-      ).then(() => console.log('Streak freeze no longer enabled!'));
+      await User.findOneAndUpdate( { username: username, 'inventory.item_id': 2 },{ 'inventory.$.in_use': false },
+        { upsert: true }).then(() => console.log('Streak freeze no longer enabled!'));
     }
     User.findOneAndUpdate(
       { username },

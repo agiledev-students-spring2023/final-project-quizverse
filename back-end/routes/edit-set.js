@@ -15,7 +15,6 @@ router.get('/delete-set/:id', jwt_auth, async (req, res, next) => {
     FlashcardSet.findOneAndDelete({ createdBy: username, _id: id }).then((s)=>{
       //console.log(s)
     })
-    
     res.status(200).send({message: 'success'})
   }
   catch (err){
@@ -33,7 +32,6 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    // a mongoDB update takes place here
     const { title, description, cards } = req.body.info;
     const flashcardObjs = cards.map((card) => {
       return new Flashcard({
@@ -41,7 +39,6 @@ router.post(
         definition: card.definition
       });
     });
-    const username = req.headers.username;
     const currentDate = new Date();
     const update = {
       title,
@@ -50,7 +47,6 @@ router.post(
       flashcards: flashcardObjs
     };
     try {
-      
       FlashcardSet.findOneAndUpdate({ _id: id }, update, {
         new: true
       }).then((f)=>{
