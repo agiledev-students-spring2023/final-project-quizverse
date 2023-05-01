@@ -1,7 +1,7 @@
 // use mocha's built-in assertion library
 const app = require('../server');
 const assert = require('assert');
-const {checkHistories, convertMLPQToArray} = require('../routes/daily-quiz');
+const {checkHistories, convertMLPQToArray, mapCorrect, mapIncorrect} = require('../routes/daily-quiz');
 const chai = require('chai');
 chai.use(require('chai-json'));
 const chaiHttp = require('chai-http');
@@ -84,6 +84,50 @@ describe('Daily Quiz', function () {
           }
         ]
       assert.deepEqual(convertMLPQToArray(input), mockOuput)
+      done();
+    });
+  });
+  describe('Map an array of correct words', function () {
+    // assert what should be returned
+    it('it should map of array of correct words into the answer format', (done) => {
+      let input = [{
+        term: 'word',
+        set_id: 12345,
+        definition: 'definition',
+        _id: 67890
+      }
+      ]
+      let mockOuput = [
+          {
+            term: 'word',
+            set_id: 12345,
+            definition: 'definition',
+            correctness: true
+          }
+        ]
+      assert.deepEqual(mapCorrect(input), mockOuput)
+      done();
+    });
+  });
+  describe('Map an array of incorrect words', function () {
+    // assert what should be returned
+    it('it should map of array of incorrect words into the answer format', (done) => {
+      let input = [{
+        term: 'word',
+        set_id: 12345,
+        definition: 'definition',
+        _id: 67890
+      }
+      ]
+      let mockOuput = [
+          {
+            term: 'word',
+            set_id: 12345,
+            definition: 'definition',
+            correctness: false
+          }
+        ]
+      assert.deepEqual(mapIncorrect(input), mockOuput)
       done();
     });
   });

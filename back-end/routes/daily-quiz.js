@@ -11,10 +11,34 @@ const { check, validationResult, body } = require('express-validator');
 const History = require('../schemas/history-schema');
 const _ = require('underscore');
 
+const mapCorrect = (correct) => {
+  let res = []
+  correct.map((o) => {
+    res.push({ term: o.term,
+      set_id: o.set_id,
+      definition: o.definition,
+      correctness: true
+    });
+  });
+  return res
+}
+
+const mapIncorrect = (incorrect) => {
+  let res = []
+  incorrect.map((o) => {
+    res.push({
+      term: o.term,
+      set_id: o.set_id,
+      definition: o.definition,
+      correctness: false
+    });
+  });
+  return res
+}
+
 const checkHistories = (histories) => {
   let mlpq = {};
   histories.forEach((history) => {
-    console.log(history.answers)
     history.answers.forEach((card) => {
       // identify each card by its term and def to distinguish same term with multiple defs
       const cardId = card.term + card.definition;
@@ -83,19 +107,12 @@ router.get('/daily-quiz', jwt_auth, async (req, res) => {
     // first find all of the user's history, then sort by their lastest to most recent quiz
     DailyQuizHistory.aggregate([{ $match: { username } }, { $sort: { dayOfQuiz: 1 } }]).then(
       (histories) => {
-        //console.log(histories);
         // if the user has a history, proceed to populate mlpq
         if (histories.length >= 1) {
-
           mlpq = checkHistories(histories);
-          // convert mlpq to array
-          
-
           fetchedCards = convertMLPQToArray(mlpq)
         }
-        // if user has studied less than 10 cards, fetch more
         if (fetchedCards.length < dqLength) {
-          // DEFAULT DAILY QUIZ algo: just fetch random cards
           User.findOne({ username: req.headers.username })
             .populate('sets')
             .then((u) => {
@@ -114,9 +131,7 @@ router.get('/daily-quiz', jwt_auth, async (req, res) => {
                 all_flashcards = _.sample(all_flashcards, dqLength - fetchedCards.length);
               }
               //RANDOMIZE the order of our daily quiz flashcards.
-              //If someone wants to implement an algorithm, feel free to do so here.
               fetchedCards = fetchedCards.concat(all_flashcards);
-              // fetchedCards = _.shuffle(fetchedCards);
             });
         }
         res.json(fetchedCards).status(200);
@@ -143,22 +158,8 @@ router.post('/study-stats', async (req, res) => {
   let streakFreezeUsed = false;
   const username = req.headers.username;
   let answers = [];
-  correct.map((o) => {
-    answers.push({
-      term: o.term,
-      set_id: o.set_id,
-      definition: o.definition,
-      correctness: true
-    });
-  });
-  incorrect.map((o) => {
-    answers.push({
-      term: o.term,
-      set_id: o.set_id,
-      definition: o.definition,
-      correctness: false
-    });
-  });
+  answers.push.apply(answers, mapCorrect(correct))
+  answers.push.apply(answers, mapIncorrect(incorrect))
 
   let todays_stats = new DailyQuizHistory({
     username: username,
@@ -173,12 +174,10 @@ router.post('/study-stats', async (req, res) => {
         let combinedHistory = [...u.dailyquizHistory, savedHistory._id];
         let c = u.coins;
         User.findOneAndUpdate(
-          { username },
-          {
+          { username },{
             dailyquizHistory: combinedHistory,
             coins: c + correct.length, //this coins algorithm is good for final product
-            streak: u.streak + 1
-          }, //UPDATE streak mechanism before end of sprint 4
+            streak: u.streak + 1}, //UPDATE streak mechanism before end of sprint 4
           { new: true }
         ).then((u) => {
           //console.log(`updated user: ${u}`); //user logging takes up the whole console, uncomment if needed
@@ -189,11 +188,6 @@ router.post('/study-stats', async (req, res) => {
     console.log('error when saving new set' + err);
     res.status(500).send({ message: 'error' });
   }
-  // let doubleCoinsUser = await User.exists({
-  //   username: username,
-  //   'inventory.item_id': 1,
-  //   'inventory.in_use': true
-  // }); this is User.exists code that I'm saving for reference
   let itemUser = await User.findOne({
     username: username
   });
@@ -259,5 +253,7 @@ router.post('/study-stats', async (req, res) => {
 module.exports = {
   dailyQuizRouter: router,
   convertMLPQToArray,
-  checkHistories
+  checkHistories,
+  mapCorrect,
+  mapIncorrect
 }
