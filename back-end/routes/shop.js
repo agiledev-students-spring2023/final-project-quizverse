@@ -23,9 +23,6 @@ router.post('/shop', (req, res) => {
         coins_deducted = 50;
       }
       if (item_id == 2) {
-        coins_deducted = 100;
-      }
-      if (item_id == 3) {
         coins_deducted = 150;
       }
       if (coins < coins_deducted) {

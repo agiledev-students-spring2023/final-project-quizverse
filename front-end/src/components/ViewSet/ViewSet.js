@@ -117,6 +117,32 @@ function FullScreenFlashcardSet() {
     );
   };
 
+  const deleteSet = () => {
+    let input = prompt(
+      "THIS WILL DELETE YOUR SET PERMANENTLY. TYPE 'ok' in this box to confirm deletion of your set."
+    );
+    if (input === 'ok') {
+    toast.promise(
+      axios.get(`http://localhost:3001/delete-set/${id}`, {
+        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+      }),
+      {
+        loading: 'Deleting set...',
+        success: () => `Deleted set ${title}`,
+        error: (err) => `Error deleting. Please try again.`
+      },
+      {
+        id: 'delete-set'
+      }
+    );
+    navigate('/flashcards');
+    }
+    else {
+      toast.error('Incorrect input!');
+      console.log('Incorrect input!');
+    }
+  }
+
   if (logged_in) {
     return (
       <ThemeProvider theme={theme}>
@@ -134,6 +160,9 @@ function FullScreenFlashcardSet() {
         <p className={styles.setDescription}>{description}</p>
         <Button className={styles.shareSetButton} onClick={shareSet}>
           Share
+        </Button>
+        <Button className={styles.deleteSetButton} onClick={deleteSet}>
+          Delete Set
         </Button>
         <div className={styles.cardsContainer}>{cardElements}</div>
       </ThemeProvider>

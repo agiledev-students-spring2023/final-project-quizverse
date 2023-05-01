@@ -17,19 +17,19 @@ function Copyright() {
 const Footer = (props) => {
   return (
     <footer className="footer">
-      <p className="item">
+      <div className="item">
         <Copyright />
-      </p>
-      <p className="item">
+      </div>
+      <div className="item">
         <Typography variant="body2" color="primary" align="center">
           <Link to="/terms">Terms of Service</Link>
         </Typography>
-      </p>
-      <p className="item">
+      </div>
+      <div className="item">
         <Typography variant="body2" color="primary" align="center">
           <Link to="/privacy">Privacy Policy</Link>
         </Typography>
-      </p>
+      </div>
     </footer>
   );
 };

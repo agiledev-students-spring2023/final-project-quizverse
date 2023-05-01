@@ -3,7 +3,7 @@ const express = require('express');
 const axios = require('axios');
 const router = express.Router();
 const jwt_auth = require('./jwt');
-const {FlashcardSet, Flashcard} = require('../schemas/flashcard-set-schema');
+const { FlashcardSet, Flashcard } = require('../schemas/flashcard-set-schema');
 const User = require('../schemas/user-schema');
 const DailyQuizHistory = require('../schemas/dailyquizHistory-schema');
 const { check, validationResult, body } = require('express-validator');
@@ -21,6 +21,11 @@ router.get('/daily-quiz', jwt_auth, async (req, res) => {
   try {
     // object used to track each term and their relative priority
     let mlpq = {};
+
+    const validationUser = await User.findOne({ username: req.headers.username });
+    if (validationUser.sets.length === 0) {
+      return res.status(400).json({ msg: 'User has no sets' });
+    }
 
     // first find all of the user's history, then sort by their lastest to most recent quiz
     DailyQuizHistory.aggregate([{ $match: { username } }, { $sort: { dayOfQuiz: 1 } }]).then(
@@ -117,8 +122,10 @@ router.post('/study-stats', async (req, res) => {
   let correct = req.body.correct;
   let incorrect = req.body.incorrect;
   let doubleCoins = 1;
-  console.log('correct terms:', correct);
-  console.log('incorrect terms:', incorrect);
+  let streakFreeze = false;
+  let streakFreezeUsed = false;
+  //console.log('correct terms:', correct);
+  //console.log('incorrect terms:', incorrect);
   const username = req.headers.username;
   let answers = [];
   correct.map((o) => {
@@ -147,47 +154,19 @@ router.post('/study-stats', async (req, res) => {
 
   try {
     todays_stats.save().then((savedHistory) => {
-      User.findOne({ username: req.headers.username }).then(async (u) => {
-        let combinedHistory = [...u.dailyquizHistory, todays_stats];
+      User.findOne({ username: req.headers.username }).then((u) => {
+        let combinedHistory = [...u.dailyquizHistory, savedHistory._id];
         let c = u.coins;
-        // find most recent dailyQuiz
-        const lastQuiz = await DailyQuizHistory.aggregate([
-          { $match: { username } },
-          { $sort: { dayOfQuiz: -1 } },
-          { $limit: 2 }
-        ]);
-        let { streak } = await User.findOne({ username });
-        console.log('current streak is: ', streak);
-        const dateOfLastQuiz = new Date(lastQuiz[1].dayOfQuiz);
-        console.log(dateOfLastQuiz);
-        console.log(new Date());
-        const DAY = 1000 * 60 * 60 * 24; // 24 hours
-        const yesterday = Date.now();
-        console.log(yesterday - dateOfLastQuiz);
-        console.log('within 24 hrs: ', yesterday - dateOfLastQuiz < DAY);
-        if (yesterday - dateOfLastQuiz < DAY) {
-          streak += 1;
-        } else {
-          streak = 0;
-        }
-        console.log(doubleCoins);
         User.findOneAndUpdate(
           { username },
           {
-            username,
             dailyquizHistory: combinedHistory,
-            coins: c + correct.length * doubleCoins,
-            streak
-          },
+            coins: c + correct.length, //this coins algorithm is good for final product
+            streak: u.streak + 1
+          }, //UPDATE streak mechanism before end of sprint 4
           { new: true }
         ).then((u) => {
-          const data = {
-            status: 'Amazing success!',
-            message: 'Congratulations on sending us this data!',
-            your_data: req.body
-          };
-          res.status(200).json(data);
-          console.log('Quiz finished!');
+          //console.log(`updated user: ${u}`); //user logging takes up the whole console, uncomment if needed
         });
       });
     });
@@ -195,8 +174,78 @@ router.post('/study-stats', async (req, res) => {
     console.log('error when saving new set' + err);
     res.status(500).send({ message: 'error' });
   }
-
-  
+  // let doubleCoinsUser = await User.exists({
+  //   username: username,
+  //   'inventory.item_id': 1,
+  //   'inventory.in_use': true
+  // }); this is User.exists code that I'm saving for reference
+  let itemUser = await User.findOne({
+    username: username
+  });
+  if (itemUser) {
+    if (itemUser.inventory[0].in_use) {
+      console.log('DOUBLE COINS!!!');
+      doubleCoins = 2;
+    }
+    if (itemUser.inventory[2].in_use) {
+      console.log('Streak freeze activated and has been used!');
+      streakFreeze = true;
+    }
+  }
+  User.findOne({ username: username }).then(async (u) => {
+    let combinedHistory = [...u.dailyquizHistory, todays_stats];
+    let c = u.coins;
+    // find most recent dailyQuiz
+    const lastQuiz = await DailyQuizHistory.aggregate([
+      { $match: { username } },
+      { $sort: { dayOfQuiz: -1 } },
+      { $limit: 2 }
+    ]);
+    let { streak } = await User.findOne({ username });
+    console.log('current streak is: ', streak);
+    const dateOfLastQuiz = new Date(lastQuiz[1].dayOfQuiz);
+    console.log(dateOfLastQuiz);
+    console.log(new Date());
+    const DAY = 1000 * 60 * 60 * 24; // 24 hours
+    //const DAY = 0; //testing streak freeze
+    const yesterday = Date.now();
+    console.log(yesterday - dateOfLastQuiz);
+    console.log('within 24 hrs: ', yesterday - dateOfLastQuiz < DAY);
+    if (yesterday - dateOfLastQuiz < DAY) {
+      streak += 1;
+    } else if (streakFreeze) {
+      streak += 1;
+      streakFreezeUsed = true;
+    } else {
+      streak = 0;
+    }
+    console.log(doubleCoins);
+    if (streakFreezeUsed) {
+      await User.findOneAndUpdate(
+        { username: username, 'inventory.item_id': 2 },
+        { 'inventory.$.in_use': false },
+        { upsert: true }
+      ).then(() => console.log('Streak freeze no longer enabled!'));
+    }
+    User.findOneAndUpdate(
+      { username },
+      {
+        username,
+        dailyquizHistory: combinedHistory,
+        coins: c + correct.length * doubleCoins,
+        streak
+      },
+      { new: true }
+    ).then((u) => {
+      const data = {
+        status: 'Amazing success!',
+        message: 'Congratulations on sending us this data!',
+        your_data: req.body
+      };
+      res.status(200).json(data);
+      console.log('Quiz finished!');
+    });
+  });
 });
 
 module.exports = router;

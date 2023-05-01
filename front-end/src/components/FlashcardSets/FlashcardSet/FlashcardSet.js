@@ -20,7 +20,7 @@ function FlashcardSet(props) {
           navigate(`/view/${props.username}/${props.id}`);
         }}>
         <CardContent>
-          <Typography className={styles.flashcardSetTitle} variant="h5" component="div">
+          <Typography className={styles.flashcardSetTitle} variant="h5" component={'span'}>
             {props.title}
           </Typography>
           <Typography className={styles.flashcardSetCardCount} color="text.secondary">

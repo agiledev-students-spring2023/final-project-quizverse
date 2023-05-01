@@ -65,7 +65,7 @@ router.post(
       return res.status(422).json({ errors: errors.array() });
     }
     const { username, password } = req.body; // Add email to the destructuring
-    console.log('Request body:', req.body);
+    // console.log('Request body:', req.body);
     try {
       const existingUser = await User.findOne({ username });
 
@@ -85,13 +85,24 @@ router.post(
         sets: [],
         history: [],
         dailyquizHistory: [],
-        inventory: [{ item_id: 1 }, { item_id: 2 }, { item_id: 3 }]
+        inventory: [
+          {
+            item_id: 1,
+            item_name: 'Double Coins',
+            item_desc: 'Double your coins when studying! :D'
+          },
+          {
+            item_id: 2,
+            item_name: 'Streak Freeze',
+            item_desc: 'Protect your streak from forgetting to study for a day. A nice safety net!'
+          }
+        ]
       };
 
       //console.log('New user object:', newUser);
 
       const createdUser = await User.create(newUser);
-      console.log('User created:', createdUser);
+      // console.log('User created:', createdUser);
       // Create token
       const token = jwt.sign({ user_id: createdUser._id, username }, process.env.JWT_SECRET);
       // save user token
@@ -100,7 +111,7 @@ router.post(
       // return new user
       //Send just the token :o
       res.status(200).json(token);
-      console.log(createdUser);
+      // console.log(createdUser);
     } catch (err) {
       console.error('Error caught in catch block:', err);
       res.status(500).send('Internal server error');
