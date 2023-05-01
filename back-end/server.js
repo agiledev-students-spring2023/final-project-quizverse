@@ -14,6 +14,7 @@ const MONGO_USER = process.env.MONGO_USER;
 const MONGO_PASSWORD = process.env.MONGO_PASSWORD;
 const MONGO_DB = process.env.MONGO_DB;
 const PORT = process.env.PORT; // the port to listen to for incoming requests
+const FRONTEND = process.env.REACT_APP_FRONTEND;
 
 // import the routes for authentication (login / register)
 const authRouter = require('./routes/auth');
@@ -29,7 +30,7 @@ const itemsRouter = require('./routes/items');
 const shopRouter = require('./routes/shop');
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: `${FRONTEND}`,
   credentials: true,
   optionsSuccessStatus: 200
 };
