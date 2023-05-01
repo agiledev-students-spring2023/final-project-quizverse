@@ -19,7 +19,7 @@ router.get('/delete-set/:id', jwt_auth, async (req, res, next) => {
       let sets = u.sets
       let newSets = []
       sets.forEach((item, index, arr) => {
-        if (id==item){
+        if (id!=item){
           newSets.push(item)
         }
       })
