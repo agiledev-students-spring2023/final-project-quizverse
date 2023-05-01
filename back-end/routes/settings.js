@@ -32,33 +32,6 @@ router.post(
     } catch (e) {
       console.log(e.message);
     }
-    try {
-      console.log('going at it!');
-      let filter = { username: user };
-      let update = {
-        inventory: []
-      };
-      // User.findOneAndUpdate(filter, update, { upsert: true })
-      //   .then(() => console.log('Did we do it?'))
-      //   .catch((err) => {
-      //     console.log(`Failure: ${err}`);
-      //   });
-      filter = { username: user, 'inventory.item_id': 1 };
-      update = {
-        $inc: {
-          'inventory.$.number_owned': -1
-        }
-      };
-      User.findOneAndUpdate(filter, update, {
-        new: true
-      })
-        .then(() => console.log('Success?'))
-        .catch((err) => {
-          console.log(`Failure: ${err}`);
-        });
-    } catch (e) {
-      console.log(e.message);
-    }
     res.send({ email: emailData });
   }
 );
