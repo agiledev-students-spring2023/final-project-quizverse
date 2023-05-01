@@ -56,25 +56,6 @@ router.post(
         .catch((err) => {
           console.log(`Failure: ${err}`);
         });
-      // let newItem = {
-      //   item_id: 1,
-      //   number_owned: 1,
-      //   in_use: false
-      // };
-      // update = { $push: { inventory: newItem } };
-      // User.findOneAndUpdate(filter, update, { upsert: true })
-      //   .then(() => console.log('Array push?'))
-      //   .catch((err) => {
-      //     console.log(`Failure: ${err}`);
-      //   });
-
-      // const monke = User.find({ username: user });
-      // monke.inventory.push({
-      //   item_id: 2,
-      //   number_owned: 1,
-      //   in_use: false
-      // });
-      // monke.save();
     } catch (e) {
       console.log(e.message);
     }

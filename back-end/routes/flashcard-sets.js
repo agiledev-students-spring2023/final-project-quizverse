@@ -13,8 +13,7 @@ router.get('/flashcard-sets', jwt_auth, (req, res) => {
   try {
     FlashcardSet.find({ createdBy: username }).then((sets) => {
       if (!sets) {
-        // if no sets returned
-        res.status(204).send('user has no sets created'); // signify no content
+        res.status(204).send('user has no sets created'); // if no sets returned, signify no content
       } else {
         console.log(sets.length);
         res.status(200).send(sets);

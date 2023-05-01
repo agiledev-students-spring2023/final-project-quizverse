@@ -7,6 +7,9 @@
     "test": "npx nyc --all mocha ./tests/ --recursive --timeout=5000 --exit"
   },
   "config": {
+    "nyc": {
+      "exclude": "back-end/schemas/*.js"
+    },
     "blanket": {
       "data-cover-only": "[routes/edit-set.js]",
       "data-cover-never": [
