@@ -191,7 +191,7 @@ const DailyQuiz = (props) => {
             onClick={showAnswer}
             variant="contained"
             disabled={complete}>
-            hint
+            show answer
           </Button>
         </div>
       </form>
