@@ -39,16 +39,21 @@ export default function Shop() {
     
   });
   useEffect(() => {
-  axios
-      .get('http://localhost:3001/home', {
-        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
+    axios
+      .get(`${process.env.REACT_APP_APIURL}/home`, {
+        headers: { 'jwt-token': token, username: username } // pass the token, if any, to the server
       })
       .then((response) => {
         // extract the data from the server response
-        if (response.data === null || response.data.streak==null || response.data.coins == null || response.data.username == null){
+        if (
+          response.data === null ||
+          response.data.streak == null ||
+          response.data.coins == null ||
+          response.data.username == null
+        ) {
           navigate('/', { state: { redirectedFrom: 'Shop' } });
         }
-        
+
         setData(response.data);
         setStreak(response.data.streak);
         setCoins(response.data.coins);
@@ -59,7 +64,7 @@ export default function Shop() {
         console.log(err.status);
         navigate('/', { state: { redirectedFrom: 'Shop' } });
       });
-    }, []);
+  }, []);
   function linkItems() {
     navigate('/items');
   }
@@ -70,11 +75,11 @@ export default function Shop() {
     axios({
       method: 'POST',
       withCredentials: true,
-      headers: { 'jwt-token': token, username: parsed.username, item:itemNum},
-      url: 'http://localhost:3001/shop'
+      headers: { 'jwt-token': token, username: parsed.username, item: itemNum },
+      url: `${process.env.REACT_APP_APIURL}/shop`
     })
       .then((response) => {
-        console.log(response)
+        console.log(response);
         if (response.status === 200) {
           toast.success(`Item purchased!`, {
             id: 'purchase-success'
@@ -85,7 +90,7 @@ export default function Shop() {
             id: 'already-own'
           });
         }
-        if (response.status===202){
+        if (response.status === 202) {
           toast.error('You do not have enough coins to buy this item.', {
             id: 'not-enough-coins'
           });
@@ -142,7 +147,7 @@ export default function Shop() {
                       // 16:9
                       pt: '20%'
                     }}
-                    src="http://localhost:3001/static/images/QuizVerseLogo.png"
+                    src={`${process.env.REACT_APP_APIURL}/static/images/QuizVerseLogo.png`}
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
@@ -167,7 +172,7 @@ export default function Shop() {
                       // 16:9
                       pt: '20%'
                     }}
-                    src="http://localhost:3001/static/images/QuizVerseLogo.png"
+                    src={`${process.env.REACT_APP_APIURL}/static/images/QuizVerseLogo.png`}
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>

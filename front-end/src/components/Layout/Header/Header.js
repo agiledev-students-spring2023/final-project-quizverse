@@ -26,7 +26,7 @@ const Header = (props) => {
         <Burger open={open} setOpen={setOpen} />
         <Menu open={open} setOpen={setOpen} />
         <img
-          src="http://localhost:3001/static/images/MiniQuizVerseLogo.svg"
+          src={`${process.env.REACT_APP_APIURL}/static/images/MiniQuizVerseLogo.svg`}
           alt="QuizVerse Mini Logo"
           className={styles['header-logo']}
         />

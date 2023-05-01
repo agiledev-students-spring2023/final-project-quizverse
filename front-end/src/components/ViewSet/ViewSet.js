@@ -37,7 +37,7 @@ function FullScreenFlashcardSet() {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/flashcard-set/${user}/${id}`).then((response) => {
+    axios.get(`${process.env.REACT_APP_APIURL}/flashcard-set/${user}/${id}`).then((response) => {
       const data = response.data;
       setTitle(data.title);
       setDescription(data.description);
@@ -77,7 +77,7 @@ function FullScreenFlashcardSet() {
       cards: { cards }
     };
     toast.promise(
-      axios.post(`http://localhost:3001/edit-set?id=${id}`, info),
+      axios.post(`${process.env.REACT_APP_APIURL}/edit-set?id=${id}`, info),
       {
         loading: 'Saving changes...',
         success: () => `Saved changes to set ${title}`,
@@ -122,26 +122,25 @@ function FullScreenFlashcardSet() {
       "THIS WILL DELETE YOUR SET PERMANENTLY. TYPE 'ok' in this box to confirm deletion of your set."
     );
     if (input === 'ok') {
-    toast.promise(
-      axios.get(`http://localhost:3001/delete-set/${id}`, {
-        headers: { 'jwt-token': token, username: username} // pass the token, if any, to the server
-      }),
-      {
-        loading: 'Deleting set...',
-        success: () => `Deleted set ${title}`,
-        error: (err) => `Error deleting. Please try again.`
-      },
-      {
-        id: 'delete-set'
-      }
-    );
-    navigate('/flashcards');
-    }
-    else {
+      toast.promise(
+        axios.get(`${process.env.REACT_APP_APIURL}/delete-set/${id}`, {
+          headers: { 'jwt-token': token, username: username } // pass the token, if any, to the server
+        }),
+        {
+          loading: 'Deleting set...',
+          success: () => `Deleted set ${title}`,
+          error: (err) => `Error deleting. Please try again.`
+        },
+        {
+          id: 'delete-set'
+        }
+      );
+      navigate('/flashcards');
+    } else {
       toast.error('Incorrect input!');
       console.log('Incorrect input!');
     }
-  }
+  };
 
   if (logged_in) {
     return (

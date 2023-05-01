@@ -27,7 +27,10 @@ function LoginPage() {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3001/login', { username, password });
+      const response = await axios.post(`${process.env.REACT_APP_APIURL}/login`, {
+        username,
+        password
+      });
       //code section 1
       toast.success(`${response.data.username} is now logged in!`, {
         id: 'login-success'

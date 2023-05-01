@@ -34,7 +34,7 @@ const Home = (props) => {
   useEffect(() => {
     // fetch some mock data about animals for sale
     axios
-      .get('http://localhost:3001/home', {
+      .get(`${process.env.REACT_APP_APIURL}/home`, {
         headers: { 'jwt-token': token, username: username } // pass the token, if any, to the server
       })
       .then((response) => {
@@ -68,7 +68,10 @@ const Home = (props) => {
       <main>
         <h1>Welcome, {user}!</h1>
         <div className="logo-container">
-          <img src="http://localhost:3001/static/images/QuizVerseLogo.png" alt="QuizVerse Logo" />
+          <img
+            src={`${process.env.REACT_APP_APIURL}/static/images/QuizVerseLogo.png`}
+            alt="QuizVerse Logo"
+          />
         </div>
 
         <div className="buttons-container">

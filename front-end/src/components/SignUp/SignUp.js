@@ -13,9 +13,9 @@ function SignUpPage() {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3001/register', {
+      const response = await axios.post(`${process.env.REACT_APP_APIURL}/register`, {
         username,
-        password,
+        password
       });
       if (response.data.status === 'success') {
         // Store token and user information
