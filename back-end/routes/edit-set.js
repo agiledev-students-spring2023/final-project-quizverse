@@ -15,6 +15,17 @@ router.get('/delete-set/:id', jwt_auth, async (req, res, next) => {
     FlashcardSet.findOneAndDelete({ createdBy: username, _id: id }).then((s)=>{
       //console.log(s)
     })
+    User.findOne({username: username}).then((u)=>{
+      let sets = u.sets
+      let newSets = []
+      sets.forEach((item, index, arr) => {
+        if (id!=item){
+          newSets.push(item)
+        }
+      })
+      User.findOneAndUpdate({username:username},
+        {sets: newSets}).then((u)=>{})
+    })
     res.status(200).send({message: 'success'})
   }
   catch (err){
