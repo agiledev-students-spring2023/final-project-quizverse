@@ -78,7 +78,7 @@ const CreateSet = (props) => {
         },
         withCredentials: true,
         headers: { 'jwt-token': token, username: parsed.username },
-        url: 'http://localhost:3001/create-set'
+        url: `${process.env.REACT_APP_APIURL}/create-set`
       }),
       {
         loading: 'Saving your set...',

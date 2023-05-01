@@ -31,8 +31,11 @@ const StudyStats = (props) => {
   return (
     <>
       <main>
-      <div className="logo-container">
-          <img src="http://localhost:3001/static/images/QuizVerseLogo.png" alt="QuizVerse" />
+        <div className="logo-container">
+          <img
+            src={`${process.env.REACT_APP_APIURL}/static/images/QuizVerseLogo.png`}
+            alt="QuizVerse"
+          />
         </div>
         <div>
           <h1>Study Stats</h1>
