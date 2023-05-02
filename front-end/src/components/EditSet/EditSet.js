@@ -35,12 +35,14 @@ const EditSet = (props) => {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/flashcard-set/${username}/${id}`).then((response) => {
-      const data = response.data;
-      setTitle(data.title);
-      setDescription(data.description);
-      setCards(data.flashcards);
-    });
+    axios
+      .get(`${process.env.REACT_APP_APIURL}/flashcard-set/${username}/${id}`)
+      .then((response) => {
+        const data = response.data;
+        setTitle(data.title);
+        setDescription(data.description);
+        setCards(data.flashcards);
+      });
     console.log(id);
   }, []);
 
@@ -88,7 +90,7 @@ const EditSet = (props) => {
             info
           },
           withCredentials: true,
-          url: `http://localhost:3001/edit-set/${id}`
+          url: `${process.env.REACT_APP_APIURL}/edit-set/${id}`
         }),
         {
           id: 'save-set'

@@ -51,16 +51,16 @@ function Items() {
       method: 'POST',
       withCredentials: true,
       headers: { 'jwt-token': token, username: parsed.username, item_id: item_id },
-      url: 'http://localhost:3001/use-items'
+      url: `${process.env.REACT_APP_APIURL}/use-items`
     })
       .then((response) => {
         console.log(response);
-        if (response.status == 200){
+        if (response.status == 200) {
           toast.success(`Item used!`, {
             id: 'item-use-success'
           });
         }
-        if (response.status == 201){
+        if (response.status == 201) {
           toast.error(`Item not owned!`, {
             id: 'item-not-owned'
           });
@@ -77,64 +77,57 @@ function Items() {
   useEffect(() => {
     // fetch some items
     axios
-      .get('http://localhost:3001/your-items', {
+      .get(`${process.env.REACT_APP_APIURL}/your-items`, {
         headers: { 'jwt-token': token, username: username } // pass the token, if any, to the server
       })
       .then((res) => {
         // extract the data from the server response
         if (res.status == 200) {
           //console.log(`res: ${res}`)
-          console.log(res.data.inventory)
+          console.log(res.data.inventory);
           setData(res.data.inventory);
-          console.log(`data: ${data}`)
+          console.log(`data: ${data}`);
           setArrLength(res.data.inventory.length);
           //console.log('Inventory retrieved!');
-          let temp = res.data.inventory
-          temp.forEach((val, i, arr)=>{
-            if (val.number_owned == 0){
-              
-              arr[i].item_desc = "You do not own this item."
-              if (i==0){
-                setDoubleCoinsDesc(arr[i].item_desc)
+          let temp = res.data.inventory;
+          temp.forEach((val, i, arr) => {
+            if (val.number_owned == 0) {
+              arr[i].item_desc = 'You do not own this item.';
+              if (i == 0) {
+                setDoubleCoinsDesc(arr[i].item_desc);
+              } else {
+                setStreakFreezeDesc(arr[i].item_desc);
               }
-              else{
-                setStreakFreezeDesc(arr[i].item_desc)
-              }
-            }
-            else{
-              if (val.in_use){
-              arr[i].item_desc = "This item is in use."
-              if (i==0){
-                setDoubleCoinsDesc(arr[i].item_desc)
-              }
-              else{
-                setStreakFreezeDesc(arr[i].item_desc)
-              }
-              }
-              else{
-                arr[i].item_desc += `You own ${val.number_owned} of these.` 
-                if (i==0){
-                  setDoubleCoinsDesc(arr[i].item_desc)
+            } else {
+              if (val.in_use) {
+                arr[i].item_desc = 'This item is in use.';
+                if (i == 0) {
+                  setDoubleCoinsDesc(arr[i].item_desc);
+                } else {
+                  setStreakFreezeDesc(arr[i].item_desc);
                 }
-                else{
-                  setStreakFreezeDesc(arr[i].item_desc)
+              } else {
+                arr[i].item_desc += `You own ${val.number_owned} of these.`;
+                if (i == 0) {
+                  setDoubleCoinsDesc(arr[i].item_desc);
+                } else {
+                  setStreakFreezeDesc(arr[i].item_desc);
                 }
               }
             }
-          })
-          console.log(`temp: ${temp}`)
-          setData(temp)
-          
-          
+          });
+          console.log(`temp: ${temp}`);
+          setData(temp);
+
           //console.log(`data: ${data}`)
           // console.log(res);
-        // } else if (res.status == 201) {
-        //   console.log('Item use fail!');
-        //   toast.fail(`You don\'t actually own this item!`, {
-        //     id: 'item-use-fail-no-own'
-        //   });
-        // } 
-        }else {
+          // } else if (res.status == 201) {
+          //   console.log('Item use fail!');
+          //   toast.fail(`You don\'t actually own this item!`, {
+          //     id: 'item-use-fail-no-own'
+          //   });
+          // }
+        } else {
           setArrLength(0);
           console.log('Nothing found in response');
           console.log(res);
@@ -158,35 +151,33 @@ function Items() {
         </CardContent>
       </Card>
     ) : (
-        <Grid item xs={12} sm={6} md={4}>
-          <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-            <CardMedia
-              component="img"
-              sx={{
-                // 16:9
-                pt: '20%'
-              }}
-              src="http://localhost:3001/static/images/QuizVerseLogo.png"
-              alt="QuizVerse Logo"
-            />
-            <CardContent sx={{ flexGrow: 1 }}>
-              <Typography gutterBottom variant="h5" component="h2">
-                Double Coins
-              </Typography>
-              <Typography>{doubleCoinsDesc}</Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small" onClick={() => itemUse(1)}>
-                Use
-              </Button>
-            </CardActions>
-          </Card>
+      <Grid item xs={12} sm={6} md={4}>
+        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+          <CardMedia
+            component="img"
+            sx={{
+              // 16:9
+              pt: '20%'
+            }}
+            src={`${process.env.REACT_APP_APIURL}/static/images/QuizVerseLogo.png`}
+            alt="QuizVerse Logo"
+          />
+          <CardContent sx={{ flexGrow: 1 }}>
+            <Typography gutterBottom variant="h5" component="h2">
+              Double Coins
+            </Typography>
+            <Typography>{doubleCoinsDesc}</Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small" onClick={() => itemUse(1)}>
+              Use
+            </Button>
+          </CardActions>
+        </Card>
+      </Grid>
+    );
 
-        </Grid>
-        
-      )
-
-let streakFreezeCard =
+  let streakFreezeCard =
     arrLength == 0 ? (
       <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flexGrow: 1 }}>
@@ -196,33 +187,31 @@ let streakFreezeCard =
         </CardContent>
       </Card>
     ) : (
-        <Grid item xs={12} sm={6} md={4}>
-          <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-            <CardMedia
-              component="img"
-              sx={{
-                // 16:9
-                pt: '20%'
-              }}
-              src="http://localhost:3001/static/images/QuizVerseLogo.png"
-              alt="QuizVerse Logo"
-            />
-            <CardContent sx={{ flexGrow: 1 }}>
-              <Typography gutterBottom variant="h5" component="h2">
-                Streak Freeze
-              </Typography>
-              <Typography>{streakFreezeDesc}</Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small" onClick={() => itemUse(2)}>
-                Use
-              </Button>
-            </CardActions>
-          </Card>
-
-        </Grid>
-        
-      )
+      <Grid item xs={12} sm={6} md={4}>
+        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+          <CardMedia
+            component="img"
+            sx={{
+              // 16:9
+              pt: '20%'
+            }}
+            src={`${process.env.REACT_APP_APIURL}/static/images/QuizVerseLogo.png`}
+            alt="QuizVerse Logo"
+          />
+          <CardContent sx={{ flexGrow: 1 }}>
+            <Typography gutterBottom variant="h5" component="h2">
+              Streak Freeze
+            </Typography>
+            <Typography>{streakFreezeDesc}</Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small" onClick={() => itemUse(2)}>
+              Use
+            </Button>
+          </CardActions>
+        </Card>
+      </Grid>
+    );
     
 
   return (

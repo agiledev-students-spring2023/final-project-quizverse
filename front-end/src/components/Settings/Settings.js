@@ -37,7 +37,7 @@ const Settings = (props) => {
       },
       withCredentials: true,
       headers: { 'jwt-token': token, username: parsed.username },
-      url: 'http://localhost:3001/settings-email'
+      url: `${process.env.REACT_APP_APIURL}/settings-email`
     })
       .then((response) => {
         console.log('Email updated!');
@@ -64,7 +64,7 @@ const Settings = (props) => {
       },
       withCredentials: true,
       headers: { 'jwt-token': token, username: parsed.username },
-      url: 'http://localhost:3001/settings-password'
+      url: `${process.env.REACT_APP_APIURL}/settings-password`
     })
       .then((response) => {
         console.log('Password updated!');
@@ -80,7 +80,7 @@ const Settings = (props) => {
         });
         return 'Password change error!';
       });
-    //post('http://localhost:3001/login');
+    //post('${process.env.REACT_APP_APIURL}/login');
     //navigate('./');
   };
   const deleteAccountWarning = (event) => {
@@ -95,7 +95,7 @@ const Settings = (props) => {
         method: 'POST',
         withCredentials: true,
         headers: { 'jwt-token': token, username: parsed.username },
-        url: 'http://localhost:3001/delete'
+        url: `${process.env.REACT_APP_APIURL}/delete`
       })
         .then((response) => {
           console.log('Deletion Successful!');
@@ -119,7 +119,7 @@ const Settings = (props) => {
     axios
       // post new message to server
       .post(
-        'http://localhost:3001/logout',
+        `${process.env.REACT_APP_APIURL}/logout`,
         {
           headers: { 'jwt-token': token, username: username } // pass the token, if any, to the server
         },
@@ -167,7 +167,10 @@ const Settings = (props) => {
     <>
       <main>
         <div className="logo-container">
-          <img src="http://localhost:3001/static/images/QuizVerseLogo.png" alt="QuizVerse" />
+          <img
+            src={`${process.env.REACT_APP_APIURL}/static/images/QuizVerseLogo.png`}
+            alt="QuizVerse"
+          />
         </div>
         <div>
           <h1>Settings</h1>
@@ -176,7 +179,7 @@ const Settings = (props) => {
           <form
             className="settings-form"
             onSubmit={changeEmail}
-            action="http://localhost:3001/settings-email"
+            action={`${process.env.REACT_APP_APIURL}/settings-email`}
             method="post">
             <div className="settings-input-container">
               <label
@@ -200,7 +203,7 @@ const Settings = (props) => {
                 htmlFor="username"
                 className="login-page-label"
                 placeholder="example@mail-service.com"
-                action="http://localhost:3001/settings-password"
+                action={`${process.env.REACT_APP_APIURL}/settings-password`}
                 method="post">
                 Set Password:
               </label>

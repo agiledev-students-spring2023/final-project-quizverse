@@ -45,9 +45,8 @@ const DailyQuiz = (props) => {
 
   useEffect(() => {
     // fetch some mock flashcards
-    console.log('fetching 10 random flashcards...');
     axios
-      .get('http://localhost:3001/daily-quiz', {
+      .get(`${process.env.REACT_APP_APIURL}/daily-quiz`, {
         headers: { 'jwt-token': token, username: username } // pass the token, if any, to the server
       })
       .then((response) => {
@@ -141,7 +140,7 @@ const DailyQuiz = (props) => {
         },
         withCredentials: true,
         headers: { 'jwt-token': token, username: parsed.username },
-        url: 'http://localhost:3001/study-stats'
+        url: `${process.env.REACT_APP_APIURL}/study-stats`
       })
         .then(console.log('Success!'))
         .catch((err) => console.log(err));

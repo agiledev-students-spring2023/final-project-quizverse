@@ -47,7 +47,7 @@ function FlashcardSets() {
   });
 
   useEffect(() => {
-    axios('http://localhost:3001/flashcard-sets', {
+    axios(`${process.env.REACT_APP_APIURL}/flashcard-sets`, {
       headers: { 'jwt-token': token, username: username } // pass the token, if any, to the server
     })
       .then((response) => {
