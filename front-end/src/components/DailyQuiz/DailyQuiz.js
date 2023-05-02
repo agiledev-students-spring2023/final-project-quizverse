@@ -74,6 +74,15 @@ const DailyQuiz = (props) => {
     setDefinition(data[arrIndex].definition);
   }, [arrIndex]);
 
+  useEffect(() => {
+    // prevent trigger on initial render
+    if (correct.length >= 1 || incorrect.length >= 1) {
+      console.log(correct);
+      console.log(incorrect);
+      Next();
+    }
+  }, [correct, incorrect]);
+
   const submitButton = (e) => {
     e.preventDefault();
     console.log('submitted');
@@ -97,8 +106,6 @@ const DailyQuiz = (props) => {
       ]);
       setAnswer('');
     }
-
-    Next();
   };
   // the following side-effect will be called once upon initial render
 
