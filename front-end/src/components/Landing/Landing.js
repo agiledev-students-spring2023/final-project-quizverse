@@ -27,6 +27,7 @@ function Landing() {
                 loop: true,
                 wrapperClassName: styles.LandingTypewriterWord
               }}
+              component={'span'}
             />
           </span>
         </p>

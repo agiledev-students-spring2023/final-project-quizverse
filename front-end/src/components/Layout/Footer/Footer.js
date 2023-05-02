@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="primary" align="center">
+    <Typography variant="body2" color="primary" align="center" component={'span'}>
       {'Copyright © '}
       <Link color="inherit" to="/">
         QuizVerse
