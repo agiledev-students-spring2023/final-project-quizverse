@@ -75,13 +75,6 @@ const DailyQuiz = (props) => {
     setDefinition(data[arrIndex].definition);
   }, [arrIndex]);
 
-  useEffect(() => {
-    console.log(correct);
-    if (correct.length >= 1) {
-      Next();
-    }
-  }, [correct]);
-
   const submitButton = (e) => {
     e.preventDefault();
     console.log('submitted');
@@ -103,7 +96,10 @@ const DailyQuiz = (props) => {
         ...incorrect,
         { term: term, definition: definition, set_id: data[arrIndex].set_id }
       ]);
+      setAnswer('');
     }
+
+    Next();
   };
   // the following side-effect will be called once upon initial render
 
@@ -195,7 +191,7 @@ const DailyQuiz = (props) => {
             onClick={showAnswer}
             variant="contained"
             disabled={complete}>
-            hint
+            show answer
           </Button>
         </div>
       </form>

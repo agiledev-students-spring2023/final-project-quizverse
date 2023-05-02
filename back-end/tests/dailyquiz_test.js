@@ -1,7 +1,7 @@
 // use mocha's built-in assertion library
 const app = require('../server');
 const assert = require('assert');
-const daily = require('../routes/daily-quiz');
+const {checkHistories, convertMLPQToArray, mapCorrect, mapIncorrect} = require('../routes/daily-quiz');
 const chai = require('chai');
 chai.use(require('chai-json'));
 const chaiHttp = require('chai-http');
@@ -26,6 +26,109 @@ describe('Daily Quiz', function () {
           expect(res).to.be.an('object');
           done();
         });
+    });
+  });
+  describe('Test histories function', function () {
+    // assert what should be returned
+    it('it should return the priorities of the histories', (done) => {
+      let answers = [
+        {
+          term: 'word',
+          set_id: "644ed7ed37c002ee4dc6f55c",
+          definition: 'def',
+          correctness: false,
+          _id: "644ed7ed37c002ee4dc6f564"
+        }
+      ]
+      let mockUser = [
+        {
+          _id: "644ed7ed37c002ee4dc6f563",
+          username: 'foobar',
+          dayOfQuiz: "2023-04-30T21:04:45.958Z",
+          percentageCorrect: 0,
+          answers: answers
+        }
+      ]
+      let mockAnswer = {
+          "worddef": {
+            "info": {
+              "definition": "def",
+             "set_id": "644ed7ed37c002ee4dc6f55c",
+              "term": "word"
+            },
+            "priority": 0
+          }
+        }
+      assert.deepEqual(checkHistories(mockUser), mockAnswer)
+      done();
+    });
+  });
+  describe('Test convertMLPQToArray function', function () {
+    // assert what should be returned
+    it('it should convert MLPQ to an array', (done) => {
+      let input = {
+        "worddef": {
+          "info": {
+            "definition": "def",
+           "set_id": "644ed7ed37c002ee4dc6f55c",
+            "term": "word"
+          },
+          "priority": 0
+        }
+      }
+      let mockOuput = [
+          {
+            "definition": "def",
+            "set_id": "644ed7ed37c002ee4dc6f55c",
+            "term": "word"
+          }
+        ]
+      assert.deepEqual(convertMLPQToArray(input), mockOuput)
+      done();
+    });
+  });
+  describe('Map an array of correct words', function () {
+    // assert what should be returned
+    it('it should map of array of correct words into the answer format', (done) => {
+      let input = [{
+        term: 'word',
+        set_id: 12345,
+        definition: 'definition',
+        _id: 67890
+      }
+      ]
+      let mockOuput = [
+          {
+            term: 'word',
+            set_id: 12345,
+            definition: 'definition',
+            correctness: true
+          }
+        ]
+      assert.deepEqual(mapCorrect(input), mockOuput)
+      done();
+    });
+  });
+  describe('Map an array of incorrect words', function () {
+    // assert what should be returned
+    it('it should map of array of incorrect words into the answer format', (done) => {
+      let input = [{
+        term: 'word',
+        set_id: 12345,
+        definition: 'definition',
+        _id: 67890
+      }
+      ]
+      let mockOuput = [
+          {
+            term: 'word',
+            set_id: 12345,
+            definition: 'definition',
+            correctness: false
+          }
+        ]
+      assert.deepEqual(mapIncorrect(input), mockOuput)
+      done();
     });
   });
   describe('Post the daily quiz stats', function (done) {

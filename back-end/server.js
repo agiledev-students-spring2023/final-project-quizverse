@@ -13,13 +13,14 @@ dotenv.config();
 const MONGO_USER = process.env.MONGO_USER;
 const MONGO_PASSWORD = process.env.MONGO_PASSWORD;
 const MONGO_DB = process.env.MONGO_DB;
+const PORT = process.env.PORT; // the port to listen to for incoming requests
 
 // import the routes for authentication (login / register)
 const authRouter = require('./routes/auth');
 const settingsRouter = require('./routes/settings');
 const footerRouter = require('./routes/footer');
-const dailyQuizRouter = require('./routes/daily-quiz');
-const createSetRouter = require('./routes/create-set');
+const { dailyQuizRouter } = require('./routes/daily-quiz');
+const { createSetRouter } = require('./routes/create-set');
 const flashcardRouter = require('./routes/flashcards');
 const flashcardSetsRouter = require('./routes/flashcard-sets');
 const editSetRouter = require('./routes/edit-set');
@@ -27,7 +28,6 @@ const homeRouter = require('./routes/home');
 const itemsRouter = require('./routes/items');
 const shopRouter = require('./routes/shop');
 
-const port = 3001; // the port to listen to for incoming requests
 const corsOptions = {
   origin: 'http://localhost:3000',
   credentials: true,
@@ -66,8 +66,8 @@ app.use(shopRouter);
 app.use(cookieParser());
 
 // call express's listen function to start listening to the port
-const listener = app.listen(port, function () {
-  console.log(`Server running on port: ${port}`);
+const listener = app.listen(PORT, function () {
+  console.log(`Server running on port: ${PORT}`);
 });
 
 // a function to stop listening to the port

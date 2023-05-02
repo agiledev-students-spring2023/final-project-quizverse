@@ -13,8 +13,7 @@ router.get('/flashcard-sets', jwt_auth, (req, res) => {
   try {
     FlashcardSet.find({ createdBy: username }).then((sets) => {
       if (!sets) {
-        // if no sets returned
-        res.status(204).send('user has no sets created'); // signify no content
+        res.status(204).send('user has no sets created'); // if no sets returned, signify no content
       } else {
         console.log(sets.length);
         res.status(200).send(sets);
@@ -30,15 +29,20 @@ router.get('/flashcard-sets', jwt_auth, (req, res) => {
 router.get('/flashcard-set/:username/:id', (req, res) => {
   const id = req.params.id;
   username = req.params.username;
-  if (!id) {
+  if (!id||id.length != 24) {
     res.status(400).send({ message: 'missing set id' });
   } else if (!username) {
     res.status(400).send({ message: 'missing username' });
   } else {
     try {
-      FlashcardSet.findOne({ createdBy: username, _id: id }).then((set) => {
-        console.log(set);
-        res.status(200).send(set);
+      FlashcardSet.findOne({createdBy: username, _id: id}).then((set) => {
+        // console.log(set);
+        if (!set){
+          res.status(400).send({ message: 'searching error' });
+        }
+        else{
+          res.status(200).send(set)
+        };
       });
     } catch (err) {
       console.log(err);

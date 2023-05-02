@@ -83,6 +83,7 @@ const EditSet = (props) => {
       .promise(
         axios({
           method: 'POST',
+          headers: { 'jwt-token': token, username: parsed.username },
           data: {
             info
           },

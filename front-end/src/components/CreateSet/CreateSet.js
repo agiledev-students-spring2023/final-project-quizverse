@@ -1,5 +1,5 @@
 import { TextField, FormControl, Button, Container } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
@@ -54,6 +54,14 @@ const CreateSet = (props) => {
   function addNew() {
     setCards(cards.concat({ term: '', definition: '' }));
   }
+
+  const shouldCreateBeDisabled = useMemo(() => {
+    if (title === '' || description === '') {
+      return true;
+    }
+
+    return cards.some((card) => card.term === '' || card.definition === '');
+  }, [cards]);
 
   function handleSubmit(evt) {
     const info = {
@@ -150,7 +158,7 @@ const CreateSet = (props) => {
             startIcon={<FontAwesomeIcon icon={faCirclePlus} />}>
             Add Card
           </Button>
-          <Button onClick={handleSubmit} variant="outlined">
+          <Button onClick={handleSubmit} disabled={shouldCreateBeDisabled} variant="outlined">
             Create Set
           </Button>
         </div>
