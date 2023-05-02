@@ -103,6 +103,4 @@ Information on how to build and test QuizVerse yourself, if you choose to do so:
 ## App Map:
 <img src="./ux-design/app-map.png" alt= “map” width="75%" height="75%">
 
-*Link to hosted version here? QuizVerse.com*
-
-<!--Idk this is some comment-->
+Hosted on Digital Ocean: https://shark-app-xrp49.ondigitalocean.app/
