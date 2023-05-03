@@ -1,0 +1,19 @@
+.SetContainer {
+  text-align: center;
+  margin: auto;
+  min-height: 100%;
+  height: auto;
+}
+
+.form-actions {
+  margin-top: 10px;
+}
+
+.card-options {
+  padding: 3px;
+  float: right;
+}
+
+.back-btn {
+  float: left;
+}

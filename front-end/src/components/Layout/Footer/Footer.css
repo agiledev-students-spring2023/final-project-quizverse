@@ -1,0 +1,17 @@
+.footer {
+  border: 2px solid black;
+  text-align: center;
+  background-color: skyblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  margin-top: 20px;
+}
+
+.item {
+  display: inline-block;
+  padding: 2px;
+  font-size: 12px;
+  margin: 0 10px;
+}

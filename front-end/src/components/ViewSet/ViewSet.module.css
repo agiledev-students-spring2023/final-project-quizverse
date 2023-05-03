@@ -1,0 +1,33 @@
+.shareSetButton {
+    left: 35%;
+    width: 30%;
+}
+
+.deleteSetButton {
+    left: 35%;
+    width: 30%;
+}
+.cardsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    min-width: 100%;
+    margin-bottom: 15px;
+}
+
+.card:hover {
+    cursor: pointer;
+}
+
+.form-actions {
+    margin-top: 10px;
+  }
+
+.set-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

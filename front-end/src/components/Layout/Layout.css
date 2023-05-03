@@ -1,0 +1,11 @@
+.page {
+  position: absolute;
+  text-align: center;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 92%;
+  min-width: 100%;
+  top: 8%;
+}
