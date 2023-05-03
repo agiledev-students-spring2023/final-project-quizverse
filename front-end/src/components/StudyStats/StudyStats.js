@@ -11,9 +11,9 @@ import { useNavigate } from 'react-router-dom';
 const StudyStats = (props) => {
   const navigate = useNavigate();
   let token = 'Zappy!';
-  let parsed = "";
+  let parsed = '';
   const [user, setUser] = useState('');
-  let username = "";
+  let username = '';
   useEffect(() => {
     try {
       parsed = JSON.parse(localStorage.getItem('info'));

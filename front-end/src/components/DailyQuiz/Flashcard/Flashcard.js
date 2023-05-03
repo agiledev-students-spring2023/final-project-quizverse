@@ -1,5 +1,5 @@
-import styles from './Flashcard.module.css'
-import React from "react";
+import styles from './Flashcard.module.css';
+import React from 'react';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -8,21 +8,21 @@ import Typography from '@mui/material/Typography';
 import { useTheme, ThemeProvider } from '@mui/material/styles';
 
 function Flashcard(props) {
-    return (
-      <ThemeProvider theme={useTheme()}>
-        <div>
-          <Card
-            class={styles.default_card}
-            sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-            <CardContent>
-              <Typography variant="h4" gutterBottom>
-                {props.displayTerm === true ? 'Answer: ' + props.term : null}
-              </Typography>
-              <Typography variant="h5">
-                {props.displayDefinition === true ? props.definition : null}
-              </Typography>
-            </CardContent>
-            {/* <CardActions>
+  return (
+    <ThemeProvider theme={useTheme()}>
+      <div>
+        <Card
+          class={styles.default_card}
+          sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+          <CardContent>
+            <Typography variant="h4" gutterBottom>
+              {props.displayTerm === true ? 'Answer: ' + props.term : null}
+            </Typography>
+            <Typography variant="h5">
+              {props.displayDefinition === true ? props.definition : null}
+            </Typography>
+          </CardContent>
+          {/* <CardActions>
               <Button size="small" onClick={props.handlePrev}>
                 Return to Previous Term
               </Button>
@@ -32,11 +32,10 @@ function Flashcard(props) {
                 Skip this Term
               </Button>
             </CardActions> */}
-          </Card>
-        </div>
-      </ThemeProvider>
-    );
-  }
-  
-  export default Flashcard;
+        </Card>
+      </div>
+    </ThemeProvider>
+  );
+}
 
+export default Flashcard;

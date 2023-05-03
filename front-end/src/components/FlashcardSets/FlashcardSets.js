@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 //import Search from '../Search/Search';
 import FlashcardSet from './FlashcardSet/FlashcardSet';
 import styles from './FlashcardSets.module.css';
@@ -9,12 +9,11 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-const theme = createTheme()
+const theme = createTheme();
 function FlashcardSets() {
-  
   const navigate = useNavigate();
   let token = 'Zappy!';
-  let parsed = "";
+  let parsed = '';
   let username = '';
 
   const [sets, setSets] = useState([]);

@@ -41,7 +41,7 @@ router.get('/your-items', jwt_auth, (req, res, next) => {
 router.post('/use-items', jwt_auth, async (req, res, next) => {
   item_id = req.headers.item_id;
   user = req.headers.username;
-  let filter = { username: user , 'inventory.item_id': item_id};
+  let filter = { username: user, 'inventory.item_id': item_id };
   User.findOne({ username: req.headers.username }).then((itemUser) => {
     if (itemUser.inventory[item_id - 1].number_owned > 0) {
       let update = { $inc: { 'inventory.$.number_owned': -1 }, 'inventory.$.in_use': true };
@@ -54,10 +54,11 @@ router.post('/use-items', jwt_auth, async (req, res, next) => {
         });
       res.status(200).send({ message: 'success' });
     } else {
-      res.status(201).send({ message: "Item use fail! You don't actually own enough of this item!" });
+      res
+        .status(201)
+        .send({ message: "Item use fail! You don't actually own enough of this item!" });
     }
-  })
-  
+  });
 });
 
 module.exports = router;

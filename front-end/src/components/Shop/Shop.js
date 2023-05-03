@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -25,7 +25,7 @@ export default function Shop() {
   const [data, setData] = useState([]); // eslint-disable-next-line
   const [streak, setStreak] = useState(0); // eslint-disable-next-line
   const [coins, setCoins] = useState(0);
-  let username = "";
+  let username = '';
   useEffect(() => {
     try {
       parsed = JSON.parse(localStorage.getItem('info'));
@@ -35,8 +35,6 @@ export default function Shop() {
       console.log('Not logged in.');
       navigate('/', { state: { redirectedFrom: 'Shop' } });
     }
-    
-    
   });
   useEffect(() => {
     axios

@@ -44,8 +44,8 @@ function Items() {
   const [definition, setDefinition] = useState(''); // eslint-disable-next-line
   const [arrLength, setArrLength] = useState(0); // eslint-disable-next-line
   const [arrIndex, setArrIndex] = useState(0);
-  const [doubleCoinsDesc, setDoubleCoinsDesc] = useState('')
-  const [streakFreezeDesc, setStreakFreezeDesc] = useState('')
+  const [doubleCoinsDesc, setDoubleCoinsDesc] = useState('');
+  const [streakFreezeDesc, setStreakFreezeDesc] = useState('');
   function itemUse(item_id) {
     axios({
       method: 'POST',
@@ -212,7 +212,6 @@ function Items() {
         </Card>
       </Grid>
     );
-    
 
   return (
     // the following side-effect will be called once upon initial render

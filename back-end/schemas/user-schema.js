@@ -1,10 +1,8 @@
-
 // a mongoose model of a user
-const mongoose = require("mongoose")
-const Schema = mongoose.Schema
-const bcrypt = require("bcryptjs")
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
 
 //Simplifying the inventory to exclusively hold numbers tracking whether you have an item or not.
 const inventorySchema = new Schema({
@@ -54,7 +52,7 @@ const userSchema = new Schema({
 // }
 
 // create a model from this schema
-const User = mongoose.model("User", userSchema)
+const User = mongoose.model('User', userSchema);
 
 // export the model
-module.exports = User
+module.exports = User;

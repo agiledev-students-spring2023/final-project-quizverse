@@ -1,7 +1,7 @@
 //eslint-disable-next-line
 import styles from './DailyQuiz.module.css';
-import React, { useState, useEffect } from "react"
-import axios from "axios"
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Flashcard from './Flashcard/Flashcard';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -41,7 +41,6 @@ const DailyQuiz = (props) => {
   const [correct, setCorrect] = useState([]);
   const [incorrect, setIncorrect] = useState([]);
   const [complete, setComplete] = useState(false);
-
 
   useEffect(() => {
     // fetch some mock flashcards

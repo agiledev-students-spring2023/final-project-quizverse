@@ -5,12 +5,7 @@ import Burger from './Burger.js';
 import Menu from './Menu.js';
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCalendar,
-  faCirclePlus,
-  faHome,
-  faUser
-} from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faCirclePlus, faHome, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Header = (props) => {
   const [data, setData] = useState([]); // eslint-disable-next-line

@@ -12,19 +12,15 @@ const History = require('../schemas/history-schema');
 const _ = require('underscore');
 
 const mapCorrect = (correct) => {
-  let res = []
+  let res = [];
   correct.map((o) => {
-    res.push({ term: o.term,
-      set_id: o.set_id,
-      definition: o.definition,
-      correctness: true
-    });
+    res.push({ term: o.term, set_id: o.set_id, definition: o.definition, correctness: true });
   });
-  return res
-}
+  return res;
+};
 
 const mapIncorrect = (incorrect) => {
-  let res = []
+  let res = [];
   incorrect.map((o) => {
     res.push({
       term: o.term,
@@ -33,8 +29,8 @@ const mapIncorrect = (incorrect) => {
       correctness: false
     });
   });
-  return res
-}
+  return res;
+};
 
 const checkHistories = (histories) => {
   let mlpq = {};
@@ -71,19 +67,19 @@ const checkHistories = (histories) => {
     });
   });
   return mlpq;
-}
+};
 
 const convertMLPQToArray = (mlpq) => {
   let mlpqArr = [];
-        for (const termId in mlpq) {
-          mlpqArr.push(mlpq[termId]);
-        }
-        mlpqArr.sort((card1, card2) => {
-          return card1.priority - card2.priority;
-        });
-        //console.log(mlpqArr);
-        return mlpqArr.map((card) => card.info);
-}
+  for (const termId in mlpq) {
+    mlpqArr.push(mlpq[termId]);
+  }
+  mlpqArr.sort((card1, card2) => {
+    return card1.priority - card2.priority;
+  });
+  //console.log(mlpqArr);
+  return mlpqArr.map((card) => card.info);
+};
 
 router.get('/daily-quiz', jwt_auth, async (req, res) => {
   // use axios to make a request to an API for flashcard data in the daily quiz
@@ -92,8 +88,6 @@ router.get('/daily-quiz', jwt_auth, async (req, res) => {
   // if wrong, set to 0 again
   // otherwise, increment priority and sort in ascending priority
   const username = req.headers.username;
-
-  
 
   try {
     // object used to track each term and their relative priority
@@ -159,8 +153,8 @@ router.post('/study-stats', async (req, res) => {
   let streakFreezeUsed = false;
   const username = req.headers.username;
   let answers = [];
-  answers.push.apply(answers, mapCorrect(correct))
-  answers.push.apply(answers, mapIncorrect(incorrect))
+  answers.push.apply(answers, mapCorrect(correct));
+  answers.push.apply(answers, mapIncorrect(incorrect));
 
   let todays_stats = new DailyQuizHistory({
     username: username,
@@ -248,7 +242,6 @@ router.post('/study-stats', async (req, res) => {
     console.log('error when saving new set' + err);
     res.status(500).send({ message: 'error' });
   }
- 
 });
 
 module.exports = {
@@ -257,4 +250,4 @@ module.exports = {
   checkHistories,
   mapCorrect,
   mapIncorrect
-}
+};
