@@ -36,7 +36,7 @@ const CreateSet = (props) => {
     const value = evt.target.value;
     const id = evt.target.name;
     const field = id.match(/[a-z]+/)[0];
-    const index = id.match(/\d+/)[0];
+    const index = parseInt(id.match(/\d+/)[0]);
     const newCard = cards[index];
     newCard[field] = value;
     setCards(
@@ -90,7 +90,6 @@ const CreateSet = (props) => {
       }
     );
     navigate('/flashcards');
-    /*TEMPORARILY COMMENTED OUT, PLEASE ADD BACK LATER*/ //uncommented! Hopefully this doesn't break
   }
 
   const cardElements = cards.map((info, i) => {
