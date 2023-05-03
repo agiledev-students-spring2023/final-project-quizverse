@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const { FlashcardSet, Flashcard } = require('../schemas/flashcard-set-schema');
 const User = require('../schemas/user-schema');
+const DailyQuizHistory = require('../schemas/dailyquizHistory-schema');
 const { check, validationResult } = require('express-validator');
 const jwt_auth = require('./jwt');
 
@@ -10,29 +11,27 @@ const router = express.Router();
 router.get('/delete-set/:id', jwt_auth, async (req, res, next) => {
   const id = req.params.id;
   username = req.headers.username;
-  try{
-    console.log(id)
-    FlashcardSet.findOneAndDelete({ createdBy: username, _id: id }).then((s)=>{
+  try {
+    console.log(id);
+    FlashcardSet.findOneAndDelete({ createdBy: username, _id: id }).then((s) => {
       //console.log(s)
-    })
-    User.findOne({username: username}).then((u)=>{
-      let sets = u.sets
-      let newSets = []
+    });
+    User.findOne({ username: username }).then((u) => {
+      let sets = u.sets;
+      let newSets = [];
       sets.forEach((item, index, arr) => {
-        if (id!=item){
-          newSets.push(item)
+        if (id != item) {
+          newSets.push(item);
         }
-      })
-      User.findOneAndUpdate({username:username},
-        {sets: newSets}).then((u)=>{})
-    })
-    res.status(200).send({message: 'success'})
-  }
-  catch (err){
+      });
+      User.findOneAndUpdate({ username: username }, { sets: newSets }).then((u) => {});
+    });
+    res.status(200).send({ message: 'success' });
+  } catch (err) {
     console.log(err);
     res.status(404).send({ message: 'error' });
   }
-})
+});
 
 router.post(
   '/edit-set/:id',
@@ -46,8 +45,8 @@ router.post(
     const { title, description, cards } = req.body.info;
     const flashcardObjs = cards.map((card) => {
       return new Flashcard({
-        term: card.term,
-        definition: card.definition
+        term: card.term.trim(),
+        definition: card.definition.trim()
       });
     });
     const currentDate = new Date();
@@ -60,8 +59,22 @@ router.post(
     try {
       FlashcardSet.findOneAndUpdate({ _id: id }, update, {
         new: true
-      }).then((f)=>{
-        // console.log(f)
+      }).then((f) => {
+        let answers = cards.map((card) => {
+          return {
+            term: card.term.trim(),
+            definition: card.definition.trim(),
+            correctness: true,
+            set_id: id
+          };
+        });
+        const newHistory = new DailyQuizHistory({
+          username,
+          dayOfQuiz: new Date(),
+          percentageCorrect: 1,
+          answers
+        });
+        newHistory.save();
       });
       res.status(200).send({ message: 'success' });
     } catch (err) {

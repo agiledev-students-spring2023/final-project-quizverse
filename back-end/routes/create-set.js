@@ -33,8 +33,8 @@ router.post(
         // initialize a dailyquiz history of all false to promote new cards to be studied in daily quiz
         let answers = cards.map((card) => {
           return {
-            term: card.term,
-            definition: card.definition,
+            term: card.term.trim(),
+            definition: card.definition.trim(),
             correctness: false,
             set_id: newSet
           };
