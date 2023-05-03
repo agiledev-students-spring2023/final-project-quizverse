@@ -8,7 +8,6 @@ const request = require('supertest');
 chai.use(require('chai-json'));
 
 describe('Flashcard Sets', function () {
-
   // describe('Get all flashcard sets that match a search term', function (done) {
   //   const host = 'http://localhost:3001';
   //   const searchTerm = 'agile';
@@ -44,7 +43,7 @@ describe('Flashcard Sets', function () {
       request(app)
         .get(path)
         .end((err, res) => {
-         // expect(res.status).to.be.equal(200, 'status code should be 200');
+          // expect(res.status).to.be.equal(200, 'status code should be 200');
           done();
         });
     });

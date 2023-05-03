@@ -67,7 +67,7 @@ router.post(
   }
 );
 router.post('/delete', (req, res) => {
-  let user = req.headers.username
+  let user = req.headers.username;
   const filter = { username: user };
   User.findOneAndDelete(filter)
     .then(() => {

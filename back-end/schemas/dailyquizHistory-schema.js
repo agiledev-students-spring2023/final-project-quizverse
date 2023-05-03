@@ -23,4 +23,4 @@ const dailyquizSchema = new Schema({
   answers: [termSchema]
 });
 
-module.exports = mongoose.model('DailyQuizHistory',dailyquizSchema);
+module.exports = mongoose.model('DailyQuizHistory', dailyquizSchema);

@@ -1,7 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
-const {check, validationResult} = require('express-validator');
+const { check, validationResult } = require('express-validator');
 const User = require('../schemas/user-schema.js');
 require('dotenv').config();
 
@@ -11,51 +11,46 @@ const jwtSecret = process.env.JWT_SECRET;
 // Connect to MongoDB mongoose.connect(process.env.MONGO_URI, { useNewUrlParser:
 // true, useUnifiedTopology: true }); User schema
 
-router.post('/login', [
-    check('username')
-        .notEmpty()
-        .withMessage('Username cannot be empty'),
-    check('password')
-        .notEmpty()
-        .withMessage('Password cannot be empty')
-], async(req, res) => {
+router.post(
+  '/login',
+  [
+    check('username').notEmpty().withMessage('Username cannot be empty'),
+    check('password').notEmpty().withMessage('Password cannot be empty')
+  ],
+  async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res
-            .status(422)
-            .json({
-                errors: errors.array()
-            });
+      return res.status(422).json({
+        errors: errors.array()
+      });
     }
-    const {username, password} = req.body;
+    const { username, password } = req.body;
     try {
-        const foundUser = await User.findOne({username, password});
-        // Validate if user exist in our database
-        if (foundUser) {
-            // Create token
-            const token = jwt.sign({
-                user_id: foundUser._id,
-                username
-            }, process.env.JWT_SECRET);
-            const info = {
-                username: username,
-                token: token
-            };
-            res
-                .status(200)
-                .json(info);
-        } else {
-            res
-                .status(401)
-                .send({status: 'error', message: 'Invalid username or password'});
-        }
+      const foundUser = await User.findOne({ username, password });
+      // Validate if user exist in our database
+      if (foundUser) {
+        // Create token
+        const token = jwt.sign(
+          {
+            user_id: foundUser._id,
+            username
+          },
+          process.env.JWT_SECRET
+        );
+        const info = {
+          username: username,
+          token: token
+        };
+        res.status(200).json(info);
+      } else {
+        res.status(401).send({ status: 'error', message: 'Invalid username or password' });
+      }
     } catch (err) {
-        console.error(err);
-        res
-            .status(500)
-            .send('Internal server error');
+      console.error(err);
+      res.status(500).send('Internal server error');
     }
-});
+  }
+);
 
 router.post(
   '/register',
@@ -141,7 +136,7 @@ router.post(
 );
 
 router.post('/logout', (req, res) => {
-    res.send({message: 'Logged out!'});
+  res.send({ message: 'Logged out!' });
 });
 
 module.exports = router;

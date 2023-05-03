@@ -8,7 +8,6 @@ const request = require('supertest');
 // a set of tests of array functions
 describe('Create Set Route', function () {
   // one particular unit test
-
   // assert what should be returned
   // it('Create a set', async function (done) {
   //   const host = 'http://localhost:3001';
@@ -31,7 +30,5 @@ describe('Create Set Route', function () {
   //       expect(res.body).to.be.a('object', 'request should return an object');
   //       done();
   //     });
-
-   
   // });
 });

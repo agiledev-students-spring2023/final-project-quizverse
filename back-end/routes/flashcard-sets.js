@@ -29,20 +29,19 @@ router.get('/flashcard-sets', jwt_auth, (req, res) => {
 router.get('/flashcard-set/:username/:id', (req, res) => {
   const id = req.params.id;
   username = req.params.username;
-  if (!id||id.length != 24) {
+  if (!id || id.length != 24) {
     res.status(400).send({ message: 'missing set id' });
   } else if (!username) {
     res.status(400).send({ message: 'missing username' });
   } else {
     try {
-      FlashcardSet.findOne({createdBy: username, _id: id}).then((set) => {
+      FlashcardSet.findOne({ createdBy: username, _id: id }).then((set) => {
         // console.log(set);
-        if (!set){
+        if (!set) {
           res.status(400).send({ message: 'searching error' });
+        } else {
+          res.status(200).send(set);
         }
-        else{
-          res.status(200).send(set)
-        };
       });
     } catch (err) {
       console.log(err);

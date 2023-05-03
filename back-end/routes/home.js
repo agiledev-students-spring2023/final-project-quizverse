@@ -2,9 +2,8 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const User = require('../schemas/user-schema')
+const User = require('../schemas/user-schema');
 const jwt_auth = require('./jwt');
-
 
 router.get('/home', jwt_auth, async (req, res, next) => {
   // use axios to make a request to an API for flashcard data in the daily quiz
