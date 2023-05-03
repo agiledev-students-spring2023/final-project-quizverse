@@ -63,13 +63,13 @@ router.post(
     check('username')
       .notEmpty()
       .withMessage('Username cannot be empty')
-      .isLength({ min: 4 }) //
-      .withMessage('Username needs to be at least 4 characters long'),
+      .isLength({ min: 1 }) //
+      .withMessage('Username needs to be at least 1 character long'),
     check('password')
       .notEmpty()
       .withMessage('Password cannot be empty')
-      .isLength({ min: 4 })
-      .withMessage('Password needs to be at least 4 characters long')
+      .isLength({ min: 1 })
+      .withMessage('Password needs to be at least 1 character long')
   ],
   async (req, res) => {
     const errors = validationResult(req);
