@@ -110,31 +110,32 @@ router.get('/daily-quiz', jwt_auth, async (req, res) => {
         // if the user has a history, proceed to populate mlpq
         if (histories.length >= 1) {
           mlpq = checkHistories(histories);
-          fetchedCards = convertMLPQToArray(mlpq)
+          fetchedCards = convertMLPQToArray(mlpq);
         }
-        if (fetchedCards.length < dqLength) {
-          User.findOne({ username: req.headers.username })
-            .populate('sets')
-            .then((u) => {
-              let all_flashcards = [];
-              u.sets.forEach((set) => {
-                set.flashcards.forEach((flashcard) => {
-                  all_flashcards.push({
-                    term: flashcard.term,
-                    definition: flashcard.definition,
-                    set_id: set._id
-                  });
-                });
-              });
-              //NOTE: Cut our flashcards down to 10 for the daily quiz. We could try and customize this later.
-              if (all_flashcards.length > dqLength - fetchedCards.length) {
-                all_flashcards = _.sample(all_flashcards, dqLength - fetchedCards.length);
-              }
-              //RANDOMIZE the order of our daily quiz flashcards.
-              fetchedCards = fetchedCards.concat(all_flashcards);
-            });
-        }
-        res.json(fetchedCards).status(200);
+        // COMMENTING OUT FOR BUG FIX
+        // if (fetchedCards.length < dqLength) {
+        //   User.findOne({ username: req.headers.username })
+        //     .populate('sets')
+        //     .then((u) => {
+        //       let all_flashcards = [];
+        //       u.sets.forEach((set) => {
+        //         set.flashcards.forEach((flashcard) => {
+        //           all_flashcards.push({
+        //             term: flashcard.term,
+        //             definition: flashcard.definition,
+        //             set_id: set._id
+        //           });
+        //         });
+        //       });
+        //       //NOTE: Cut our flashcards down to 10 for the daily quiz. We could try and customize this later.
+        //       if (all_flashcards.length > dqLength - fetchedCards.length) {
+        //         all_flashcards = _.sample(all_flashcards, dqLength - fetchedCards.length);
+        //       }
+        //       //RANDOMIZE the order of our daily quiz flashcards.
+        //       fetchedCards = fetchedCards.concat(all_flashcards);
+        //     });
+        // }
+        res.json(fetchedCards.slice(0, 10)).status(200);
       }
     );
   } catch (err) {
