@@ -12,14 +12,14 @@ import toast from 'react-hot-toast';
 const Settings = (props) => {
   const navigate = useNavigate();
   let token = 'Zappy!';
-  let parsed = "";
+  let parsed = '';
   const [user, setUser] = useState('');
-  let username = "";
+  let username = '';
   useEffect(() => {
     try {
-      parsed = JSON.parse(localStorage.getItem('info'))
+      parsed = JSON.parse(localStorage.getItem('info'));
       token = parsed.token;
-      username = parsed.username
+      username = parsed.username;
     } catch {
       console.log('Not logged in.');
       navigate('/', { state: { redirectedFrom: 'Settings' } });

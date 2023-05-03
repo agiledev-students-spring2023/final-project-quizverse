@@ -24,6 +24,6 @@ const Menu = ({ open, setOpen }) => {
   );
 };
 Menu.propTypes = {
-  open: bool.isRequired,
-}
+  open: bool.isRequired
+};
 export default Menu;
