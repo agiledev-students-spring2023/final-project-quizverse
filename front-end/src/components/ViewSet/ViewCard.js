@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 
 const ViewCard = ({ index, term, def }) => {
   return (
@@ -9,16 +9,20 @@ const ViewCard = ({ index, term, def }) => {
         margin: '6px',
         borderRadius: 1,
         backgroundColor: '#9AABBD',
-        textAlign: 'left'
+        textAlign: 'left',
+        display: 'flex',
+        flexDirection: 'column'
       }}>
-      <CardContent>
-        <Typography variant="h6" name={'term' + index} component={'span'}>
-          {term}
-        </Typography>
-        <Typography variant="body1" name={'definition' + index} component={'span'}>
-          {def}
-        </Typography>
-      </CardContent>
+      <Typography sx={{ margin: '10px' }} variant="h6" name={'term' + index} component={'span'}>
+        {term}
+      </Typography>
+      <Typography
+        sx={{ 'margin-left': '10px', 'margin-bottom': '10px' }}
+        variant="h7"
+        name={'definition' + index}
+        component={'span'}>
+        {def}
+      </Typography>
     </Card>
   );
 };

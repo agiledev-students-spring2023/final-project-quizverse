@@ -75,7 +75,6 @@ const DailyQuiz = (props) => {
   }, [arrIndex]);
 
   useEffect(() => {
-    // prevent trigger on initial render
     if (correct.length >= 1 || incorrect.length >= 1) {
       console.log(correct);
       console.log(incorrect);
